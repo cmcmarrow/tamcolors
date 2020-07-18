@@ -1,5 +1,4 @@
 # Charles McMarrow libraries
-from tamcolors import checks
 from .tma_buffer import TMABuffer
 from . import io_tma
 from . import uni_tma
@@ -40,9 +39,6 @@ class AnyIO(io_tma.IO):
         :param mode: int: key to color mode
         :return:
         """
-        # checks
-        checks.checks.item_in_object(mode, (2, 16))
-
         self.__mode = mode
 
     def get_mode(self):
@@ -61,8 +57,6 @@ class AnyIO(io_tma.IO):
         :param tma_buffer:
         :return:
         """
-        # checks
-        checks.checks.instance_check(tma_buffer, TMABuffer, AnyIOError)
 
         print(tma_buffer)
 
@@ -103,10 +97,6 @@ def get_io(io_list=None, any_os=False):
     # if io_list use default ios
     if io_list is None:
         io_list = (win_tma.WinIO, uni_tma.UniIO)
-
-    # checks
-    checks.checks.in_instances_check(io_list, (tuple, list), AnyIOError)
-    checks.checks.instance_check(any_os, bool, AnyIOError)
 
     for io in io_list:
         io_object = io.get_io()

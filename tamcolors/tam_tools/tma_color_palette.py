@@ -1,8 +1,6 @@
 # built in library
 import itertools
 
-# Charles McMarrow library
-from tamcolors import checks
 
 # Charles McMarrow
 
@@ -25,13 +23,6 @@ class TMAColorPalette:
         """
         if color_rules is None:
             color_rules = {}
-
-        # checks
-        checks.checks.instance_check(color_range, range, TMAColorPaletteError)
-        checks.checks.instance_check(color_rules, dict, TMAColorPaletteError)
-        for key in color_rules:
-            checks.checks.instance_check(key, int, TMAColorPaletteError)
-            checks.checks.instance_check(color_rules[key], TMAColorPaletteRule, TMAColorPaletteError)
 
         self.__color_palette = {key: key for key in color_range}
         self.__color_rules = color_rules
@@ -58,8 +49,6 @@ class TMAColorPalette:
         :param color: int
         :return:
         """
-        # checks
-        checks.checks.instance_check(color, int, TMAColorPaletteError)
 
         self.set_color(key, color)
 
@@ -80,8 +69,6 @@ class TMAColorPalette:
         :param color: int
         :return:
         """
-        # checks
-        checks.checks.instance_check(color, int, TMAColorPaletteError)
 
         try:
             self.__color_palette[key] = color
@@ -115,9 +102,6 @@ class TMAColorPalette:
         :param rule: instance of TMAColorPaletteRule
         :return:
         """
-        # checks
-        checks.checks.instance_check(rule, TMAColorPaletteRule, TMAColorPaletteError)
-
         try:
             self.__color_rules[key] = rule
         except TypeError:
@@ -149,8 +133,6 @@ class TMADefaultColor(TMAColorPaletteRule):
         info: will rest the color every time when updated
         :param color: int
         """
-        # checks
-        checks.checks.instance_check(color, int, TMAColorPaletteError)
         super().__init__()
         self.__color = color
 
@@ -167,8 +149,6 @@ class TMADefaultColor(TMAColorPaletteRule):
         :param color: int
         :return:
         """
-        # checks
-        checks.checks.instance_check(color, int, TMAColorPaletteError)
         self.__color = color
 
     def update(self, color_palette, key):
@@ -178,9 +158,6 @@ class TMADefaultColor(TMAColorPaletteRule):
         :param key: object
         :return:
         """
-        # checks
-        checks.checks.instance_check(color_palette, TMAColorPalette, TMAColorPaletteError)
-
         color_palette[key] = self.__color
 
 
@@ -191,10 +168,6 @@ class TMACycleColor(TMAColorPaletteRule):
         :param colors: tuple or int: [int, int, int, ...]
         :param clock: int: 1 - inf
         """
-        checks.checks.in_instances_check(colors, (tuple, list), TMAColorPaletteError)
-        checks.checks.range_check(clock, 1, None, TMAColorPaletteError)
-        for color in colors:
-            checks.checks.instance_check(color, int, TMAColorPaletteError)
         super().__init__()
         self.__clock = clock
         self.__clock_at = clock
@@ -206,9 +179,6 @@ class TMACycleColor(TMAColorPaletteRule):
         :param colors: tuple or int: [int, int, int, ...]
         :return:
         """
-        checks.checks.in_instances_check(colors, (tuple, list), TMAColorPaletteError)
-        for color in colors:
-            checks.checks.instance_check(color, int, TMAColorPaletteError)
         self.__cycle_color = itertools.cycle(colors)
 
     def get_clock(self):
@@ -224,7 +194,6 @@ class TMACycleColor(TMAColorPaletteRule):
         :param clock: int
         :return: int: 1 - inf
         """
-        checks.checks.range_check(clock, 1, None, TMAColorPaletteError)
         self.__clock = clock
 
     def update(self, color_palette, key):
@@ -234,8 +203,6 @@ class TMACycleColor(TMAColorPaletteRule):
         :param key: object
         :return:
         """
-        checks.checks.instance_check(color_palette, TMAColorPalette, TMAColorPaletteError)
-
         if self.__clock_at >= self.__clock:
             self.__clock_at = 0
             color_palette[key] = next(self.__cycle_color)

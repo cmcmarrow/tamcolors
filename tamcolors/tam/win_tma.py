@@ -3,7 +3,6 @@ import string
 import sys
 
 # Charles McMarrow libraries
-from tamcolors import checks
 from .tma_buffer import TMABuffer
 from . import io_tma
 try:
@@ -59,9 +58,6 @@ class WinIO(io_tma.IO):
         :param mode: int: key to color mode
         :return:
         """
-        # checks
-        checks.checks.item_in_object(mode, self.__modes)
-
         self.__mode = mode
 
     def get_mode(self):
@@ -84,9 +80,6 @@ class WinIO(io_tma.IO):
         :param tma_buffer: TMABuffer
         :return:
         """
-        # checks
-        checks.checks.instance_check(tma_buffer, TMABuffer, WinIOError)
-
         if self.__buffer.get_dimensions() != io._get_dimension():
             io._clear()
             io._show_console_cursor(False)
@@ -101,9 +94,6 @@ class WinIO(io_tma.IO):
         :param tma_buffer: TMABuffer
         :return:
         """
-        # checks
-        checks.checks.instance_check(tma_buffer, TMABuffer, WinIOError)
-
         # checks if buffer needs to be updated
         if " " != self.__buffer.get_defaults()[0] or self.__buffer.get_defaults()[1:] != tma_buffer.get_defaults()[1:]:
             # buffer defaults changed
@@ -121,9 +111,6 @@ class WinIO(io_tma.IO):
         :param tma_buffer: TMABuffer
         :return:
         """
-        # checks
-        checks.checks.instance_check(tma_buffer, TMABuffer, WinIOError)
-
         # checks if buffer needs to be updated
         if "." != self.__buffer.get_defaults()[0] or self.__buffer.get_defaults()[2] != tma_buffer.get_defaults()[2]:
             # buffer defaults changed
@@ -270,13 +257,6 @@ class WinIO(io_tma.IO):
         :param background_color: int
         :return:
         """
-        # checks
-        checks.checks.instance_check(x, int, WinIOError)
-        checks.checks.instance_check(y, int, WinIOError)
-        checks.checks.instance_check(output, str, WinIOError)
-        checks.checks.instance_check(foreground_color, int, WinIOError)
-        checks.checks.instance_check(background_color, int, WinIOError)
-
         io._set_cursor_info(x, y, (foreground_color % 16) + (background_color % 16)*16)
         sys.stdout.write(output)
         sys.stdout.flush()

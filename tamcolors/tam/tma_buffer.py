@@ -1,9 +1,6 @@
 # built in library
 import copy
 
-# Charles McMarrow library
-from tamcolors import checks
-
 # Charles McMarrow
 
 """
@@ -34,12 +31,6 @@ class TMABuffer:
         :param foreground_color: int: 0 - inf
         :param background_color: int: 0 - inf
         """
-        # checks
-        checks.checks.range_check(width, 0, None, TMABufferError)
-        checks.checks.range_check(height, 0, None, TMABufferError)
-        checks.checks.single_block_char_check(char, TMABufferError)
-        checks.checks.range_check(foreground_color, 0, None, TMABufferError)
-        checks.checks.range_check(background_color, 0, None, TMABufferError)
 
         # save data
         self.__width = width
@@ -114,10 +105,6 @@ class TMABuffer:
         :param height: int: 0 - inf
         :return:
         """
-        # checks
-        checks.checks.range_check(width, 0, None, TMABufferError)
-        checks.checks.range_check(height, 0, None, TMABufferError)
-
         self.__width = width
         self.__height = height
 
@@ -141,11 +128,6 @@ class TMABuffer:
         :param background_color: int: 0 - inf
         :return:
         """
-        # checks
-        checks.checks.single_block_char_check(char, TMABufferError)
-        checks.checks.range_check(foreground_color, 0, None, TMABufferError)
-        checks.checks.range_check(background_color, 0, None, TMABufferError)
-
         self.__char = char
         self.__foreground_color = foreground_color
         self.__background_color = background_color
@@ -176,10 +158,6 @@ class TMABuffer:
         :param y: int
         :return: int
         """
-        # checks
-        checks.checks.instance_check(x, int, TMABufferError)
-        checks.checks.instance_check(y, int, TMABufferError)
-
         if x < 0 or x >= self.__width:
             return -1
         if y < 0 or y >= self.__height:
@@ -196,12 +174,6 @@ class TMABuffer:
         :param background_color: int: -1 - inf: use current background_color
         :return:
         """
-        # checks
-        checks.checks.instance_check(x, int, TMABufferError)
-        checks.checks.instance_check(y, int, TMABufferError)
-        checks.checks.single_block_char_check(char, TMABufferError)
-        checks.checks.range_check(foreground_color, -1, None, TMABufferError)
-        checks.checks.range_check(background_color, -1, None, TMABufferError)
 
         spot = self.get_raw_spot(x, y)
         if spot != -1:
@@ -218,9 +190,6 @@ class TMABuffer:
         :param y: int
         :return: (int, int, int) or None
         """
-        # checks
-        checks.checks.instance_check(x, int, TMABufferError)
-        checks.checks.instance_check(y, int, TMABufferError)
 
         spot = self.get_raw_spot(x, y)
         if spot != -1:
@@ -233,8 +202,6 @@ class TMABuffer:
         :param spot: x: int: 0 - (len(tma_buffer) - 1)
         :return: (int, int, int) or None
         """
-        # checks
-        checks.checks.instance_check(spot, int, TMABufferError)
         if 0 <= spot < len(self.__char_buffer):
             return self.__char_buffer[spot], self.__foreground_buffer[spot], self.__background_buffer[spot]
         return None
@@ -258,14 +225,6 @@ class TMABuffer:
         :param buffer_size_y: int: 0 - inf
         :return:
         """
-        # checks
-        checks.checks.instance_check(tma_buffer, TMABuffer, TMABufferError)
-        checks.checks.instance_check(start_x, int, TMABufferError)
-        checks.checks.instance_check(start_y, int, TMABufferError)
-        checks.checks.instance_check(buffer_start_x, int, TMABufferError)
-        checks.checks.instance_check(buffer_start_y, int, TMABufferError)
-        checks.checks.range_check(buffer_size_x, -1, None, TMABufferError)
-        checks.checks.range_check(buffer_size_y, -1, None, TMABufferError)
 
         start_x, \
         start_y, \
@@ -309,16 +268,6 @@ class TMABuffer:
         :param buffer_size_y: int: 0 - inf
         :return:
         """
-
-        # checks
-        checks.checks.instance_check(tma_buffer, TMABuffer, TMABufferError)
-        checks.checks.instance_check(start_x, int, TMABufferError)
-        checks.checks.instance_check(start_y, int, TMABufferError)
-        checks.checks.instance_check(buffer_start_x, int, TMABufferError)
-        checks.checks.instance_check(buffer_start_y, int, TMABufferError)
-        checks.checks.range_check(buffer_size_x, -1, None, TMABufferError)
-        checks.checks.range_check(buffer_size_y, -1, None, TMABufferError)
-
         width, height = tma_buffer.get_dimensions()
         if buffer_size_x == -1:
             buffer_size_x = width

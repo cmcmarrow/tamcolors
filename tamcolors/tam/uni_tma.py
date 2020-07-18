@@ -5,7 +5,6 @@ import sys
 import os
 
 # Charles McMarrow libraries
-from tamcolors import checks
 from .tma_buffer import TMABuffer
 from . import io_tma
 try:
@@ -80,9 +79,6 @@ class UniIO(io_tma.IO):
         :param mode: int: key to color mode
         :return:
         """
-        # checks
-        checks.checks.item_in_object(mode, self.__modes, UniIOError)
-
         self.__mode = mode
 
     def get_mode(self):
@@ -105,8 +101,6 @@ class UniIO(io_tma.IO):
         :param tma_buffer: TMABuffer
         :return:
         """
-        # checks
-        checks.checks.instance_check(tma_buffer, TMABuffer, UniIOError)
         dimension = io._get_dimension()
         if self.__buffer.get_dimensions() != dimension:
             self._clear()
@@ -142,9 +136,6 @@ class UniIO(io_tma.IO):
         :param tma_buffer: TMABuffer
         :return:
         """
-        # checks
-        checks.checks.instance_check(tma_buffer, TMABuffer, UniIOError)
-
         # checks if buffer needs to be updated
         if " " != self.__buffer.get_defaults()[0] or self.__buffer.get_defaults()[1:] != tma_buffer.get_defaults()[1:]:
             # buffer defaults changed
@@ -265,8 +256,6 @@ class UniIO(io_tma.IO):
         :param show_flag: bool:
         :return:
         """
-        # checks
-        checks.checks.type_check(show_flag, bool)
         if platform.system() != "Darwin":
             if show_flag:
                 os.system("setterm -cursor on")

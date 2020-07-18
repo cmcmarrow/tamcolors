@@ -1,6 +1,5 @@
 # Charles McMarrow libraries
 from tamcolors import tam
-from tamcolors import checks
 
 # Charles McMarrow
 
@@ -19,13 +18,6 @@ class TMAKeyManager:
         info: makes a TMAKeyManager object
         :param all_keys: tuple or list: [(str, str), ...]
         """
-        checks.checks.instance_check(all_keys, set, TMAKeyManagerError)
-        for key in all_keys:
-            checks.checks.in_instances_check(key, (list, tuple), TMAKeyManagerError)
-            checks.checks.is_equal_check(len(key), 2, TMAKeyManagerError)
-            checks.checks.instance_check(key[0], str, TMAKeyManagerError)
-            checks.checks.instance_check(key[1], str, TMAKeyManagerError)
-
         self.__all_keys = {key[0]: False for key in all_keys}
         self.__raw_input = ()
         self.__input_generator = self.get_user_input_generator()
@@ -43,13 +35,6 @@ class TMAKeyManager:
         :param keys: tuple or list: [(str, str), ...]
         :return:
         """
-        checks.checks.in_instances_check(keys, (tuple, list), TMAKeyManagerError)
-        for key in keys:
-            checks.checks.in_instances_check(key, (list, tuple), TMAKeyManagerError)
-            checks.checks.is_equal_check(len(key), 2, TMAKeyManagerError)
-            checks.checks.instance_check(key[0], str, TMAKeyManagerError)
-            checks.checks.instance_check(key[1], str, TMAKeyManagerError)
-
         for key in self.__all_keys:
             self.__all_keys[key] = False
 
@@ -65,7 +50,6 @@ class TMAKeyManager:
         :param key: str
         :return: bool
         """
-        checks.checks.item_in_object(key, self.__all_keys, TMAKeyManagerError)
         return self.__all_keys[key]
 
     def silent_key_state(self, key):
@@ -74,7 +58,6 @@ class TMAKeyManager:
         :param key: str
         :return: bool
         """
-        checks.checks.item_in_object(key, self.__all_keys, TMAKeyManagerError)
         key_state = self.__all_keys[key]
         if key_state:
             self.__all_keys[key] = False

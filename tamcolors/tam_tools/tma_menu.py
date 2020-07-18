@@ -1,5 +1,4 @@
 # Charles McMarrow libraries
-from tamcolors import checks
 from tamcolors import tam
 from tamcolors import tam_tools
 
@@ -24,21 +23,6 @@ class TMAMenu:
         :param goto_map: dict: {int: {str: int}}
         :param on: int: 0 - (len(buttons) - 1)
         """
-        # checks
-        for button in buttons:
-            checks.checks.instance_check(button, TMAButtonRule, TMAMenuError)
-        checks.checks.instance_check(call_key, str, TMAMenuError)
-        checks.checks.instance_check(goto_map, dict, TMAMenuError)
-        for key in goto_map:
-            checks.checks.instance_check(key, int, TMAMenuError)
-            checks.checks.instance_check(goto_map[key], dict, TMAMenuError)
-            for key2 in goto_map[key]:
-                checks.checks.instance_check(key2, str, TMAMenuError)
-                checks.checks.range_check(goto_map[key][key2], 0, len(buttons), TMAMenuError)
-
-        if on != 0:
-            checks.checks.range_check(on, 0, len(buttons), TMAMenuError)
-
         self.__buttons = {spot: button for spot, button in enumerate(buttons)}
         self.__call_key = call_key
         self.__goto_map = goto_map
@@ -54,14 +38,6 @@ class TMAMenu:
         :param keys: list or tuple: [(str, str), (str, str, ...), ...]
         :return:
         """
-        # checks
-        checks.checks.in_instances_check(keys, (list, tuple), TMAMenuError)
-        for key_data in keys:
-            checks.checks.in_instances_check(keys, (list, tuple), TMAMenuError)
-            checks.checks.range_check(len(key_data), 2, None, TMAMenuError)
-            checks.checks.instance_check(key_data[0], str, TMAMenuError)
-            checks.checks.instance_check(key_data[1], str, TMAMenuError)
-
         if len(self.__buttons) == 0:
             return None
 
@@ -132,22 +108,6 @@ class TMAMenu:
         :param on: int
         :return: TMAMenu
         """
-        checks.checks.in_instances_check(buttons, (list, tuple), buttons)
-        for button in buttons:
-            checks.checks.instance_check(button, TMAButtonRule, TMAMenuError)
-
-        checks.checks.instance_check(call_on, str, TMAMenuError)
-
-        checks.checks.in_instances_check(up_keys, (set, list, tuple), TMAMenuError)
-        for key in up_keys:
-            checks.checks.instance_check(key, str, TMAMenuError)
-
-        checks.checks.in_instances_check(down_keys, (set, list, tuple), TMAMenuError)
-        for key in down_keys:
-            checks.checks.instance_check(key, str, TMAMenuError)
-
-        checks.checks.instance_check(on, int, TMAMenuError)
-
         goto_map = {}
         for spot in range(len(buttons)):
             button_dict = {}
@@ -231,17 +191,6 @@ class TMATextButton(TMAButtonRule):
         :param on_background_color: 0 - inf
         :param on_chars: str
         """
-        # checks
-        checks.checks.instance_check(text, str, TMAMenuError)
-        checks.checks.instance_check(x, int, TMAMenuError)
-        checks.checks.instance_check(y, int, TMAMenuError)
-        checks.checks.range_check(foreground_color, 0, None, TMAMenuError)
-        checks.checks.range_check(background_color, 0, None, TMAMenuError)
-        checks.checks.is_function_check(action_func, TMAMenuError)
-        checks.checks.range_check(on_foreground_color, 0, None, TMAMenuError)
-        checks.checks.range_check(on_background_color, 0, None, TMAMenuError)
-        checks.checks.instance_check(on_chars, str, TMAMenuError)
-
         super().__init__()
 
         self.__text = text
@@ -287,7 +236,6 @@ class TMATextButton(TMAButtonRule):
         :param buffer:
         :return:
         """
-        checks.checks.instance_check(buffer, tam.tma_buffer.TMABuffer, TMAMenuError)
         for draw_args in self.__draw_args:
             tam_tools.tma_print.tma_print(buffer, *draw_args)
 
@@ -332,9 +280,6 @@ class TMATextButton(TMAButtonRule):
         :param func: function
         :return:
         """
-        # checks
-        checks.checks.is_function_check(func, TMAMenuError)
-
         self.__action_func = func
 
     def get_action(self):
@@ -359,10 +304,6 @@ class TMATextButton(TMAButtonRule):
         :param y: int
         :return:
         """
-
-        checks.checks.instance_check(x, int, TMAMenuError)
-        checks.checks.instance_check(y, int, TMAMenuError)
-
         self.__x = x
         self.__y = y
 
@@ -393,31 +334,6 @@ class TMATextBoxButton(TMAButtonRule):
                  vertical_space=1,
                  vertical_start=1,
                  char_background=" "):
-
-        # checks
-        checks.checks.instance_check(text, str, TMAMenuError)
-        checks.checks.range_check(width, 0, None, TMAMenuError)
-        checks.checks.range_check(height, 0, None, TMAMenuError)
-        checks.checks.single_block_char_check(char, TMAMenuError)
-        checks.checks.range_check(foreground_color, 0, None, TMAMenuError)
-        checks.checks.range_check(background_color, 0, None, TMAMenuError)
-        checks.checks.instance_check(clock, int, TMAMenuError)
-        checks.checks.instance_check(center_vertical, bool, TMAMenuError)
-        checks.checks.instance_check(center_horizontal, bool, TMAMenuError)
-        checks.checks.range_check(vertical_space, 1, None, TMAMenuError)
-        checks.checks.instance_check(vertical_start, int, TMAMenuError)
-        checks.checks.single_block_char_check(char_background, TMAMenuError)
-
-        if clock != -1:
-            checks.checks.range_check(clock, 1, None, TMAMenuError)
-
-        checks.checks.instance_check(x, int, TMAMenuError)
-        checks.checks.instance_check(y, int, TMAMenuError)
-        checks.checks.is_function_check(action_func, TMAMenuError)
-        checks.checks.range_check(on_foreground_color, 0, None, TMAMenuError)
-        checks.checks.range_check(on_background_color, 0, None, TMAMenuError)
-        checks.checks.single_block_char_check(on_char, TMAMenu)
-
         super().__init__()
 
         self.__text_box = tam_tools.tma_text_box.TMATextBox(text,
@@ -512,9 +428,6 @@ class TMATextBoxButton(TMAButtonRule):
         :param func: function
         :return:
         """
-        # checks
-        checks.checks.is_function_check(func, TMAMenuError)
-
         self.__action_func = func
 
     def get_action(self):
@@ -538,10 +451,6 @@ class TMATextBoxButton(TMAButtonRule):
         :param y: int
         :return:
         """
-
-        checks.checks.instance_check(x, int, TMAMenuError)
-        checks.checks.instance_check(y, int, TMAMenuError)
-
         self.__x = x
         self.__y = y
 
