@@ -1,5 +1,4 @@
 # Charles McMarrow libraries
-from tamcolors import checks
 from tamcolors import tam
 from . import tma_film
 
@@ -33,19 +32,6 @@ def tma_fade_in(buffer,
     :param reverse: bool
     :return: TMAFilm
     """
-
-    # checks
-    checks.checks.instance_check(buffer, tam.tma_buffer.TMABuffer, TMAFadeInError)
-    checks.checks.single_block_char_check(char, TMAFadeInError)
-    checks.checks.range_check(foreground_color, 0, None, TMAFadeInError)
-    checks.checks.range_check(background_color, 0, None, TMAFadeInError)
-    checks.checks.in_instances_check(rand, (list, tuple), TMAFadeInError)
-    checks.checks.range_check(len(rand), 1, None, TMAFadeInError)
-    checks.checks.is_equal_check(rand[0], True, TMAFadeInError)
-    for b in rand:
-        checks.checks.instance_check(b, bool, TMAFadeInError)
-    checks.checks.instance_check(reverse, bool, TMAFadeInError)
-
     frames = []
 
     start_pool = []

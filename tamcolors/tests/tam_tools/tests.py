@@ -1923,67 +1923,6 @@ class TMATextBoxButtonTest(unittest.TestCase):
 
 
 class TMAListBufferTest(unittest.TestCase):
-    def test__list_buffer_check(self):
-        buffer = [[1, 3],
-                  [2, 3],
-                  [4, 5]]
-
-        check_func = unittest.mock.Mock()
-        tam_tools.tma_list_buffer._list_buffer_check(buffer, check_func, tam_tools.tma_list_buffer.TMAListBufferError)
-        self.assertEqual(check_func.call_count, 6)
-
-    def test__list_buffer_check_2(self):
-        buffer = [["a", "c", "d"],
-                  ["a", "1", "d"],
-                  ("a", "c", "d"),
-                  ["a", "b", "d"],
-                  ["a", "c", "a"]]
-
-        check_func = unittest.mock.Mock()
-        tam_tools.tma_list_buffer._list_buffer_check(buffer, check_func, tam_tools.tma_list_buffer.TMAListBufferError)
-        self.assertEqual(check_func.call_count, 15)
-
-    def test__list_buffer_check_3(self):
-        buffer = [90,
-                  ["a", "1", "d"],
-                  ("a", "c", "d"),
-                  ["a", "b", "d"],
-                  ["a", "c", "a"]]
-
-        check_func = unittest.mock.Mock()
-        self.assertRaises(tam_tools.tma_list_buffer.TMAListBufferError,
-                          tam_tools.tma_list_buffer._list_buffer_check,
-                          buffer,
-                          check_func,
-                          tam_tools.tma_list_buffer.TMAListBufferError)
-        self.assertEqual(check_func.call_count, 0)
-
-    def test__list_buffer_check_4(self):
-        buffer = list
-
-        check_func = unittest.mock.Mock()
-        self.assertRaises(tam_tools.tma_list_buffer.TMAListBufferError,
-                          tam_tools.tma_list_buffer._list_buffer_check,
-                          buffer,
-                          check_func,
-                          tam_tools.tma_list_buffer.TMAListBufferError)
-        self.assertEqual(check_func.call_count, 0)
-
-    def test__list_buffer_check_5(self):
-        buffer = [["a", "1", "d"],
-                  ("a", "c", "d"),
-                  ["a", "b", "d"],
-                  ["a", "c", "a"],
-                  0]
-
-        check_func = unittest.mock.Mock()
-        self.assertRaises(tam_tools.tma_list_buffer.TMAListBufferError,
-                          tam_tools.tma_list_buffer._list_buffer_check,
-                          buffer,
-                          check_func,
-                          tam_tools.tma_list_buffer.TMAListBufferError)
-        self.assertEqual(check_func.call_count, 12)
-
     def test_tma_list_buffer(self):
         buffer = [["1", "2", "3"],
                   ["4", "5", "6"]]

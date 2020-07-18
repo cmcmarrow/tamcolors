@@ -1,5 +1,4 @@
 # tamcolors libraries
-from tamcolors import checks
 from tamcolors import tam
 from . import tma_str
 
@@ -44,24 +43,6 @@ class TMATextBox:
         :param vertical_space: 1 - inf
         :param char_background: str: len == 1
         """
-
-        # checks
-        checks.checks.instance_check(text, str, TMATextBoxError)
-        checks.checks.range_check(width, 0, None, TMATextBoxError)
-        checks.checks.range_check(height, 0, None, TMATextBoxError)
-        checks.checks.single_block_char_check(char, TMATextBoxError)
-        checks.checks.range_check(foreground_color, 0, None, TMATextBoxError)
-        checks.checks.range_check(background_color, 0, None, TMATextBoxError)
-        checks.checks.instance_check(clock, int, TMATextBoxError)
-        checks.checks.instance_check(center_vertical, bool, TMATextBoxError)
-        checks.checks.instance_check(center_horizontal, bool, TMATextBoxError)
-        checks.checks.range_check(vertical_space, 1, None, TMATextBoxError)
-        checks.checks.instance_check(vertical_start, int, TMATextBoxError)
-        checks.checks.single_block_char_check(char_background, TMATextBoxError)
-
-        if clock != -1:
-            checks.checks.range_check(clock, 1, None, TMATextBoxError)
-
         self.__text = tma_str.make_tma_str(text)
         self.__width = width
         self.__height = height
@@ -166,10 +147,6 @@ class TMATextBox:
         :param start_y: int
         :return:
         """
-        checks.checks.instance_check(tma_buffer, tam.tma_buffer.TMABuffer, TMATextBoxError)
-        checks.checks.instance_check(start_x, int, TMATextBoxError)
-        checks.checks.instance_check(start_y, int, TMATextBoxError)
-
         tma_buffer.draw_onto(self.__buffer, start_x, start_y)
 
     def done(self):
@@ -186,9 +163,6 @@ class TMATextBox:
         :param background_color: 0 - inf
         :return:
         """
-        checks.checks.range_check(foreground_color, 0, None, TMATextBoxError)
-        checks.checks.range_check(background_color, 0, None, TMATextBoxError)
-
         self.__foreground_color = foreground_color
         self.__background_color = background_color
 
@@ -199,7 +173,6 @@ class TMATextBox:
         info: sets char
         :return:
         """
-        checks.checks.single_block_char_check(char, TMATextBoxError)
         self.__char = char
         self.__rebuild()
 

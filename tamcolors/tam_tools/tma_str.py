@@ -1,12 +1,6 @@
 # built in libraries
 import string
 
-# tamcolors libraries
-from tamcolors import checks
-
-
-# Charles McMarrow
-
 """
 formats strings into strings that tam can use safely  
 """
@@ -24,13 +18,6 @@ def make_tma_str(text, end_line="\n", bad_char=None):
     :param bad_char: str
     :return: str
     """
-    checks.checks.has_method_check(text, "__str__", TMAStrError)
-    checks.checks.instance_check(end_line, str, TMAStrError)
-    if bad_char is not None:
-        checks.checks.instance_check(bad_char, str, TMAStrError)
-        for char in bad_char:
-            checks.checks.single_block_char_check(char, TypeError)
-
     tma_str = []
     for char in str(text):
         if char == "\n":

@@ -6,11 +6,9 @@ import sys
 import itertools
 
 # Charles McMarrow libraries
-from tamcolors import checks
 from tamcolors.tests import stability_check
 from .tma_buffer import TMABuffer
 from . import any_tma
-from . import tma_loop_test
 
 # Charles McMarrow
 
@@ -36,7 +34,8 @@ class TMALoop:
                  only_any_os=False,
                  buffer_count=3,
                  color_change_key="ESCAPE",
-                 loop_data=None):
+                 loop_data=None,
+                 run_stability_check=False):
         """
         info: makes a TMALoop object
         :param tma_frame: TMAFrame: first frame in tam loop
@@ -46,21 +45,15 @@ class TMALoop:
         :param buffer_count: int: 1 - inf
         :param color_change_key: char: key that will change color mode
         :param loop_data: dict
+        :param run_stability_check: bool: raises and error if a test did not pass
         """
 
         if loop_data is None:
             loop_data = {}
 
-        # checks
-        checks.checks.instance_check(tma_frame, TMAFrame, TMALoopError)
-        checks.checks.instance_check(any_os, bool, TMALoopError)
-        checks.checks.range_check(buffer_count, 1, None, TMALoopError)
-        checks.checks.instance_check(color_change_key, str, TMALoopError)
-        checks.checks.instance_check(loop_data, dict, TMALoopError)
-
-        if not stability_check.tma_stability_check():
+        if run_stability_check and not stability_check.tma_stability_check():
             test_results = stability_check.tma_stability_check(ret_bool=False)
-            raise TMALoopError("TMA is corrupted! {0} out of {1} tests passed".format(*test_results))
+            raise TMALoopError("TAM is corrupted! {0} out of {1} tests passed".format(*test_results))
 
         self.__running = None
         self.__draw_loop_thread = None
@@ -168,9 +161,6 @@ class TMALoop:
         :return:
         """
 
-        # checks
-        checks.checks.instance_check(frame, TMAFrame, TMALoopError)
-
         self.__frame_stack.append(frame)
 
     def pop_frame_stack(self):
@@ -274,17 +264,6 @@ class TMAFrame:
         :param min_height: int: 0 - inf
         :param max_height: int: min_height - inf
         """
-        # checks
-        checks.checks.in_instances_check(fps, (int, float), TMALoopError)
-        checks.checks.range_check(int(fps), 0, None)
-        checks.checks.single_block_char_check(char, TMALoopError)
-        checks.checks.range_check(foreground_color, 0, None, TMALoopError)
-        checks.checks.range_check(background_color, 0, None, TMALoopError)
-        checks.checks.range_check(max_width, 0, None, TMALoopError)
-        checks.checks.range_check(max_height, 0, None, TMALoopError)
-        checks.checks.range_check(min_width, 0, max_width + 1, TMALoopError)
-        checks.checks.range_check(min_height, 0, max_height + 1, TMALoopError)
-
         self.__frame = frame
         self.__fps = fps
 
@@ -336,11 +315,6 @@ class TMAFrame:
         :param screen_height: int: 0 - inf
         :return:
         """
-        # checks
-        checks.checks.instance_check(tma_buffer, TMABuffer, TMALoopError)
-        checks.checks.range_check(screen_width, 0, None, TMALoopError)
-        checks.checks.range_check(screen_height, 0, None, TMALoopError)
-
         if (self.__char, self.__foreground_color, self.__background_color) != tma_buffer.get_defaults():
             tma_buffer.set_defaults_and_clear(self.__char, self.__foreground_color, self.__background_color)
 
@@ -359,13 +333,6 @@ class TMAFrame:
         :param loop_data: dict
         :return:
         """
-        # checks
-        checks.checks.in_instances_check(tma_loop, (TMALoop, tma_loop_test.TMALoopTest), TMALoopError)
-        checks.checks.instance_check(keys, (list, tuple), TMALoopError)
-        checks.checks.instance_check(loop_data, dict, TMALoopError)
-        # check self.__frame.update
-        checks.checks.has_method_check(self.__frame, "update", TMALoopError)
-
         self.__frame.update(tma_loop, keys, loop_data)
 
     def draw(self, tma_buffer, loop_data):
@@ -375,12 +342,6 @@ class TMAFrame:
         :param loop_data: dict
         :return:
         """
-        # checks
-        checks.checks.instance_check(tma_buffer, TMABuffer, TMALoopError)
-        checks.checks.instance_check(loop_data, dict, TMALoopError)
-        # check self.__frame.draw
-        checks.checks.has_method_check(self.__frame, "draw", TMALoopError)
-
         self.__frame.draw(tma_buffer, loop_data)
 
     def done(self, tma_loop, loop_data):
@@ -390,12 +351,6 @@ class TMAFrame:
         :param loop_data: dict
         :return:
         """
-        # checks
-        checks.checks.in_instances_check(tma_loop, (TMALoop, tma_loop_test.TMALoopTest), TMALoopError)
-        checks.checks.instance_check(loop_data, dict, TMALoopError)
-        # check self.__frame.done
-        checks.checks.has_method_check(self.__frame, "done", TMALoopError)
-
         if not self.__done_called:
             self.__done_called = True
             self.__frame.done(tma_loop, loop_data)

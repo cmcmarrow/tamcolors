@@ -1,5 +1,4 @@
 # Charles McMarrow libraries
-from tamcolors import checks
 from tamcolors import tam
 
 
@@ -21,9 +20,6 @@ def _get_center(spot, length):
     :param length: int: 0 - inf
     :return: int
     """
-    # checks
-    checks.checks.instance_check(spot, int, TMAPlacingError)
-    checks.checks.range_check(length, 0, None, TMAPlacingError)
     return spot - length//2
 
 
@@ -34,9 +30,6 @@ def _get_other_side(spot, length):
     :param length: int: 0 - inf
     :return: int
     """
-    # checks
-    checks.checks.instance_check(spot, int, TMAPlacingError)
-    checks.checks.range_check(length, 0, None, TMAPlacingError)
     return spot - max(0, length - 1)
 
 
@@ -56,18 +49,6 @@ def _get_dimensions(func):
         :param buffer: TMABuffer
         :return: x, y
         """
-        # checks
-        checks.checks.any_check(width is not None and height is not None,
-                                buffer is not None,
-                                error=TMAPlacingError)
-
-        if width is not None:
-            checks.checks.range_check(width, 0, None, TMAPlacingError)
-
-        if height is not None:
-            checks.checks.range_check(height, 0, None, TMAPlacingError)
-        checks.checks.in_instances_check(buffer, (tam.tma_buffer.TMABuffer, type(None)), TMAPlacingError)
-
         if isinstance(buffer, tam.tma_buffer.TMABuffer):
             width, height = buffer.get_dimensions()
 
@@ -86,12 +67,6 @@ def top_left(x, y, width, height):
     :param height: int: 0 - inf
     :return: (int, int)
     """
-    # checks
-    checks.checks.instance_check(x, int, TMAPlacingError)
-    checks.checks.instance_check(y, int, TMAPlacingError)
-    checks.checks.range_check(width, 0, None, TMAPlacingError)
-    checks.checks.range_check(height, 0, None, TMAPlacingError)
-
     return x, y
 
 
@@ -105,12 +80,6 @@ def top_right(x, y, width, height):
     :param height: int: 0 - inf
     :return: (int, int)
     """
-    # checks
-    checks.checks.instance_check(x, int, TMAPlacingError)
-    checks.checks.instance_check(y, int, TMAPlacingError)
-    checks.checks.range_check(width, 0, None, TMAPlacingError)
-    checks.checks.range_check(height, 0, None, TMAPlacingError)
-
     return _get_other_side(x, width), y
 
 
@@ -124,12 +93,6 @@ def bottom_left(x, y, width, height):
     :param height: int: 0 - inf
     :return: (int, int)
     """
-    # checks
-    checks.checks.instance_check(x, int, TMAPlacingError)
-    checks.checks.instance_check(y, int, TMAPlacingError)
-    checks.checks.range_check(width, 0, None, TMAPlacingError)
-    checks.checks.range_check(height, 0, None, TMAPlacingError)
-
     return x, _get_other_side(y, height)
 
 
@@ -143,12 +106,6 @@ def bottom_right(x, y, width, height):
     :param height: int: 0 - inf
     :return: (int, int)
     """
-    # checks
-    checks.checks.instance_check(x, int, TMAPlacingError)
-    checks.checks.instance_check(y, int, TMAPlacingError)
-    checks.checks.range_check(width, 0, None, TMAPlacingError)
-    checks.checks.range_check(height, 0, None, TMAPlacingError)
-
     return _get_other_side(x, width), _get_other_side(y, height)
 
 
@@ -162,10 +119,4 @@ def center(x, y, width, height):
     :param height: int: 0 - inf
     :return: (int, int)
     """
-    # checks
-    checks.checks.instance_check(x, int, TMAPlacingError)
-    checks.checks.instance_check(y, int, TMAPlacingError)
-    checks.checks.range_check(width, 0, None, TMAPlacingError)
-    checks.checks.range_check(height, 0, None, TMAPlacingError)
-
     return _get_center(x, width), _get_center(y, height)

@@ -1,5 +1,4 @@
 # Charles McMarrow libraries
-from tamcolors import checks
 from tamcolors import tam
 
 # Charles McMarrow
@@ -24,9 +23,6 @@ class TMAFilm:
         if tma_buffers is None:
             tma_buffers = []
 
-        # checks
-        checks.checks.in_instances_check(tma_buffers, (tam.tma_buffer.TMABuffer, list, tuple), TMAFilmError)
-
         if isinstance(tma_buffers, tam.tma_buffer.TMABuffer):
             tma_buffers = [tma_buffers]
         else:
@@ -43,10 +39,6 @@ class TMAFilm:
         :param tma_buffer: TMABuffer
         :return:
         """
-        # checks
-        checks.checks.instance_check(spot, int, TMAFilmError)
-        checks.checks.instance_check(tma_buffer, tam.tma_buffer.TMABuffer, TMAFilmError)
-
         self.set(spot, tma_buffer)
 
     def __getitem__(self, spot):
@@ -55,9 +47,6 @@ class TMAFilm:
         :param spot: int: 0 - len(self.__buffer_list)
         :return: TMABuffer
         """
-        # checks
-        checks.checks.instance_check(spot, int, TMAFilmError)
-
         return self.get(spot)
 
     def __next__(self):
@@ -84,10 +73,14 @@ class TMAFilm:
         :param tma_buffer: TMABuffer
         :return:
         """
-        # checks
-        checks.checks.range_check(spot, 0, len(self.__buffer_list), TMAFilmError)
-        checks.checks.instance_check(tma_buffer, tam.tma_buffer.TMABuffer, TMAFilmError)
-        self.__buffer_list[spot] = tma_buffer
+        try:
+            if abs(spot) != spot:
+                raise TMAFilmError()
+            self.__buffer_list[spot] = tma_buffer
+        except TypeError as error:
+            raise TMAFilmError(error)
+        except IndexError as error:
+            raise TMAFilmError(error)
 
     def get(self, spot):
         """
@@ -95,9 +88,12 @@ class TMAFilm:
         :param spot: int: 0 - len(self.__buffer_list)
         :return: TMABuffer
         """
-        # checks
-        checks.checks.range_check(spot, 0, len(self.__buffer_list), TMAFilmError)
-        return self.__buffer_list[spot]
+        try:
+            return self.__buffer_list[spot]
+        except TypeError as error:
+            raise TMAFilmError(error)
+        except IndexError as error:
+            raise TMAFilmError(error)
 
     def slide(self):
         """
@@ -135,8 +131,6 @@ class TMAFilm:
         :param tma_buffer:
         :return:
         """
-        # checks
-        checks.checks.instance_check(tma_buffer, tam.tma_buffer.TMABuffer, TMAFilmError)
         self.__buffer_list.append(tma_buffer)
 
     def pop(self):
@@ -160,9 +154,6 @@ class TMAFilm:
         :param circular: True
         :return:
         """
-        # checks
-        checks.checks.instance_check(circular, bool, TMAFilmError)
-
         self.__circular = circular
 
     def done(self):

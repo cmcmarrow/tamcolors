@@ -1,5 +1,4 @@
 # Charles McMarrow libraries
-from tamcolors import checks
 from .tma_buffer import TMABuffer
 from . import tma_loop
 
@@ -37,13 +36,6 @@ class TMALoopTest:
 
         if loop_data is None:
             loop_data = {}
-
-        # checks
-        checks.checks.instance_check(tma_frame, tma_loop.TMAFrame, TMALoopTestError)
-        checks.checks.instance_check(any_os, bool, TMALoopTestError)
-        checks.checks.range_check(buffer_count, 1, None, TMALoopTestError)
-        checks.checks.instance_check(color_change_key, str, TMALoopTestError)
-        checks.checks.instance_check(loop_data, dict, TMALoopTestError)
 
         self.__running = None
 
@@ -94,10 +86,6 @@ class TMALoopTest:
         :param frame: TMAFrame
         :return:
         """
-
-        # checks
-        checks.checks.instance_check(frame, tma_loop.TMAFrame, TMALoopTestError)
-
         self.__frame_stack.append(frame)
 
     def pop_frame_stack(self):
@@ -119,17 +107,6 @@ class TMALoopTest:
         :param height: int, 0 - inf
         :return: (None or TMABuffer, None or TMAFrame)
         """
-
-        # checks
-        checks.checks.in_instances_check(keys, (list, tuple), TMALoopTestError)
-        for key in keys:
-            checks.checks.in_instances_check(key, (list, tuple), TMALoopTestError)
-            checks.checks.is_equal_check(len(key), 2, TMALoopTestError)
-            checks.checks.instance_check(key[0], str, TMALoopTestError)
-            checks.checks.instance_check(key[1], str, TMALoopTestError)
-        checks.checks.range_check(width, 0, None, TMALoopTestError)
-        checks.checks.range_check(height, 0, None, TMALoopTestError)
-
         buffer, frame = None, None
         if self.__running and len(self.__frame_stack) != 0:
             new_keys = []
