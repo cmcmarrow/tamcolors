@@ -7,9 +7,9 @@ import itertools
 
 # Charles McMarrow libraries
 from tamcolors import checks
+from tamcolors.tests.tma import tests
 from .tma_buffer import TMABuffer
 from . import any_tma
-from . import tests
 from . import tma_loop_test
 
 # Charles McMarrow

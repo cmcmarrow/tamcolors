@@ -8,8 +8,6 @@ import unittest.mock
 
 # Charles McMarrow libraries
 from tamcolors import tma
-from . import uni_tma
-from . import win_tma
 
 # Charles McMarrow
 
