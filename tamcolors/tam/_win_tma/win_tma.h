@@ -1,7 +1,6 @@
 #ifndef __WIN_TMA__H_
 #define __WIN_TMA__H_
 
-//Charles McMarrow
 
 typedef struct Dimension {
 	short width;

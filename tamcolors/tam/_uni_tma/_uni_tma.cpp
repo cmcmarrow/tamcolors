@@ -1,10 +1,9 @@
 //python library
 #include <Python.h>
 
-//Charles McMarrow library
+//tamcolors library
 #include "uni_tma.h"
 
-//Charles McMarrow
 
 /*
 C++ API to Unix console

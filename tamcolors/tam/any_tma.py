@@ -1,10 +1,8 @@
-# Charles McMarrow libraries
-from .tma_buffer import TMABuffer
+# tamcolors libraries
 from . import io_tma
 from . import uni_tma
 from . import win_tma
 
-# Charles McMarrow
 
 """ 
 AnyIO 

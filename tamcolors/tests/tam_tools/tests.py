@@ -2,11 +2,10 @@
 import unittest
 import unittest.mock
 
-# Charles McMarrow libraries
+# tamcolors libraries
 from tamcolors import tam
 from tamcolors import tam_tools
 
-# Charles McMarrow
 
 """
 tests that checks tam_tools library

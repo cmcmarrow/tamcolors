@@ -4,7 +4,7 @@ import string
 import sys
 import os
 
-# Charles McMarrow libraries
+# tamcolors libraries
 from .tma_buffer import TMABuffer
 from . import io_tma
 try:
@@ -12,7 +12,6 @@ try:
 except ImportError:
     io = None
 
-# Charles McMarrow
 
 """
 UniIO

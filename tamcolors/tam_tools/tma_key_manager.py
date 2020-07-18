@@ -1,7 +1,6 @@
-# Charles McMarrow libraries
+# tamcolors libraries
 from tamcolors import tam
 
-# Charles McMarrow
 
 """
 TMAKeyManger mange key input

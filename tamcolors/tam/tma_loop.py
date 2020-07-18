@@ -5,12 +5,11 @@ import time
 import sys
 import itertools
 
-# Charles McMarrow libraries
+# tamcolors libraries
 from tamcolors.tests import stability_check
 from .tma_buffer import TMABuffer
 from . import any_tma
 
-# Charles McMarrow
 
 """
 TMALoop

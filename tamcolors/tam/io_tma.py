@@ -1,8 +1,3 @@
-# Charles McMarrow libraries
-from .tma_buffer import TMABuffer
-
-# Charles McMarrow
-
 """
 IO
 defines standards for all terminal IO

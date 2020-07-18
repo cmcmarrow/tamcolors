@@ -1,7 +1,6 @@
 # built in library
 import copy
 
-# Charles McMarrow
 
 """
 TMABUFFER

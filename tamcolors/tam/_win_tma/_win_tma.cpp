@@ -4,10 +4,9 @@
 //python library
 #include <Python.h>
 
-//Charles McMarrow library
+//tamcolors library
 #include "win_tma.h"
 
-//Charles McMarrow
 
 /*
 Python 3 API to windows console

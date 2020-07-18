@@ -1,7 +1,6 @@
 # built in library
 import string
 
-# Charles McMarrow
 
 """
 terminal keys supported on all platforms

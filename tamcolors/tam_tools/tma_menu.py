@@ -1,8 +1,6 @@
-# Charles McMarrow libraries
-from tamcolors import tam
+# tamcolors libraries
 from tamcolors import tam_tools
 
-# Charles McMarrow
 
 """
 TMAMenu
