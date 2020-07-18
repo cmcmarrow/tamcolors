@@ -1,7 +1,7 @@
 # Charles McMarrow libraries
 from tamcolors import checks
-from tamcolors import tma
-from tamcolors import tma_tools
+from tamcolors import tam
+from tamcolors import tam_tools
 
 # Charles McMarrow
 
@@ -287,9 +287,9 @@ class TMATextButton(TMAButtonRule):
         :param buffer:
         :return:
         """
-        checks.checks.instance_check(buffer, tma.tma_buffer.TMABuffer, TMAMenuError)
+        checks.checks.instance_check(buffer, tam.tma_buffer.TMABuffer, TMAMenuError)
         for draw_args in self.__draw_args:
-            tma_tools.tma_print.tma_print(buffer, *draw_args)
+            tam_tools.tma_print.tma_print(buffer, *draw_args)
 
     def on(self):
         """
@@ -420,7 +420,7 @@ class TMATextBoxButton(TMAButtonRule):
 
         super().__init__()
 
-        self.__text_box = tma_tools.tma_text_box.TMATextBox(text,
+        self.__text_box = tam_tools.tma_text_box.TMATextBox(text,
                                                             width,
                                                             height,
                                                             char,

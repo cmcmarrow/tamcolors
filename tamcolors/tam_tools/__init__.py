@@ -13,7 +13,7 @@ from . import tma_text_box
 # Charles McMarrow
 
 """
-tma_tools gives tools that support tma
+tam_tools gives tools that support tam
 """
 
 __all__ = ("tma_color_palette",

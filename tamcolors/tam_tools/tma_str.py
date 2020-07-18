@@ -8,7 +8,7 @@ from tamcolors import checks
 # Charles McMarrow
 
 """
-formats strings into strings that tma can use safely  
+formats strings into strings that tam can use safely  
 """
 
 
@@ -18,7 +18,7 @@ class TMAStrError(Exception):
 
 def make_tma_str(text, end_line="\n", bad_char=None):
     """
-    info: formats str into a tma str
+    info: formats str into a tam str
     :param text: str
     :param end_line: str
     :param bad_char: str

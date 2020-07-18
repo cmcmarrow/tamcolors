@@ -26,7 +26,7 @@ class TMALoopTest:
                  loop_data=None):
         """
         info: makes a TMALoop object
-        :param tma_frame: TMAFrame: first frame in tma loop
+        :param tma_frame: TMAFrame: first frame in tam loop
         :param io_list: list, tuple, None: ios that can be used
         :param any_os: bool: will use ANYIO if no other IO can be used if True
         :param only_any_os: bool: will only use ANYIO if True
@@ -57,7 +57,7 @@ class TMALoopTest:
 
     def __call__(self):
         """
-        info: will run tma loop
+        info: will run tam loop
         :return:
         """
         if self.__running is not None:
@@ -67,7 +67,7 @@ class TMALoopTest:
 
     def done(self):
         """
-        info: will stop tma loop
+        info: will stop tam loop
         :return:
         """
         if self.__running:
@@ -75,7 +75,7 @@ class TMALoopTest:
 
     def run(self):
         """
-        info: will call tma loop
+        info: will call tam loop
         :return:
         """
         self()

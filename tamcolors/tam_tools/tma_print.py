@@ -1,6 +1,6 @@
 # tamcolors libraries
 from tamcolors import checks
-from tamcolors import tma
+from tamcolors import tam
 from . import tma_str
 
 """
@@ -27,7 +27,7 @@ def tma_print(tma_buffer, x, y, text, foreground_color, background_color, error_
     """
 
     # checks
-    checks.checks.instance_check(tma_buffer, tma.tma_buffer.TMABuffer, TMAPrintError)
+    checks.checks.instance_check(tma_buffer, tam.tma_buffer.TMABuffer, TMAPrintError)
     checks.checks.instance_check(x, int, TMAPrintError)
     checks.checks.instance_check(y, int, TMAPrintError)
     checks.checks.has_method_check(text, "__str__", TMAPrintError)

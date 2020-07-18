@@ -1,12 +1,12 @@
 # Charles McMarrow libraries
 from tamcolors import checks
-from tamcolors import tma
+from tamcolors import tam
 
 
 # Charles McMarrow
 
 """
-tma placing finds the x, y coordinates 
+tam placing finds the x, y coordinates 
 """
 
 
@@ -66,9 +66,9 @@ def _get_dimensions(func):
 
         if height is not None:
             checks.checks.range_check(height, 0, None, TMAPlacingError)
-        checks.checks.in_instances_check(buffer, (tma.tma_buffer.TMABuffer, type(None)), TMAPlacingError)
+        checks.checks.in_instances_check(buffer, (tam.tma_buffer.TMABuffer, type(None)), TMAPlacingError)
 
-        if isinstance(buffer, tma.tma_buffer.TMABuffer):
+        if isinstance(buffer, tam.tma_buffer.TMABuffer):
             width, height = buffer.get_dimensions()
 
         return func(x, y, width, height)

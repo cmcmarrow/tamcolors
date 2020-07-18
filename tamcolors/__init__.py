@@ -1,13 +1,13 @@
-from . import tma
-from . import tma_tools
-from . import tma_basic
+from . import tam
+from . import tam_tools
+from . import tam_basic
 from . import examples
 from . import checks
 from . import tests
 
-__all__ = ("tma",
-           "tma_tools",
-           "tma_basic",
+__all__ = ("tam",
+           "tam_tools",
+           "tam_basic",
            "examples",
            "checks",
            "tests")

@@ -1,6 +1,6 @@
 # Charles McMarrow libraries
 from tamcolors import checks
-from tamcolors import tma
+from tamcolors import tam
 
 # Charles McMarrow
 
@@ -70,13 +70,13 @@ def tma_list_buffer(chars, foreground_colors, background_colors):
 
     # make buffer
     try:
-        buffer = tma.tma_buffer.TMABuffer(len(chars[0]),
+        buffer = tam.tma_buffer.TMABuffer(len(chars[0]),
                                           len(chars),
                                           default_char,
                                           default_foreground,
                                           default_background)
     except IndexError:
-        buffer = tma.tma_buffer.TMABuffer(0,
+        buffer = tam.tma_buffer.TMABuffer(0,
                                           len(chars),
                                           default_char,
                                           default_foreground,
