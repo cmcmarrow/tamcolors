@@ -1,4 +1,4 @@
-from tamcolors import tma, tma_tools
+from tamcolors import tam, tam_tools
 
 
 def get_icon():
@@ -36,7 +36,7 @@ def get_icon():
 
         icon_background.append(new_row)
 
-    return tma_tools.tma_list_buffer.tma_list_buffer(icon_chars, 0, icon_background)
+    return tam_tools.tma_list_buffer.tma_list_buffer(icon_chars, 0, icon_background)
 
 
 class BootLogo:
@@ -44,7 +44,7 @@ class BootLogo:
         """
         info: Makes a BootLogo Object. Will display the logo and author's name
         """
-        self.icon = tma_tools.tma_fade.tma_fade_in(get_icon(),
+        self.icon = tam_tools.tma_fade.tma_fade_in(get_icon(),
                                                    " ",
                                                    0,
                                                    0)
@@ -60,9 +60,9 @@ class BootLogo:
         tma_buffer.clear()
 
         tma_buffer.draw_onto(self.icon.peak(),
-                             *tma_tools.tma_placing.center(35, 15, buffer=self.icon.peak()))
+                             *tam_tools.tma_placing.center(35, 15, buffer=self.icon.peak()))
 
-        tma_tools.tma_print.tma_print(tma_buffer, *tma_tools.tma_placing.center(35, 28, len("author"), 1),
+        tam_tools.tma_print.tma_print(tma_buffer, *tam_tools.tma_placing.center(35, 28, len("author"), 1),
                                       "author",
                                       15,
                                       0)
@@ -72,7 +72,7 @@ class BootLogo:
 
     @staticmethod
     def get_frame():
-        return tma.tma_loop.TMAFrame(BootLogo(),
+        return tam.tma_loop.TMAFrame(BootLogo(),
                                      10,
                                      " ",
                                      2,
@@ -81,5 +81,5 @@ class BootLogo:
 
 
 def run():
-    loop = tma.tma_loop.TMALoop(BootLogo.get_frame())
+    loop = tam.tma_loop.TMALoop(BootLogo.get_frame())
     loop.run()

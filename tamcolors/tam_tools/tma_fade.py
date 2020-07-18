@@ -1,13 +1,13 @@
 # Charles McMarrow libraries
 from tamcolors import checks
-from tamcolors import tma
+from tamcolors import tam
 from . import tma_film
 
 
 # Charles McMarrow
 
 """
-tma fade in fades in a buffer
+tam fade in fades in a buffer
 can be reversed 
 """
 
@@ -35,7 +35,7 @@ def tma_fade_in(buffer,
     """
 
     # checks
-    checks.checks.instance_check(buffer, tma.tma_buffer.TMABuffer, TMAFadeInError)
+    checks.checks.instance_check(buffer, tam.tma_buffer.TMABuffer, TMAFadeInError)
     checks.checks.single_block_char_check(char, TMAFadeInError)
     checks.checks.range_check(foreground_color, 0, None, TMAFadeInError)
     checks.checks.range_check(background_color, 0, None, TMAFadeInError)
@@ -59,7 +59,7 @@ def tma_fade_in(buffer,
     done_pool = []
 
     while any((len(start_pool), len(char_pool), len(foreground_pool), len(background_pool))):
-        new_frame = tma.tma_buffer.TMABuffer(*buffer.get_dimensions(), char, foreground_color, background_color)
+        new_frame = tam.tma_buffer.TMABuffer(*buffer.get_dimensions(), char, foreground_color, background_color)
 
         for pixel in done_pool:
             new_frame.set_spot(*pixel)

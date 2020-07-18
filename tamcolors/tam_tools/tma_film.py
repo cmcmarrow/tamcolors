@@ -1,6 +1,6 @@
 # Charles McMarrow libraries
 from tamcolors import checks
-from tamcolors import tma
+from tamcolors import tam
 
 # Charles McMarrow
 
@@ -25,9 +25,9 @@ class TMAFilm:
             tma_buffers = []
 
         # checks
-        checks.checks.in_instances_check(tma_buffers, (tma.tma_buffer.TMABuffer, list, tuple), TMAFilmError)
+        checks.checks.in_instances_check(tma_buffers, (tam.tma_buffer.TMABuffer, list, tuple), TMAFilmError)
 
-        if isinstance(tma_buffers, tma.tma_buffer.TMABuffer):
+        if isinstance(tma_buffers, tam.tma_buffer.TMABuffer):
             tma_buffers = [tma_buffers]
         else:
             tma_buffers = list(tma_buffers)
@@ -45,7 +45,7 @@ class TMAFilm:
         """
         # checks
         checks.checks.instance_check(spot, int, TMAFilmError)
-        checks.checks.instance_check(tma_buffer, tma.tma_buffer.TMABuffer, TMAFilmError)
+        checks.checks.instance_check(tma_buffer, tam.tma_buffer.TMABuffer, TMAFilmError)
 
         self.set(spot, tma_buffer)
 
@@ -86,7 +86,7 @@ class TMAFilm:
         """
         # checks
         checks.checks.range_check(spot, 0, len(self.__buffer_list), TMAFilmError)
-        checks.checks.instance_check(tma_buffer, tma.tma_buffer.TMABuffer, TMAFilmError)
+        checks.checks.instance_check(tma_buffer, tam.tma_buffer.TMABuffer, TMAFilmError)
         self.__buffer_list[spot] = tma_buffer
 
     def get(self, spot):
@@ -136,7 +136,7 @@ class TMAFilm:
         :return:
         """
         # checks
-        checks.checks.instance_check(tma_buffer, tma.tma_buffer.TMABuffer, TMAFilmError)
+        checks.checks.instance_check(tma_buffer, tam.tma_buffer.TMABuffer, TMAFilmError)
         self.__buffer_list.append(tma_buffer)
 
     def pop(self):

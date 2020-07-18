@@ -1,5 +1,5 @@
 # Charles McMarrow libraries
-from tamcolors import tma
+from tamcolors import tam
 from tamcolors import checks
 
 # Charles McMarrow
@@ -14,7 +14,7 @@ class TMAKeyManagerError(Exception):
 
 
 class TMAKeyManager:
-    def __init__(self, all_keys=tma.tma_keys.KEYS):
+    def __init__(self, all_keys=tam.tma_keys.KEYS):
         """
         info: makes a TMAKeyManager object
         :param all_keys: tuple or list: [(str, str), ...]

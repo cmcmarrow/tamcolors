@@ -101,7 +101,7 @@ class UniIO(io_tma.IO):
 
     def draw(self, tma_buffer):
         """
-        info: will draw tma buffer to terminal
+        info: will draw tam buffer to terminal
         :param tma_buffer: TMABuffer
         :return:
         """
@@ -118,7 +118,7 @@ class UniIO(io_tma.IO):
 
     def _draw_2(self, tma_buffer):
         """
-        info: will draw tma buffer to terminal in mode 2
+        info: will draw tam buffer to terminal in mode 2
         :param tma_buffer: TMABuffer
         :return:
         """
@@ -138,7 +138,7 @@ class UniIO(io_tma.IO):
 
     def _draw_16(self, tma_buffer):
         """
-        info: will draw tma buffer to terminal in mode 16
+        info: will draw tam buffer to terminal in mode 16
         :param tma_buffer: TMABuffer
         :return:
         """

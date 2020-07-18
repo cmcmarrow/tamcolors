@@ -7,7 +7,7 @@ import itertools
 
 # Charles McMarrow libraries
 from tamcolors import checks
-from tamcolors.tests.tma import tests
+from tamcolors.tests.tam import tests
 from .tma_buffer import TMABuffer
 from . import any_tma
 from . import tma_loop_test
@@ -39,7 +39,7 @@ class TMALoop:
                  loop_data=None):
         """
         info: makes a TMALoop object
-        :param tma_frame: TMAFrame: first frame in tma loop
+        :param tma_frame: TMAFrame: first frame in tam loop
         :param io_list: list, tuple, None: ios that can be used
         :param any_os: bool: will use ANYIO if no other IO can be used if True
         :param only_any_os: bool: will only use ANYIO if True
@@ -72,7 +72,7 @@ class TMALoop:
         else:
             self.__io = any_tma.get_io(io_list=io_list, any_os=any_os)
             if self.__io is None:
-                raise TMALoopError("tma io is None")
+                raise TMALoopError("tam io is None")
 
         self.__frame_stack = [tma_frame]
         self.__loop_data = loop_data
@@ -86,7 +86,7 @@ class TMALoop:
 
     def __call__(self):
         """
-        info: will run tma loop
+        info: will run tam loop
         :return:
         """
         if self.__running is not None:
@@ -108,7 +108,7 @@ class TMALoop:
 
     def done(self):
         """
-        info: will stop tma loop
+        info: will stop tam loop
         :return:
         """
         if self.__running:
@@ -120,7 +120,7 @@ class TMALoop:
 
     def run(self):
         """
-        info: will call tma loop
+        info: will call tam loop
         :return:
         """
         self()
@@ -128,10 +128,10 @@ class TMALoop:
     @staticmethod
     def run_application(*args, **kwargs):
         """
-        info: will run tma loop as an application
+        info: will run tam loop as an application
         note:
-            when tma loop is done running the program will quit
-            if tma loop has an error and the frame does not catch it
+            when tam loop is done running the program will quit
+            if tam loop has an error and the frame does not catch it
             the error will be printed onto the screen and the program will quit
             after user input
         :param args:

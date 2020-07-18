@@ -1,6 +1,6 @@
 # tamcolors libraries
 from tamcolors import checks
-from tamcolors import tma
+from tamcolors import tam
 from . import tma_str
 
 """
@@ -70,7 +70,7 @@ class TMATextBox:
         self.__background_color = background_color
         self.__char_background = char_background
 
-        self.__buffer = tma.tma_buffer.TMABuffer(width, height, char_background, foreground_color, background_color)
+        self.__buffer = tam.tma_buffer.TMABuffer(width, height, char_background, foreground_color, background_color)
 
         self.__clock = clock
         self.__clock_at = clock
@@ -166,7 +166,7 @@ class TMATextBox:
         :param start_y: int
         :return:
         """
-        checks.checks.instance_check(tma_buffer, tma.tma_buffer.TMABuffer, TMATextBoxError)
+        checks.checks.instance_check(tma_buffer, tam.tma_buffer.TMABuffer, TMATextBoxError)
         checks.checks.instance_check(start_x, int, TMATextBoxError)
         checks.checks.instance_check(start_y, int, TMATextBoxError)
 
@@ -237,7 +237,7 @@ class TMATextBox:
         :return:
         """
 
-        self.__buffer = tma.tma_buffer.TMABuffer(self.__width,
+        self.__buffer = tam.tma_buffer.TMABuffer(self.__width,
                                                  self.__height,
                                                  self.__char_background,
                                                  self.__foreground_color,

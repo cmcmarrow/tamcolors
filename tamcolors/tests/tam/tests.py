@@ -7,90 +7,90 @@ import unittest
 import unittest.mock
 
 # Charles McMarrow libraries
-from tamcolors import tma
+from tamcolors import tam
 
 # Charles McMarrow
 
 """
-tests that checks tma library
+tests that checks tam library
 """
 
 
 class TMABufferTest(unittest.TestCase):
     def test_buffer_init(self):
-        buffer = tma.tma_buffer.TMABuffer(3, 4, "&", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(3, 4, "&", 1, 2)
         self.assertEqual(str(buffer), ("&&&\n"*4)[:-1])
 
     def test_buffer_str(self):
-        buffer = tma.tma_buffer.TMABuffer(3, 400, "&", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(3, 400, "&", 1, 2)
         self.assertEqual(str(buffer), ("&&&\n" * 400)[:-1])
 
     def test_buffer_len(self):
-        buffer = tma.tma_buffer.TMABuffer(5, 4, "&", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(5, 4, "&", 1, 2)
         self.assertEqual(len(buffer), 20)
 
     def test_buffer_len_2(self):
-        buffer = tma.tma_buffer.TMABuffer(50, 6, "&", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(50, 6, "&", 1, 2)
         self.assertEqual(len(buffer), 300)
 
     def test_buffer_len_3(self):
-        buffer = tma.tma_buffer.TMABuffer(55, 65, "&", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(55, 65, "&", 1, 2)
         self.assertEqual(len(buffer), 3575)
         buffer.set_dimensions_and_clear(5, 7)
         self.assertEqual(len(buffer), 35)
 
     def test_buffer_len_4(self):
-        buffer = tma.tma_buffer.TMABuffer(0, 50, "&", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(0, 50, "&", 1, 2)
         self.assertEqual(len(buffer), 0)
 
     def test_buffer_eq(self):
-        buffer = tma.tma_buffer.TMABuffer(25, 50, "&", 1, 2)
-        buffer2 = tma.tma_buffer.TMABuffer(25, 50, "&", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(25, 50, "&", 1, 2)
+        buffer2 = tam.tma_buffer.TMABuffer(25, 50, "&", 1, 2)
         self.assertTrue(buffer == buffer2)
 
     def test_buffer_eq_2(self):
-        buffer = tma.tma_buffer.TMABuffer(25, 50, "&", 1, 2)
-        buffer2 = tma.tma_buffer.TMABuffer(26, 50, "&", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(25, 50, "&", 1, 2)
+        buffer2 = tam.tma_buffer.TMABuffer(26, 50, "&", 1, 2)
         self.assertFalse(buffer == buffer2)
 
     def test_buffer_eq_3(self):
-        buffer = tma.tma_buffer.TMABuffer(25, 50, "&", 1, 2)
-        buffer2 = tma.tma_buffer.TMABuffer(25, 50, "c", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(25, 50, "&", 1, 2)
+        buffer2 = tam.tma_buffer.TMABuffer(25, 50, "c", 1, 2)
         self.assertFalse(buffer == buffer2)
 
     def test_buffer_eq_4(self):
-        buffer = tma.tma_buffer.TMABuffer(25, 50, "&", 1, 2)
-        buffer2 = tma.tma_buffer.TMABuffer(25, 50, "&", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(25, 50, "&", 1, 2)
+        buffer2 = tam.tma_buffer.TMABuffer(25, 50, "&", 1, 2)
         buffer2.set_spot(12, 34, "b", 6, 7)
         self.assertFalse(buffer == buffer2)
 
     def test_buffer_eq_5(self):
-        buffer = tma.tma_buffer.TMABuffer(25, 50, "&", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(25, 50, "&", 1, 2)
         self.assertFalse(buffer == 34)
 
     def test_buffer_ne(self):
-        buffer = tma.tma_buffer.TMABuffer(25, 50, "&", 1, 2)
-        buffer2 = tma.tma_buffer.TMABuffer(25, 50, "&", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(25, 50, "&", 1, 2)
+        buffer2 = tam.tma_buffer.TMABuffer(25, 50, "&", 1, 2)
         self.assertFalse(buffer != buffer2)
 
     def test_buffer_ne_2(self):
-        buffer = tma.tma_buffer.TMABuffer(25, 50, "&", 1, 2)
-        buffer2 = tma.tma_buffer.TMABuffer(26, 50, "&", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(25, 50, "&", 1, 2)
+        buffer2 = tam.tma_buffer.TMABuffer(26, 50, "&", 1, 2)
         self.assertTrue(buffer != buffer2)
 
     def test_buffer_ne_3(self):
-        buffer = tma.tma_buffer.TMABuffer(25, 50, "&", 1, 2)
-        buffer2 = tma.tma_buffer.TMABuffer(25, 50, "c", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(25, 50, "&", 1, 2)
+        buffer2 = tam.tma_buffer.TMABuffer(25, 50, "c", 1, 2)
         self.assertTrue(buffer != buffer2)
 
     def test_buffer_ne_4(self):
-        buffer = tma.tma_buffer.TMABuffer(25, 50, "&", 1, 2)
-        buffer2 = tma.tma_buffer.TMABuffer(25, 50, "&", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(25, 50, "&", 1, 2)
+        buffer2 = tam.tma_buffer.TMABuffer(25, 50, "&", 1, 2)
         buffer2.set_spot(12, 34, "b", 6, 7)
         self.assertTrue(buffer != buffer2)
 
     def test_clear(self):
-        buffer = tma.tma_buffer.TMABuffer(5, 20, ".", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(5, 20, ".", 1, 2)
         for y in range(20):
             for x in range(5):
                 buffer.set_spot(x, y, "@", 9, 10)
@@ -103,58 +103,58 @@ class TMABufferTest(unittest.TestCase):
         self.assertEqual(str(buffer), (".....\n" * 20)[:-1])
 
     def test_get_dimensions(self):
-        buffer = tma.tma_buffer.TMABuffer(5, 20, ".", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(5, 20, ".", 1, 2)
         self.assertEqual(buffer.get_dimensions(), (5, 20))
 
     def test_get_dimensions_2(self):
-        buffer = tma.tma_buffer.TMABuffer(3005, 2200, ".", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(3005, 2200, ".", 1, 2)
         self.assertEqual(buffer.get_dimensions(), (3005, 2200))
 
     def test_get_dimensions_3(self):
-        buffer = tma.tma_buffer.TMABuffer(0, 1, ".", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(0, 1, ".", 1, 2)
         self.assertEqual(buffer.get_dimensions(), (0, 1))
 
     def test_set_dimensions_and_clear(self):
-        buffer = tma.tma_buffer.TMABuffer(5, 20, ".", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(5, 20, ".", 1, 2)
         buffer.set_dimensions_and_clear(2, 3)
         self.assertEqual(str(buffer), ("..\n" * 3)[:-1])
 
     def test_set_dimensions_and_clear_2(self):
-        buffer = tma.tma_buffer.TMABuffer(5, 20, ".", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(5, 20, ".", 1, 2)
         buffer.set_dimensions_and_clear(6, 300)
         self.assertEqual(str(buffer), ("......\n" * 300)[:-1])
 
     def test_get_defaults(self):
-        buffer = tma.tma_buffer.TMABuffer(5, 20, ".", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(5, 20, ".", 1, 2)
         buffer.get_defaults()
         self.assertEqual(buffer.get_defaults(), (".", 1, 2))
 
     def test_set_defaults_and_clear(self):
-        buffer = tma.tma_buffer.TMABuffer(5, 20, ".", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(5, 20, ".", 1, 2)
         buffer.set_defaults_and_clear("L", 5, 6)
         for y in range(20):
             for x in range(5):
                 self.assertEqual(buffer.get_spot(x, y), ("L", 5, 6))
 
     def test_set_defaults_and_clear_2(self):
-        buffer = tma.tma_buffer.TMABuffer(50, 22, ".", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(50, 22, ".", 1, 2)
         buffer.set_defaults_and_clear("A", 7, 2)
         for y in range(22):
             for x in range(50):
                 self.assertEqual(buffer.get_spot(x, y), ("A", 7, 2))
 
     def test_get_raw_buffers(self):
-        buffer = tma.tma_buffer.TMABuffer(50, 22, ".", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(50, 22, ".", 1, 2)
         length = 50 * 22
         self.assertEqual((["."] * length, [1] * length, [2] * length), buffer.get_raw_buffers())
 
     def test_get_raw_buffers_2(self):
-        buffer = tma.tma_buffer.TMABuffer(501, 222, ".", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(501, 222, ".", 1, 2)
         length = 501 * 222
         self.assertEqual((["."] * length, [1] * length, [2] * length), buffer.get_raw_buffers())
 
     def test_copy(self):
-        buffer = tma.tma_buffer.TMABuffer(50, 22, ".", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(50, 22, ".", 1, 2)
         buffer2 = buffer.copy()
 
         for y in range(22):
@@ -164,7 +164,7 @@ class TMABufferTest(unittest.TestCase):
         self.assertNotEqual(str(buffer), str(buffer2))
 
     def test_copy_2(self):
-        buffer = tma.tma_buffer.TMABuffer(55, 23, ".", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(55, 23, ".", 1, 2)
         buffer2 = buffer.copy()
 
         for y in range(23):
@@ -174,7 +174,7 @@ class TMABufferTest(unittest.TestCase):
         self.assertNotEqual(str(buffer), str(buffer2))
 
     def test_get_raw_spot(self):
-        buffer = tma.tma_buffer.TMABuffer(55, 23, ".", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(55, 23, ".", 1, 2)
         raw_spots = []
 
         for y in range(23):
@@ -186,37 +186,37 @@ class TMABufferTest(unittest.TestCase):
         self.assertTrue(all([i in range(0, 55 * 23) for i in raw_spots]))
 
     def test_set_spot(self):
-        buffer = tma.tma_buffer.TMABuffer(3, 4, "&", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(3, 4, "&", 1, 2)
         for y in range(4):
             buffer.set_spot(0, y, 'T', 1, 2)
         self.assertEqual(str(buffer), ("T&&\n"*4)[:-1])
 
     def test_set_spot_2(self):
-        buffer = tma.tma_buffer.TMABuffer(3, 4, "&", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(3, 4, "&", 1, 2)
         for y in range(4):
             buffer.set_spot(y % 3, y, "T", 1, 2)
         self.assertEqual(str(buffer), "T&&\n&T&\n&&T\nT&&")
 
     def test_set_spot_3(self):
-        buffer = tma.tma_buffer.TMABuffer(5, 5, "&", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(5, 5, "&", 1, 2)
         for y in range(5):
             for x in range(5):
                 buffer.set_spot(x, y, str(x), 1, 2)
         self.assertEqual(str(buffer), ("01234\n"*5)[:-1])
 
     def test_set_spot_4(self):
-        buffer = tma.tma_buffer.TMABuffer(5, 5, "&", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(5, 5, "&", 1, 2)
         buffer.set_spot(0, 1, "C", -1, -1)
         self.assertEqual(buffer.get_spot(0, 1), ("C", 1, 2))
 
     def test_set_spot_5(self):
-        buffer = tma.tma_buffer.TMABuffer(5, 5, "&", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(5, 5, "&", 1, 2)
         buffer.set_spot(3, 2, "A", 4, -1)
         buffer.set_spot(3, 2, "C", -1, -1)
         self.assertEqual(buffer.get_spot(3, 2), ("C", 4, 2))
 
     def test_get_spot(self):
-        buffer = tma.tma_buffer.TMABuffer(5, 6, "&", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(5, 6, "&", 1, 2)
 
         buffer.set_spot(0, 0, "A", 2, 3)
         buffer.set_spot(1, 0, "B", 3, 4)
@@ -234,7 +234,7 @@ class TMABufferTest(unittest.TestCase):
         self.assertEqual(buffer.get_spot(-1, 0), None)
 
     def test_get_from_raw_spot(self):
-        buffer = tma.tma_buffer.TMABuffer(5, 6, "&", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(5, 6, "&", 1, 2)
 
         buffer.set_spot(0, 0, "A", 2, 3)
         buffer.set_spot(1, 0, "B", 3, 4)
@@ -252,89 +252,89 @@ class TMABufferTest(unittest.TestCase):
         self.assertEqual(buffer.get_from_raw_spot(30), None)
 
     def test_draw_onto(self):
-        buffer = tma.tma_buffer.TMABuffer(5, 6, "A", 1, 2)
-        buffer2 = tma.tma_buffer.TMABuffer(3, 4, "B", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(5, 6, "A", 1, 2)
+        buffer2 = tam.tma_buffer.TMABuffer(3, 4, "B", 1, 2)
 
         buffer.draw_onto(buffer2)
         self.assertEqual(str(buffer), "BBBAA\n" * 4 + "AAAAA\nAAAAA")
 
     def test_draw_onto_2(self):
-        buffer = tma.tma_buffer.TMABuffer(6, 7, "A", 1, 2)
-        buffer2 = tma.tma_buffer.TMABuffer(3, 4, "B", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(6, 7, "A", 1, 2)
+        buffer2 = tam.tma_buffer.TMABuffer(3, 4, "B", 1, 2)
 
         buffer.draw_onto(buffer2, -1, -1)
         self.assertEqual(str(buffer), ("BBAAAA\n" * 3 + "AAAAAA\n" * 4)[:-1])
 
     def test_draw_onto_3(self):
-        buffer = tma.tma_buffer.TMABuffer(6, 7, "A", 1, 2)
-        buffer2 = tma.tma_buffer.TMABuffer(3, 4, "B", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(6, 7, "A", 1, 2)
+        buffer2 = tam.tma_buffer.TMABuffer(3, 4, "B", 1, 2)
 
         buffer.draw_onto(buffer2, 0, 0, 1, 1)
         self.assertEqual(str(buffer), ("BBAAAA\n" * 3 + "AAAAAA\n" * 4)[:-1])
 
     def test_draw_onto_4(self):
-        buffer = tma.tma_buffer.TMABuffer(6, 7, "A", 1, 2)
-        buffer2 = tma.tma_buffer.TMABuffer(3, 4, "B", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(6, 7, "A", 1, 2)
+        buffer2 = tam.tma_buffer.TMABuffer(3, 4, "B", 1, 2)
 
         buffer.draw_onto(buffer2, -1, -1, 1, 1)
         self.assertEqual(str(buffer), ("BAAAAA\n" * 2 + "AAAAAA\n" * 5)[:-1])
 
     def test_draw_onto_5(self):
-        buffer = tma.tma_buffer.TMABuffer(6, 7, "A", 1, 2)
-        buffer2 = tma.tma_buffer.TMABuffer(3, 4, "B", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(6, 7, "A", 1, 2)
+        buffer2 = tam.tma_buffer.TMABuffer(3, 4, "B", 1, 2)
 
         buffer.draw_onto(buffer2, 0, 0, 2, 2)
         self.assertEqual(str(buffer), ("BAAAAA\n" * 2 + "AAAAAA\n" * 5)[:-1])
 
     def test_draw_onto_6(self):
-        buffer = tma.tma_buffer.TMABuffer(6, 7, "A", 1, 2)
-        buffer2 = tma.tma_buffer.TMABuffer(3, 4, "B", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(6, 7, "A", 1, 2)
+        buffer2 = tam.tma_buffer.TMABuffer(3, 4, "B", 1, 2)
 
         buffer.draw_onto(buffer2, 8, 8)
         self.assertEqual(str(buffer), ("AAAAAA\n" * 7)[:-1])
 
     def test_draw_onto_7(self):
-        buffer = tma.tma_buffer.TMABuffer(6, 7, "A", 1, 2)
-        buffer2 = tma.tma_buffer.TMABuffer(3, 4, "B", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(6, 7, "A", 1, 2)
+        buffer2 = tam.tma_buffer.TMABuffer(3, 4, "B", 1, 2)
 
         buffer.draw_onto(buffer2, 5, 6)
         self.assertEqual(str(buffer), "AAAAAA\n" * 6 + "AAAAAB")
 
     def test_draw_onto_8(self):
-        buffer = tma.tma_buffer.TMABuffer(6, 7, "A", 1, 2)
-        buffer2 = tma.tma_buffer.TMABuffer(3, 4, "B", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(6, 7, "A", 1, 2)
+        buffer2 = tam.tma_buffer.TMABuffer(3, 4, "B", 1, 2)
 
         buffer.draw_onto(buffer2, 1, 1, 0, 0, 2, 2)
         self.assertEqual(str(buffer), ("AAAAAA\n" + "ABBAAA\n" * 2 + "AAAAAA\n" * 4)[:-1])
 
     def test_get_cross_rect(self):
-        buffer = tma.tma_buffer.TMABuffer(5, 6, "A", 1, 2)
-        buffer2 = tma.tma_buffer.TMABuffer(3, 4, "B", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(5, 6, "A", 1, 2)
+        buffer2 = tam.tma_buffer.TMABuffer(3, 4, "B", 1, 2)
 
         self.assertEqual(buffer.get_cross_rect(buffer2, -2, -1, 0, 0), (0, 0, 2, 1, 1, 3))
 
     def test_get_cross_rect_2(self):
-        buffer = tma.tma_buffer.TMABuffer(5, 6, "A", 1, 2)
-        buffer2 = tma.tma_buffer.TMABuffer(3, 4, "B", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(5, 6, "A", 1, 2)
+        buffer2 = tam.tma_buffer.TMABuffer(3, 4, "B", 1, 2)
 
         self.assertEqual(buffer.get_cross_rect(buffer2, -6, -6, -12, -12, 100, 100), (6, 6, 0, 0, 0, 0))
 
 
 class IOTAMTest(unittest.TestCase):
     def test__draw_onto(self):
-        buffer = tma.tma_buffer.TMABuffer(5, 6, "A", 1, 2)
-        buffer2 = tma.tma_buffer.TMABuffer(3, 4, "B", 1, 2)
-        buffer3 = tma.tma_buffer.TMABuffer(5, 6, "A", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(5, 6, "A", 1, 2)
+        buffer2 = tam.tma_buffer.TMABuffer(3, 4, "B", 1, 2)
+        buffer3 = tam.tma_buffer.TMABuffer(5, 6, "A", 1, 2)
 
-        tma.io_tma.IO._draw_onto(buffer, buffer2)
+        tam.io_tma.IO._draw_onto(buffer, buffer2)
         buffer3.draw_onto(buffer2, 1, 1)
 
         self.assertEqual(str(buffer), str(buffer3))
 
     def test__draw_onto_2(self):
-        buffer = tma.tma_buffer.TMABuffer(5, 6, "A", 1, 2)
-        buffer2 = tma.tma_buffer.TMABuffer(3, 4, "B", 1, 2)
-        buffer3 = tma.tma_buffer.TMABuffer(5, 6, "A", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(5, 6, "A", 1, 2)
+        buffer2 = tam.tma_buffer.TMABuffer(3, 4, "B", 1, 2)
+        buffer3 = tam.tma_buffer.TMABuffer(5, 6, "A", 1, 2)
 
         buffer2.set_spot(0, 0, "C", 4, 5)
         buffer2.set_spot(1, 0, "D", 4, 5)
@@ -342,15 +342,15 @@ class IOTAMTest(unittest.TestCase):
         buffer2.set_spot(2, 3, "F", 4, 5)
         buffer2.set_spot(1, 1, "G", 4, 5)
 
-        tma.io_tma.IO._draw_onto(buffer, buffer2)
+        tam.io_tma.IO._draw_onto(buffer, buffer2)
         buffer3.draw_onto(buffer2, 1, 1)
 
         self.assertEqual(str(buffer), str(buffer3))
 
     def test__draw_onto_3(self):
-        buffer = tma.tma_buffer.TMABuffer(50, 60, "A", 1, 2)
-        buffer2 = tma.tma_buffer.TMABuffer(30, 40, "B", 1, 2)
-        buffer3 = tma.tma_buffer.TMABuffer(50, 60, "A", 1, 2)
+        buffer = tam.tma_buffer.TMABuffer(50, 60, "A", 1, 2)
+        buffer2 = tam.tma_buffer.TMABuffer(30, 40, "B", 1, 2)
+        buffer3 = tam.tma_buffer.TMABuffer(50, 60, "A", 1, 2)
 
         buffer2.set_spot(0, 0, "C", 4, 5)
         buffer2.set_spot(1, 0, "D", 4, 5)
@@ -358,7 +358,7 @@ class IOTAMTest(unittest.TestCase):
         buffer2.set_spot(2, 3, "F", 4, 5)
         buffer2.set_spot(1, 1, "G", 4, 5)
 
-        tma.io_tma.IO._draw_onto(buffer, buffer2)
+        tam.io_tma.IO._draw_onto(buffer, buffer2)
 
         buffer3.draw_onto(buffer2, 10, 10)
 
@@ -367,35 +367,35 @@ class IOTAMTest(unittest.TestCase):
 
 class AnyIOTest(unittest.TestCase):
     def test_get_io(self):
-        self.assertIsInstance(tma.any_tma.AnyIO.get_io(), tma.any_tma.AnyIO)
+        self.assertIsInstance(tam.any_tma.AnyIO.get_io(), tam.any_tma.AnyIO)
 
     def test_set_slash_get_mode(self):
-        io = tma.any_tma.AnyIO()
+        io = tam.any_tma.AnyIO()
         io.set_mode(2)
         self.assertEqual(io.get_mode(), 2)
 
     def test_get_modes(self):
-        io = tma.any_tma.AnyIO()
+        io = tam.any_tma.AnyIO()
         self.assertEqual(io.get_modes(), (2, 16))
 
     def test_get_key(self):
-        self.assertEqual(tma.any_tma.AnyIO().get_key(), False)
+        self.assertEqual(tam.any_tma.AnyIO().get_key(), False)
 
     def test_get_dimensions(self):
-        self.assertEqual(tma.any_tma.AnyIO().get_dimensions(), (85, 25))
+        self.assertEqual(tam.any_tma.AnyIO().get_dimensions(), (85, 25))
 
 
 class GetIOTest(unittest.TestCase):
     @staticmethod
     def test_get_io():
-        tma.any_tma.get_io()
+        tam.any_tma.get_io()
 
     def test_get_io_2(self):
-        io = tma.any_tma.get_io(io_list=(), any_os=True)
-        self.assertIsInstance(io, tma.any_tma.AnyIO)
+        io = tam.any_tma.get_io(io_list=(), any_os=True)
+        self.assertIsInstance(io, tam.any_tma.AnyIO)
 
     def test_get_io_3(self):
-        io = tma.any_tma.get_io(io_list=(), any_os=False)
+        io = tam.any_tma.get_io(io_list=(), any_os=False)
         self.assertEqual(io, None)
 
 
@@ -405,22 +405,22 @@ class UniIOTest(unittest.TestCase):
         with unittest.mock.patch.object(os,
                                         "system",
                                         return_value=256) as system:
-            if hasattr(tma.uni_tma.UniIO, "uni_io"):
-                del tma.uni_tma.UniIO.uni_io
+            if hasattr(tam.uni_tma.UniIO, "uni_io"):
+                del tam.uni_tma.UniIO.uni_io
 
-            io = tma.uni_tma.UniIO.get_io()
+            io = tam.uni_tma.UniIO.get_io()
 
             system.assert_called_once_with("test -t 0 -a -t 1 -a -t 2")
 
             self.assertEqual(io, None)
 
     def test_set_slash_get_mode(self):
-        io = tma.uni_tma.UniIO()
+        io = tam.uni_tma.UniIO()
         io.set_mode(2)
         self.assertEqual(io.get_mode(), 2)
 
     def test_get_modes(self):
-        io = tma.uni_tma.UniIO()
+        io = tam.uni_tma.UniIO()
         modes = io.get_modes()
         self.assertIsInstance(modes, tuple)
         modes = list(modes)
@@ -429,17 +429,17 @@ class UniIOTest(unittest.TestCase):
 
     @staticmethod
     def test__draw_2():
-        io = tma.uni_tma.UniIO()
-        with unittest.mock.patch.object(tma.uni_tma.io, "_enable_get_key", return_value=None) as _enable_get_key:
+        io = tam.uni_tma.UniIO()
+        with unittest.mock.patch.object(tam.uni_tma.io, "_enable_get_key", return_value=None) as _enable_get_key:
             with unittest.mock.patch.object(io, "_clear", return_value=None) as _clear:
                 with unittest.mock.patch.object(io, "_show_console_cursor", return_value=None) as _show_console_cursor:
                     with unittest.mock.patch.object(sys.stdout, "write",
                                                     return_value=None) as write:
                         with unittest.mock.patch.object(sys.stdout, "flush", return_value=None) as flush:
-                            with unittest.mock.patch.object(tma.uni_tma.io, "_get_dimension",
+                            with unittest.mock.patch.object(tam.uni_tma.io, "_get_dimension",
                                                             return_value=(15, 10)) as _get_dimension:
                                 io.set_mode(2)
-                                tma_buffer = tma.tma_buffer.TMABuffer(5, 7, "A", 3, 4)
+                                tma_buffer = tam.tma_buffer.TMABuffer(5, 7, "A", 3, 4)
                                 tma_buffer.set_spot(1, 1, "B", 7, 8)
                                 tma_buffer.set_spot(1, 2, "C", 7, 7)
                                 tma_buffer.set_spot(2, 2, "D", 4, 5)
@@ -456,17 +456,17 @@ class UniIOTest(unittest.TestCase):
 
     @staticmethod
     def test__draw_16():
-        io = tma.uni_tma.UniIO()
-        with unittest.mock.patch.object(tma.uni_tma.io, "_enable_get_key", return_value=None) as _enable_get_key:
+        io = tam.uni_tma.UniIO()
+        with unittest.mock.patch.object(tam.uni_tma.io, "_enable_get_key", return_value=None) as _enable_get_key:
             with unittest.mock.patch.object(io, "_clear", return_value=None) as _clear:
                 with unittest.mock.patch.object(io, "_show_console_cursor", return_value=None) as _show_console_cursor:
                     with unittest.mock.patch.object(sys.stdout, "write",
                                                     return_value=None) as write:
                         with unittest.mock.patch.object(sys.stdout, "flush", return_value=None) as flush:
-                            with unittest.mock.patch.object(tma.uni_tma.io, "_get_dimension",
+                            with unittest.mock.patch.object(tam.uni_tma.io, "_get_dimension",
                                                             return_value=(15, 10)) as _get_dimension:
                                 io.set_mode(16)
-                                tma_buffer = tma.tma_buffer.TMABuffer(5, 7, "A", 3, 4)
+                                tma_buffer = tam.tma_buffer.TMABuffer(5, 7, "A", 3, 4)
                                 tma_buffer.set_spot(1, 1, "B", 7, 8)
                                 tma_buffer.set_spot(1, 2, "C", 7, 7)
                                 tma_buffer.set_spot(2, 2, "D", 4, 5)
@@ -483,8 +483,8 @@ class UniIOTest(unittest.TestCase):
 
     @staticmethod
     def test_start():
-        io = tma.uni_tma.UniIO()
-        with unittest.mock.patch.object(tma.uni_tma.io, "_enable_get_key", return_value=None) as _enable_get_key:
+        io = tam.uni_tma.UniIO()
+        with unittest.mock.patch.object(tam.uni_tma.io, "_enable_get_key", return_value=None) as _enable_get_key:
             with unittest.mock.patch.object(io, "_clear", return_value=None) as _clear:
                 with unittest.mock.patch.object(io, "_show_console_cursor", return_value=None) as _show_console_cursor:
                     io.start()
@@ -495,8 +495,8 @@ class UniIOTest(unittest.TestCase):
 
     @staticmethod
     def test_done():
-        io = tma.uni_tma.UniIO()
-        with unittest.mock.patch.object(tma.uni_tma.io, "_disable_get_key", return_value=None) as _disable_get_key:
+        io = tam.uni_tma.UniIO()
+        with unittest.mock.patch.object(tam.uni_tma.io, "_disable_get_key", return_value=None) as _disable_get_key:
             with unittest.mock.patch.object(io, "_clear", return_value=None) as _clear:
                 with unittest.mock.patch.object(io, "_show_console_cursor", return_value=None) as _show_console_cursor:
                     io.done()
@@ -506,52 +506,52 @@ class UniIOTest(unittest.TestCase):
                     _show_console_cursor.assert_called_once_with(True)
 
     def test_get_key(self):
-        with unittest.mock.patch.object(tma.uni_tma.io, "_get_key", side_effect=[65, -1]) as _get_key:
-            io = tma.uni_tma.UniIO()
+        with unittest.mock.patch.object(tam.uni_tma.io, "_get_key", side_effect=[65, -1]) as _get_key:
+            io = tam.uni_tma.UniIO()
             self.assertEqual(io.get_key(), ("A", "NORMAL"))
 
             self.assertEqual(_get_key.call_count, 2)
 
     def test_get_key_2(self):
-        with unittest.mock.patch.object(tma.uni_tma.io, "_get_key", side_effect=[27, 91, 65, -1]) as _get_key:
-            io = tma.uni_tma.UniIO()
+        with unittest.mock.patch.object(tam.uni_tma.io, "_get_key", side_effect=[27, 91, 65, -1]) as _get_key:
+            io = tam.uni_tma.UniIO()
             self.assertEqual(io.get_key(), ("UP", "SPECIAL"))
 
             self.assertEqual(_get_key.call_count, 4)
 
     def test_get_key_3(self):
-        with unittest.mock.patch.object(tma.uni_tma.io, "_get_key", side_effect=[27, 91, 50, 52, 126, -1]) as _get_key:
-            io = tma.uni_tma.UniIO()
+        with unittest.mock.patch.object(tam.uni_tma.io, "_get_key", side_effect=[27, 91, 50, 52, 126, -1]) as _get_key:
+            io = tam.uni_tma.UniIO()
             self.assertEqual(io.get_key(), ("F12", "SPECIAL"))
 
             self.assertEqual(_get_key.call_count, 6)
 
     def test_get_key_4(self):
-        with unittest.mock.patch.object(tma.uni_tma.io, "_get_key", side_effect=[155, 65, -1]) as _get_key:
-            io = tma.uni_tma.UniIO()
+        with unittest.mock.patch.object(tam.uni_tma.io, "_get_key", side_effect=[155, 65, -1]) as _get_key:
+            io = tam.uni_tma.UniIO()
             self.assertEqual(io.get_key(), False)
 
             self.assertEqual(_get_key.call_count, 3)
 
     def test_get_key_5(self):
-        with unittest.mock.patch.object(tma.uni_tma.io,
+        with unittest.mock.patch.object(tam.uni_tma.io,
                                         "_get_key", side_effect=[66, -1, 27, 91, 51, 126, -1]) as _get_key:
-            io = tma.uni_tma.UniIO()
+            io = tam.uni_tma.UniIO()
             self.assertEqual(io.get_key(), ("B", "NORMAL"))
             self.assertEqual(io.get_key(), ("DELETE", "SPECIAL"))
 
             self.assertEqual(_get_key.call_count, 7)
 
     def test_get_dimensions(self):
-        with unittest.mock.patch.object(tma.uni_tma.io, "_get_dimension", return_value=(20, 25)) as _get_dimension:
-            io = tma.uni_tma.UniIO()
+        with unittest.mock.patch.object(tam.uni_tma.io, "_get_dimension", return_value=(20, 25)) as _get_dimension:
+            io = tam.uni_tma.UniIO()
 
             self.assertEqual(io.get_dimensions(), (20, 25))
 
             _get_dimension.assert_called_once_with()
 
     def test_get_key_dict(self):
-        keys = tma.uni_tma.UniIO().get_key_dict()
+        keys = tam.uni_tma.UniIO().get_key_dict()
         for key in keys:
             self.assertIsInstance(key, str)
             self.assertIsInstance(keys.get(key), tuple)
@@ -559,7 +559,7 @@ class UniIOTest(unittest.TestCase):
     @staticmethod
     def test__show_console_cursor():
         with unittest.mock.patch.object(os, "system", return_value=0) as system:
-            io = tma.uni_tma.UniIO()
+            io = tam.uni_tma.UniIO()
             io._show_console_cursor(True)
             if platform.system() != "Darwin":
                 system.assert_called_once_with("setterm -cursor on")
@@ -567,13 +567,13 @@ class UniIOTest(unittest.TestCase):
                 system.assert_not_called()
 
     def test__get_lin_tma_color(self):
-        io = tma.uni_tma.UniIO()
+        io = tam.uni_tma.UniIO()
         self.assertEqual(io._get_lin_tma_color(2, 5), (34, 90))
 
     @staticmethod
     def test__clear():
         with unittest.mock.patch.object(os, "system", return_value=0) as system:
-            io = tma.uni_tma.UniIO()
+            io = tam.uni_tma.UniIO()
             io._clear()
             system.assert_called_once_with("tput reset")
 
@@ -581,26 +581,26 @@ class UniIOTest(unittest.TestCase):
 @unittest.skipIf(platform.system() != "Windows", "Most be on Windows.")
 class WinIOTest(unittest.TestCase):
     def test_get_io(self):
-        with unittest.mock.patch.object(tma.win_tma.io,
+        with unittest.mock.patch.object(tam.win_tma.io,
                                         "_init_default_color",
                                         return_value=0) as _init_default_color:
 
-            if hasattr(tma.win_tma.WinIO, "win_io"):
-                del tma.win_tma.WinIO.win_io
+            if hasattr(tam.win_tma.WinIO, "win_io"):
+                del tam.win_tma.WinIO.win_io
 
-            io = tma.win_tma.WinIO.get_io()
+            io = tam.win_tma.WinIO.get_io()
 
             _init_default_color.assert_called_once_with()
 
             self.assertEqual(io, None)
 
     def test_set_slash_get_mode(self):
-        io = tma.win_tma.WinIO()
+        io = tam.win_tma.WinIO()
         io.set_mode(2)
         self.assertEqual(io.get_mode(), 2)
 
     def test_get_modes(self):
-        io = tma.win_tma.WinIO()
+        io = tam.win_tma.WinIO()
         modes = io.get_modes()
         self.assertIsInstance(modes, tuple)
         modes = list(modes)
@@ -609,14 +609,14 @@ class WinIOTest(unittest.TestCase):
 
     @staticmethod
     def test__draw_2():
-        io = tma.win_tma.WinIO()
-        with unittest.mock.patch.object(tma.win_tma.io, "_get_dimension", return_value=(15, 10)) as _get_dimension:
-            with unittest.mock.patch.object(tma.win_tma.io, "_clear", return_value=None) as _clear:
-                with unittest.mock.patch.object(tma.win_tma.io, "_show_console_cursor", return_value=None) as _show_console_cursor:
+        io = tam.win_tma.WinIO()
+        with unittest.mock.patch.object(tam.win_tma.io, "_get_dimension", return_value=(15, 10)) as _get_dimension:
+            with unittest.mock.patch.object(tam.win_tma.io, "_clear", return_value=None) as _clear:
+                with unittest.mock.patch.object(tam.win_tma.io, "_show_console_cursor", return_value=None) as _show_console_cursor:
                     with unittest.mock.patch.object(io, "_print", return_value=None) as _print:
                         io.set_mode(2)
-                        buffer = tma.tma_buffer.TMABuffer(5, 6, "A", 1, 2)
-                        buffer2 = tma.tma_buffer.TMABuffer(15, 10, " ", 1, 2)
+                        buffer = tam.tma_buffer.TMABuffer(5, 6, "A", 1, 2)
+                        buffer2 = tam.tma_buffer.TMABuffer(15, 10, " ", 1, 2)
 
                         buffer.set_spot(1, 1, "B", 5, 7)
                         buffer.set_spot(4, 4, "C", 5, 7)
@@ -631,14 +631,14 @@ class WinIOTest(unittest.TestCase):
                         _print.assert_called_once_with(0, 0, "".join(c for c in str(buffer2) if c != "\n"), 1, 2)
 
     def test__draw_16(self):
-        io = tma.win_tma.WinIO()
-        with unittest.mock.patch.object(tma.win_tma.io, "_get_dimension", return_value=(15, 10)) as _get_dimension:
-            with unittest.mock.patch.object(tma.win_tma.io, "_clear", return_value=None) as _clear:
-                with unittest.mock.patch.object(tma.win_tma.io, "_show_console_cursor", return_value=None) as _show_console_cursor:
+        io = tam.win_tma.WinIO()
+        with unittest.mock.patch.object(tam.win_tma.io, "_get_dimension", return_value=(15, 10)) as _get_dimension:
+            with unittest.mock.patch.object(tam.win_tma.io, "_clear", return_value=None) as _clear:
+                with unittest.mock.patch.object(tam.win_tma.io, "_show_console_cursor", return_value=None) as _show_console_cursor:
                     with unittest.mock.patch.object(io, "_print", return_value=None) as _print:
                         io.set_mode(16)
-                        buffer = tma.tma_buffer.TMABuffer(5, 6, "A", 1, 2)
-                        buffer2 = tma.tma_buffer.TMABuffer(15, 10, " ", 1, 2)
+                        buffer = tam.tma_buffer.TMABuffer(5, 6, "A", 1, 2)
+                        buffer2 = tam.tma_buffer.TMABuffer(15, 10, " ", 1, 2)
 
                         buffer.set_spot(1, 1, "B", 5, 7)
                         buffer.set_spot(3, 5, "C", 5, 7)
@@ -664,24 +664,24 @@ class WinIOTest(unittest.TestCase):
 
     @staticmethod
     def test_start():
-        with unittest.mock.patch.object(tma.win_tma.io, "_clear", return_value=None) as _clear:
-            with unittest.mock.patch.object(tma.win_tma.io,
+        with unittest.mock.patch.object(tam.win_tma.io, "_clear", return_value=None) as _clear:
+            with unittest.mock.patch.object(tam.win_tma.io,
                                             "_show_console_cursor",
                                             return_value=None) as _show_console_cursor:
-                tma.win_tma.WinIO().start()
+                tam.win_tma.WinIO().start()
 
                 _clear.assert_called_once_with()
                 _show_console_cursor.assert_called_once_with(False)
 
     @staticmethod
     def test_done():
-        with unittest.mock.patch.object(tma.win_tma.io, "_get_default_color", return_value=2) as _get_default_color:
-            with unittest.mock.patch.object(tma.win_tma.io, "_set_cursor_info", return_value=None) as _set_cursor_info:
-                with unittest.mock.patch.object(tma.win_tma.io, "_clear", return_value=None) as _clear:
-                    with unittest.mock.patch.object(tma.win_tma.io,
+        with unittest.mock.patch.object(tam.win_tma.io, "_get_default_color", return_value=2) as _get_default_color:
+            with unittest.mock.patch.object(tam.win_tma.io, "_set_cursor_info", return_value=None) as _set_cursor_info:
+                with unittest.mock.patch.object(tam.win_tma.io, "_clear", return_value=None) as _clear:
+                    with unittest.mock.patch.object(tam.win_tma.io,
                                                     "_show_console_cursor",
                                                     return_value=None) as _show_console_cursor:
-                        tma.win_tma.WinIO().done()
+                        tam.win_tma.WinIO().done()
 
                         _get_default_color.assert_called_once_with()
                         _set_cursor_info.assert_called_once_with(0, 0, 2)
@@ -689,61 +689,61 @@ class WinIOTest(unittest.TestCase):
                         _show_console_cursor.assert_called_once_with(True)
 
     def test_get_key(self):
-        with unittest.mock.patch.object(tma.win_tma.io, "_get_key", side_effect=[65, -1]) as _get_key:
-            io = tma.win_tma.WinIO()
+        with unittest.mock.patch.object(tam.win_tma.io, "_get_key", side_effect=[65, -1]) as _get_key:
+            io = tam.win_tma.WinIO()
             self.assertEqual(io.get_key(), ("A", "NORMAL"))
 
             self.assertEqual(_get_key.call_count, 2)
 
     def test_get_key_2(self):
-        with unittest.mock.patch.object(tma.win_tma.io, "_get_key", side_effect=[224, 72, -1]) as _get_key:
-            io = tma.win_tma.WinIO()
+        with unittest.mock.patch.object(tam.win_tma.io, "_get_key", side_effect=[224, 72, -1]) as _get_key:
+            io = tam.win_tma.WinIO()
             self.assertEqual(io.get_key(), ("UP", "SPECIAL"))
 
             self.assertEqual(_get_key.call_count, 3)
 
     def test_get_key_3(self):
-        with unittest.mock.patch.object(tma.win_tma.io, "_get_key", side_effect=[224, 134, -1]) as _get_key:
-            io = tma.win_tma.WinIO()
+        with unittest.mock.patch.object(tam.win_tma.io, "_get_key", side_effect=[224, 134, -1]) as _get_key:
+            io = tam.win_tma.WinIO()
             self.assertEqual(io.get_key(), ("F12", "SPECIAL"))
 
             self.assertEqual(_get_key.call_count, 3)
 
     def test_get_key_4(self):
-        with unittest.mock.patch.object(tma.win_tma.io, "_get_key", side_effect=[155, 65, -1]) as _get_key:
-            io = tma.win_tma.WinIO()
+        with unittest.mock.patch.object(tam.win_tma.io, "_get_key", side_effect=[155, 65, -1]) as _get_key:
+            io = tam.win_tma.WinIO()
             self.assertEqual(io.get_key(), False)
 
             self.assertEqual(_get_key.call_count, 3)
 
     def test_get_key_5(self):
-        with unittest.mock.patch.object(tma.win_tma.io, "_get_key", side_effect=[66, -1, 224, 83, -1]) as _get_key:
-            io = tma.win_tma.WinIO()
+        with unittest.mock.patch.object(tam.win_tma.io, "_get_key", side_effect=[66, -1, 224, 83, -1]) as _get_key:
+            io = tam.win_tma.WinIO()
             self.assertEqual(io.get_key(), ("B", "NORMAL"))
             self.assertEqual(io.get_key(), ("DELETE", "SPECIAL"))
 
             self.assertEqual(_get_key.call_count, 5)
 
     def test_get_dimensions(self):
-        with unittest.mock.patch.object(tma.win_tma.io, "_get_dimension", return_value=(20, 25)) as _get_dimension:
-            io = tma.win_tma.WinIO()
+        with unittest.mock.patch.object(tam.win_tma.io, "_get_dimension", return_value=(20, 25)) as _get_dimension:
+            io = tam.win_tma.WinIO()
 
             self.assertEqual(io.get_dimensions(), (20, 25))
 
             _get_dimension.assert_called_once_with()
 
     def test_get_key_dict(self):
-        keys = tma.win_tma.WinIO().get_key_dict()
+        keys = tam.win_tma.WinIO().get_key_dict()
         for key in keys:
             self.assertIsInstance(key, str)
             self.assertIsInstance(keys.get(key), tuple)
 
     @staticmethod
     def test__print():
-        with unittest.mock.patch.object(tma.win_tma.io, "_set_cursor_info", return_value=None) as _set_cursor_info:
+        with unittest.mock.patch.object(tam.win_tma.io, "_set_cursor_info", return_value=None) as _set_cursor_info:
             with unittest.mock.patch.object(sys.stdout, "write", return_value=None) as write:
                 with unittest.mock.patch.object(sys.stdout, "flush", return_value=None) as flush:
-                    tma.win_tma.WinIO()._print(10, 12, "test", 2, 5)
+                    tam.win_tma.WinIO()._print(10, 12, "test", 2, 5)
 
                     _set_cursor_info.assert_called_once_with(10, 12, 82)
                     write.assert_called_once_with("test")
@@ -751,10 +751,10 @@ class WinIOTest(unittest.TestCase):
 
     @staticmethod
     def test__print_2():
-        with unittest.mock.patch.object(tma.win_tma.io, "_set_cursor_info", return_value=None) as _set_cursor_info:
+        with unittest.mock.patch.object(tam.win_tma.io, "_set_cursor_info", return_value=None) as _set_cursor_info:
             with unittest.mock.patch.object(sys.stdout, "write", return_value=None) as write:
                 with unittest.mock.patch.object(sys.stdout, "flush", return_value=None) as flush:
-                    tma.win_tma.WinIO()._print(102, 124, "test123", 123, 5)
+                    tam.win_tma.WinIO()._print(102, 124, "test123", 123, 5)
 
                     _set_cursor_info.assert_called_once_with(102, 124, 91)
                     write.assert_called_once_with("test123")
@@ -762,10 +762,10 @@ class WinIOTest(unittest.TestCase):
 
     @staticmethod
     def test__print_3():
-        with unittest.mock.patch.object(tma.win_tma.io, "_set_cursor_info", return_value=None) as _set_cursor_info:
+        with unittest.mock.patch.object(tam.win_tma.io, "_set_cursor_info", return_value=None) as _set_cursor_info:
             with unittest.mock.patch.object(sys.stdout, "write", return_value=None) as write:
                 with unittest.mock.patch.object(sys.stdout, "flush", return_value=None) as flush:
-                    tma.win_tma.WinIO()._print(-102, -124, "", -123, 5)
+                    tam.win_tma.WinIO()._print(-102, -124, "", -123, 5)
 
                     _set_cursor_info.assert_called_once_with(-102, -124, 85)
                     write.assert_called_once_with("")
@@ -774,28 +774,28 @@ class WinIOTest(unittest.TestCase):
 
 class TMAColorTest(unittest.TestCase):
     def test_colors(self):
-        self.assertEqual(tma.tma_colors.BLACK, 0)
-        self.assertEqual(tma.tma_colors.BLUE, 1)
-        self.assertEqual(tma.tma_colors.GREEN, 2)
-        self.assertEqual(tma.tma_colors.AQUA, 3)
-        self.assertEqual(tma.tma_colors.RED, 4)
-        self.assertEqual(tma.tma_colors.PURPLE, 5)
-        self.assertEqual(tma.tma_colors.YELLOW, 6)
-        self.assertEqual(tma.tma_colors.WHITE, 7)
-        self.assertEqual(tma.tma_colors.GRAY, 8)
-        self.assertEqual(tma.tma_colors.LIGHT_BLUE, 9)
-        self.assertEqual(tma.tma_colors.LIGHT_GREEN, 10)
-        self.assertEqual(tma.tma_colors.LIGHT_AQUA, 11)
-        self.assertEqual(tma.tma_colors.LIGHT_RED, 12)
-        self.assertEqual(tma.tma_colors.LIGHT_PURPLE, 13)
-        self.assertEqual(tma.tma_colors.LIGHT_YELLOW, 14)
-        self.assertEqual(tma.tma_colors.LIGHT_WHITE, 15)
+        self.assertEqual(tam.tma_colors.BLACK, 0)
+        self.assertEqual(tam.tma_colors.BLUE, 1)
+        self.assertEqual(tam.tma_colors.GREEN, 2)
+        self.assertEqual(tam.tma_colors.AQUA, 3)
+        self.assertEqual(tam.tma_colors.RED, 4)
+        self.assertEqual(tam.tma_colors.PURPLE, 5)
+        self.assertEqual(tam.tma_colors.YELLOW, 6)
+        self.assertEqual(tam.tma_colors.WHITE, 7)
+        self.assertEqual(tam.tma_colors.GRAY, 8)
+        self.assertEqual(tam.tma_colors.LIGHT_BLUE, 9)
+        self.assertEqual(tam.tma_colors.LIGHT_GREEN, 10)
+        self.assertEqual(tam.tma_colors.LIGHT_AQUA, 11)
+        self.assertEqual(tam.tma_colors.LIGHT_RED, 12)
+        self.assertEqual(tam.tma_colors.LIGHT_PURPLE, 13)
+        self.assertEqual(tam.tma_colors.LIGHT_YELLOW, 14)
+        self.assertEqual(tam.tma_colors.LIGHT_WHITE, 15)
 
 
 class TMAKeyTest(unittest.TestCase):
     def test_keys(self):
-        self.assertIsInstance(tma.tma_keys.KEYS, set)
-        for key in tma.tma_keys.KEYS:
+        self.assertIsInstance(tam.tma_keys.KEYS, set)
+        for key in tam.tma_keys.KEYS:
             self.assertIsInstance(key, tuple)
             self.assertEqual(len(key), 2)
             self.assertIsInstance(key[0], str)
@@ -804,13 +804,13 @@ class TMAKeyTest(unittest.TestCase):
 
 class TMALoopTest(unittest.TestCase):
     def test_loop_init(self):
-        frame = tma.tma_loop.TMAFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
-        tma.tma_loop.TMALoop(frame, only_any_os=True)
+        frame = tam.tma_loop.TMAFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
+        tam.tma_loop.TMALoop(frame, only_any_os=True)
 
     def test_run(self):
         dummy = self._get_dummy_frame()
-        frame = tma.tma_loop.TMAFrame(dummy, 5, "A", 3, 4, 25, 35, 26, 36)
-        loop = tma.tma_loop.TMALoop(frame, only_any_os=True)
+        frame = tam.tma_loop.TMAFrame(dummy, 5, "A", 3, 4, 25, 35, 26, 36)
+        loop = tam.tma_loop.TMALoop(frame, only_any_os=True)
         with unittest.mock.patch.object(threading.Thread, "start", return_value=None) as start:
             with unittest.mock.patch.object(threading.Thread, "join", return_value=None) as join:
                 with unittest.mock.patch.object(dummy, "done", return_value=None) as done:
@@ -828,10 +828,10 @@ class TMALoopTest(unittest.TestCase):
 
     def test_stack(self):
         dummy = self._get_dummy_frame()
-        frame = tma.tma_loop.TMAFrame(dummy, 5, "A", 3, 4, 25, 35, 26, 36)
-        loop = tma.tma_loop.TMALoop(frame, only_any_os=True)
+        frame = tam.tma_loop.TMAFrame(dummy, 5, "A", 3, 4, 25, 35, 26, 36)
+        loop = tam.tma_loop.TMALoop(frame, only_any_os=True)
         dummy2 = self._get_dummy_frame()
-        frame2 = tma.tma_loop.TMAFrame(dummy2, 5, "B", 3, 4, 25, 35, 26, 36)
+        frame2 = tam.tma_loop.TMAFrame(dummy2, 5, "B", 3, 4, 25, 35, 26, 36)
 
         with unittest.mock.patch.object(dummy2, "done", return_value=True) as done:
             loop.add_frame_stack(frame2)
@@ -859,86 +859,86 @@ class TMALoopTest(unittest.TestCase):
 
 class TMAFrameTest(unittest.TestCase):
     def test_frame_init(self):
-        tma.tma_loop.TMAFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
+        tam.tma_loop.TMAFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
 
     def test_get_fps(self):
-        frame = tma.tma_loop.TMAFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
+        frame = tam.tma_loop.TMAFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
         self.assertEqual(frame.get_fps(), 5)
 
     def test_get_fps_2(self):
-        frame = tma.tma_loop.TMAFrame(self._get_dummy_frame(), 10, "A", 3, 4, 25, 35, 26, 36)
+        frame = tam.tma_loop.TMAFrame(self._get_dummy_frame(), 10, "A", 3, 4, 25, 35, 26, 36)
         self.assertEqual(frame.get_fps(), 10)
 
     def test_get_defaults(self):
-        frame = tma.tma_loop.TMAFrame(self._get_dummy_frame(), 10, "A", 3, 4, 25, 35, 26, 36)
+        frame = tam.tma_loop.TMAFrame(self._get_dummy_frame(), 10, "A", 3, 4, 25, 35, 26, 36)
         self.assertEqual(frame.get_defaults(), ("A", 3, 4))
 
     def test_get_defaults_2(self):
-        frame = tma.tma_loop.TMAFrame(self._get_dummy_frame(), 10, "C", 5, 8, 25, 35, 26, 36)
+        frame = tam.tma_loop.TMAFrame(self._get_dummy_frame(), 10, "C", 5, 8, 25, 35, 26, 36)
         self.assertEqual(frame.get_defaults(), ("C", 5, 8))
 
     def test_get_width_min_and_max(self):
-        frame = tma.tma_loop.TMAFrame(self._get_dummy_frame(), 10, "C", 5, 8, 25, 35, 26, 36)
+        frame = tam.tma_loop.TMAFrame(self._get_dummy_frame(), 10, "C", 5, 8, 25, 35, 26, 36)
         self.assertEqual(frame.get_width_min_and_max(), (25, 35))
 
     def test_get_width_min_and_max_2(self):
-        frame = tma.tma_loop.TMAFrame(self._get_dummy_frame(), 10, "C", 5, 8, 15, 45, 26, 36)
+        frame = tam.tma_loop.TMAFrame(self._get_dummy_frame(), 10, "C", 5, 8, 15, 45, 26, 36)
         self.assertEqual(frame.get_width_min_and_max(), (15, 45))
 
     def test_get_height_min_and_max(self):
-        frame = tma.tma_loop.TMAFrame(self._get_dummy_frame(), 10, "C", 5, 8, 25, 35, 26, 36)
+        frame = tam.tma_loop.TMAFrame(self._get_dummy_frame(), 10, "C", 5, 8, 25, 35, 26, 36)
         self.assertEqual(frame.get_height_min_and_max(), (26, 36))
 
     def test_get_height_min_and_max_2(self):
-        frame = tma.tma_loop.TMAFrame(self._get_dummy_frame(), 10, "C", 5, 8, 15, 45, 47, 58)
+        frame = tam.tma_loop.TMAFrame(self._get_dummy_frame(), 10, "C", 5, 8, 15, 45, 47, 58)
         self.assertEqual(frame.get_height_min_and_max(), (47, 58))
 
     def test_make_buffer_ready(self):
-        frame = tma.tma_loop.TMAFrame(self._get_dummy_frame(), 10, "C", 5, 8, 15, 45, 47, 58)
-        buffer = tma.tma_buffer.TMABuffer(30, 32, "C", 1, 2)
+        frame = tam.tma_loop.TMAFrame(self._get_dummy_frame(), 10, "C", 5, 8, 15, 45, 47, 58)
+        buffer = tam.tma_buffer.TMABuffer(30, 32, "C", 1, 2)
         frame.make_buffer_ready(buffer, 46, 59)
         self.assertEqual(buffer.get_dimensions(), (45, 58))
 
     def test_make_buffer_ready_2(self):
-        frame = tma.tma_loop.TMAFrame(self._get_dummy_frame(), 10, "C", 5, 8, 15, 45, 47, 58)
-        buffer = tma.tma_buffer.TMABuffer(30, 32, "C", 1, 2)
+        frame = tam.tma_loop.TMAFrame(self._get_dummy_frame(), 10, "C", 5, 8, 15, 45, 47, 58)
+        buffer = tam.tma_buffer.TMABuffer(30, 32, "C", 1, 2)
         frame.make_buffer_ready(buffer, 1, 2)
         self.assertEqual(buffer.get_dimensions(), (15, 47))
 
     def test_make_buffer_ready_3(self):
-        frame = tma.tma_loop.TMAFrame(self._get_dummy_frame(), 10, "C", 5, 8, 15, 45, 47, 58)
-        buffer = tma.tma_buffer.TMABuffer(30, 32, "C", 1, 2)
+        frame = tam.tma_loop.TMAFrame(self._get_dummy_frame(), 10, "C", 5, 8, 15, 45, 47, 58)
+        buffer = tam.tma_buffer.TMABuffer(30, 32, "C", 1, 2)
         frame.make_buffer_ready(buffer, 33, 48)
         self.assertEqual(buffer.get_dimensions(), (33, 48))
 
     def test_update(self):
         dummy = self._get_dummy_frame()
-        frame = tma.tma_loop.TMAFrame(dummy, 10, "C", 5, 8, 15, 45, 47, 58)
-        loop = tma.tma_loop.TMALoop(frame, only_any_os=True)
+        frame = tam.tma_loop.TMAFrame(dummy, 10, "C", 5, 8, 15, 45, 47, 58)
+        loop = tam.tma_loop.TMALoop(frame, only_any_os=True)
         with unittest.mock.patch.object(dummy, "update", return_value=None) as update:
             frame.update(loop, (), {})
             update.assert_called_once_with(loop, (), {})
 
     def test_draw(self):
         dummy = self._get_dummy_frame()
-        frame = tma.tma_loop.TMAFrame(dummy, 10, "C", 5, 8, 15, 45, 47, 58)
-        buffer = tma.tma_buffer.TMABuffer(30, 32, "C", 1, 2)
+        frame = tam.tma_loop.TMAFrame(dummy, 10, "C", 5, 8, 15, 45, 47, 58)
+        buffer = tam.tma_buffer.TMABuffer(30, 32, "C", 1, 2)
         with unittest.mock.patch.object(dummy, "draw", return_value=None) as draw:
             frame.draw(buffer, {})
             draw.assert_called_once_with(buffer, {})
 
     def test_done(self):
         dummy = self._get_dummy_frame()
-        frame = tma.tma_loop.TMAFrame(dummy, 10, "C", 5, 8, 15, 45, 47, 58)
-        loop = tma.tma_loop.TMALoop(frame, only_any_os=True)
+        frame = tam.tma_loop.TMAFrame(dummy, 10, "C", 5, 8, 15, 45, 47, 58)
+        loop = tam.tma_loop.TMALoop(frame, only_any_os=True)
         with unittest.mock.patch.object(dummy, "done", return_value=None) as done:
             frame.done(loop, {})
             done.assert_called_once_with(loop, {})
 
     def test_done_2(self):
         dummy = self._get_dummy_frame()
-        frame = tma.tma_loop.TMAFrame(dummy, 10, "C", 5, 8, 15, 45, 47, 58)
-        loop = tma.tma_loop.TMALoop(frame, only_any_os=True)
+        frame = tam.tma_loop.TMAFrame(dummy, 10, "C", 5, 8, 15, 45, 47, 58)
+        loop = tam.tma_loop.TMALoop(frame, only_any_os=True)
         with unittest.mock.patch.object(dummy, "done", return_value=None) as done:
             frame.done(loop, {})
             frame.done(loop, {})
@@ -964,14 +964,14 @@ class TMAFrameTest(unittest.TestCase):
 
 class TMALoopTestTest(unittest.TestCase):
     def test_loop_init(self):
-        frame = tma.tma_loop.TMAFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
-        loop = tma.tma_loop_test.TMALoopTest(frame)
+        frame = tam.tma_loop.TMAFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
+        loop = tam.tma_loop_test.TMALoopTest(frame)
 
-        self.assertIsInstance(loop, tma.tma_loop_test.TMALoopTest)
+        self.assertIsInstance(loop, tam.tma_loop_test.TMALoopTest)
 
     def test_loop_call(self):
-        frame = tma.tma_loop.TMAFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
-        loop = tma.tma_loop_test.TMALoopTest(frame)
+        frame = tam.tma_loop.TMAFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
+        loop = tam.tma_loop_test.TMALoopTest(frame)
         self.assertEqual(loop.get_running(), None)
         loop()
         self.assertEqual(loop.get_running(), True)
@@ -982,8 +982,8 @@ class TMALoopTestTest(unittest.TestCase):
         self.assertEqual(loop.get_running(), False)
 
     def test_done(self):
-        frame = tma.tma_loop.TMAFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
-        loop = tma.tma_loop_test.TMALoopTest(frame)
+        frame = tam.tma_loop.TMAFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
+        loop = tam.tma_loop_test.TMALoopTest(frame)
         self.assertEqual(loop.get_running(), None)
         loop.done()
         self.assertEqual(loop.get_running(), None)
@@ -992,8 +992,8 @@ class TMALoopTestTest(unittest.TestCase):
         self.assertEqual(loop.get_running(), False)
 
     def test_run(self):
-        frame = tma.tma_loop.TMAFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
-        loop = tma.tma_loop_test.TMALoopTest(frame)
+        frame = tam.tma_loop.TMAFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
+        loop = tam.tma_loop_test.TMALoopTest(frame)
         self.assertEqual(loop.get_running(), None)
         loop.run()
         self.assertEqual(loop.get_running(), True)
@@ -1004,17 +1004,17 @@ class TMALoopTestTest(unittest.TestCase):
         self.assertEqual(loop.get_running(), False)
 
     def test_get_runner(self):
-        frame = tma.tma_loop.TMAFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
-        loop = tma.tma_loop_test.TMALoopTest(frame)
+        frame = tam.tma_loop.TMAFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
+        loop = tam.tma_loop_test.TMALoopTest(frame)
         self.assertEqual(loop.get_running(), None)
         loop()
         self.assertEqual(loop.get_running(), True)
 
     def test_add_frame_stack(self):
-        frame_1 = tma.tma_loop.TMAFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
-        frame_2 = tma.tma_loop.TMAFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
-        frame_3 = tma.tma_loop.TMAFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
-        loop = tma.tma_loop_test.TMALoopTest(frame_1)
+        frame_1 = tam.tma_loop.TMAFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
+        frame_2 = tam.tma_loop.TMAFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
+        frame_3 = tam.tma_loop.TMAFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
+        loop = tam.tma_loop_test.TMALoopTest(frame_1)
 
         loop.add_frame_stack(frame_2)
         loop.add_frame_stack(frame_3)
@@ -1025,8 +1025,8 @@ class TMALoopTestTest(unittest.TestCase):
         self.assertIs(loop.pop_frame_stack(), None)
 
     def test_pop_frame_stack(self):
-        frame = tma.tma_loop.TMAFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
-        loop = tma.tma_loop_test.TMALoopTest(frame)
+        frame = tam.tma_loop.TMAFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
+        loop = tam.tma_loop_test.TMALoopTest(frame)
 
         self.assertIs(loop.pop_frame_stack(), frame)
         self.assertIs(loop.pop_frame_stack(), None)
@@ -1050,8 +1050,8 @@ class TMALoopTestTest(unittest.TestCase):
         update_func = unittest.mock.Mock()
         draw_func = unittest.mock.Mock()
         done_func = unittest.mock.Mock()
-        frame = tma.tma_loop.TMAFrame(Dummy(update_func, draw_func, done_func), 5, "A", 3, 4, 25, 35, 26, 36)
-        loop = tma.tma_loop_test.TMALoopTest(frame)
+        frame = tam.tma_loop.TMAFrame(Dummy(update_func, draw_func, done_func), 5, "A", 3, 4, 25, 35, 26, 36)
+        loop = tam.tma_loop_test.TMALoopTest(frame)
 
         loop()
         buffer_1 = loop.update((), 26, 35)[0]
@@ -1107,8 +1107,8 @@ class TMALoopTestTest(unittest.TestCase):
         update_func = unittest.mock.Mock()
         draw_func = unittest.mock.Mock()
         done_func = unittest.mock.Mock()
-        frame = tma.tma_loop.TMAFrame(Dummy(update_func, draw_func, done_func), 5, "A", 3, 4, 25, 35, 26, 36)
-        loop = tma.tma_loop_test.TMALoopTest(frame)
+        frame = tam.tma_loop.TMAFrame(Dummy(update_func, draw_func, done_func), 5, "A", 3, 4, 25, 35, 26, 36)
+        loop = tam.tma_loop_test.TMALoopTest(frame)
 
         loop()
         self.assertRaises(TypeError, loop.update, (), 34, 34)
@@ -1139,8 +1139,8 @@ class TMALoopTestTest(unittest.TestCase):
             def done(self, tma_loop, loop_data):
                 pass
 
-        frame = tma.tma_loop.TMAFrame(Dummy(), 5, "A", 3, 4, 25, 35, 26, 36)
-        loop = tma.tma_loop_test.TMALoopTest(frame)
+        frame = tam.tma_loop.TMAFrame(Dummy(), 5, "A", 3, 4, 25, 35, 26, 36)
+        loop = tam.tma_loop_test.TMALoopTest(frame)
         loop()
 
         loop.update((), 23, 23)
@@ -1156,11 +1156,11 @@ class TMALoopTestTest(unittest.TestCase):
         self.assertFalse(loop.get_running())
 
     def test_update_4(self):
-        frame_1 = tma.tma_loop.TMAFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
-        frame_2 = tma.tma_loop.TMAFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
-        frame_3 = tma.tma_loop.TMAFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
+        frame_1 = tam.tma_loop.TMAFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
+        frame_2 = tam.tma_loop.TMAFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
+        frame_3 = tam.tma_loop.TMAFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
 
-        loop = tma.tma_loop_test.TMALoopTest(frame_1)
+        loop = tam.tma_loop_test.TMALoopTest(frame_1)
 
         loop()
         _, frame = loop.update((), 23, 24)
@@ -1228,13 +1228,13 @@ class TMALoopTestTest(unittest.TestCase):
 
 class StandardTest(unittest.TestCase):
     def test_same_keys(self):
-        uni_key_dict = tma.uni_tma.UniIO.get_key_dict()
-        win_key_dict = tma.win_tma.WinIO.get_key_dict()
+        uni_key_dict = tam.uni_tma.UniIO.get_key_dict()
+        win_key_dict = tam.win_tma.WinIO.get_key_dict()
 
         uni_key_set = set([uni_key_dict[key] for key in uni_key_dict])
         win_key_set = set([win_key_dict[key] for key in win_key_dict])
 
-        keys_sets = (uni_key_set, win_key_set, tma.tma_keys.KEYS)
+        keys_sets = (uni_key_set, win_key_set, tam.tma_keys.KEYS)
         for key_set in keys_sets:
             for key in key_set:
                 for other_key_set in keys_sets:

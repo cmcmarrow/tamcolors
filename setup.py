@@ -5,11 +5,11 @@ import os
 
 ext_modules = []
 if platform.system() == "Windows":
-    ext_modules.append(Extension("tamcolors.tma._win_tma", sources=[os.path.join("tamcolors", "tma", "_win_tma", "_win_tma.cpp"),
-                                                                    os.path.join("tamcolors", "tma", "_win_tma", "win_tma.cpp")]))
+    ext_modules.append(Extension("tamcolors.tam._win_tma", sources=[os.path.join("tamcolors", "tam", "_win_tma", "_win_tma.cpp"),
+                                                                    os.path.join("tamcolors", "tam", "_win_tma", "win_tma.cpp")]))
 elif platform.system() in ("Darwin", "Linux"):
-    ext_modules.append(Extension("tamcolors.tma._uni_tma", sources=[os.path.join("tamcolors", "tma", "_uni_tma", "_uni_tma.cpp"),
-                                                                    os.path.join("tamcolors", "tma", "_uni_tma", "uni_tma.cpp")]))
+    ext_modules.append(Extension("tamcolors.tam._uni_tma", sources=[os.path.join("tamcolors", "tam", "_uni_tma", "_uni_tma.cpp"),
+                                                                    os.path.join("tamcolors", "tam", "_uni_tma", "uni_tma.cpp")]))
 
 
 setup(
@@ -20,14 +20,14 @@ setup(
     license="Apache Software License 2.0",
 
     packages=["tamcolors",
-              "tamcolors.tma",
-              "tamcolors.tma_tools",
-              "tamcolors.tma_basic",
+              "tamcolors.tam",
+              "tamcolors.tam_tools",
+              "tamcolors.tam_basic",
               "tamcolors.examples",
               "tamcolors.checks",
               "tamcolors.tests",
-              "tamcolors.tests.tma",
-              "tamcolors.tests.tma_tools"],
+              "tamcolors.tests.tam",
+              "tamcolors.tests.tam_tools"],
 
     ext_modules=ext_modules,
 
