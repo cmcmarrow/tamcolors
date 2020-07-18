@@ -1,11 +1,12 @@
 from . import any_tma
 from . import io_tma
-from . import tests
 from . import tma_buffer
 from . import tma_colors
 from . import tma_keys
 from . import tma_loop
 from . import tma_loop_test
+from . import win_tma
+from . import uni_tma
 
 # Charles McMarrow
 
@@ -29,9 +30,10 @@ __all__ = ("__author__",
            "__license__",
            "any_tma",
            "io_tma",
-           "tests",
            "tma_buffer",
            "tma_colors",
            "tma_keys",
            "tma_loop",
-           "tma_loop_test")
+           "tma_loop_test",
+           "win_tma",
+           "uni_tma")
