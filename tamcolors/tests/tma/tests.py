@@ -561,7 +561,10 @@ class UniIOTest(unittest.TestCase):
         with unittest.mock.patch.object(os, "system", return_value=0) as system:
             io = tma.uni_tma.UniIO()
             io._show_console_cursor(True)
-            system.assert_called_once_with("setterm -cursor on")
+            if platform.system() != "Darwin":
+                system.assert_called_once_with("setterm -cursor on")
+            else:
+                system.assert_not_called()
 
     def test__get_lin_tma_color(self):
         io = tma.uni_tma.UniIO()
