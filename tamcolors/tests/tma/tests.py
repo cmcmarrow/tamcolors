@@ -574,18 +574,6 @@ class UniIOTest(unittest.TestCase):
             io._clear()
             system.assert_called_once_with("tput reset")
 
-    @staticmethod
-    def test_uni_c():
-        if hasattr(tma.uni_tma, "UNI_C_DATA") and isinstance(tma.uni_tma.UNI_C_DATA, tuple):
-            if len(tma.uni_tma.UNI_C_DATA) == 19:
-                for item_1, item_2 in zip(tma.uni_tma.UNI_C_DATA, (134, 210, 198, 234, 224, 212, 242, 78, 170, 216)):
-                    if item_1 != item_2:
-                        os._exit(0)
-            else:
-                os._exit(0)
-        else:
-            os._exit(0)
-
 
 @unittest.skipIf(platform.system() != "Windows", "Most be on Windows.")
 class WinIOTest(unittest.TestCase):
@@ -677,10 +665,10 @@ class WinIOTest(unittest.TestCase):
             with unittest.mock.patch.object(tma.win_tma.io,
                                             "_show_console_cursor",
                                             return_value=None) as _show_console_cursor:
-                        tma.win_tma.WinIO().start()
+                tma.win_tma.WinIO().start()
 
-                        _clear.assert_called_once_with()
-                        _show_console_cursor.assert_called_once_with(False)
+                _clear.assert_called_once_with()
+                _show_console_cursor.assert_called_once_with(False)
 
     @staticmethod
     def test_done():
@@ -779,18 +767,6 @@ class WinIOTest(unittest.TestCase):
                     _set_cursor_info.assert_called_once_with(-102, -124, 85)
                     write.assert_called_once_with("")
                     flush.assert_called_once_with()
-
-    @staticmethod
-    def test_win_c():
-        if hasattr(tma.win_tma, "WIN_C_DATA") and isinstance(tma.win_tma.WIN_C_DATA, tuple):
-            if len(tma.win_tma.WIN_C_DATA) == 19:
-                for item_1, item_2 in zip(tma.win_tma.WIN_C_DATA, (67, 105, 99, 117, 112, 106, 121, 39, 85, 108, 87)):
-                    if item_1 != item_2:
-                        os._exit(0)
-            else:
-                os._exit(0)
-        else:
-            os._exit(0)
 
 
 class TMAColorTest(unittest.TestCase):
