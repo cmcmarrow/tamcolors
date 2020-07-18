@@ -21,8 +21,6 @@ color mode 2
 color mode 16
 """
 
-WIN_C_DATA = (67, 105, 99, 117, 112, 106, 121, 39, 85, 108, 87, 108, 126, 127, 125, 134, 48, 90, 104)
-
 
 class WinIOError(Exception):
     pass
