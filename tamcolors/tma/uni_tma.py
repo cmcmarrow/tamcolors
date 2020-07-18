@@ -38,7 +38,7 @@ class UniIO(io_tma.IO):
         self.__mode = 16
         self.__modes = {2: self._draw_2,
                         16: self._draw_16}
-        self.__buffer = tma.tma_buffer.TMABuffer(0, 0, " ", 1, 1)
+        self.__buffer = TMABuffer(0, 0, " ", 1, 1)
         self.__unix_keys = self.get_key_dict()
 
         self.__color_map = {0: 232,
