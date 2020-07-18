@@ -2,7 +2,7 @@
 import copy
 
 # Charles McMarrow library
-import checks.checks
+from tamcolors import checks
 
 # Charles McMarrow
 
