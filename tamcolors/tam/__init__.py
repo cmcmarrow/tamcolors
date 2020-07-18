@@ -8,8 +8,6 @@ from . import tma_loop_test
 from . import win_tma
 from . import uni_tma
 
-# Charles McMarrow
-
 """
 tam draws text with color to the terminal
 tam can get key input from the terminal

@@ -10,8 +10,6 @@ from . import tma_str
 from . import tma_text_box
 
 
-# Charles McMarrow
-
 """
 tam_tools gives tools that support tam
 """

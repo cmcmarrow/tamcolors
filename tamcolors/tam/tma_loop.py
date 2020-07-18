@@ -7,7 +7,7 @@ import itertools
 
 # Charles McMarrow libraries
 from tamcolors import checks
-from tamcolors.tests.tam import tests
+from tamcolors.tests import stability_check
 from .tma_buffer import TMABuffer
 from . import any_tma
 from . import tma_loop_test
@@ -58,8 +58,8 @@ class TMALoop:
         checks.checks.instance_check(color_change_key, str, TMALoopError)
         checks.checks.instance_check(loop_data, dict, TMALoopError)
 
-        if not tests.tma_stability_check():
-            test_results = tests.tma_stability_check(ret_bool=False)
+        if not stability_check.tma_stability_check():
+            test_results = stability_check.tma_stability_check(ret_bool=False)
             raise TMALoopError("TMA is corrupted! {0} out of {1} tests passed".format(*test_results))
 
         self.__running = None
