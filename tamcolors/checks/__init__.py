@@ -1,5 +1,5 @@
-from checks import checks
-from checks import tests
+from tamcolors import checks
+from tamcolors import tests
 
 # Charles McMarrow
 

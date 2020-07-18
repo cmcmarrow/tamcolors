@@ -3,11 +3,6 @@ import platform
 import os
 
 
-def readme():
-    with open(os.path.join("tamcolors", "README")) as f:
-        return f.read()
-
-
 ext_modules = []
 if platform.system() == "Windows":
     ext_modules.append(Extension("tamcolors.tma._win_tma", sources=[os.path.join("tamcolors", "tma", "_win_tma", "_win_tma.cpp"),
@@ -33,9 +28,9 @@ setup(
               "tamcolors.tests",
               "tamcolors.tests.tma",
               "tamcolors.tests.tma_tools"],
-    long_description=readme(),
-    package_data={"tamcolors": ["README"]},
+
     ext_modules=ext_modules,
+
     classifiers=["Development Status :: 5 - Production/Stable",
                  "Environment :: Console",
                  "Intended Audience :: Developers",

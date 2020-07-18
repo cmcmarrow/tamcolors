@@ -1,5 +1,5 @@
 # Charles McMarrow libraries
-import checks
+from tamcolors import checks
 from tamcolors import tma
 from . import tma_film
 

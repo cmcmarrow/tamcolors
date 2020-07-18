@@ -1,8 +1,8 @@
 # built in libraries
 import string
 
-# Charles McMarrow libraries
-import checks
+# tamcolors libraries
+from tamcolors import checks
 
 
 # Charles McMarrow

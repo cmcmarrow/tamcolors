@@ -2,7 +2,7 @@
 import itertools
 
 # Charles McMarrow library
-import checks
+from tamcolors import checks
 
 # Charles McMarrow
 

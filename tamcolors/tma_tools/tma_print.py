@@ -1,12 +1,7 @@
-# built in library
-import string
-
-# Charles McMarrow libraries
+# tamcolors libraries
 from tamcolors import checks
 from tamcolors import tma
 from . import tma_str
-
-# Charles McMarrow
 
 """
 tma_print will draw string on a tma_buffer
