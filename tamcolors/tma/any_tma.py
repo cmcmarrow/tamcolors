@@ -1,6 +1,6 @@
 # Charles McMarrow libraries
-import checks
-from . import tma_buffer
+from tamcolors import checks
+from .tma_buffer import TMABuffer
 from . import io_tma
 from . import uni_tma
 from . import win_tma
@@ -62,7 +62,7 @@ class AnyIO(io_tma.IO):
         :return:
         """
         # checks
-        checks.checks.instance_check(tma_buffer, tma_buffer.TMABuffer, AnyIOError)
+        checks.checks.instance_check(tma_buffer, TMABuffer, AnyIOError)
 
         print(tma_buffer)
 

@@ -2,9 +2,9 @@
 import string
 
 # Charles McMarrow libraries
-import checks
-import tma
-import tma_tools.tma_str
+from tamcolors import checks
+from tamcolors import tma
+from . import tma_str
 
 # Charles McMarrow
 
@@ -42,9 +42,9 @@ def tma_print(tma_buffer, x, y, text, foreground_color, background_color, error_
     checks.checks.instance_check(bad_char, str, TMAPrintError)
 
     if error_bad_char:
-        text = tma_tools.tma_str.make_tma_str(text)
+        text = tma_str.make_tma_str(text)
     else:
-        text = tma_tools.tma_str.make_tma_str(text, bad_char=bad_char)
+        text = tma_str.make_tma_str(text, bad_char=bad_char)
 
     at_x = x
     for char in str(text):

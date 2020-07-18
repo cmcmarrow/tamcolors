@@ -5,11 +5,11 @@ import sys
 import os
 
 # Charles McMarrow libraries
-import checks
-import tma.tma_buffer
-import tma.io_tma
+from tamcolors import checks
+from .tma_buffer import TMABuffer
+from . import io_tma
 try:
-    import tma._uni_tma as io
+    from . import _uni_tma as io
 except ImportError:
     io = None
 
@@ -23,14 +23,12 @@ color mode 2
 color mode 16
 """
 
-UNI_C_DATA = (134, 210, 198, 234, 224, 212, 242, 78, 170, 216, 174, 216, 252, 254, 250, 268, 96, 180, 208)
-
 
 class UniIOError(Exception):
     pass
 
 
-class UniIO(tma.io_tma.IO):
+class UniIO(io_tma.IO):
     def __init__(self):
         """
         info: makes UniIO object
@@ -108,7 +106,7 @@ class UniIO(tma.io_tma.IO):
         :return:
         """
         # checks
-        checks.checks.instance_check(tma_buffer, tma.tma_buffer.TMABuffer, UniIOError)
+        checks.checks.instance_check(tma_buffer, TMABuffer, UniIOError)
         dimension = io._get_dimension()
         if self.__buffer.get_dimensions() != dimension:
             self._clear()
@@ -145,7 +143,7 @@ class UniIO(tma.io_tma.IO):
         :return:
         """
         # checks
-        checks.checks.instance_check(tma_buffer, tma.tma_buffer.TMABuffer, UniIOError)
+        checks.checks.instance_check(tma_buffer, TMABuffer, UniIOError)
 
         # checks if buffer needs to be updated
         if " " != self.__buffer.get_defaults()[0] or self.__buffer.get_defaults()[1:] != tma_buffer.get_defaults()[1:]:

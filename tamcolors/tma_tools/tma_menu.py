@@ -1,7 +1,7 @@
 # Charles McMarrow libraries
-import checks
-import tma
-import tma_tools
+from tamcolors import checks
+from tamcolors import tma
+from tamcolors import tma_tools
 
 # Charles McMarrow
 

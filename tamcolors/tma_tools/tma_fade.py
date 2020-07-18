@@ -1,7 +1,7 @@
 # Charles McMarrow libraries
 import checks
-import tma
-import tma_tools.tma_film
+from tamcolors import tma
+from . import tma_film
 
 
 # Charles McMarrow
@@ -31,7 +31,7 @@ def tma_fade_in(buffer,
     :param background_color: 0 - inf
     :param rand: list: [True, bool, bool, bool, ...]
     :param reverse: bool
-    :return: tma_tools.tma_film.TMAFilm
+    :return: TMAFilm
     """
 
     # checks
@@ -102,4 +102,4 @@ def tma_fade_in(buffer,
     if reverse:
         frames.reverse()
 
-    return tma_tools.tma_film.TMAFilm(frames)
+    return tma_film.TMAFilm(frames)

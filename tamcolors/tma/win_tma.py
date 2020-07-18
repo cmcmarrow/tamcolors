@@ -3,11 +3,11 @@ import string
 import sys
 
 # Charles McMarrow libraries
-import checks
-import tma.tma_buffer
-import tma.io_tma
+from tamcolors import checks
+from .tma_buffer import TMABuffer
+from . import io_tma
 try:
-    import tma._win_tma as io
+    from . import _win_tma as io
 except ImportError:
     io = None
 
@@ -28,7 +28,7 @@ class WinIOError(Exception):
     pass
 
 
-class WinIO(tma.io_tma.IO):
+class WinIO(io_tma.IO):
     def __init__(self):
         """
         info: makes WinIO object
@@ -37,8 +37,8 @@ class WinIO(tma.io_tma.IO):
         self.__mode = 16
         self.__modes = {2: self._draw_2,
                         16: self._draw_16}
-        self.__buffer = tma.tma_buffer.TMABuffer(0, 0, " ", 1, 1)
-        self.__last_frame = tma.tma_buffer.TMABuffer(0, 0, " ", 1, 1)
+        self.__buffer = TMABuffer(0, 0, " ", 1, 1)
+        self.__last_frame = TMABuffer(0, 0, " ", 1, 1)
         self.__windows_keys = self.get_key_dict()
 
     @classmethod
@@ -87,7 +87,7 @@ class WinIO(tma.io_tma.IO):
         :return:
         """
         # checks
-        checks.checks.instance_check(tma_buffer, tma.tma_buffer.TMABuffer, WinIOError)
+        checks.checks.instance_check(tma_buffer, TMABuffer, WinIOError)
 
         if self.__buffer.get_dimensions() != io._get_dimension():
             io._clear()
@@ -104,7 +104,7 @@ class WinIO(tma.io_tma.IO):
         :return:
         """
         # checks
-        checks.checks.instance_check(tma_buffer, tma.tma_buffer.TMABuffer, WinIOError)
+        checks.checks.instance_check(tma_buffer, TMABuffer, WinIOError)
 
         # checks if buffer needs to be updated
         if " " != self.__buffer.get_defaults()[0] or self.__buffer.get_defaults()[1:] != tma_buffer.get_defaults()[1:]:
@@ -124,7 +124,7 @@ class WinIO(tma.io_tma.IO):
         :return:
         """
         # checks
-        checks.checks.instance_check(tma_buffer, tma.tma_buffer.TMABuffer, WinIOError)
+        checks.checks.instance_check(tma_buffer, TMABuffer, WinIOError)
 
         # checks if buffer needs to be updated
         if "." != self.__buffer.get_defaults()[0] or self.__buffer.get_defaults()[2] != tma_buffer.get_defaults()[2]:

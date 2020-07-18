@@ -1,15 +1,14 @@
-from tma_tools import tests
-from tma_tools import tma_color_palette
-from tma_tools import tma_fade
-from tma_tools import tma_film
-from tma_tools import tma_key_manager
-from tma_tools import tma_list_buffer
-from tma_tools import tma_menu
-from tma_tools import tma_placing
-from tma_tools import tma_print
-from tma_tools import tma_str
-from tma_tools import tma_text_box
-
+from . import tests
+from . import tma_color_palette
+from . import tma_fade
+from . import tma_film
+from . import tma_key_manager
+from . import tma_list_buffer
+from . import tma_menu
+from . import tma_placing
+from . import tma_print
+from . import tma_str
+from . import tma_text_box
 
 
 # Charles McMarrow

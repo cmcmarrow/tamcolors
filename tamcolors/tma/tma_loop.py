@@ -3,13 +3,14 @@ import traceback
 import threading
 import time
 import sys
-import checks
 import itertools
 
 # Charles McMarrow libraries
-import tma.tma_buffer
-import tma.any_tma
-import tma.tests
+from tamcolors import checks
+from .tma_buffer import TMABuffer
+from . import any_tma
+from . import tests
+from . import tma_loop_test
 
 # Charles McMarrow
 
@@ -57,8 +58,8 @@ class TMALoop:
         checks.checks.instance_check(color_change_key, str, TMALoopError)
         checks.checks.instance_check(loop_data, dict, TMALoopError)
 
-        if not tma.tests.tma_stability_check():
-            test_results = tma.tests.tma_stability_check(ret_bool=False)
+        if not tests.tma_stability_check():
+            test_results = tests.tma_stability_check(ret_bool=False)
             raise TMALoopError("TMA is corrupted! {0} out of {1} tests passed".format(*test_results))
 
         self.__running = None
@@ -67,9 +68,9 @@ class TMALoop:
         self.__error = None
 
         if only_any_os:
-            self.__io = tma.any_tma.AnyIO.get_io()
+            self.__io = any_tma.AnyIO.get_io()
         else:
-            self.__io = tma.any_tma.get_io(io_list=io_list, any_os=any_os)
+            self.__io = any_tma.get_io(io_list=io_list, any_os=any_os)
             if self.__io is None:
                 raise TMALoopError("tma io is None")
 
@@ -77,7 +78,7 @@ class TMALoop:
         self.__loop_data = loop_data
         self.__input_keys = []
 
-        self.__update_ready_buffers = [tma.tma_buffer.TMABuffer(0, 0, " ", 0, 0) for _ in range(buffer_count)]
+        self.__update_ready_buffers = [TMABuffer(0, 0, " ", 0, 0) for _ in range(buffer_count)]
         self.__draw_ready_buffers = []
 
         self.__color_change_key = color_change_key
@@ -336,7 +337,7 @@ class TMAFrame:
         :return:
         """
         # checks
-        checks.checks.instance_check(tma_buffer, tma.tma_buffer.TMABuffer, TMALoopError)
+        checks.checks.instance_check(tma_buffer, TMABuffer, TMALoopError)
         checks.checks.range_check(screen_width, 0, None, TMALoopError)
         checks.checks.range_check(screen_height, 0, None, TMALoopError)
 
@@ -359,7 +360,7 @@ class TMAFrame:
         :return:
         """
         # checks
-        checks.checks.in_instances_check(tma_loop, (TMALoop, tma.tma_loop_test.TMALoopTest), TMALoopError)
+        checks.checks.in_instances_check(tma_loop, (TMALoop, tma_loop_test.TMALoopTest), TMALoopError)
         checks.checks.instance_check(keys, (list, tuple), TMALoopError)
         checks.checks.instance_check(loop_data, dict, TMALoopError)
         # check self.__frame.update
@@ -375,7 +376,7 @@ class TMAFrame:
         :return:
         """
         # checks
-        checks.checks.instance_check(tma_buffer, tma.tma_buffer.TMABuffer, TMALoopError)
+        checks.checks.instance_check(tma_buffer, TMABuffer, TMALoopError)
         checks.checks.instance_check(loop_data, dict, TMALoopError)
         # check self.__frame.draw
         checks.checks.has_method_check(self.__frame, "draw", TMALoopError)
@@ -390,7 +391,7 @@ class TMAFrame:
         :return:
         """
         # checks
-        checks.checks.in_instances_check(tma_loop, (TMALoop, tma.tma_loop_test.TMALoopTest), TMALoopError)
+        checks.checks.in_instances_check(tma_loop, (TMALoop, tma_loop_test.TMALoopTest), TMALoopError)
         checks.checks.instance_check(loop_data, dict, TMALoopError)
         # check self.__frame.done
         checks.checks.has_method_check(self.__frame, "done", TMALoopError)

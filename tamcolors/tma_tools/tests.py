@@ -3,8 +3,8 @@ import unittest
 import unittest.mock
 
 # Charles McMarrow libraries
-import tma
-import tma_tools
+from tamcolors import tma
+from tamcolors import tma_tools
 
 # Charles McMarrow
 

@@ -1,7 +1,7 @@
 # Charles McMarrow libraries
-import checks
-import tma
-import tma_tools.tma_str
+from tamcolors import checks
+from tamcolors import tma
+from . import tma_str
 
 
 # Charles McMarrow
@@ -65,7 +65,7 @@ class TMATextBox:
         if clock != -1:
             checks.checks.range_check(clock, 1, None, TMATextBoxError)
 
-        self.__text = tma_tools.tma_str.make_tma_str(text)
+        self.__text = tma_str.make_tma_str(text)
         self.__width = width
         self.__height = height
         self.__char = char

@@ -1,10 +1,7 @@
-# built in library
-import checks
-
 # Charles McMarrow libraries
-import tma.tma_buffer
-import tma.any_tma
-import tma.tma_loop
+from tamcolors import checks
+from .tma_buffer import TMABuffer
+from . import tma_loop
 
 # Charles McMarrow
 
@@ -42,7 +39,7 @@ class TMALoopTest:
             loop_data = {}
 
         # checks
-        checks.checks.instance_check(tma_frame, tma.tma_loop.TMAFrame, TMALoopTestError)
+        checks.checks.instance_check(tma_frame, tma_loop.TMAFrame, TMALoopTestError)
         checks.checks.instance_check(any_os, bool, TMALoopTestError)
         checks.checks.range_check(buffer_count, 1, None, TMALoopTestError)
         checks.checks.instance_check(color_change_key, str, TMALoopTestError)
@@ -53,7 +50,7 @@ class TMALoopTest:
         self.__frame_stack = [tma_frame]
         self.__loop_data = loop_data
 
-        self.__update_ready_buffers = [tma.tma_buffer.TMABuffer(0, 0, " ", 0, 0) for _ in range(buffer_count)]
+        self.__update_ready_buffers = [TMABuffer(0, 0, " ", 0, 0) for _ in range(buffer_count)]
         self.__draw_ready_buffers = []
 
         self.__color_change_key = color_change_key
@@ -99,7 +96,7 @@ class TMALoopTest:
         """
 
         # checks
-        checks.checks.instance_check(frame, tma.tma_loop.TMAFrame, TMALoopTestError)
+        checks.checks.instance_check(frame, tma_loop.TMAFrame, TMALoopTestError)
 
         self.__frame_stack.append(frame)
 

@@ -7,9 +7,9 @@ import unittest
 import unittest.mock
 
 # Charles McMarrow libraries
-import tma
-import tma.uni_tma
-import tma.win_tma
+from tamcolors import tma
+from . import uni_tma
+from . import win_tma
 
 # Charles McMarrow
 

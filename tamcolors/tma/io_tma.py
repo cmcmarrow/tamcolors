@@ -1,6 +1,6 @@
 # Charles McMarrow libraries
-import checks
-import tma.tma_buffer
+from tamcolors import checks
+from .tma_buffer import TMABuffer
 
 # Charles McMarrow
 
@@ -61,8 +61,8 @@ class IO:
         :return:
         """
         # checks
-        checks.checks.instance_check(tma_buffer, tma.tma_buffer.TMABuffer)
-        checks.checks.instance_check(tma_buffer2, tma.tma_buffer.TMABuffer)
+        checks.checks.instance_check(tma_buffer, TMABuffer)
+        checks.checks.instance_check(tma_buffer2, TMABuffer)
 
         buffer_size_x, buffer_size_y = tma_buffer.get_dimensions()
         width, height = tma_buffer2.get_dimensions()

@@ -28,7 +28,8 @@ setup(
               "tamcolors.tma",
               "tamcolors.tma_tools",
               "tamcolors.tma_basic",
-              "tamcolors.examples"],
+              "tamcolors.examples",
+              "tamcolors.checks"],
     long_description=readme(),
     package_data={"tamcolors": ["README"]},
 
