@@ -267,11 +267,11 @@ class UniIO(io_tma.IO):
         """
         # checks
         checks.checks.type_check(show_flag, bool)
-
-        if show_flag:
-            os.system("setterm -cursor on")
-        else:
-            os.system("setterm -cursor off")
+        if platform.system() != "Darwin":
+            if show_flag:
+                os.system("setterm -cursor on")
+            else:
+                os.system("setterm -cursor off")
 
     def _get_lin_tma_color(self, foreground_color, background_color):
         return self.__color_map.get(foreground_color), self.__color_map.get(background_color)
