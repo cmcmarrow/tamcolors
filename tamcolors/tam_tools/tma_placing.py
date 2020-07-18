@@ -1,8 +1,6 @@
-# Charles McMarrow libraries
+# tamcolors libraries
 from tamcolors import tam
 
-
-# Charles McMarrow
 
 """
 tam placing finds the x, y coordinates 

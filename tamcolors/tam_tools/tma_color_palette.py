@@ -2,8 +2,6 @@
 import itertools
 
 
-# Charles McMarrow
-
 """
 ColorPalette set and get colors
 write rules that can update the color palette

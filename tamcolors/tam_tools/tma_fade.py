@@ -1,9 +1,7 @@
-# Charles McMarrow libraries
+# tamcolors libraries
 from tamcolors import tam
 from . import tma_film
 
-
-# Charles McMarrow
 
 """
 tam fade in fades in a buffer

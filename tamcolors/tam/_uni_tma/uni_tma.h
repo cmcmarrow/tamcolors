@@ -1,7 +1,6 @@
 #ifndef __LIN_TMA__H_
 #define __LIN_TMA__H_
 
-//Charles McMarrow
 
 typedef struct Dimension {
 	short width;

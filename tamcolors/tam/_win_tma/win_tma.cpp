@@ -3,7 +3,6 @@
 #include <iostream>
 #include <windows.h>
 
-//Charles McMarrow
 
 /*
 C++ API to windows console

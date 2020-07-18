@@ -1,5 +1,3 @@
-# Charles McMarrow
-
 """
 terminal colors supported on all platforms
 """

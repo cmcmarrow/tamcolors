@@ -1,8 +1,6 @@
-# Charles McMarrow libraries
+# tamcolors libraries
 from .tma_buffer import TMABuffer
-from . import tma_loop
 
-# Charles McMarrow
 
 """
 TMALoop

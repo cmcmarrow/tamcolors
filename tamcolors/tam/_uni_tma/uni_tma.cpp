@@ -6,8 +6,6 @@
 #include <unistd.h>
 
 
-//Charles McMarrow
-
 /*
 C++ API to linux console
 can get dimension of console

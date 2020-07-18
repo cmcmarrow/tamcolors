@@ -2,7 +2,7 @@
 import string
 import sys
 
-# Charles McMarrow libraries
+# tamcolors libraries
 from .tma_buffer import TMABuffer
 from . import io_tma
 try:
@@ -10,7 +10,6 @@ try:
 except ImportError:
     io = None
 
-# Charles McMarrow
 
 """
 WinIO
