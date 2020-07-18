@@ -1,4 +1,3 @@
-from . import tests
 from . import tma_color_palette
 from . import tma_fade
 from . import tma_film
@@ -17,17 +16,7 @@ from . import tma_text_box
 tma_tools gives tools that support tma
 """
 
-__author__ = "Charles McMarrow"
-__version__ = "1.0.0"
-__email__ = "Charles.M.McMarrow@gmail.com"
-__license__ = "Copyright (C) 2019, Charles McMarrow, All rights reserved."
-
-__all__ = ("__author__",
-           "__version__",
-           "__email__",
-           "__license__",
-           "tests",
-           "tma_color_palette",
+__all__ = ("tma_color_palette",
            "tma_fade",
            "tma_film",
            "tma_key_manager",
