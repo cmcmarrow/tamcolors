@@ -22,7 +22,7 @@ setup(
     version="1.0.0",
     author="Charles McMarrow",
     author_email="Charles.M.McMarrow@gmail.com",
-    license="Copyright (C) 2019, Charles McMarrow, All rights reserved.",
+    license="Apache Software License 2.0",
 
     packages=["tamcolors",
               "tamcolors.tma",
@@ -35,13 +35,10 @@ setup(
               "tamcolors.tests.tma_tools"],
     long_description=readme(),
     package_data={"tamcolors": ["README"]},
-
     ext_modules=ext_modules,
-
     classifiers=["Development Status :: 5 - Production/Stable",
                  "Environment :: Console",
                  "Intended Audience :: Developers",
-                 "License :: Other/Proprietary License",
                  "Natural Language :: English",
                  "Operating System :: Microsoft :: Windows",
                  "Operating System :: POSIX :: Linux",

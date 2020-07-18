@@ -19,16 +19,7 @@ tma supports
 * Windows
 """
 
-__author__ = "Charles McMarrow"
-__version__ = "1.0.0"
-__email__ = "Charles.M.McMarrow@gmail.com"
-__license__ = "Copyright (C) 2019, Charles McMarrow, All rights reserved."
-
-__all__ = ("__author__",
-           "__version__",
-           "__email__",
-           "__license__",
-           "any_tma",
+__all__ = ("any_tma",
            "io_tma",
            "tma_buffer",
            "tma_colors",
