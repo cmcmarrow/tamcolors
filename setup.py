@@ -30,7 +30,8 @@ setup(
               "tamcolors.examples",
               "tamcolors.tests",
               "tamcolors.tests.tam",
-              "tamcolors.tests.tam_tools"],
+              "tamcolors.tests.tam_tools",
+              "tamcolors.tests.tam_io"],
 
     ext_modules=ext_modules,
 

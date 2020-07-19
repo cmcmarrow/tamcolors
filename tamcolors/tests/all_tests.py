@@ -47,12 +47,16 @@ def load_tests(loader, other_tests=None, pattern=None):
 
 
 def tests_main():
+    """
+    info: the main way tamcolors run tests
+    :return:
+    """
     unittest.main(module=__name__)
 
 
 def stability_check(ret_bool=True):
     """
-    info: run all TAM test but TAMLoopTest and TAMFrameTest
+    info: run all TAM tests
     :return: (int, int) or bool: (test_pasted, test_ran) or True if all test pasted
     """
 
