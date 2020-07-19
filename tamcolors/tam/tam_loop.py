@@ -343,13 +343,13 @@ class TAMFrame:
         """
         self.__frame.draw(tam_buffer, loop_data)
 
-    def done(self, tma_loop, loop_data):
+    def done(self, tam_loop, loop_data):
         """
         info: will clean up the frame and can only be called once
-        :param tma_loop: TMALoop
+        :param tam_loop: TAMLoop
         :param loop_data: dict
         :return:
         """
         if not self.__done_called:
             self.__done_called = True
-            self.__frame.done(tma_loop, loop_data)
+            self.__frame.done(tam_loop, loop_data)

@@ -233,84 +233,84 @@ class TAMFilmTest(unittest.TestCase):
         self.assertRaises(tam_tools.tam_film.TAMFilmError, film.get, "id")
 
     def test_get_3(self):
-        tma_buffer = tam.tam_buffer.TAMBuffer(4, 5, "A", 5, 6)
-        tma_buffer_2 = tam.tam_buffer.TAMBuffer(4, 5, "B", 4, 3)
-        film = tam_tools.tam_film.TAMFilm((tma_buffer, tma_buffer_2), circular=False)
+        tam_buffer = tam.tam_buffer.TAMBuffer(4, 5, "A", 5, 6)
+        tam_buffer_2 = tam.tam_buffer.TAMBuffer(4, 5, "B", 4, 3)
+        film = tam_tools.tam_film.TAMFilm((tam_buffer, tam_buffer_2), circular=False)
 
-        self.assertIs(film.get(0), tma_buffer)
-        self.assertIs(film.get(1), tma_buffer_2)
+        self.assertIs(film.get(0), tam_buffer)
+        self.assertIs(film.get(1), tam_buffer_2)
 
         self.assertRaises(tam_tools.tam_film.TAMFilmError, film.get, 2)
 
     def test_slide(self):
-        tma_buffer = tam.tam_buffer.TAMBuffer(4, 5, "A", 5, 6)
-        tma_buffer_2 = tam.tam_buffer.TAMBuffer(4, 5, "B", 4, 3)
-        tma_buffer_3 = tam.tam_buffer.TAMBuffer(4, 5, "C", 4, 3)
+        tam_buffer = tam.tam_buffer.TAMBuffer(4, 5, "A", 5, 6)
+        tam_buffer_2 = tam.tam_buffer.TAMBuffer(4, 5, "B", 4, 3)
+        tam_buffer_3 = tam.tam_buffer.TAMBuffer(4, 5, "C", 4, 3)
 
-        film = tam_tools.tam_film.TAMFilm((tma_buffer, tma_buffer_2, tma_buffer_3), circular=False)
+        film = tam_tools.tam_film.TAMFilm((tam_buffer, tam_buffer_2, tam_buffer_3), circular=False)
 
-        self.assertIs(tma_buffer, film.slide())
-        self.assertIs(tma_buffer_2, film.slide())
-        self.assertIs(tma_buffer_3, film.slide())
-        self.assertIs(tma_buffer_3, film.slide())
+        self.assertIs(tam_buffer, film.slide())
+        self.assertIs(tam_buffer_2, film.slide())
+        self.assertIs(tam_buffer_3, film.slide())
+        self.assertIs(tam_buffer_3, film.slide())
 
     def test_slide_2(self):
-        tma_buffer = tam.tam_buffer.TAMBuffer(4, 5, "A", 5, 6)
-        tma_buffer_2 = tam.tam_buffer.TAMBuffer(4, 5, "B", 4, 3)
-        tma_buffer_3 = tam.tam_buffer.TAMBuffer(4, 5, "C", 4, 3)
+        tam_buffer = tam.tam_buffer.TAMBuffer(4, 5, "A", 5, 6)
+        tam_buffer_2 = tam.tam_buffer.TAMBuffer(4, 5, "B", 4, 3)
+        tam_buffer_3 = tam.tam_buffer.TAMBuffer(4, 5, "C", 4, 3)
 
-        film = tam_tools.tam_film.TAMFilm((tma_buffer, tma_buffer_2, tma_buffer_3), circular=True)
+        film = tam_tools.tam_film.TAMFilm((tam_buffer, tam_buffer_2, tam_buffer_3), circular=True)
 
-        self.assertIs(tma_buffer, film.slide())
-        self.assertIs(tma_buffer_2, film.slide())
-        self.assertIs(tma_buffer_3, film.slide())
-        self.assertIs(tma_buffer, film.slide())
+        self.assertIs(tam_buffer, film.slide())
+        self.assertIs(tam_buffer_2, film.slide())
+        self.assertIs(tam_buffer_3, film.slide())
+        self.assertIs(tam_buffer, film.slide())
 
     def test_peak(self):
-        tma_buffer = tam.tam_buffer.TAMBuffer(4, 5, "A", 5, 6)
-        tma_buffer_2 = tam.tam_buffer.TAMBuffer(4, 5, "B", 4, 3)
-        tma_buffer_3 = tam.tam_buffer.TAMBuffer(4, 5, "C", 4, 3)
+        tam_buffer = tam.tam_buffer.TAMBuffer(4, 5, "A", 5, 6)
+        tam_buffer_2 = tam.tam_buffer.TAMBuffer(4, 5, "B", 4, 3)
+        tam_buffer_3 = tam.tam_buffer.TAMBuffer(4, 5, "C", 4, 3)
 
-        film = tam_tools.tam_film.TAMFilm((tma_buffer, tma_buffer_2, tma_buffer_3), circular=False)
+        film = tam_tools.tam_film.TAMFilm((tam_buffer, tam_buffer_2, tam_buffer_3), circular=False)
 
-        self.assertIs(tma_buffer, film.peak())
-        self.assertIs(tma_buffer, film.peak())
-        self.assertIs(tma_buffer, film.slide())
+        self.assertIs(tam_buffer, film.peak())
+        self.assertIs(tam_buffer, film.peak())
+        self.assertIs(tam_buffer, film.slide())
 
-        self.assertIs(tma_buffer_2, film.peak())
-        self.assertIs(tma_buffer_2, film.peak())
-        self.assertIs(tma_buffer_2, film.slide())
+        self.assertIs(tam_buffer_2, film.peak())
+        self.assertIs(tam_buffer_2, film.peak())
+        self.assertIs(tam_buffer_2, film.slide())
 
-        self.assertIs(tma_buffer_3, film.peak())
-        self.assertIs(tma_buffer_3, film.peak())
-        self.assertIs(tma_buffer_3, film.slide())
+        self.assertIs(tam_buffer_3, film.peak())
+        self.assertIs(tam_buffer_3, film.peak())
+        self.assertIs(tam_buffer_3, film.slide())
 
-        self.assertIs(tma_buffer_3, film.peak())
-        self.assertIs(tma_buffer_3, film.peak())
-        self.assertIs(tma_buffer_3, film.slide())
+        self.assertIs(tam_buffer_3, film.peak())
+        self.assertIs(tam_buffer_3, film.peak())
+        self.assertIs(tam_buffer_3, film.slide())
 
     def test_peak_2(self):
-        tma_buffer = tam.tam_buffer.TAMBuffer(4, 5, "A", 5, 6)
-        tma_buffer_2 = tam.tam_buffer.TAMBuffer(4, 5, "B", 4, 3)
-        tma_buffer_3 = tam.tam_buffer.TAMBuffer(4, 5, "C", 4, 3)
+        tam_buffer = tam.tam_buffer.TAMBuffer(4, 5, "A", 5, 6)
+        tam_buffer_2 = tam.tam_buffer.TAMBuffer(4, 5, "B", 4, 3)
+        tam_buffer_3 = tam.tam_buffer.TAMBuffer(4, 5, "C", 4, 3)
 
-        film = tam_tools.tam_film.TAMFilm((tma_buffer, tma_buffer_2, tma_buffer_3), circular=True)
+        film = tam_tools.tam_film.TAMFilm((tam_buffer, tam_buffer_2, tam_buffer_3), circular=True)
 
-        self.assertIs(tma_buffer, film.peak())
-        self.assertIs(tma_buffer, film.peak())
-        self.assertIs(tma_buffer, film.slide())
+        self.assertIs(tam_buffer, film.peak())
+        self.assertIs(tam_buffer, film.peak())
+        self.assertIs(tam_buffer, film.slide())
 
-        self.assertIs(tma_buffer_2, film.peak())
-        self.assertIs(tma_buffer_2, film.peak())
-        self.assertIs(tma_buffer_2, film.slide())
+        self.assertIs(tam_buffer_2, film.peak())
+        self.assertIs(tam_buffer_2, film.peak())
+        self.assertIs(tam_buffer_2, film.slide())
 
-        self.assertIs(tma_buffer_3, film.peak())
-        self.assertIs(tma_buffer_3, film.peak())
-        self.assertIs(tma_buffer_3, film.slide())
+        self.assertIs(tam_buffer_3, film.peak())
+        self.assertIs(tam_buffer_3, film.peak())
+        self.assertIs(tam_buffer_3, film.slide())
 
-        self.assertIs(tma_buffer, film.peak())
-        self.assertIs(tma_buffer, film.peak())
-        self.assertIs(tma_buffer, film.slide())
+        self.assertIs(tam_buffer, film.peak())
+        self.assertIs(tam_buffer, film.peak())
+        self.assertIs(tam_buffer, film.slide())
 
     def test_peak_3(self):
         film = tam_tools.tam_film.TAMFilm((), circular=True)
@@ -329,15 +329,15 @@ class TAMFilmTest(unittest.TestCase):
         self.assertEqual(len(film), 4)
 
     def test_pop(self):
-        tma_buffer = tam.tam_buffer.TAMBuffer(4, 5, "A", 5, 6)
-        tma_buffer_2 = tam.tam_buffer.TAMBuffer(4, 5, "B", 4, 3)
-        tma_buffer_3 = tam.tam_buffer.TAMBuffer(4, 5, "C", 4, 3)
+        tam_buffer = tam.tam_buffer.TAMBuffer(4, 5, "A", 5, 6)
+        tam_buffer_2 = tam.tam_buffer.TAMBuffer(4, 5, "B", 4, 3)
+        tam_buffer_3 = tam.tam_buffer.TAMBuffer(4, 5, "C", 4, 3)
 
-        film = tam_tools.tam_film.TAMFilm((tma_buffer, tma_buffer_2, tma_buffer_3), circular=True)
+        film = tam_tools.tam_film.TAMFilm((tam_buffer, tam_buffer_2, tam_buffer_3), circular=True)
 
-        self.assertIs(film.pop(), tma_buffer_3)
-        self.assertIs(film.pop(), tma_buffer_2)
-        self.assertIs(film.pop(), tma_buffer)
+        self.assertIs(film.pop(), tam_buffer_3)
+        self.assertIs(film.pop(), tam_buffer_2)
+        self.assertIs(film.pop(), tam_buffer)
         self.assertIs(film.pop(), None)
 
     def test_get_circular(self):
@@ -370,20 +370,20 @@ class TAMFilmTest(unittest.TestCase):
         self.assertFalse(film.done())
 
     def test_done_2(self):
-        tma_buffer = tam.tam_buffer.TAMBuffer(4, 5, "A", 5, 6)
-        tma_buffer_2 = tam.tam_buffer.TAMBuffer(4, 5, "B", 4, 3)
-        tma_buffer_3 = tam.tam_buffer.TAMBuffer(4, 5, "C", 4, 3)
+        tam_buffer = tam.tam_buffer.TAMBuffer(4, 5, "A", 5, 6)
+        tam_buffer_2 = tam.tam_buffer.TAMBuffer(4, 5, "B", 4, 3)
+        tam_buffer_3 = tam.tam_buffer.TAMBuffer(4, 5, "C", 4, 3)
 
-        film = tam_tools.tam_film.TAMFilm((tma_buffer, tma_buffer_2, tma_buffer_3), circular=False)
+        film = tam_tools.tam_film.TAMFilm((tam_buffer, tam_buffer_2, tam_buffer_3), circular=False)
 
         self.assertFalse(film.done())
-        self.assertIs(tma_buffer, next(film))
+        self.assertIs(tam_buffer, next(film))
         self.assertFalse(film.done())
-        self.assertIs(tma_buffer_2, next(film))
+        self.assertIs(tam_buffer_2, next(film))
         self.assertFalse(film.done())
-        self.assertIs(tma_buffer_3, next(film))
+        self.assertIs(tam_buffer_3, next(film))
         self.assertTrue(film.done())
-        self.assertIs(tma_buffer_3, next(film))
+        self.assertIs(tam_buffer_3, next(film))
 
     def test_done_3(self):
         film = tam_tools.tam_film.TAMFilm((), circular=False)
@@ -392,7 +392,7 @@ class TAMFilmTest(unittest.TestCase):
         self.assertRaises(StopIteration, next, film)
 
 
-class TMAColorPaletteTest(unittest.TestCase):
+class TAMColorPaletteTest(unittest.TestCase):
     def test_init_color_palette(self):
         color_palette = tam_tools.tam_color_palette.TAMColorPalette(range(1, 25))
         self.assertIsInstance(color_palette, tam_tools.tam_color_palette.TAMColorPalette)
@@ -507,7 +507,7 @@ class TMAColorPaletteTest(unittest.TestCase):
         self.assertIs(color_palette.get_rule(5), None)
 
 
-class TMADefaultColorTest(unittest.TestCase):
+class TAMDefaultColorTest(unittest.TestCase):
     def test_init_default_color(self):
         default_color = tam_tools.tam_color_palette.TAMDefaultColor(45)
         self.assertIsInstance(default_color, tam_tools.tam_color_palette.TAMColorPaletteRule)
@@ -529,7 +529,7 @@ class TMADefaultColorTest(unittest.TestCase):
         self.assertEqual(color_palette[12], 45)
 
 
-class TMACycleColor(unittest.TestCase):
+class TAMCycleColor(unittest.TestCase):
     def test_init_cycle_color(self):
         cycle_color = tam_tools.tam_color_palette.TAMCycleColor((1, 2, 3, 4), clock=1)
         self.assertIsInstance(cycle_color, tam_tools.tam_color_palette.TAMColorPaletteRule)
@@ -568,7 +568,7 @@ class TMACycleColor(unittest.TestCase):
             self.assertEqual(color_palette[4], color)
 
 
-class TMAKeyManagerTest(unittest.TestCase):
+class TAMKeyManagerTest(unittest.TestCase):
     def test_init_key_manger(self):
         key_manger = tam_tools.tam_key_manager.TAMKeyManager()
         self.assertIsInstance(key_manger, tam_tools.tam_key_manager.TAMKeyManager)
@@ -722,37 +722,37 @@ class TMAKeyManagerTest(unittest.TestCase):
         self.assertRaises(StopIteration, next, key_generator)
 
 
-class MakeTMAStrTest(unittest.TestCase):
-    def test_make_tma_str(self):
-        tma_str = tam_tools.tam_str.make_tam_str("test\t123")
-        self.assertEqual(tma_str, "test    123")
+class MakeTAMStrTest(unittest.TestCase):
+    def test_make_tam_str(self):
+        tam_str = tam_tools.tam_str.make_tam_str("test\t123")
+        self.assertEqual(tam_str, "test    123")
 
-    def test_make_tma_str_2(self):
-        tma_str = tam_tools.tam_str.make_tam_str("test\t12\n3")
-        self.assertEqual(tma_str, "test    12\n3")
+    def test_make_tam_str_2(self):
+        tam_str = tam_tools.tam_str.make_tam_str("test\t12\n3")
+        self.assertEqual(tam_str, "test    12\n3")
 
-    def test_make_tma_str_3(self):
+    def test_make_tam_str_3(self):
         self.assertRaises(tam_tools.tam_str.TAMStrError, tam_tools.tam_str.make_tam_str, "123\r123")
 
-    def test_make_tma_str_4(self):
-        tma_str = tam_tools.tam_str.make_tam_str("test\r12\n3", bad_char="%^&")
-        self.assertEqual(tma_str, "test%^&12\n3")
+    def test_make_tam_str_4(self):
+        tam_str = tam_tools.tam_str.make_tam_str("test\r12\n3", bad_char="%^&")
+        self.assertEqual(tam_str, "test%^&12\n3")
 
-    def test_make_tma_str_5(self):
-        tma_str = tam_tools.tam_str.make_tam_str("\r\\\n\ng\n", end_line="45", bad_char="@")
-        self.assertEqual(tma_str, "@\\4545g45")
+    def test_make_tam_str_5(self):
+        tam_str = tam_tools.tam_str.make_tam_str("\r\\\n\ng\n", end_line="45", bad_char="@")
+        self.assertEqual(tam_str, "@\\4545g45")
 
 
-class TMATextBoxTest(unittest.TestCase):
-    def test_tma_text_box_init(self):
+class TAMTextBoxTest(unittest.TestCase):
+    def test_tam_text_box_init(self):
         text_box = tam_tools.tam_text_box.TAMTextBox("hello world!", 20, 34, "#", 3, 5)
         self.assertIsInstance(text_box, tam_tools.tam_text_box.TAMTextBox)
 
-    def test_tma_text_box_str(self):
+    def test_tam_text_box_str(self):
         text_box = tam_tools.tam_text_box.TAMTextBox("hello world!", 20, 34, "#", 3, 5)
         self.assertEqual(str(text_box), "hello world!")
 
-    def test_tma_text_box_str_2(self):
+    def test_tam_text_box_str_2(self):
         text_box = tam_tools.tam_text_box.TAMTextBox("cat world!\n123", 20, 34, "#", 3, 5)
         self.assertEqual(str(text_box), "cat world!\n123")
 
@@ -949,7 +949,7 @@ class TMATextBoxTest(unittest.TestCase):
         self.assertEqual(text_box.get_dimensions(), (4, 3))
 
 
-class TMAPlacingTest(unittest.TestCase):
+class TAMPlacingTest(unittest.TestCase):
     def test__get_center(self):
         self.assertEqual(tam_tools.tam_placing._get_center(9, 3), 8)
 
@@ -1011,8 +1011,8 @@ class TMAPlacingTest(unittest.TestCase):
         self.assertEqual(tam_tools.tam_placing.center(11, 23, 15, 24), (4, 11))
 
 
-class TMAFilmFadeInTest(unittest.TestCase):
-    def test_tma_fade_in(self):
+class TAMFilmFadeInTest(unittest.TestCase):
+    def test_tam_fade_in(self):
         buffer = tam.tam_buffer.TAMBuffer(4, 5, "A", 1, 2)
         buffer2 = tam.tam_buffer.TAMBuffer(4, 5, "&", 3, 7)
         film = tam_tools.tam_fade.tam_fade_in(buffer, "&", 3, 7)
@@ -1021,7 +1021,7 @@ class TMAFilmFadeInTest(unittest.TestCase):
         self.assertEqual(buffer2, film[0])
         self.assertEqual(buffer, film[23])
 
-    def test_tma_fade_in_2(self):
+    def test_tam_fade_in_2(self):
         buffer = tam.tam_buffer.TAMBuffer(4, 5, "A", 1, 2)
         buffer2 = tam.tam_buffer.TAMBuffer(4, 5, "&", 3, 7)
         film = tam_tools.tam_fade.tam_fade_in(buffer, "&", 3, 7, reverse=True)
@@ -1030,7 +1030,7 @@ class TMAFilmFadeInTest(unittest.TestCase):
         self.assertEqual(buffer, film[0])
         self.assertEqual(buffer2, film[23])
 
-    def test_tma_fade_in_3(self):
+    def test_tam_fade_in_3(self):
         buffer = tam.tam_buffer.TAMBuffer(2, 3, "A", 1, 2)
         buffer.set_spot(1, 1, "B", 6, 9)
         buffer2 = tam.tam_buffer.TAMBuffer(2, 3, "&", 3, 7)
@@ -1040,7 +1040,7 @@ class TMAFilmFadeInTest(unittest.TestCase):
         self.assertEqual(buffer2, film[0])
         self.assertEqual(buffer, film[9])
 
-    def test_tma_fade_in_4(self):
+    def test_tam_fade_in_4(self):
         buffer = tam.tam_buffer.TAMBuffer(2, 3, "A", 1, 2)
         buffer.set_spot(1, 1, "B", 6, 9)
         buffer2 = tam.tam_buffer.TAMBuffer(2, 3, "&", 3, 7)
@@ -1051,14 +1051,14 @@ class TMAFilmFadeInTest(unittest.TestCase):
         self.assertEqual(buffer, film[8])
 
 
-class TMAMenuTest(unittest.TestCase):
-    def test_TMAMenu(self):
+class TAMMenuTest(unittest.TestCase):
+    def test_tammenu(self):
         self.assertIsInstance(tam_tools.tam_menu.TAMMenu([], "a", {}), tam_tools.tam_menu.TAMMenu)
 
-    def test_TMAMenu_2(self):
-        buttons = (tam_tools.tam_menu.TMATextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2),
-                   tam_tools.tam_menu.TMATextButton("By", 3, 6, 6, 2, lambda: None, 5, 2),
-                   tam_tools.tam_menu.TMATextButton("12345678", 3, 8, 6, 2, lambda: None, 5, 2),
+    def test_tammenu_2(self):
+        buttons = (tam_tools.tam_menu.TAMTextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2),
+                   tam_tools.tam_menu.TAMTextButton("By", 3, 6, 6, 2, lambda: None, 5, 2),
+                   tam_tools.tam_menu.TAMTextButton("12345678", 3, 8, 6, 2, lambda: None, 5, 2),
                    tam_tools.tam_menu.TAMTextBoxButton("test", 3, 10, 12, 5, "#", 6, 2, lambda: None, 5, 2))
 
         goto_map = {0: {"UP": 3, "DOWN": 1},
@@ -1069,10 +1069,10 @@ class TMAMenuTest(unittest.TestCase):
         self.assertIsInstance(tam_tools.tam_menu.TAMMenu(buttons, "a", goto_map), tam_tools.tam_menu.TAMMenu)
 
     def test_update(self):
-        hit_button = tam_tools.tam_menu.TMATextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2)
+        hit_button = tam_tools.tam_menu.TAMTextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2)
         buttons = (hit_button,
-                   tam_tools.tam_menu.TMATextButton("By", 3, 6, 6, 2, lambda: None, 5, 2),
-                   tam_tools.tam_menu.TMATextButton("12345678", 3, 8, 6, 2, lambda: None, 5, 2),
+                   tam_tools.tam_menu.TAMTextButton("By", 3, 6, 6, 2, lambda: None, 5, 2),
+                   tam_tools.tam_menu.TAMTextButton("12345678", 3, 8, 6, 2, lambda: None, 5, 2),
                    tam_tools.tam_menu.TAMTextBoxButton("test", 3, 10, 12, 5, "#", 6, 2, lambda: None, 5, 2))
 
         goto_map = {0: {"UP": 3, "DOWN": 1},
@@ -1082,16 +1082,16 @@ class TMAMenuTest(unittest.TestCase):
 
         menu = tam_tools.tam_menu.TAMMenu(buttons, "a", goto_map)
 
-        with unittest.mock.patch.object(tam_tools.tam_menu.TMATextButton, "__call__", return_value=None) as call:
+        with unittest.mock.patch.object(tam_tools.tam_menu.TAMTextButton, "__call__", return_value=None) as call:
             menu.update((("a", "NORMAL"),))
             call.assert_called_once_with()
             self.assertIs(menu.get_on()[1], hit_button)
 
     def test_update_2(self):
-        hit_button = tam_tools.tam_menu.TMATextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2)
+        hit_button = tam_tools.tam_menu.TAMTextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2)
         buttons = (hit_button,
-                   tam_tools.tam_menu.TMATextButton("By", 3, 6, 6, 2, lambda: None, 5, 2),
-                   tam_tools.tam_menu.TMATextButton("12345678", 3, 8, 6, 2, lambda: None, 5, 2),
+                   tam_tools.tam_menu.TAMTextButton("By", 3, 6, 6, 2, lambda: None, 5, 2),
+                   tam_tools.tam_menu.TAMTextButton("12345678", 3, 8, 6, 2, lambda: None, 5, 2),
                    tam_tools.tam_menu.TAMTextBoxButton("test", 3, 10, 12, 5, "#", 6, 2, lambda: None, 5, 2))
 
         goto_map = {0: {"UP": 3, "DOWN": 1},
@@ -1101,7 +1101,7 @@ class TMAMenuTest(unittest.TestCase):
 
         menu = tam_tools.tam_menu.TAMMenu(buttons, "a", goto_map)
 
-        with unittest.mock.patch.object(tam_tools.tam_menu.TMATextButton, "__call__", return_value=None) as call:
+        with unittest.mock.patch.object(tam_tools.tam_menu.TAMTextButton, "__call__", return_value=None) as call:
             menu.update((("a", "NORMAL"),))
             call.assert_called_once_with()
             self.assertIs(menu.get_on()[1], hit_button)
@@ -1110,9 +1110,9 @@ class TMAMenuTest(unittest.TestCase):
             self.assertIs(menu.get_on()[1], hit_button)
 
     def test_update_3(self):
-        hit_button = tam_tools.tam_menu.TMATextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2)
-        hit_button_2 = tam_tools.tam_menu.TMATextButton("By", 3, 6, 6, 2, lambda: None, 5, 2)
-        hit_button_3 = tam_tools.tam_menu.TMATextButton("12345678", 3, 8, 6, 2, lambda: None, 5, 2)
+        hit_button = tam_tools.tam_menu.TAMTextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2)
+        hit_button_2 = tam_tools.tam_menu.TAMTextButton("By", 3, 6, 6, 2, lambda: None, 5, 2)
+        hit_button_3 = tam_tools.tam_menu.TAMTextButton("12345678", 3, 8, 6, 2, lambda: None, 5, 2)
         hit_button_4 = tam_tools.tam_menu.TAMTextBoxButton("test", 3, 10, 12, 5, "#", 6, 2, lambda: None, 5, 2)
 
         buttons = (hit_button,
@@ -1127,7 +1127,7 @@ class TMAMenuTest(unittest.TestCase):
 
         menu = tam_tools.tam_menu.TAMMenu(buttons, "a", goto_map)
 
-        with unittest.mock.patch.object(tam_tools.tam_menu.TMATextButton, "__call__", return_value=None) as call:
+        with unittest.mock.patch.object(tam_tools.tam_menu.TAMTextButton, "__call__", return_value=None) as call:
             menu.update((("a", "NORMAL"),))
             call.assert_called_once_with()
             self.assertIs(menu.get_on()[1], hit_button)
@@ -1153,9 +1153,9 @@ class TMAMenuTest(unittest.TestCase):
             self.assertIs(menu.get_on()[1], hit_button_3)
 
     def test_draw(self):
-        buttons = (tam_tools.tam_menu.TMATextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2),
-                   tam_tools.tam_menu.TMATextButton("By", 3, 6, 6, 2, lambda: None, 5, 2),
-                   tam_tools.tam_menu.TMATextButton("12345678", 3, 8, 6, 2, lambda: None, 5, 2),
+        buttons = (tam_tools.tam_menu.TAMTextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2),
+                   tam_tools.tam_menu.TAMTextButton("By", 3, 6, 6, 2, lambda: None, 5, 2),
+                   tam_tools.tam_menu.TAMTextButton("12345678", 3, 8, 6, 2, lambda: None, 5, 2),
                    tam_tools.tam_menu.TAMTextBoxButton("test", 3, 10, 12, 5, "#", 6, 2, lambda: None, 5, 2))
 
         goto_map = {0: {"UP": 3, "DOWN": 1},
@@ -1164,7 +1164,7 @@ class TMAMenuTest(unittest.TestCase):
                     3: {"UP": 2, "DOWN": 0}}
 
         menu = tam_tools.tam_menu.TAMMenu(buttons, "a", goto_map)
-        with unittest.mock.patch.object(tam_tools.tam_menu.TMATextButton, "draw", return_value=None) as text_draw:
+        with unittest.mock.patch.object(tam_tools.tam_menu.TAMTextButton, "draw", return_value=None) as text_draw:
             with unittest.mock.patch.object(tam_tools.tam_menu.TAMTextBoxButton, "draw", return_value=None) as box_draw:
                 buffer = tam.tam_buffer.TAMBuffer(0, 0, " ", 1, 2)
                 menu.draw(buffer)
@@ -1172,9 +1172,9 @@ class TMAMenuTest(unittest.TestCase):
                 box_draw.assert_called_once_with(buffer)
 
     def test_get_call_key(self):
-        buttons = (tam_tools.tam_menu.TMATextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2),
-                   tam_tools.tam_menu.TMATextButton("By", 3, 6, 6, 2, lambda: None, 5, 2),
-                   tam_tools.tam_menu.TMATextButton("12345678", 3, 8, 6, 2, lambda: None, 5, 2),
+        buttons = (tam_tools.tam_menu.TAMTextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2),
+                   tam_tools.tam_menu.TAMTextButton("By", 3, 6, 6, 2, lambda: None, 5, 2),
+                   tam_tools.tam_menu.TAMTextButton("12345678", 3, 8, 6, 2, lambda: None, 5, 2),
                    tam_tools.tam_menu.TAMTextBoxButton("test", 3, 10, 12, 5, "#", 6, 2, lambda: None, 5, 2))
 
         goto_map = {0: {"UP": 3, "DOWN": 1},
@@ -1187,10 +1187,10 @@ class TMAMenuTest(unittest.TestCase):
         self.assertEqual(menu.get_call_key(), "a")
 
     def test_get_call_key_2(self):
-        buttons = (tam_tools.tam_menu.TMATextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2),
-                   tam_tools.tam_menu.TMATextButton("By", 3, 6, 6, 2, lambda: None, 5, 2),
-                   tam_tools.tam_menu.TMATextButton("12345678", 3, 8, 6, 2, lambda: None, 5, 2),
-                   tam_tools.tam_menu.TAMTextBoxButton("test", 3, 10, 12, 5, "#", 6, 2, lambda: None, 5, 2))
+        buttons = (tam_tools.tam_menu.TAMTextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2),
+                   tam_tools.tam_menu.TAMTextButton("By", 3, 6, 6, 2, lambda: None, 5, 2),
+                   tam_tools.tam_menu.TAMTextButton("12345678", 3, 8, 6, 2, lambda: None, 5, 2),
+                   tam_tools.tam_menu.TMATextBoxButton("test", 3, 10, 12, 5, "#", 6, 2, lambda: None, 5, 2))
 
         goto_map = {0: {"UP": 3, "DOWN": 1},
                     1: {"UP": 0, "DOWN": 2},
@@ -1202,10 +1202,10 @@ class TMAMenuTest(unittest.TestCase):
         self.assertEqual(menu.get_call_key(), "UP")
 
     def test_get_on(self):
-        hit_button = tam_tools.tam_menu.TMATextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2)
+        hit_button = tam_tools.tam_menu.TAMTextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2)
         buttons = (hit_button,
-                   tam_tools.tam_menu.TMATextButton("By", 3, 6, 6, 2, lambda: None, 5, 2),
-                   tam_tools.tam_menu.TMATextButton("12345678", 3, 8, 6, 2, lambda: None, 5, 2),
+                   tam_tools.tam_menu.TAMTextButton("By", 3, 6, 6, 2, lambda: None, 5, 2),
+                   tam_tools.tam_menu.TAMTextButton("12345678", 3, 8, 6, 2, lambda: None, 5, 2),
                    tam_tools.tam_menu.TAMTextBoxButton("test", 3, 10, 12, 5, "#", 6, 2, lambda: None, 5, 2))
 
         goto_map = {0: {"UP": 3, "DOWN": 1},
@@ -1218,10 +1218,10 @@ class TMAMenuTest(unittest.TestCase):
         self.assertEqual(menu.get_on(), (0, hit_button))
 
     def test_get_on_2(self):
-        hit_button = tam_tools.tam_menu.TMATextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2)
-        buttons = (tam_tools.tam_menu.TMATextButton("By", 3, 6, 6, 2, lambda: None, 5, 2),
+        hit_button = tam_tools.tam_menu.TAMTextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2)
+        buttons = (tam_tools.tam_menu.TAMTextButton("By", 3, 6, 6, 2, lambda: None, 5, 2),
                    hit_button,
-                   tam_tools.tam_menu.TMATextButton("12345678", 3, 8, 6, 2, lambda: None, 5, 2),
+                   tam_tools.tam_menu.TAMTextButton("12345678", 3, 8, 6, 2, lambda: None, 5, 2),
                    tam_tools.tam_menu.TAMTextBoxButton("test", 3, 10, 12, 5, "#", 6, 2, lambda: None, 5, 2))
 
         goto_map = {0: {"UP": 3, "DOWN": 1},
@@ -1234,10 +1234,10 @@ class TMAMenuTest(unittest.TestCase):
         self.assertEqual(menu.get_on(), (1, hit_button))
 
     def test_get_goto_map(self):
-        hit_button = tam_tools.tam_menu.TMATextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2)
-        buttons = (tam_tools.tam_menu.TMATextButton("By", 3, 6, 6, 2, lambda: None, 5, 2),
+        hit_button = tam_tools.tam_menu.TAMTextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2)
+        buttons = (tam_tools.tam_menu.TAMTextButton("By", 3, 6, 6, 2, lambda: None, 5, 2),
                    hit_button,
-                   tam_tools.tam_menu.TMATextButton("12345678", 3, 8, 6, 2, lambda: None, 5, 2),
+                   tam_tools.tam_menu.TAMTextButton("12345678", 3, 8, 6, 2, lambda: None, 5, 2),
                    tam_tools.tam_menu.TAMTextBoxButton("test", 3, 10, 12, 5, "#", 6, 2, lambda: None, 5, 2))
 
         goto_map = {0: {"UP": 3, "DOWN": 1},
@@ -1250,9 +1250,9 @@ class TMAMenuTest(unittest.TestCase):
         self.assertEqual(menu.get_goto_map(), goto_map)
 
     def test_get_buttons(self):
-        buttons = [tam_tools.tam_menu.TMATextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2),
-                   tam_tools.tam_menu.TMATextButton("By", 3, 6, 6, 2, lambda: None, 5, 2),
-                   tam_tools.tam_menu.TMATextButton("12345678", 3, 8, 6, 2, lambda: None, 5, 2),
+        buttons = [tam_tools.tam_menu.TAMTextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2),
+                   tam_tools.tam_menu.TAMTextButton("By", 3, 6, 6, 2, lambda: None, 5, 2),
+                   tam_tools.tam_menu.TAMTextButton("12345678", 3, 8, 6, 2, lambda: None, 5, 2),
                    tam_tools.tam_menu.TAMTextBoxButton("test", 3, 10, 12, 5, "#", 6, 2, lambda: None, 5, 2)]
 
         goto_map = {0: {"UP": 3, "DOWN": 1},
@@ -1265,8 +1265,8 @@ class TMAMenuTest(unittest.TestCase):
         self.assertEqual(menu.get_buttons(), buttons)
 
     def test_get_buttons_2(self):
-        buttons = [tam_tools.tam_menu.TMATextButton("By", 3, 6, 6, 2, lambda: None, 5, 2),
-                   tam_tools.tam_menu.TMATextButton("12345678", 3, 8, 6, 2, lambda: None, 5, 2),
+        buttons = [tam_tools.tam_menu.TAMTextButton("By", 3, 6, 6, 2, lambda: None, 5, 2),
+                   tam_tools.tam_menu.TAMTextButton("12345678", 3, 8, 6, 2, lambda: None, 5, 2),
                    tam_tools.tam_menu.TAMTextBoxButton("test", 3, 10, 12, 5, "#", 6, 2, lambda: None, 5, 2)]
 
         goto_map = {0: {"UP": 2, "DOWN": 1},
@@ -1287,9 +1287,9 @@ class TMAMenuTest(unittest.TestCase):
         self.assertEqual(menu.get_buttons(), buttons)
 
     def test_simple_menu_builder(self):
-        buttons = [tam_tools.tam_menu.TMATextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2),
-                   tam_tools.tam_menu.TMATextButton("By", 3, 6, 6, 2, lambda: None, 5, 2),
-                   tam_tools.tam_menu.TMATextButton("12345678", 3, 8, 6, 2, lambda: None, 5, 2),
+        buttons = [tam_tools.tam_menu.TAMTextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2),
+                   tam_tools.tam_menu.TAMTextButton("By", 3, 6, 6, 2, lambda: None, 5, 2),
+                   tam_tools.tam_menu.TAMTextButton("12345678", 3, 8, 6, 2, lambda: None, 5, 2),
                    tam_tools.tam_menu.TAMTextBoxButton("test", 3, 10, 12, 5, "#", 6, 2, lambda: None, 5, 2)]
 
         menu = tam_tools.tam_menu.TAMMenu.simple_menu_builder(buttons, "a")
@@ -1300,8 +1300,8 @@ class TMAMenuTest(unittest.TestCase):
                                                3: {"UP": 2, "DOWN": 0}})
 
     def test_simple_menu_builder_2(self):
-        buttons = [tam_tools.tam_menu.TMATextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2),
-                   tam_tools.tam_menu.TMATextButton("By", 3, 6, 6, 2, lambda: None, 5, 2),
+        buttons = [tam_tools.tam_menu.TAMTextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2),
+                   tam_tools.tam_menu.TAMTextButton("By", 3, 6, 6, 2, lambda: None, 5, 2),
                    tam_tools.tam_menu.TAMTextBoxButton("test", 3, 10, 12, 5, "#", 6, 2, lambda: None, 5, 2)]
 
         menu = tam_tools.tam_menu.TAMMenu.simple_menu_builder(buttons, "a", up_keys=("U", "C"))
@@ -1310,8 +1310,8 @@ class TMAMenuTest(unittest.TestCase):
                                                2: {"C": 1, "U": 1, "DOWN": 0}})
 
     def test_simple_menu_builder_3(self):
-        buttons = [tam_tools.tam_menu.TMATextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2),
-                   tam_tools.tam_menu.TMATextButton("By", 3, 6, 6, 2, lambda: None, 5, 2),
+        buttons = [tam_tools.tam_menu.TAMTextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2),
+                   tam_tools.tam_menu.TAMTextButton("By", 3, 6, 6, 2, lambda: None, 5, 2),
                    tam_tools.tam_menu.TAMTextBoxButton("test", 3, 10, 12, 5, "#", 6, 2, lambda: None, 5, 2)]
 
         menu = tam_tools.tam_menu.TAMMenu.simple_menu_builder(buttons, "a", up_keys=("A", "C"), down_keys=("D",), on=1)
@@ -1322,7 +1322,7 @@ class TMAMenuTest(unittest.TestCase):
         self.assertEqual(menu.get_on()[0], 1)
 
     def test_simple_menu_builder_4(self):
-        buttons = [tam_tools.tam_menu.TMATextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2)]
+        buttons = [tam_tools.tam_menu.TAMTextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2)]
 
         menu = tam_tools.tam_menu.TAMMenu.simple_menu_builder(buttons, "a")
 

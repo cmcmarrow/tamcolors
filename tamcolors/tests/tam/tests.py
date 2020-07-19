@@ -566,9 +566,9 @@ class UniIOTest(unittest.TestCase):
             else:
                 system.assert_not_called()
 
-    def test__get_lin_tma_color(self):
+    def test__get_lin_tam_color(self):
         io = tam_io.uni_tam.UniIO()
-        self.assertEqual(io._get_lin_tma_color(2, 5), (34, 90))
+        self.assertEqual(io._get_lin_tam_color(2, 5), (34, 90))
 
     @staticmethod
     def test__clear():
@@ -772,7 +772,7 @@ class WinIOTest(unittest.TestCase):
                     flush.assert_called_once_with()
 
 
-class TMAColorTest(unittest.TestCase):
+class TAMColorTest(unittest.TestCase):
     def test_colors(self):
         self.assertEqual(tam.tam_colors.BLACK, 0)
         self.assertEqual(tam.tam_colors.BLUE, 1)
@@ -792,7 +792,7 @@ class TMAColorTest(unittest.TestCase):
         self.assertEqual(tam.tam_colors.LIGHT_WHITE, 15)
 
 
-class TMAKeyTest(unittest.TestCase):
+class TAMKeyTest(unittest.TestCase):
     def test_keys(self):
         self.assertIsInstance(tam.tam_keys.KEYS, set)
         for key in tam.tam_keys.KEYS:
@@ -802,7 +802,7 @@ class TMAKeyTest(unittest.TestCase):
             self.assertIsInstance(key[1], str)
 
 
-class TMALoopTest(unittest.TestCase):
+class TAMLoopTest(unittest.TestCase):
     def test_loop_init(self):
         frame = tam.tam_loop.TAMFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
         tam.tam_loop.TAMLoop(frame, only_any_os=True)
@@ -845,19 +845,19 @@ class TMALoopTest(unittest.TestCase):
             def __init__(self):
                 pass
 
-            def update(self, tma_loop, keys, loop_data):
-                tma_loop.done()
+            def update(self, tam_loop, keys, loop_data):
+                tam_loop.done()
 
-            def draw(self, tma_buffer, loop_data):
+            def draw(self, tam_buffer, loop_data):
                 pass
 
-            def done(self, tma_loop, loop_data):
+            def done(self, tam_loop, loop_data):
                 pass
 
         return Dummy()
 
 
-class TMAFrameTest(unittest.TestCase):
+class TAMFrameTest(unittest.TestCase):
     def test_frame_init(self):
         tam.tam_loop.TAMFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
 
@@ -950,19 +950,19 @@ class TMAFrameTest(unittest.TestCase):
             def __init__(self):
                 pass
 
-            def update(self, tma_loop, keys, loop_data):
+            def update(self, tam_loop, keys, loop_data):
                 pass
 
-            def draw(self, tma_buffer, loop_data):
+            def draw(self, tam_buffer, loop_data):
                 pass
 
-            def done(self, tma_loop, loop_data):
+            def done(self, tam_loop, loop_data):
                 pass
 
         return Dummy()
 
 
-class TMALoopTestTest(unittest.TestCase):
+class TAMLoopTestTest(unittest.TestCase):
     def test_loop_init(self):
         frame = tam.tam_loop.TAMFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
         loop = tam.tam_loop_test.TAMLoopTest(frame)
@@ -1038,13 +1038,13 @@ class TMALoopTestTest(unittest.TestCase):
                 self.__draw_func = draw_func
                 self.__done_func = done_func
 
-            def update(self, tma_loop, keys, loop_data):
+            def update(self, tam_loop, keys, loop_data):
                 self.__update_func()
 
-            def draw(self, tma_buffer, loop_data):
+            def draw(self, tam_buffer, loop_data):
                 self.__draw_func()
 
-            def done(self, tma_loop, loop_data):
+            def done(self, tam_loop, loop_data):
                 self.__done_func()
 
         update_func = unittest.mock.Mock()
@@ -1094,14 +1094,14 @@ class TMALoopTestTest(unittest.TestCase):
                 self.__draw_func = draw_func
                 self.__done_func = done_func
 
-            def update(self, tma_loop, keys, loop_data):
+            def update(self, tam_loop, keys, loop_data):
                 self.__update_func()
 
-            def draw(self, tma_buffer, loop_data):
+            def draw(self, tam_buffer, loop_data):
                 self.__draw_func()
                 raise TypeError()
 
-            def done(self, tma_loop, loop_data):
+            def done(self, tam_loop, loop_data):
                 self.__done_func()
 
         update_func = unittest.mock.Mock()
@@ -1128,15 +1128,15 @@ class TMALoopTestTest(unittest.TestCase):
             def __init__(self):
                 pass
 
-            def update(self, tma_loop, keys, loop_data):
+            def update(self, tam_loop, keys, loop_data):
                 for key in keys:
                     if key == ("Q", "NORMAL"):
-                        tma_loop.done()
+                        tam_loop.done()
 
-            def draw(self, tma_buffer, loop_data):
+            def draw(self, tam_buffer, loop_data):
                 pass
 
-            def done(self, tma_loop, loop_data):
+            def done(self, tam_loop, loop_data):
                 pass
 
         frame = tam.tam_loop.TAMFrame(Dummy(), 5, "A", 3, 4, 25, 35, 26, 36)
@@ -1214,13 +1214,13 @@ class TMALoopTestTest(unittest.TestCase):
             def __init__(self):
                 pass
 
-            def update(self, tma_loop, keys, loop_data):
+            def update(self, tam_loop, keys, loop_data):
                 pass
 
-            def draw(self, tma_buffer, loop_data):
+            def draw(self, tam_buffer, loop_data):
                 pass
 
-            def done(self, tma_loop, loop_data):
+            def done(self, tam_loop, loop_data):
                 pass
 
         return Dummy()
