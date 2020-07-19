@@ -1,7 +1,7 @@
 from . import tam
 from . import tam_tools
-from . import stability_check
+from . import all_tests
 
 __all__ = ("tam",
            "tam_tools",
-           "stability_check")
+           "all_tests")

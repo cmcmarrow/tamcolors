@@ -6,7 +6,7 @@ import sys
 import itertools
 
 # tamcolors libraries
-from tamcolors.tests import stability_check
+from tamcolors.tests import all_tests
 from .tam_buffer import TAMBuffer
 from tamcolors.tam_io import any_tam
 
@@ -34,7 +34,7 @@ class TAMLoop:
                  buffer_count=3,
                  color_change_key="ESCAPE",
                  loop_data=None,
-                 run_stability_check=False):
+                 stability_check=False):
         """
         info: makes a TAMLoop object
         :param tam_frame: TAMFrame: first frame in tam loop
@@ -44,14 +44,14 @@ class TAMLoop:
         :param buffer_count: int: 1 - inf
         :param color_change_key: char: key that will change color mode
         :param loop_data: dict
-        :param run_stability_check: bool: raises and error if a test did not pass
+        :param stability_check: bool: raises and error if a test did not pass
         """
 
         if loop_data is None:
             loop_data = {}
 
-        if run_stability_check and not stability_check.tam_stability_check():
-            test_results = stability_check.tam_stability_check(ret_bool=False)
+        if stability_check and not all_tests.stability_check():
+            test_results = all_tests.stability_check(ret_bool=False)
             raise TAMLoopError("TAM is corrupted! {0} out of {1} tests passed".format(*test_results))
 
         self.__running = None
