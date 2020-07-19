@@ -1190,7 +1190,7 @@ class TAMMenuTest(unittest.TestCase):
         buttons = (tam_tools.tam_menu.TAMTextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2),
                    tam_tools.tam_menu.TAMTextButton("By", 3, 6, 6, 2, lambda: None, 5, 2),
                    tam_tools.tam_menu.TAMTextButton("12345678", 3, 8, 6, 2, lambda: None, 5, 2),
-                   tam_tools.tam_menu.TMATextBoxButton("test", 3, 10, 12, 5, "#", 6, 2, lambda: None, 5, 2))
+                   tam_tools.tam_menu.TAMTextBoxButton("test", 3, 10, 12, 5, "#", 6, 2, lambda: None, 5, 2))
 
         goto_map = {0: {"UP": 3, "DOWN": 1},
                     1: {"UP": 0, "DOWN": 2},
@@ -1336,14 +1336,14 @@ class TAMMenuTest(unittest.TestCase):
         self.assertEqual(menu.get_on()[0], 0)
 
 
-class TMATextButtonTest(unittest.TestCase):
+class TAMTextButtonTest(unittest.TestCase):
     def test_init_TextButton(self):
-        button = tam_tools.tam_menu.TMATextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2)
+        button = tam_tools.tam_menu.TAMTextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2)
 
-        self.assertIsInstance(button, tam_tools.tam_menu.TMATextButton)
+        self.assertIsInstance(button, tam_tools.tam_menu.TAMTextButton)
 
     def test_init_TextButton_2(self):
-        button = tam_tools.tam_menu.TMATextButton("Hello\nCats\t123",
+        button = tam_tools.tam_menu.TAMTextButton("Hello\nCats\t123",
                                                   3,
                                                   4,
                                                   6,
@@ -1353,11 +1353,11 @@ class TMATextButtonTest(unittest.TestCase):
                                                   2,
                                                   on_chars="!@#$%^&*")
 
-        self.assertIsInstance(button, tam_tools.tam_menu.TMATextButton)
+        self.assertIsInstance(button, tam_tools.tam_menu.TAMTextButton)
 
     @staticmethod
     def test_call_TextButton():
-        button = tam_tools.tam_menu.TMATextButton("Hello\nCats\t123",
+        button = tam_tools.tam_menu.TAMTextButton("Hello\nCats\t123",
                                                   3,
                                                   4,
                                                   6,
@@ -1370,12 +1370,12 @@ class TMATextButtonTest(unittest.TestCase):
         button()
 
     def test_str_TextButton(self):
-        button = tam_tools.tam_menu.TMATextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2)
+        button = tam_tools.tam_menu.TAMTextButton("Hello", 3, 4, 6, 2, lambda: None, 5, 2)
 
         self.assertEqual(str(button), "Hello")
 
     def test_str_TextButton_2(self):
-        button = tam_tools.tam_menu.TMATextButton("Hello\nCats\t123",
+        button = tam_tools.tam_menu.TAMTextButton("Hello\nCats\t123",
                                                   3,
                                                   4,
                                                   6,
@@ -1389,7 +1389,7 @@ class TMATextButtonTest(unittest.TestCase):
 
     @staticmethod
     def test_update():
-        button = tam_tools.tam_menu.TMATextButton("Hello\nCats\t123",
+        button = tam_tools.tam_menu.TAMTextButton("Hello\nCats\t123",
                                                   3,
                                                   4,
                                                   6,
@@ -1402,7 +1402,7 @@ class TMATextButtonTest(unittest.TestCase):
         button.update()
 
     def test_draw(self):
-        button = tam_tools.tam_menu.TMATextButton("Hello", 0, 0, 6, 2, lambda: None, 5, 2)
+        button = tam_tools.tam_menu.TAMTextButton("Hello", 0, 0, 6, 2, lambda: None, 5, 2)
 
         buffer = tam.tam_buffer.TAMBuffer(6, 6, " ", 0, 0)
 
@@ -1412,7 +1412,7 @@ class TMATextButtonTest(unittest.TestCase):
             self.assertEqual(buffer.get_spot(spot, 0), (char, 6, 2))
 
     def test_draw_2(self):
-        button = tam_tools.tam_menu.TMATextButton("Hello\ncats", 0, 0, 6, 2, lambda: None, 5, 2)
+        button = tam_tools.tam_menu.TAMTextButton("Hello\ncats", 0, 0, 6, 2, lambda: None, 5, 2)
 
         buffer = tam.tam_buffer.TAMBuffer(6, 6, " ", 0, 0)
 
@@ -1425,7 +1425,7 @@ class TMATextButtonTest(unittest.TestCase):
             self.assertEqual(buffer.get_spot(spot, 1), (char, 6, 2))
 
     def test_on(self):
-        button = tam_tools.tam_menu.TMATextButton("Hello 123\ncats", 2, 0, 6, 2, lambda: None, 5, 8)
+        button = tam_tools.tam_menu.TAMTextButton("Hello 123\ncats", 2, 0, 6, 2, lambda: None, 5, 8)
 
         buffer = tam.tam_buffer.TAMBuffer(15, 6, " ", 0, 0)
 
@@ -1440,7 +1440,7 @@ class TMATextButtonTest(unittest.TestCase):
             self.assertEqual(buffer.get_spot(spot + 2, 1), (char, 5, 8))
 
     def test_on_2(self):
-        button = tam_tools.tam_menu.TMATextButton("Hello\ncats\nlol",
+        button = tam_tools.tam_menu.TAMTextButton("Hello\ncats\nlol",
                                                   8,
                                                   0,
                                                   6,
@@ -1466,7 +1466,7 @@ class TMATextButtonTest(unittest.TestCase):
             self.assertEqual(buffer.get_spot(spot + 8, 2), (char, 5, 3))
 
     def test_off(self):
-        button = tam_tools.tam_menu.TMATextButton("Hello\ncats", 0, 0, 6, 2, lambda: None, 5, 2)
+        button = tam_tools.tam_menu.TAMTextButton("Hello\ncats", 0, 0, 6, 2, lambda: None, 5, 2)
 
         buffer = tam.tam_buffer.TAMBuffer(6, 6, " ", 0, 0)
 
@@ -1481,7 +1481,7 @@ class TMATextButtonTest(unittest.TestCase):
             self.assertEqual(buffer.get_spot(spot, 1), (char, 6, 2))
 
     def test_off_2(self):
-        button = tam_tools.tam_menu.TMATextButton("Hello 123\nc\tats", 3, 1, 6, 2, lambda: None, 5, 2)
+        button = tam_tools.tam_menu.TAMTextButton("Hello 123\nc\tats", 3, 1, 6, 2, lambda: None, 5, 2)
 
         buffer = tam.tam_buffer.TAMBuffer(19, 19, " ", 0, 0)
 
@@ -1497,7 +1497,7 @@ class TMATextButtonTest(unittest.TestCase):
 
     @staticmethod
     def test_run_action():
-        button = tam_tools.tam_menu.TMATextButton("Hello\nCats\t123",
+        button = tam_tools.tam_menu.TAMTextButton("Hello\nCats\t123",
                                                   3,
                                                   4,
                                                   6,
@@ -1513,7 +1513,7 @@ class TMATextButtonTest(unittest.TestCase):
         def func():
             pass
 
-        button = tam_tools.tam_menu.TMATextButton("Hello\nCats\t123",
+        button = tam_tools.tam_menu.TAMTextButton("Hello\nCats\t123",
                                                   3,
                                                   4,
                                                   6,
@@ -1530,7 +1530,7 @@ class TMATextButtonTest(unittest.TestCase):
         def func():
             pass
 
-        button = tam_tools.tam_menu.TMATextButton("Hello\nCats\t123",
+        button = tam_tools.tam_menu.TAMTextButton("Hello\nCats\t123",
                                                   4,
                                                   4,
                                                   2,
@@ -1543,17 +1543,17 @@ class TMATextButtonTest(unittest.TestCase):
         self.assertIs(button.get_action(), func)
 
     def test_get_position(self):
-        button = tam_tools.tam_menu.TMATextButton("Hello\ncats", 0, 0, 6, 2, lambda: None, 5, 2)
+        button = tam_tools.tam_menu.TAMTextButton("Hello\ncats", 0, 0, 6, 2, lambda: None, 5, 2)
 
         self.assertEqual(button.get_position(), (0, 0))
 
     def test_get_position_2(self):
-        button = tam_tools.tam_menu.TMATextButton("Hello 123\nc\tats", 3, 1, 6, 2, lambda: None, 5, 2)
+        button = tam_tools.tam_menu.TAMTextButton("Hello 123\nc\tats", 3, 1, 6, 2, lambda: None, 5, 2)
 
         self.assertEqual(button.get_position(), (3, 1))
 
     def test_set_position(self):
-        button = tam_tools.tam_menu.TMATextButton("Hello 123\nc\tats", 3, 1, 6, 2, lambda: None, 5, 2)
+        button = tam_tools.tam_menu.TAMTextButton("Hello 123\nc\tats", 3, 1, 6, 2, lambda: None, 5, 2)
 
         buffer = tam.tam_buffer.TAMBuffer(19, 19, " ", 0, 0)
 
@@ -1569,7 +1569,7 @@ class TMATextButtonTest(unittest.TestCase):
             self.assertEqual(buffer.get_spot(spot, 1), (char, 6, 2))
 
     def test_set_position_2(self):
-        button = tam_tools.tam_menu.TMATextButton("Hello\ncats\nlol",
+        button = tam_tools.tam_menu.TAMTextButton("Hello\ncats\nlol",
                                                   8,
                                                   0,
                                                   6,
@@ -1596,7 +1596,7 @@ class TMATextButtonTest(unittest.TestCase):
             self.assertEqual(buffer.get_spot(spot + 9, 3), (char, 5, 3))
 
 
-class TMATextBoxButtonTest(unittest.TestCase):
+class TAMTextBoxButtonTest(unittest.TestCase):
     def test_init_TextBoxButton(self):
         button = tam_tools.tam_menu.TAMTextBoxButton("test", 3, 10, 20, 5, "#", 6, 2, lambda: None, 5, 2)
         self.assertIsInstance(button, tam_tools.tam_menu.TAMTextBoxButton)
@@ -1921,68 +1921,68 @@ class TMATextBoxButtonTest(unittest.TestCase):
             self.assertEqual(buffer.get_spot(spot + 6, 9), (char, 4, 5))
 
 
-class TMAListBufferTest(unittest.TestCase):
-    def test_tma_list_buffer(self):
+class TAMListBufferTest(unittest.TestCase):
+    def test_tam_list_buffer(self):
         buffer = [["1", "2", "3"],
                   ["4", "5", "6"]]
 
-        tma_buffer = tam.tam_buffer.TAMBuffer(3, 2, " ", 1, 2)
+        tam_buffer = tam.tam_buffer.TAMBuffer(3, 2, " ", 1, 2)
         for i in range(3):
-            tma_buffer.set_spot(i, 0, str(i + 1), 1, 2)
-            tma_buffer.set_spot(i, 1, str(i + 4), 1, 2)
+            tam_buffer.set_spot(i, 0, str(i + 1), 1, 2)
+            tam_buffer.set_spot(i, 1, str(i + 4), 1, 2)
 
-        ret_tma_buffer = tam_tools.tam_list_buffer.tam_list_buffer(buffer, 1, 2)
+        ret_tam_buffer = tam_tools.tam_list_buffer.tam_list_buffer(buffer, 1, 2)
 
-        self.assertEqual(ret_tma_buffer, tma_buffer)
+        self.assertEqual(ret_tam_buffer, tam_buffer)
 
-    def test_tma_list_buffer_2(self):
+    def test_tam_list_buffer_2(self):
         buffer = [["1", "2", "3"],
                   ["4", "5", "6"],
                   ["1", "2", "3"]]
 
-        tma_buffer = tam.tam_buffer.TAMBuffer(3, 3, " ", 1, 2)
+        tam_buffer = tam.tam_buffer.TAMBuffer(3, 3, " ", 1, 2)
         for i in range(3):
-            tma_buffer.set_spot(i, 0, str(i + 1), 1, 2)
-            tma_buffer.set_spot(i, 1, str(i + 4), 1, 2)
-            tma_buffer.set_spot(i, 2, str(i + 1), 1, 2)
+            tam_buffer.set_spot(i, 0, str(i + 1), 1, 2)
+            tam_buffer.set_spot(i, 1, str(i + 4), 1, 2)
+            tam_buffer.set_spot(i, 2, str(i + 1), 1, 2)
 
-        ret_tma_buffer = tam_tools.tam_list_buffer.tam_list_buffer(buffer, 1, 2)
+        ret_tam_buffer = tam_tools.tam_list_buffer.tam_list_buffer(buffer, 1, 2)
 
-        self.assertEqual(ret_tma_buffer, tma_buffer)
+        self.assertEqual(ret_tam_buffer, tam_buffer)
 
-    def test_tma_list_buffer_3(self):
+    def test_tam_list_buffer_3(self):
         buffer = [["1", "2", "3"],
                   ["4", "5", "6"]]
 
         foreground_colors = [[1, 2, 3],
                              [4, 5, 6]]
 
-        tma_buffer = tam.tam_buffer.TAMBuffer(3, 2, " ", 1, 2)
+        tam_buffer = tam.tam_buffer.TAMBuffer(3, 2, " ", 1, 2)
         for i in range(3):
-            tma_buffer.set_spot(i, 0, str(i + 1), i + 1, 2)
-            tma_buffer.set_spot(i, 1, str(i + 4), i + 4, 2)
+            tam_buffer.set_spot(i, 0, str(i + 1), i + 1, 2)
+            tam_buffer.set_spot(i, 1, str(i + 4), i + 4, 2)
 
-        ret_tma_buffer = tam_tools.tam_list_buffer.tam_list_buffer(buffer, foreground_colors, 2)
+        ret_tam_buffer = tam_tools.tam_list_buffer.tam_list_buffer(buffer, foreground_colors, 2)
 
-        self.assertEqual(ret_tma_buffer, tma_buffer)
+        self.assertEqual(ret_tam_buffer, tam_buffer)
 
-    def test_tma_list_buffer_4(self):
+    def test_tam_list_buffer_4(self):
         buffer = [["1", "2", "3"],
                   ["4", "5", "6"]]
 
         background_colors = [[1, 2, 3],
                              [4, 5, 6]]
 
-        tma_buffer = tam.tam_buffer.TAMBuffer(3, 2, " ", 1, 2)
+        tam_buffer = tam.tam_buffer.TAMBuffer(3, 2, " ", 1, 2)
         for i in range(3):
-            tma_buffer.set_spot(i, 0, str(i + 1), 1, i + 1)
-            tma_buffer.set_spot(i, 1, str(i + 4), 1, i + 4)
+            tam_buffer.set_spot(i, 0, str(i + 1), 1, i + 1)
+            tam_buffer.set_spot(i, 1, str(i + 4), 1, i + 4)
 
-        ret_tma_buffer = tam_tools.tam_list_buffer.tam_list_buffer(buffer, 1, background_colors)
+        ret_tam_buffer = tam_tools.tam_list_buffer.tam_list_buffer(buffer, 1, background_colors)
 
-        self.assertEqual(ret_tma_buffer, tma_buffer)
+        self.assertEqual(ret_tam_buffer, tam_buffer)
 
-    def test_tma_list_buffer_5(self):
+    def test_tam_list_buffer_5(self):
         buffer = [["1", "2", "3"],
                   ["4", "5", "6"]]
 
@@ -1992,11 +1992,11 @@ class TMAListBufferTest(unittest.TestCase):
         background_colors = [[1, 2, 3],
                              [4, 5, 6]]
 
-        tma_buffer = tam.tam_buffer.TAMBuffer(3, 2, " ", 1, 2)
+        tam_buffer = tam.tam_buffer.TAMBuffer(3, 2, " ", 1, 2)
         for i in range(3):
-            tma_buffer.set_spot(i, 0, str(i + 1), (i + 1) * 2, i + 1)
-            tma_buffer.set_spot(i, 1, str(i + 4), (i + 4) * 2, i + 4)
+            tam_buffer.set_spot(i, 0, str(i + 1), (i + 1) * 2, i + 1)
+            tam_buffer.set_spot(i, 1, str(i + 4), (i + 4) * 2, i + 4)
 
-        ret_tma_buffer = tam_tools.tam_list_buffer.tam_list_buffer(buffer, foreground_colors, background_colors)
+        ret_tam_buffer = tam_tools.tam_list_buffer.tam_list_buffer(buffer, foreground_colors, background_colors)
 
-        self.assertEqual(ret_tma_buffer, tma_buffer)
+        self.assertEqual(ret_tam_buffer, tam_buffer)
