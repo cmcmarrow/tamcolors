@@ -123,6 +123,18 @@ void set_cursor_info(int x, int y, int color) {
 	SetConsoleTextAttribute(hOut, color);
 }
 
+void set_console_color(int color) {
+	/*
+	parameter: int: color: console color
+	return: void
+	*/
+	static const HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+	std::cout.flush();
+
+	//set the console color
+	SetConsoleTextAttribute(hOut, color);
+}
+
 int get_key() {
 	/*
 	return: int

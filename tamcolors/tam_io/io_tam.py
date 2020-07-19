@@ -42,6 +42,15 @@ class IO:
     def get_dimensions(self):
         raise NotImplementedError()
 
+    def printc(self, value, color):
+        raise NotImplementedError()
+
+    def inputc(self, output, color):
+        raise NotImplementedError()
+
+    def clear(self):
+        raise NotImplementedError()
+
     @staticmethod
     def get_key_dict():
         raise NotImplementedError()

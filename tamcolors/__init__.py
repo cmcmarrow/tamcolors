@@ -1,6 +1,7 @@
 from . import tam
 from . import tam_tools
 from . import tam_basic
+from .tam_basic.basic import printc, inputc, clear
 from . import tam_io
 from . import examples
 from . import tests
@@ -19,6 +20,9 @@ __all__ = ("__author__",
            "tam",
            "tam_tools",
            "tam_basic",
+           "printc",
+           "inputc",
+           "clear",
            "tam_io",
            "examples",
            "tests")

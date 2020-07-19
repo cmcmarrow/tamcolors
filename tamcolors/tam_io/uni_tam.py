@@ -102,7 +102,7 @@ class UniIO(io_tam.IO):
         """
         dimension = io._get_dimension()
         if self.__buffer.get_dimensions() != dimension:
-            self._clear()
+            self.clear()
             self._show_console_cursor(False)
             io._enable_get_key()
             self.__buffer.set_dimensions_and_clear(*dimension)
@@ -169,7 +169,7 @@ class UniIO(io_tam.IO):
         info: will setup terminal to be used
         :return:
         """
-        self._clear()
+        self.clear()
         self._show_console_cursor(False)
         io._enable_get_key()
 
@@ -178,7 +178,7 @@ class UniIO(io_tam.IO):
         info: will reset terminal
         :return:
         """
-        self._clear()
+        self.clear()
         self._show_console_cursor(True)
         io._disable_get_key()
 
@@ -264,8 +264,7 @@ class UniIO(io_tam.IO):
     def _get_lin_tam_color(self, foreground_color, background_color):
         return self.__color_map.get(foreground_color), self.__color_map.get(background_color)
 
-    @staticmethod
-    def _clear():
+    def clear(self):
         """
         info: will clear the screen. Note that it will also reset the terminal
         :return:

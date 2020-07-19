@@ -80,7 +80,7 @@ class WinIO(io_tam.IO):
         :return:
         """
         if self.__buffer.get_dimensions() != io._get_dimension():
-            io._clear()
+            self.clear()
             io._show_console_cursor(False)
             self.__buffer.set_dimensions_and_clear(*io._get_dimension())
             self.__last_frame = None
@@ -186,7 +186,7 @@ class WinIO(io_tam.IO):
         info: will setup terminal to be used
         :return:
         """
-        io._clear()
+        self.clear()
         io._show_console_cursor(False)
 
     def done(self):
@@ -198,7 +198,7 @@ class WinIO(io_tam.IO):
         self.__last_frame = TAMBuffer(0, 0, " ", 1, 1)
 
         io._set_cursor_info(0, 0, io._get_default_color())
-        io._clear()
+        self.clear()
         io._show_console_cursor(True)
 
     def get_key(self):
@@ -247,6 +247,27 @@ class WinIO(io_tam.IO):
         windows_keys["27"] = ("ESCAPE", "SPECIAL")
 
         return windows_keys
+
+    def printc(self, output, color):
+        default_color = io._get_default_color()
+        io._set_console_color((color[0] % 16) + (color[1] % 16) * 16)
+        sys.stdout.write(output)
+        sys.stdout.flush()
+        io._set_console_color(default_color)
+
+    def inputc(self, output, color):
+        default_color = io._get_default_color()
+        io._set_console_color((color[0] % 16) + (color[1] % 16)*16)
+        ret = input(output)
+        io._set_console_color(default_color)
+        return ret
+
+    def clear(self):
+        """
+        info: will clear the screen
+        :return:
+        """
+        io._clear()
 
     @staticmethod
     def _print(x, y, output, foreground_color, background_color):
