@@ -1,19 +1,15 @@
 # tamcolors libraries
-from . import tma_str
+from . import tam_str
 
 """
-tma_print will draw string on a tma_buffer
+tam_print will draw string on a tam_buffer
 """
 
 
-class TMAPrintError(Exception):
-    pass
-
-
-def tma_print(tma_buffer, x, y, text, foreground_color, background_color, error_bad_char=False, bad_char=""):
+def tam_print(tam_buffer, x, y, text, foreground_color, background_color, error_bad_char=False, bad_char=""):
     """
-    info: tma_print will draw string on a tma_buffer
-    :param tma_buffer: TMABuffer
+    info: tam_print will draw string on a tam_buffer
+    :param tam_buffer: TAMBuffer
     :param x: int
     :param y: int
     :param text: object with __str__
@@ -24,9 +20,9 @@ def tma_print(tma_buffer, x, y, text, foreground_color, background_color, error_
     :return:
     """
     if error_bad_char:
-        text = tma_str.make_tma_str(text)
+        text = tam_str.make_tam_str(text)
     else:
-        text = tma_str.make_tma_str(text, bad_char=bad_char)
+        text = tam_str.make_tam_str(text, bad_char=bad_char)
 
     at_x = x
     for char in str(text):
@@ -34,5 +30,5 @@ def tma_print(tma_buffer, x, y, text, foreground_color, background_color, error_
             at_x = x
             y += 1
         else:
-            tma_buffer.set_spot(at_x, y, char, foreground_color, background_color)
+            tam_buffer.set_spot(at_x, y, char, foreground_color, background_color)
             at_x += 1

@@ -2,7 +2,7 @@
 #include <Python.h>
 
 //tamcolors library
-#include "uni_tma.h"
+#include "uni_tam.h"
 
 
 /*
@@ -60,7 +60,7 @@ static PyObject* _get_key(PyObject *self, PyObject *args) {
 	return Py_BuildValue("i", get_key());
 }
 
-static PyMethodDef _uni_tma_methods[] = {
+static PyMethodDef _uni_tam_methods[] = {
 	{
 		"_get_dimension", _get_dimension, METH_VARARGS,
 		"_get_dimension"
@@ -80,15 +80,15 @@ static PyMethodDef _uni_tma_methods[] = {
 { NULL, NULL, 0, NULL }
 };
 
-static struct PyModuleDef _uni_tma_definition = {
+static struct PyModuleDef _uni_tam_definition = {
 	PyModuleDef_HEAD_INIT,
-	"_uin_tma",
+	"_uin_tam",
 	"Can work with Unix terminal.",
 	-1,
-	_uni_tma_methods
+	_uni_tam_methods
 };
 
-PyMODINIT_FUNC PyInit__uni_tma(void) {
+PyMODINIT_FUNC PyInit__uni_tam(void) {
 	Py_Initialize();
-	return PyModule_Create(&_uni_tma_definition);
+	return PyModule_Create(&_uni_tam_definition);
 }

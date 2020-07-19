@@ -7,27 +7,27 @@ import itertools
 
 # tamcolors libraries
 from tamcolors.tests import stability_check
-from .tma_buffer import TMABuffer
-from tamcolors.tam_io import any_tma
+from .tam_buffer import TAMBuffer
+from tamcolors.tam_io import any_tam
 
 
 """
-TMALoop
-Handlers FPS, Key input, drawing, updating and TMAFrame stack
+TAMLoop
+Handlers FPS, Key input, drawing, updating and TAMFrame stack
 
-TMAFrame
+TAMFrame
 Holds information about frame
 Colors, min and max size
 """
 
 
-class TMALoopError(Exception):
+class TAMLoopError(Exception):
     pass
 
 
-class TMALoop:
+class TAMLoop:
     def __init__(self,
-                 tma_frame,
+                 tam_frame,
                  io_list=None,
                  any_os=False,
                  only_any_os=False,
@@ -36,8 +36,8 @@ class TMALoop:
                  loop_data=None,
                  run_stability_check=False):
         """
-        info: makes a TMALoop object
-        :param tma_frame: TMAFrame: first frame in tam loop
+        info: makes a TAMLoop object
+        :param tam_frame: TAMFrame: first frame in tam loop
         :param io_list: list, tuple, None: ios that can be used
         :param any_os: bool: will use ANYIO if no other IO can be used if True
         :param only_any_os: bool: will only use ANYIO if True
@@ -50,9 +50,9 @@ class TMALoop:
         if loop_data is None:
             loop_data = {}
 
-        if run_stability_check and not stability_check.tma_stability_check():
-            test_results = stability_check.tma_stability_check(ret_bool=False)
-            raise TMALoopError("TAM is corrupted! {0} out of {1} tests passed".format(*test_results))
+        if run_stability_check and not stability_check.tam_stability_check():
+            test_results = stability_check.tam_stability_check(ret_bool=False)
+            raise TAMLoopError("TAM is corrupted! {0} out of {1} tests passed".format(*test_results))
 
         self.__running = None
         self.__draw_loop_thread = None
@@ -60,17 +60,17 @@ class TMALoop:
         self.__error = None
 
         if only_any_os:
-            self.__io = any_tma.AnyIO.get_io()
+            self.__io = any_tam.AnyIO.get_io()
         else:
-            self.__io = any_tma.get_io(io_list=io_list, any_os=any_os)
+            self.__io = any_tam.get_io(io_list=io_list, any_os=any_os)
             if self.__io is None:
-                raise TMALoopError("tam io is None")
+                raise TAMLoopError("tam io is None")
 
-        self.__frame_stack = [tma_frame]
+        self.__frame_stack = [tam_frame]
         self.__loop_data = loop_data
         self.__input_keys = []
 
-        self.__update_ready_buffers = [TMABuffer(0, 0, " ", 0, 0) for _ in range(buffer_count)]
+        self.__update_ready_buffers = [TAMBuffer(0, 0, " ", 0, 0) for _ in range(buffer_count)]
         self.__draw_ready_buffers = []
 
         self.__color_change_key = color_change_key
@@ -131,7 +131,7 @@ class TMALoop:
         :return:
         """
         try:
-            loop = TMALoop(*args, **kwargs)
+            loop = TAMLoop(*args, **kwargs)
             loop()
         except KeyboardInterrupt:
             pass
@@ -155,8 +155,8 @@ class TMALoop:
 
     def add_frame_stack(self, frame):
         """
-        info: will add a TMAFrame to stack
-        :param frame: TMAFrame
+        info: will add a TAMFrame to stack
+        :param frame: TAMFrame
         :return:
         """
 
@@ -164,8 +164,8 @@ class TMALoop:
 
     def pop_frame_stack(self):
         """
-        info: will remove TMAFrame from stack
-        :return: TMAFrame or None
+        info: will remove TAMFrame from stack
+        :return: TAMFrame or None
         """
 
         if len(self.__frame_stack) != 0:
@@ -191,10 +191,10 @@ class TMALoop:
                 frame.update(self, keys, self.__loop_data)
 
                 if len(self.__update_ready_buffers) != 0:
-                    tma_buffer = frame.make_buffer_ready(self.__update_ready_buffers.pop(0),
+                    tam_buffer = frame.make_buffer_ready(self.__update_ready_buffers.pop(0),
                                                          *self.__io.get_dimensions())
-                    frame.draw(tma_buffer, self.__loop_data)
-                    self.__draw_ready_buffers.append(tma_buffer)
+                    frame.draw(tam_buffer, self.__loop_data)
+                    self.__draw_ready_buffers.append(tam_buffer)
 
                 time.sleep(max(frame_time - (time.time() - start_time), 0))
         except BaseException as error:
@@ -207,16 +207,16 @@ class TMALoop:
 
     def _draw_loop(self):
         """
-        info: will draw TMABuffer
+        info: will draw TAMBuffer
         :return:
         """
 
         try:
             while self.__running:
                 if len(self.__draw_ready_buffers) != 0:
-                    tma_buffer = self.__draw_ready_buffers.pop(0)
-                    self.__io.draw(tma_buffer)
-                    self.__update_ready_buffers.append(tma_buffer)
+                    tam_buffer = self.__draw_ready_buffers.pop(0)
+                    self.__io.draw(tam_buffer)
+                    self.__update_ready_buffers.append(tam_buffer)
                 time.sleep(0.0001)
         except BaseException as error:
             self.__error = error
@@ -240,7 +240,7 @@ class TMALoop:
             self.__error = error
 
 
-class TMAFrame:
+class TAMFrame:
     def __init__(self,
                  frame,
                  fps,
@@ -252,7 +252,7 @@ class TMAFrame:
                  min_height=0,
                  max_height=1000):
         """
-        info: makes a TMAFrame object
+        info: makes a TAMFrame object
         :param frame: object
         :param fps: int or float: 0.0 - inf
         :param char: str: len of 1
@@ -306,42 +306,42 @@ class TMAFrame:
         """
         return self.__min_height, self.__max_height
 
-    def make_buffer_ready(self, tma_buffer, screen_width, screen_height):
+    def make_buffer_ready(self, tam_buffer, screen_width, screen_height):
         """
         info: will make buffer ready for frame
-        :param tma_buffer: TMABuffer
+        :param tam_buffer: TAMBuffer
         :param screen_width: int: 0 - inf
         :param screen_height: int: 0 - inf
         :return:
         """
-        if (self.__char, self.__foreground_color, self.__background_color) != tma_buffer.get_defaults():
-            tma_buffer.set_defaults_and_clear(self.__char, self.__foreground_color, self.__background_color)
+        if (self.__char, self.__foreground_color, self.__background_color) != tam_buffer.get_defaults():
+            tam_buffer.set_defaults_and_clear(self.__char, self.__foreground_color, self.__background_color)
 
         width = min(max(self.__min_width, screen_width), self.__max_width)
         height = min(max(self.__min_height, screen_height), self.__max_height)
-        if (width, height) != tma_buffer.get_dimensions():
-            tma_buffer.set_dimensions_and_clear(width, height)
+        if (width, height) != tam_buffer.get_dimensions():
+            tam_buffer.set_dimensions_and_clear(width, height)
 
-        return tma_buffer
+        return tam_buffer
 
-    def update(self, tma_loop, keys, loop_data):
+    def update(self, tam_loop, keys, loop_data):
         """
         info: will update terminal
-        :param tma_loop: TMALoop
+        :param tam_loop: TAMLoop
         :param keys: list, tuple
         :param loop_data: dict
         :return:
         """
-        self.__frame.update(tma_loop, keys, loop_data)
+        self.__frame.update(tam_loop, keys, loop_data)
 
-    def draw(self, tma_buffer, loop_data):
+    def draw(self, tam_buffer, loop_data):
         """
         info: will draw frame onto terminal
-        :param tma_buffer: TMABuffer
+        :param tam_buffer: TAMBuffer
         :param loop_data: dict
         :return:
         """
-        self.__frame.draw(tma_buffer, loop_data)
+        self.__frame.draw(tam_buffer, loop_data)
 
     def done(self, tma_loop, loop_data):
         """

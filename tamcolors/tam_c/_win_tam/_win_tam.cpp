@@ -5,7 +5,7 @@
 #include <Python.h>
 
 //tamcolors library
-#include "win_tma.h"
+#include "win_tam.h"
 
 
 /*
@@ -110,7 +110,7 @@ static PyObject* _get_key(PyObject *self, PyObject *args) {
 	return Py_BuildValue("i", get_key());
 }
 
-static PyMethodDef _win_tma_methods[] = {
+static PyMethodDef _win_tam_methods[] = {
 	{
 		"_show_console_cursor", _show_console_cursor, METH_VARARGS,
 		"_show_console_cursor"
@@ -142,15 +142,15 @@ static PyMethodDef _win_tma_methods[] = {
 { NULL, NULL, 0, NULL }
 };
 
-static struct PyModuleDef _win_tma_definition = {
+static struct PyModuleDef _win_tam_definition = {
 	PyModuleDef_HEAD_INIT,
-	"_win_tma",
+	"_win_tam",
 	"Can work with Windows terminal.",
 	-1,
-	_win_tma_methods
+	_win_tam_methods
 };
 
-PyMODINIT_FUNC PyInit__win_tma(void) {
+PyMODINIT_FUNC PyInit__win_tam(void) {
 	Py_Initialize();
-	return PyModule_Create(&_win_tma_definition);
+	return PyModule_Create(&_win_tam_definition);
 }

@@ -9,11 +9,11 @@ def get_c_file_path(directory, name):
 
 ext_modules = []
 if platform.system() == "Windows":
-    ext_modules.append(Extension("tamcolors.tam_io._win_tma", sources=[get_c_file_path("_win_tma", "_win_tma.cpp"),
-                                                                       get_c_file_path("_win_tma", "win_tma.cpp")]))
+    ext_modules.append(Extension("tamcolors.tam_io._win_tam", sources=[get_c_file_path("_win_tam", "_win_tam.cpp"),
+                                                                       get_c_file_path("_win_tam", "win_tam.cpp")]))
 elif platform.system() in ("Darwin", "Linux"):
-    ext_modules.append(Extension("tamcolors.tam_io._uni_tma", sources=[get_c_file_path("_uni_tma", "_uni_tma.cpp"),
-                                                                       get_c_file_path("_uni_tma", "uni_tma.cpp")]))
+    ext_modules.append(Extension("tamcolors.tam_io._uni_tam", sources=[get_c_file_path("_uni_tam", "_uni_tam.cpp"),
+                                                                       get_c_file_path("_uni_tam", "uni_tam.cpp")]))
 
 
 setup(

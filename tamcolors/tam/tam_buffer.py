@@ -3,7 +3,7 @@ import copy
 
 
 """
-TMABUFFER
+TAMBuffer
 stores char and colors for spot
 can get/set spots
 can clear 
@@ -11,11 +11,7 @@ can format to be outputted
 """
 
 
-class TMABufferError(Exception):
-    pass
-
-
-class TMABuffer:
+class TAMBuffer:
     def __init__(self,
                  width,
                  height,
@@ -23,7 +19,7 @@ class TMABuffer:
                  foreground_color,
                  background_color):
         """
-        info: makes a TMABuffer object
+        info: makes a TAMBuffer object
         :param width: int: 0 - inf
         :param height: int: 0 - inf
         :param char: str: len of 1
@@ -46,8 +42,8 @@ class TMABuffer:
 
     def __str__(self):
         """
-        info: formats TMABuffer to string  to be printed
-        :return: str: TMABuffer as string
+        info: formats TAMBuffer to string  to be printed
+        :return: str: TAMBuffer as string
         """
         rows = []
         for y in range(self.__height):
@@ -68,7 +64,7 @@ class TMABuffer:
         :param other: Object
         :return: bool
         """
-        if isinstance(other, TMABuffer):
+        if isinstance(other, TAMBuffer):
             return self.get_raw_buffers() == other.get_raw_buffers()
         return False
 
@@ -82,7 +78,7 @@ class TMABuffer:
 
     def clear(self):
         """
-        info: clears TMABuffer
+        info: clears TAMBuffer
         :return:
         """
         length = self.__width * self.__height
@@ -99,7 +95,7 @@ class TMABuffer:
 
     def set_dimensions_and_clear(self, width, height):
         """
-        info: clears and resizes TMABuffer
+        info: clears and resizes TAMBuffer
         :param width: int: 0 - inf
         :param height: int: 0 - inf
         :return:
@@ -145,8 +141,8 @@ class TMABuffer:
 
     def copy(self):
         """
-        info: copy's TMABuffer
-        :return: TMABuffer
+        info: copy's TAMBuffer
+        :return: TAMBuffer
         """
         return copy.deepcopy(self)
 
@@ -198,7 +194,7 @@ class TMABuffer:
     def get_from_raw_spot(self, spot):
         """
         info: gets spot info
-        :param spot: x: int: 0 - (len(tma_buffer) - 1)
+        :param spot: x: int: 0 - (len(tam_buffer) - 1)
         :return: (int, int, int) or None
         """
         if 0 <= spot < len(self.__char_buffer):
@@ -206,7 +202,7 @@ class TMABuffer:
         return None
 
     def draw_onto(self,
-                  tma_buffer,
+                  tam_buffer,
                   start_x=0,
                   start_y=0,
                   buffer_start_x=0,
@@ -214,8 +210,8 @@ class TMABuffer:
                   buffer_size_x=-1,
                   buffer_size_y=-1):
         """
-        info: will draw tma_buffer or part of a TMABuffer onto another TMABuffer
-        :param tma_buffer: TMABuffer
+        info: will draw tam_buffer or part of a TAMBuffer onto another TAMBuffer
+        :param tam_buffer: TAMBuffer
         :param start_x: int
         :param start_y: int
         :param buffer_start_x: int
@@ -230,7 +226,7 @@ class TMABuffer:
         buffer_start_x, \
         buffer_start_y, \
         buffer_size_x, \
-        buffer_size_y = self.get_cross_rect(tma_buffer,
+        buffer_size_y = self.get_cross_rect(tam_buffer,
                                             start_x,
                                             start_y,
                                             buffer_start_x,
@@ -238,18 +234,18 @@ class TMABuffer:
                                             buffer_size_x,
                                             buffer_size_y)
 
-        char_buffer, foreground_buffer, background_buffer = tma_buffer.get_raw_buffers()
+        char_buffer, foreground_buffer, background_buffer = tam_buffer.get_raw_buffers()
         this_char_buffer, this_foreground_buffer, this_background_buffer = self.get_raw_buffers()
         for y in range(buffer_size_y):
             to_spot = self.get_raw_spot(start_x, start_y + y)
-            draw_spot = tma_buffer.get_raw_spot(buffer_start_x, buffer_start_y + y)
+            draw_spot = tam_buffer.get_raw_spot(buffer_start_x, buffer_start_y + y)
             for ts, ds in zip(range(to_spot, to_spot + buffer_size_x), range(draw_spot, draw_spot + buffer_size_x)):
                 this_char_buffer[ts] = char_buffer[ds]
                 this_foreground_buffer[ts] = foreground_buffer[ds]
                 this_background_buffer[ts] = background_buffer[ds]
 
     def get_cross_rect(self,
-                       tma_buffer,
+                       tam_buffer,
                        start_x=0,
                        start_y=0,
                        buffer_start_x=0,
@@ -257,8 +253,8 @@ class TMABuffer:
                        buffer_size_x=-1,
                        buffer_size_y=-1):
         """
-        info: will draw tma_buffer or part of a TMABuffer onto another TMABuffer
-        :param tma_buffer: TMABuffer
+        info: will draw tam_buffer or part of a TAMBuffer onto another TAMBuffer
+        :param tam_buffer: TAMBuffer
         :param start_x: int
         :param start_y: int
         :param buffer_start_x: int
@@ -267,7 +263,7 @@ class TMABuffer:
         :param buffer_size_y: int: 0 - inf
         :return:
         """
-        width, height = tma_buffer.get_dimensions()
+        width, height = tam_buffer.get_dimensions()
         if buffer_size_x == -1:
             buffer_size_x = width
         if buffer_size_y == -1:

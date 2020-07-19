@@ -3,20 +3,16 @@ from tamcolors import tam_tools
 
 
 """
-TMAMenu
+TAMMenu
 A way for user to give input/pick an option
 """
 
 
-class TMAMenuError(Exception):
-    pass
-
-
-class TMAMenu:
+class TAMMenu:
     def __init__(self, buttons, call_key, goto_map, on=0):
         """
-        info: Makes a TMAMenu object
-        :param buttons: list or tuple: (TMAButtonRule, TMAButtonRule, ...)
+        info: Makes a TAMMenu object
+        :param buttons: list or tuple: (TAMButtonRule, TAMButtonRule, ...)
         :param call_key: str
         :param goto_map: dict: {int: {str: int}}
         :param on: int: 0 - (len(buttons) - 1)
@@ -61,7 +57,7 @@ class TMAMenu:
     def draw(self, buffer):
         """
         info: draw all the buttons of the menu
-        :param buffer: TMABuffer
+        :param buffer: TAMBuffer
         :return:
         """
         for key in self.__buttons:
@@ -98,13 +94,13 @@ class TMAMenu:
     @staticmethod
     def simple_menu_builder(buttons, call_on, up_keys=("UP",), down_keys=("DOWN",), on=0):
         """
-        info: a simple way of making a TMAMenu
-        :param buttons: TMAButtonRule
+        info: a simple way of making a TAMMenu
+        :param buttons: TAMButtonRule
         :param call_on: str
         :param up_keys: list or tuple: (str, ...)
         :param down_keys: list or tuple: (str, ...)
         :param on: int
-        :return: TMAMenu
+        :return: TAMMenu
         """
         goto_map = {}
         for spot in range(len(buttons)):
@@ -125,10 +121,10 @@ class TMAMenu:
 
             goto_map[spot] = button_dict
 
-        return TMAMenu(buttons, call_on, goto_map, on)
+        return TAMMenu(buttons, call_on, goto_map, on)
 
 
-class TMAButtonRule:
+class TAMButtonRule:
     def __init__(self):
         pass
 
@@ -166,7 +162,7 @@ class TMAButtonRule:
         raise NotImplementedError()
 
 
-class TMATextButton(TMAButtonRule):
+class TAMTextButton(TAMButtonRule):
     def __init__(self,
                  text,
                  x,
@@ -178,7 +174,7 @@ class TMATextButton(TMAButtonRule):
                  on_background_color,
                  on_chars="* "):
         """
-        info: Makes a TMATextButton
+        info: Makes a TAMTextButton
         :param text: str
         :param x: int
         :param y: int
@@ -235,7 +231,7 @@ class TMATextButton(TMAButtonRule):
         :return:
         """
         for draw_args in self.__draw_args:
-            tam_tools.tma_print.tma_print(buffer, *draw_args)
+            tam_tools.tam_print.tam_print(buffer, *draw_args)
 
     def on(self):
         """
@@ -312,7 +308,7 @@ class TMATextButton(TMAButtonRule):
             self.on()
 
 
-class TMATextBoxButton(TMAButtonRule):
+class TAMTextBoxButton(TAMButtonRule):
     def __init__(self,
                  text,
                  x,
@@ -334,7 +330,7 @@ class TMATextBoxButton(TMAButtonRule):
                  char_background=" "):
         super().__init__()
 
-        self.__text_box = tam_tools.tma_text_box.TMATextBox(text,
+        self.__text_box = tam_tools.tam_text_box.TAMTextBox(text,
                                                             width,
                                                             height,
                                                             char,

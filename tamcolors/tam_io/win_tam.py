@@ -3,10 +3,10 @@ import string
 import sys
 
 # tamcolors libraries
-from tamcolors.tam.tma_buffer import TMABuffer
-from . import io_tma
+from tamcolors.tam.tam_buffer import TAMBuffer
+from . import io_tam
 try:
-    from . import _win_tma as io
+    from . import _win_tam as io
 except ImportError:
     io = None
 
@@ -24,7 +24,7 @@ class WinIOError(Exception):
     pass
 
 
-class WinIO(io_tma.IO):
+class WinIO(io_tam.IO):
     def __init__(self):
         """
         info: makes WinIO object
@@ -33,8 +33,8 @@ class WinIO(io_tma.IO):
         self.__mode = 16
         self.__modes = {2: self._draw_2,
                         16: self._draw_16}
-        self.__buffer = TMABuffer(0, 0, " ", 1, 1)
-        self.__last_frame = TMABuffer(0, 0, " ", 1, 1)
+        self.__buffer = TAMBuffer(0, 0, " ", 1, 1)
+        self.__last_frame = TAMBuffer(0, 0, " ", 1, 1)
         self.__windows_keys = self.get_key_dict()
 
     @classmethod
@@ -73,10 +73,10 @@ class WinIO(io_tma.IO):
         """
         return tuple(self.__modes)
 
-    def draw(self, tma_buffer):
+    def draw(self, tam_buffer):
         """
         info: will draw tam buffer to terminal
-        :param tma_buffer: TMABuffer
+        :param tam_buffer: TAMBuffer
         :return:
         """
         if self.__buffer.get_dimensions() != io._get_dimension():
@@ -85,40 +85,40 @@ class WinIO(io_tma.IO):
             self.__buffer.set_dimensions_and_clear(*io._get_dimension())
             self.__last_frame = None
 
-        self.__modes[self.__mode](tma_buffer)
+        self.__modes[self.__mode](tam_buffer)
 
-    def _draw_2(self, tma_buffer):
+    def _draw_2(self, tam_buffer):
         """
         info: will draw tam buffer to terminal in mode 2
-        :param tma_buffer: TMABuffer
+        :param tam_buffer: TAMBuffer
         :return:
         """
         # checks if buffer needs to be updated
-        if " " != self.__buffer.get_defaults()[0] or self.__buffer.get_defaults()[1:] != tma_buffer.get_defaults()[1:]:
+        if " " != self.__buffer.get_defaults()[0] or self.__buffer.get_defaults()[1:] != tam_buffer.get_defaults()[1:]:
             # buffer defaults changed
-            self.__buffer.set_defaults_and_clear(" ", *tma_buffer.get_defaults()[1:])
+            self.__buffer.set_defaults_and_clear(" ", *tam_buffer.get_defaults()[1:])
 
         # draw onto WinIO buffer
-        self._draw_onto(self.__buffer, tma_buffer)
+        self._draw_onto(self.__buffer, tam_buffer)
 
         # draw WinIO buffer to terminal
-        self._print(0, 0, "".join(self.__buffer.get_raw_buffers()[0]), *tma_buffer.get_defaults()[1:])
+        self._print(0, 0, "".join(self.__buffer.get_raw_buffers()[0]), *tam_buffer.get_defaults()[1:])
 
-    def _draw_16(self, tma_buffer):
+    def _draw_16(self, tam_buffer):
         """
         info: will draw tam buffer to terminal in mode 16
-        :param tma_buffer: TMABuffer
+        :param tam_buffer: TAMBuffer
         :return:
         """
         # checks if buffer needs to be updated
-        if "." != self.__buffer.get_defaults()[0] or self.__buffer.get_defaults()[2] != tma_buffer.get_defaults()[2]:
+        if "." != self.__buffer.get_defaults()[0] or self.__buffer.get_defaults()[2] != tam_buffer.get_defaults()[2]:
             # buffer defaults changed
-            background = tma_buffer.get_defaults()[2]
+            background = tam_buffer.get_defaults()[2]
             self.__buffer.set_defaults_and_clear(".", background, background)
             self.__last_frame = None
 
         # draw onto WinIO buffer
-        self._draw_onto(self.__buffer, tma_buffer)
+        self._draw_onto(self.__buffer, tam_buffer)
 
         """
         A block is a string or spots that 
@@ -178,8 +178,8 @@ class WinIO(io_tma.IO):
             # last frame is not made
             self.__last_frame = self.__buffer.copy()
         else:
-            # draw tma_buffer onto last frame
-            self._draw_onto(self.__last_frame, tma_buffer)
+            # draw tam_buffer onto last frame
+            self._draw_onto(self.__last_frame, tam_buffer)
 
     def start(self):
         """
@@ -194,8 +194,8 @@ class WinIO(io_tma.IO):
         info: will reset terminal
         :return:
         """
-        self.__buffer = TMABuffer(0, 0, " ", 1, 1)
-        self.__last_frame = TMABuffer(0, 0, " ", 1, 1)
+        self.__buffer = TAMBuffer(0, 0, " ", 1, 1)
+        self.__last_frame = TAMBuffer(0, 0, " ", 1, 1)
 
         io._set_cursor_info(0, 0, io._get_default_color())
         io._clear()

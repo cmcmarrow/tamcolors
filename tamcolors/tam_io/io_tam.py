@@ -21,13 +21,13 @@ class IO:
     def get_modes(self):
         raise NotImplementedError()
 
-    def draw(self, tma_buffer):
+    def draw(self, tam_buffer):
         raise NotImplementedError()
 
-    def _draw_2(self, tma_buffer):
+    def _draw_2(self, tam_buffer):
         raise NotImplementedError()
 
-    def _draw_16(self, tma_buffer):
+    def _draw_16(self, tam_buffer):
         raise NotImplementedError()
 
     def start(self):
@@ -47,15 +47,15 @@ class IO:
         raise NotImplementedError()
 
     @staticmethod
-    def _draw_onto(tma_buffer, tma_buffer2):
+    def _draw_onto(tam_buffer, tam_buffer2):
         """
-        info: will draw tma_buffer2 in the center of tma_buffer
-        :param tma_buffer: TMABuffer
-        :param tma_buffer2: TMABuffer
+        info: will draw tam_buffer2 in the center of tam_buffer
+        :param tam_buffer: TAMBuffer
+        :param tam_buffer2: TAMBuffer
         :return:
         """
-        buffer_size_x, buffer_size_y = tma_buffer.get_dimensions()
-        width, height = tma_buffer2.get_dimensions()
+        buffer_size_x, buffer_size_y = tam_buffer.get_dimensions()
+        width, height = tam_buffer2.get_dimensions()
         start_x = (buffer_size_x // 2) - (width // 2)
         start_y = (buffer_size_y // 2) - (height // 2)
-        tma_buffer.draw_onto(tma_buffer2, max(start_x, 0), max(start_y, 0))
+        tam_buffer.draw_onto(tam_buffer2, max(start_x, 0), max(start_y, 0))

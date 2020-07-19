@@ -1,26 +1,26 @@
-from . import tma_color_palette
-from . import tma_fade
-from . import tma_film
-from . import tma_key_manager
-from . import tma_list_buffer
-from . import tma_menu
-from . import tma_placing
-from . import tma_print
-from . import tma_str
-from . import tma_text_box
+from . import tam_color_palette
+from . import tam_fade
+from . import tam_film
+from . import tam_key_manager
+from . import tam_list_buffer
+from . import tam_menu
+from . import tam_placing
+from . import tam_print
+from . import tam_str
+from . import tam_text_box
 
 
 """
 tam_tools gives tools that support tam
 """
 
-__all__ = ("tma_color_palette",
-           "tma_fade",
-           "tma_film",
-           "tma_key_manager",
-           "tma_list_buffer",
-           "tma_menu",
-           "tma_placing",
-           "tma_print",
-           "tma_str",
-           "tma_text_box")
+__all__ = ("tam_color_palette",
+           "tam_fade",
+           "tam_film",
+           "tam_key_manager",
+           "tam_list_buffer",
+           "tam_menu",
+           "tam_placing",
+           "tam_print",
+           "tam_str",
+           "tam_text_box")

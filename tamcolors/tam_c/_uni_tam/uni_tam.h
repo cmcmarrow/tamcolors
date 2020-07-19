@@ -1,5 +1,5 @@
-#ifndef __LIN_TMA__H_
-#define __LIN_TMA__H_
+#ifndef __LIN_TAM__H_
+#define __LIN_TAM__H_
 
 
 typedef struct Dimension {

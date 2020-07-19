@@ -1,6 +1,6 @@
 # tamcolors libraries
 from tamcolors import tam
-from . import tma_film
+from . import tam_film
 
 
 """
@@ -9,11 +9,7 @@ can be reversed
 """
 
 
-class TMAFadeInError(Exception):
-    pass
-
-
-def tma_fade_in(buffer,
+def tam_fade_in(buffer,
                 char,
                 foreground_color,
                 background_color,
@@ -21,14 +17,14 @@ def tma_fade_in(buffer,
                 reverse=False):
 
     """
-    info: makes a fade in or fade out via TMAFilm
-    :param buffer: TMABuffer
+    info: makes a fade in or fade out via TAMFilm
+    :param buffer: TAMBuffer
     :param char: single block char
     :param foreground_color: 0 - inf
     :param background_color: 0 - inf
     :param rand: list: [True, bool, bool, bool, ...]
     :param reverse: bool
-    :return: TMAFilm
+    :return: TAMFilm
     """
     frames = []
 
@@ -43,7 +39,7 @@ def tma_fade_in(buffer,
     done_pool = []
 
     while any((len(start_pool), len(char_pool), len(foreground_pool), len(background_pool))):
-        new_frame = tam.tma_buffer.TMABuffer(*buffer.get_dimensions(), char, foreground_color, background_color)
+        new_frame = tam.tam_buffer.TAMBuffer(*buffer.get_dimensions(), char, foreground_color, background_color)
 
         for pixel in done_pool:
             new_frame.set_spot(*pixel)
@@ -86,4 +82,4 @@ def tma_fade_in(buffer,
     if reverse:
         frames.reverse()
 
-    return tma_film.TMAFilm(frames)
+    return tam_film.TAMFilm(frames)

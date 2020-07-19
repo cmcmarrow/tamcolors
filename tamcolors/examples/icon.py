@@ -36,7 +36,7 @@ def get_icon():
 
         icon_background.append(new_row)
 
-    return tam_tools.tma_list_buffer.tma_list_buffer(icon_chars, 0, icon_background)
+    return tam_tools.tam_list_buffer.tam_list_buffer(icon_chars, 0, icon_background)
 
 
 class BootLogo:
@@ -44,13 +44,13 @@ class BootLogo:
         """
         info: Makes a BootLogo Object. Will display the logo and author's name
         """
-        self.icon = tam_tools.tma_fade.tma_fade_in(get_icon(),
+        self.icon = tam_tools.tam_fade.tam_fade_in(get_icon(),
                                                    " ",
                                                    0,
                                                    0)
         self.wait = 10
 
-    def update(self, tma_loop, keys, loop_data):
+    def update(self, tam_loop, keys, loop_data):
 
         if not self.icon.done():
             self.icon.slide()
@@ -58,25 +58,25 @@ class BootLogo:
             self.wait -= 1
 
         if self.wait == 0:
-            tma_loop.done()
+            tam_loop.done()
 
-    def draw(self, tma_buffer, loop_data):
-        tma_buffer.clear()
+    def draw(self, tam_buffer, loop_data):
+        tam_buffer.clear()
 
-        tma_buffer.draw_onto(self.icon.peak(),
-                             *tam_tools.tma_placing.center(35, 15, buffer=self.icon.peak()))
+        tam_buffer.draw_onto(self.icon.peak(),
+                             *tam_tools.tam_placing.center(35, 15, buffer=self.icon.peak()))
 
-        tam_tools.tma_print.tma_print(tma_buffer, *tam_tools.tma_placing.center(35, 28, len("tamcolors"), 1),
+        tam_tools.tam_print.tam_print(tam_buffer, *tam_tools.tam_placing.center(35, 28, len("tamcolors"), 1),
                                       "tamcolors",
                                       15,
                                       0)
 
-    def done(self, tma_loop, loop_data):
+    def done(self, tam_loop, loop_data):
         pass
 
     @staticmethod
     def get_frame():
-        return tam.tma_loop.TMAFrame(BootLogo(),
+        return tam.tam_loop.TAMFrame(BootLogo(),
                                      10,
                                      " ",
                                      2,
@@ -85,5 +85,5 @@ class BootLogo:
 
 
 def run():
-    loop = tam.tma_loop.TMALoop(BootLogo.get_frame())
+    loop = tam.tam_loop.TAMLoop(BootLogo.get_frame())
     loop.run()
