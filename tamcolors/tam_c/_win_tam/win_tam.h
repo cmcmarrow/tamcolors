@@ -13,5 +13,6 @@ int get_default_color();
 Dimension get_dimension();
 void clear();
 void set_cursor_info(int x, int y, int color);
+void set_console_color(int color);
 int get_key();
 #endif

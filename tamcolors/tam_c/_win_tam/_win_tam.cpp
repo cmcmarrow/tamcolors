@@ -97,6 +97,20 @@ static PyObject* _set_cursor_info(PyObject *self, PyObject *args) {
 	Py_RETURN_NONE;
 }
 
+static PyObject* _set_console_color(PyObject *self, PyObject *args) {
+	/*
+	parameter: int: color: console color
+	return: None
+	*/
+	int color;
+	if (!PyArg_ParseTuple(args, "i", &color)) {
+		return NULL;
+	}
+
+	set_console_color(color);
+	Py_RETURN_NONE;
+}
+
 static PyObject* _get_key(PyObject *self, PyObject *args) {
 	/*
 	return: int
@@ -134,6 +148,10 @@ static PyMethodDef _win_tam_methods[] = {
 	{
 		"_set_cursor_info", _set_cursor_info, METH_VARARGS,
 		"_set_cursor_info"
+	},
+	{
+		"_set_console_color", _set_console_color, METH_VARARGS,
+		"_set_console_color"
 	},
 	{
 		"_get_key", _get_key, METH_VARARGS,

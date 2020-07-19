@@ -83,6 +83,15 @@ class AnyIO(io_tam.IO):
     def get_key_dict(self):
         return {}
 
+    def printc(self, value, color):
+        print(value, end="")
+
+    def inputc(self, value, color):
+        return input(value)
+
+    def clear(self):
+        pass
+
 
 def get_io(io_list=None, any_os=False):
     """
