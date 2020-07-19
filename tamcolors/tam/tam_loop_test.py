@@ -1,20 +1,16 @@
 # tamcolors libraries
-from .tma_buffer import TMABuffer
+from .tam_buffer import TAMBuffer
 
 
 """
-TMALoop
-Handlers FPS, Key input, drawing, updating and TMAFrame stack
+TAMLoop
+Handlers FPS, Key input, drawing, updating and TAMFrame stack
 """
 
 
-class TMALoopTestError(Exception):
-    pass
-
-
-class TMALoopTest:
+class TAMLoopTest:
     def __init__(self,
-                 tma_frame,
+                 tam_frame,
                  io_list=None,
                  any_os=False,
                  only_any_os=False,
@@ -22,8 +18,8 @@ class TMALoopTest:
                  color_change_key="ESCAPE",
                  loop_data=None):
         """
-        info: makes a TMALoop object
-        :param tma_frame: TMAFrame: first frame in tam loop
+        info: makes a TAMLoop object
+        :param tam_frame: TAMFrame: first frame in tam loop
         :param io_list: list, tuple, None: ios that can be used
         :param any_os: bool: will use ANYIO if no other IO can be used if True
         :param only_any_os: bool: will only use ANYIO if True
@@ -37,10 +33,10 @@ class TMALoopTest:
 
         self.__running = None
 
-        self.__frame_stack = [tma_frame]
+        self.__frame_stack = [tam_frame]
         self.__loop_data = loop_data
 
-        self.__update_ready_buffers = [TMABuffer(0, 0, " ", 0, 0) for _ in range(buffer_count)]
+        self.__update_ready_buffers = [TAMBuffer(0, 0, " ", 0, 0) for _ in range(buffer_count)]
         self.__draw_ready_buffers = []
 
         self.__color_change_key = color_change_key
@@ -80,16 +76,16 @@ class TMALoopTest:
 
     def add_frame_stack(self, frame):
         """
-        info: will add a TMAFrame to stack
-        :param frame: TMAFrame
+        info: will add a TAMFrame to stack
+        :param frame: TAMFrame
         :return:
         """
         self.__frame_stack.append(frame)
 
     def pop_frame_stack(self):
         """
-        info: will remove TMAFrame from stack
-        :return: TMAFrame or None
+        info: will remove TAMFrame from stack
+        :return: TAMFrame or None
         """
 
         if len(self.__frame_stack) != 0:
@@ -99,11 +95,11 @@ class TMALoopTest:
 
     def update(self, keys, width, height):
         """
-        info: will update TMALoopTest
+        info: will update TAMLoopTest
         :param keys: list or tuple: ((str, str), ...)
         :param width: int, 0 - inf
         :param height: int, 0 - inf
-        :return: (None or TMABuffer, None or TMAFrame)
+        :return: (None or TAMBuffer, None or TAMFrame)
         """
         buffer, frame = None, None
         if self.__running and len(self.__frame_stack) != 0:
@@ -117,9 +113,9 @@ class TMALoopTest:
                 frame.update(self, new_keys, self.__loop_data)
 
                 if len(self.__update_ready_buffers) != 0:
-                    tma_buffer = frame.make_buffer_ready(self.__update_ready_buffers.pop(0), width, height)
-                    frame.draw(tma_buffer, self.__loop_data)
-                    self.__draw_ready_buffers.append(tma_buffer)
+                    tam_buffer = frame.make_buffer_ready(self.__update_ready_buffers.pop(0), width, height)
+                    frame.draw(tam_buffer, self.__loop_data)
+                    self.__draw_ready_buffers.append(tam_buffer)
 
                     buffer = self.__draw_ready_buffers.pop(0)
                     self.__update_ready_buffers.append(buffer)

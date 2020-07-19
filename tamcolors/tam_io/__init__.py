@@ -1,9 +1,9 @@
-from . import any_tma
-from . import io_tma
-from . import uni_tma
-from . import win_tma
+from . import any_tam
+from . import io_tam
+from . import uni_tam
+from . import win_tam
 
-__all__ = ("any_tma",
-           "io_tma",
-           "uni_tma",
-           "win_tma")
+__all__ = ("any_tam",
+           "io_tam",
+           "uni_tam",
+           "win_tam")

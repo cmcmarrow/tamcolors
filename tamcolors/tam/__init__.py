@@ -1,8 +1,8 @@
-from . import tma_buffer
-from . import tma_colors
-from . import tma_keys
-from . import tma_loop
-from . import tma_loop_test
+from . import tam_buffer
+from . import tam_colors
+from . import tam_keys
+from . import tam_loop
+from . import tam_loop_test
 
 
 """
@@ -14,8 +14,8 @@ tam supports
 * Windows
 """
 
-__all__ = ("tma_buffer",
-           "tma_colors",
-           "tma_keys",
-           "tma_loop",
-           "tma_loop_test")
+__all__ = ("tam_buffer",
+           "tam_colors",
+           "tam_keys",
+           "tam_loop",
+           "tam_loop_test")

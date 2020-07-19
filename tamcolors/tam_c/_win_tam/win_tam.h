@@ -1,5 +1,5 @@
-#ifndef __WIN_TMA__H_
-#define __WIN_TMA__H_
+#ifndef __WIN_TAM__H_
+#define __WIN_TAM__H_
 
 
 typedef struct Dimension {

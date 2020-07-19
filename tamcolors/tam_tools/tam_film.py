@@ -3,55 +3,55 @@ from tamcolors import tam
 
 
 """
-TMAFilm
-Can move through TMABuffers like film
+TAMFilm
+Can move through TAMBuffers like film
 """
 
 
-class TMAFilmError(Exception):
+class TAMFilmError(Exception):
     pass
 
 
-class TMAFilm:
-    def __init__(self, tma_buffers=None, circular=False):
+class TAMFilm:
+    def __init__(self, tam_buffers=None, circular=False):
         """
-        info: makes TMAFilm object
-        :param tma_buffers: TMABuffer
+        info: makes TAMFilm object
+        :param tam_buffers: TAMBuffer
         :param circular: bool: if true will loop around frames
         """
-        if tma_buffers is None:
-            tma_buffers = []
+        if tam_buffers is None:
+            tam_buffers = []
 
-        if isinstance(tma_buffers, tam.tma_buffer.TMABuffer):
-            tma_buffers = [tma_buffers]
+        if isinstance(tam_buffers, tam.tam_buffer.TAMBuffer):
+            tam_buffers = [tam_buffers]
         else:
-            tma_buffers = list(tma_buffers)
+            tam_buffers = list(tam_buffers)
 
-        self.__buffer_list = tma_buffers
+        self.__buffer_list = tam_buffers
         self.__list_at = 0
         self.__circular = circular
 
-    def __setitem__(self, spot, tma_buffer):
+    def __setitem__(self, spot, tam_buffer):
         """
         info: sets a frame
         :param spot: int: 0 - len(self.__buffer_list)
-        :param tma_buffer: TMABuffer
+        :param tam_buffer: TAMBuffer
         :return:
         """
-        self.set(spot, tma_buffer)
+        self.set(spot, tam_buffer)
 
     def __getitem__(self, spot):
         """
-        info: will get a TMABuffer
+        info: will get a TAMBuffer
         :param spot: int: 0 - len(self.__buffer_list)
-        :return: TMABuffer
+        :return: TAMBuffer
         """
         return self.get(spot)
 
     def __next__(self):
         """
-        info will get the next TMABuffer
-        :return: TMABuffer
+        info will get the next TAMBuffer
+        :return: TAMBuffer
         """
         ret = self.slide()
         if ret is None:
@@ -60,44 +60,44 @@ class TMAFilm:
 
     def __len__(self):
         """
-        info: returns the number of TMABuffer in the film
+        info: returns the number of TAMBuffer in the film
         :return: int
         """
         return len(self.__buffer_list)
 
-    def set(self, spot, tma_buffer):
+    def set(self, spot, tam_buffer):
         """
         info: sets a frame
         :param spot: int: 0 - len(self.__buffer_list)
-        :param tma_buffer: TMABuffer
+        :param tam_buffer: TAMBuffer
         :return:
         """
         try:
             if abs(spot) != spot:
-                raise TMAFilmError()
-            self.__buffer_list[spot] = tma_buffer
+                raise TAMFilmError()
+            self.__buffer_list[spot] = tam_buffer
         except TypeError as error:
-            raise TMAFilmError(error)
+            raise TAMFilmError(error)
         except IndexError as error:
-            raise TMAFilmError(error)
+            raise TAMFilmError(error)
 
     def get(self, spot):
         """
-        info will get a TMABuffer
+        info will get a TAMBuffer
         :param spot: int: 0 - len(self.__buffer_list)
-        :return: TMABuffer
+        :return: TAMBuffer
         """
         try:
             return self.__buffer_list[spot]
         except TypeError as error:
-            raise TMAFilmError(error)
+            raise TAMFilmError(error)
         except IndexError as error:
-            raise TMAFilmError(error)
+            raise TAMFilmError(error)
 
     def slide(self):
         """
-        info will get the next TMABuffer
-        :return: TMABuffer or None
+        info will get the next TAMBuffer
+        :return: TAMBuffer or None
         """
         if len(self.__buffer_list) == 0:
             return None
@@ -113,7 +113,7 @@ class TMAFilm:
     def peak(self):
         """
         info: gets the current frame
-        :return: TMABuffer or None
+        :return: TAMBuffer or None
         """
         if len(self.__buffer_list) == 0:
             return None
@@ -124,18 +124,18 @@ class TMAFilm:
 
         return self.__buffer_list[self.__list_at]
 
-    def append(self, tma_buffer):
+    def append(self, tam_buffer):
         """
         info
-        :param tma_buffer:
+        :param tam_buffer:
         :return:
         """
-        self.__buffer_list.append(tma_buffer)
+        self.__buffer_list.append(tam_buffer)
 
     def pop(self):
         """
-        info: will pop the last TMABuffer
-        :return: TMABuffer or None
+        info: will pop the last TAMBuffer
+        :return: TAMBuffer or None
         """
         if len(self.__buffer_list) != 0:
             return self.__buffer_list.pop()

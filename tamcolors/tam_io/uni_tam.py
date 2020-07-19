@@ -5,10 +5,10 @@ import sys
 import os
 
 # tamcolors libraries
-from tamcolors.tam.tma_buffer import TMABuffer
-from . import io_tma
+from tamcolors.tam.tam_buffer import TAMBuffer
+from . import io_tam
 try:
-    from . import _uni_tma as io
+    from . import _uni_tam as io
 except ImportError:
     io = None
 
@@ -26,7 +26,7 @@ class UniIOError(Exception):
     pass
 
 
-class UniIO(io_tma.IO):
+class UniIO(io_tam.IO):
     def __init__(self):
         """
         info: makes UniIO object
@@ -36,7 +36,7 @@ class UniIO(io_tma.IO):
         self.__mode = 16
         self.__modes = {2: self._draw_2,
                         16: self._draw_16}
-        self.__buffer = TMABuffer(0, 0, " ", 1, 1)
+        self.__buffer = TAMBuffer(0, 0, " ", 1, 1)
         self.__unix_keys = self.get_key_dict()
 
         self.__color_map = {0: 232,
@@ -94,10 +94,10 @@ class UniIO(io_tma.IO):
         """
         return tuple(self.__modes)
 
-    def draw(self, tma_buffer):
+    def draw(self, tam_buffer):
         """
         info: will draw tam buffer to terminal
-        :param tma_buffer: TMABuffer
+        :param tam_buffer: TAMBuffer
         :return:
         """
         dimension = io._get_dimension()
@@ -107,41 +107,41 @@ class UniIO(io_tma.IO):
             io._enable_get_key()
             self.__buffer.set_dimensions_and_clear(*dimension)
 
-        self.__modes[self.__mode](tma_buffer)
+        self.__modes[self.__mode](tam_buffer)
 
-    def _draw_2(self, tma_buffer):
+    def _draw_2(self, tam_buffer):
         """
         info: will draw tam buffer to terminal in mode 2
-        :param tma_buffer: TMABuffer
+        :param tam_buffer: TAMBuffer
         :return:
         """
 
         # checks if buffer needs to be updated
-        if " " != self.__buffer.get_defaults()[0] or self.__buffer.get_defaults()[1:] != tma_buffer.get_defaults()[1:]:
+        if " " != self.__buffer.get_defaults()[0] or self.__buffer.get_defaults()[1:] != tam_buffer.get_defaults()[1:]:
             # buffer defaults changed
-            self.__buffer.set_defaults_and_clear(" ", *tma_buffer.get_defaults()[1:])
+            self.__buffer.set_defaults_and_clear(" ", *tam_buffer.get_defaults()[1:])
 
         # draw onto LinIO buffer
-        self._draw_onto(self.__buffer, tma_buffer)
+        self._draw_onto(self.__buffer, tam_buffer)
 
-        color = self._get_lin_tma_color(*self.__buffer.get_defaults()[1:])
+        color = self._get_lin_tam_color(*self.__buffer.get_defaults()[1:])
         output = "".join(self.__buffer.get_raw_buffers()[0])
         sys.stdout.write("\u001b[1;1H\u001b[38;5;{0};48;5;{1}m{2}".format(*color, output))
         sys.stdout.flush()
 
-    def _draw_16(self, tma_buffer):
+    def _draw_16(self, tam_buffer):
         """
         info: will draw tam buffer to terminal in mode 16
-        :param tma_buffer: TMABuffer
+        :param tam_buffer: TAMBuffer
         :return:
         """
         # checks if buffer needs to be updated
-        if " " != self.__buffer.get_defaults()[0] or self.__buffer.get_defaults()[1:] != tma_buffer.get_defaults()[1:]:
+        if " " != self.__buffer.get_defaults()[0] or self.__buffer.get_defaults()[1:] != tam_buffer.get_defaults()[1:]:
             # buffer defaults changed
-            self.__buffer.set_defaults_and_clear(" ", *tma_buffer.get_defaults()[1:])
+            self.__buffer.set_defaults_and_clear(" ", *tam_buffer.get_defaults()[1:])
 
         # draw onto LinIO buffer
-        self._draw_onto(self.__buffer, tma_buffer)
+        self._draw_onto(self.__buffer, tam_buffer)
 
         # make output string
         output = ["\u001b[1;1H"]
@@ -151,14 +151,14 @@ class UniIO(io_tma.IO):
             if foreground is None:
                 foreground = foreground_buffer[spot]
                 background = background_buffer[spot]
-                output.append("\u001b[38;5;{0};48;5;{1}m".format(*self._get_lin_tma_color(foreground, background)))
+                output.append("\u001b[38;5;{0};48;5;{1}m".format(*self._get_lin_tam_color(foreground, background)))
                 output.append(char_buffer[spot])
             elif foreground == foreground_buffer[spot] and background == background_buffer[spot]:
                 output.append(char_buffer[spot])
             else:
                 foreground = foreground_buffer[spot]
                 background = background_buffer[spot]
-                output.append("\u001b[38;5;{0};48;5;{1}m".format(*self._get_lin_tma_color(foreground, background)))
+                output.append("\u001b[38;5;{0};48;5;{1}m".format(*self._get_lin_tam_color(foreground, background)))
                 output.append(char_buffer[spot])
 
         sys.stdout.write("".join(output))
@@ -261,7 +261,7 @@ class UniIO(io_tma.IO):
             else:
                 os.system("setterm -cursor off")
 
-    def _get_lin_tma_color(self, foreground_color, background_color):
+    def _get_lin_tam_color(self, foreground_color, background_color):
         return self.__color_map.get(foreground_color), self.__color_map.get(background_color)
 
     @staticmethod

@@ -1,7 +1,7 @@
 # tamcolors libraries
-from . import io_tma
-from . import uni_tma
-from . import win_tma
+from . import io_tam
+from . import uni_tam
+from . import win_tam
 
 
 """ 
@@ -15,7 +15,7 @@ class AnyIOError(Exception):
     pass
 
 
-class AnyIO(io_tma.IO):
+class AnyIO(io_tam.IO):
     def __init__(self):
         super().__init__()
         self.__mode = 16
@@ -49,19 +49,19 @@ class AnyIO(io_tma.IO):
     def get_modes(self):
         return 2, 16
 
-    def draw(self, tma_buffer):
+    def draw(self, tam_buffer):
         """
-        info: draws tma_buffer to terminal
-        :param tma_buffer:
+        info: draws tam_buffer to terminal
+        :param tam_buffer:
         :return:
         """
 
-        print(tma_buffer)
+        print(tam_buffer)
 
-    def _draw_2(self, tma_buffer):
+    def _draw_2(self, tam_buffer):
         pass
 
-    def _draw_16(self, tma_buffer):
+    def _draw_16(self, tam_buffer):
         pass
 
     def start(self):
@@ -94,7 +94,7 @@ def get_io(io_list=None, any_os=False):
 
     # if io_list use default ios
     if io_list is None:
-        io_list = (win_tma.WinIO, uni_tma.UniIO)
+        io_list = (win_tam.WinIO, uni_tam.UniIO)
 
     for io in io_list:
         io_object = io.get_io()

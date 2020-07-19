@@ -3,22 +3,18 @@ from tamcolors import tam
 
 
 """
-tma_list_buffer
+tam_list_buffer
 A way to make a list into a buffer
 """
 
 
-class TMAListBufferError(Exception):
-    pass
-
-
-def tma_list_buffer(chars, foreground_colors, background_colors):
+def tam_list_buffer(chars, foreground_colors, background_colors):
     """
-    info: makes a list into a TMABuffer
+    info: makes a list into a TAMBuffer
     :param chars: list, tuple
     :param foreground_colors: list, tuple, int
     :param background_colors: list, tuple, int
-    :return: TMABuffer
+    :return: TAMBuffer
     """
     foreground_mode = not isinstance(foreground_colors, int)
     background_mode = not isinstance(background_colors, int)
@@ -44,13 +40,13 @@ def tma_list_buffer(chars, foreground_colors, background_colors):
 
     # make buffer
     try:
-        buffer = tam.tma_buffer.TMABuffer(len(chars[0]),
+        buffer = tam.tam_buffer.TAMBuffer(len(chars[0]),
                                           len(chars),
                                           default_char,
                                           default_foreground,
                                           default_background)
     except IndexError:
-        buffer = tam.tma_buffer.TMABuffer(0,
+        buffer = tam.tam_buffer.TAMBuffer(0,
                                           len(chars),
                                           default_char,
                                           default_foreground,

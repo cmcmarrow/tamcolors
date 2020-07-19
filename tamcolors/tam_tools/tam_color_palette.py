@@ -8,11 +8,11 @@ write rules that can update the color palette
 """
 
 
-class TMAColorPaletteError(Exception):
+class TAMColorPaletteError(Exception):
     pass
 
 
-class TMAColorPalette:
+class TAMColorPalette:
     def __init__(self, color_range=range(0, 16), color_rules=None):
         """
         info: makes a ColorPalette object
@@ -58,7 +58,7 @@ class TMAColorPalette:
         """
         if self.key_present(key):
             return self.__color_palette[key]
-        raise TMAColorPaletteError("{0} is not key in the color palette.".format(repr(key)))
+        raise TAMColorPaletteError("{0} is not key in the color palette.".format(repr(key)))
 
     def set_color(self, key, color):
         """
@@ -71,7 +71,7 @@ class TMAColorPalette:
         try:
             self.__color_palette[key] = color
         except TypeError:
-            raise TMAColorPaletteError("{0} can not be a key".format(repr(key)))
+            raise TAMColorPaletteError("{0} can not be a key".format(repr(key)))
 
     def key_present(self, key):
         """
@@ -97,19 +97,19 @@ class TMAColorPalette:
         """
         info: sets a color rule
         :param key: object
-        :param rule: instance of TMAColorPaletteRule
+        :param rule: instance of TAMColorPaletteRule
         :return:
         """
         try:
             self.__color_rules[key] = rule
         except TypeError:
-            raise TMAColorPaletteError("{0} can not be a key".format(repr(key)))
+            raise TAMColorPaletteError("{0} can not be a key".format(repr(key)))
 
     def get_rule(self, key):
         """
-        info: gets a instance of TMAColorPaletteRule or None
+        info: gets a instance of TAMColorPaletteRule or None
         :param key: object
-        :return: instance of TMAColorPaletteRule or None
+        :return: instance of TAMColorPaletteRule or None
         """
         try:
             return self.__color_rules.get(key)
@@ -117,7 +117,7 @@ class TMAColorPalette:
             pass
 
 
-class TMAColorPaletteRule:
+class TAMColorPaletteRule:
     def __init__(self):
         pass
 
@@ -125,7 +125,7 @@ class TMAColorPaletteRule:
         raise NotImplementedError()
 
 
-class TMADefaultColor(TMAColorPaletteRule):
+class TAMDefaultColor(TAMColorPaletteRule):
     def __init__(self, color):
         """
         info: will rest the color every time when updated
@@ -152,14 +152,14 @@ class TMADefaultColor(TMAColorPaletteRule):
     def update(self, color_palette, key):
         """
         info: will update the color_palette color
-        :param color_palette: TMAColorPalette
+        :param color_palette: TAMColorPalette
         :param key: object
         :return:
         """
         color_palette[key] = self.__color
 
 
-class TMACycleColor(TMAColorPaletteRule):
+class TAMCycleColor(TAMColorPaletteRule):
     def __init__(self, colors, clock=1):
         """
         info: will cycle colors
@@ -197,7 +197,7 @@ class TMACycleColor(TMAColorPaletteRule):
     def update(self, color_palette, key):
         """
         info: will update the color_palette color
-        :param color_palette: TMAColorPalette
+        :param color_palette: TAMColorPalette
         :param key: object
         :return:
         """

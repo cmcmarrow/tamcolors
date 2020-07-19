@@ -7,10 +7,6 @@ tam placing finds the x, y coordinates
 """
 
 
-class TMAPlacingError(Exception):
-    pass
-
-
 def _get_center(spot, length):
     """
     info: gets the center
@@ -44,10 +40,10 @@ def _get_dimensions(func):
         :param y: int
         :param width: int or None
         :param height: int or None
-        :param buffer: TMABuffer
+        :param buffer: TAMBuffer
         :return: x, y
         """
-        if isinstance(buffer, tam.tma_buffer.TMABuffer):
+        if isinstance(buffer, tam.tam_buffer.TAMBuffer):
             width, height = buffer.get_dimensions()
 
         return func(x, y, width, height)

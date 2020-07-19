@@ -3,18 +3,14 @@ from tamcolors import tam
 
 
 """
-TMAKeyManger mange key input
+TAMKeyManger mange key input
 """
 
 
-class TMAKeyManagerError(Exception):
-    pass
-
-
-class TMAKeyManager:
-    def __init__(self, all_keys=tam.tma_keys.KEYS):
+class TAMKeyManager:
+    def __init__(self, all_keys=tam.tam_keys.KEYS):
         """
-        info: makes a TMAKeyManager object
+        info: makes a TAMKeyManager object
         :param all_keys: tuple or list: [(str, str), ...]
         """
         self.__all_keys = {key[0]: False for key in all_keys}

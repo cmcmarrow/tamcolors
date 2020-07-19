@@ -1,20 +1,16 @@
 # tamcolors libraries
 from tamcolors import tam
-from . import tma_str
+from . import tam_str
 
 """
-TMATextBox
+TAMTextBox
 can center text
 can have a single char placed at a time
 can set colors
 """
 
 
-class TMATextBoxError(Exception):
-    pass
-
-
-class TMATextBox:
+class TAMTextBox:
     def __init__(self,
                  text,
                  width,
@@ -30,7 +26,7 @@ class TMATextBox:
                  char_background=" "):
 
         """
-        info: makes TMATextBox Object
+        info: makes TAMTextBox Object
         :param text: str
         :param width: int: 0 - inf
         :param height: int: 0 - inf
@@ -43,7 +39,7 @@ class TMATextBox:
         :param vertical_space: 1 - inf
         :param char_background: str: len == 1
         """
-        self.__text = tma_str.make_tma_str(text)
+        self.__text = tam_str.make_tam_str(text)
         self.__width = width
         self.__height = height
         self.__char = char
@@ -51,7 +47,7 @@ class TMATextBox:
         self.__background_color = background_color
         self.__char_background = char_background
 
-        self.__buffer = tam.tma_buffer.TMABuffer(width, height, char_background, foreground_color, background_color)
+        self.__buffer = tam.tam_buffer.TAMBuffer(width, height, char_background, foreground_color, background_color)
 
         self.__clock = clock
         self.__clock_at = clock
@@ -136,18 +132,18 @@ class TMATextBox:
                 height += self.__vertical_space
 
     def draw(self,
-             tma_buffer,
+             tam_buffer,
              start_x=0,
              start_y=0):
 
         """
         info: draws the text box on to another buffer
-        :param tma_buffer: TMABuffer
+        :param tam_buffer: TAMBuffer
         :param start_x: int
         :param start_y: int
         :return:
         """
-        tma_buffer.draw_onto(self.__buffer, start_x, start_y)
+        tam_buffer.draw_onto(self.__buffer, start_x, start_y)
 
     def done(self):
         """
@@ -210,7 +206,7 @@ class TMATextBox:
         :return:
         """
 
-        self.__buffer = tam.tma_buffer.TMABuffer(self.__width,
+        self.__buffer = tam.tam_buffer.TAMBuffer(self.__width,
                                                  self.__height,
                                                  self.__char_background,
                                                  self.__foreground_color,
