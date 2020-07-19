@@ -194,6 +194,9 @@ class WinIO(io_tma.IO):
         info: will reset terminal
         :return:
         """
+        self.__buffer = TMABuffer(0, 0, " ", 1, 1)
+        self.__last_frame = TMABuffer(0, 0, " ", 1, 1)
+
         io._set_cursor_info(0, 0, io._get_default_color())
         io._clear()
         io._show_console_cursor(True)

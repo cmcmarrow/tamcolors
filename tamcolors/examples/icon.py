@@ -48,13 +48,17 @@ class BootLogo:
                                                    " ",
                                                    0,
                                                    0)
+        self.wait = 10
 
     def update(self, tma_loop, keys, loop_data):
 
-        if self.icon.done():
-            tma_loop.done()
+        if not self.icon.done():
+            self.icon.slide()
+        else:
+            self.wait -= 1
 
-        self.icon.slide()
+        if self.wait == 0:
+            tma_loop.done()
 
     def draw(self, tma_buffer, loop_data):
         tma_buffer.clear()
@@ -62,8 +66,8 @@ class BootLogo:
         tma_buffer.draw_onto(self.icon.peak(),
                              *tam_tools.tma_placing.center(35, 15, buffer=self.icon.peak()))
 
-        tam_tools.tma_print.tma_print(tma_buffer, *tam_tools.tma_placing.center(35, 28, len("author"), 1),
-                                      "author",
+        tam_tools.tma_print.tma_print(tma_buffer, *tam_tools.tma_placing.center(35, 28, len("tamcolors"), 1),
+                                      "tamcolors",
                                       15,
                                       0)
 
