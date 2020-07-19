@@ -3,13 +3,17 @@ import platform
 import os
 
 
+def get_c_file_path(directory, name):
+    return os.path.join("tamcolors", "tam_c", directory, name)
+
+
 ext_modules = []
 if platform.system() == "Windows":
-    ext_modules.append(Extension("tamcolors.tam._win_tma", sources=[os.path.join("tamcolors", "tam", "_win_tma", "_win_tma.cpp"),
-                                                                    os.path.join("tamcolors", "tam", "_win_tma", "win_tma.cpp")]))
+    ext_modules.append(Extension("tamcolors.tam._win_tma", sources=[get_c_file_path("_win_tma", "_win_tma.cpp"),
+                                                                    get_c_file_path("_win_tma", "win_tma.cpp")]))
 elif platform.system() in ("Darwin", "Linux"):
-    ext_modules.append(Extension("tamcolors.tam._uni_tma", sources=[os.path.join("tamcolors", "tam", "_uni_tma", "_uni_tma.cpp"),
-                                                                    os.path.join("tamcolors", "tam", "_uni_tma", "uni_tma.cpp")]))
+    ext_modules.append(Extension("tamcolors.tam._uni_tma", sources=[get_c_file_path("_uni_tma", "_uni_tma.cpp"),
+                                                                    get_c_file_path("_uni_tma", "uni_tma.cpp")]))
 
 
 setup(
