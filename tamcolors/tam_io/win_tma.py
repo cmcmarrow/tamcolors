@@ -3,7 +3,7 @@ import string
 import sys
 
 # tamcolors libraries
-from .tma_buffer import TMABuffer
+from tamcolors.tam.tma_buffer import TMABuffer
 from . import io_tma
 try:
     from . import _win_tma as io
