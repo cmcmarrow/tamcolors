@@ -8,7 +8,7 @@ import itertools
 # tamcolors libraries
 from tamcolors.tests import stability_check
 from .tma_buffer import TMABuffer
-from . import any_tma
+from tamcolors.tam_io import any_tma
 
 
 """
