@@ -4,4 +4,6 @@ __pycache__/
 
 .idea
 build
+dist
 tamcolors.egg-info
+MANIFEST
