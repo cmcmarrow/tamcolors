@@ -8,6 +8,7 @@ from . import tam_placing
 from . import tam_print
 from . import tam_str
 from . import tam_text_box
+from . import tam_icon
 
 
 """
@@ -23,4 +24,5 @@ __all__ = ("tam_color_palette",
            "tam_placing",
            "tam_print",
            "tam_str",
-           "tam_text_box")
+           "tam_text_box",
+           "tam_icon")
