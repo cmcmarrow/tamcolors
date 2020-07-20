@@ -42,7 +42,7 @@ class UniIOTests(unittest.TestCase):
     def test__draw_2():
         io = tam_io.uni_tam.UniIO()
         with unittest.mock.patch.object(tam_io.uni_tam.io, "_enable_get_key", return_value=None) as _enable_get_key:
-            with unittest.mock.patch.object(io, "_clear", return_value=None) as _clear:
+            with unittest.mock.patch.object(io, "clear", return_value=None) as clear:
                 with unittest.mock.patch.object(io, "_show_console_cursor", return_value=None) as _show_console_cursor:
                     with unittest.mock.patch.object(sys.stdout, "write",
                                                     return_value=None) as write:
@@ -59,7 +59,7 @@ class UniIOTests(unittest.TestCase):
                                 io.draw(tam_buffer)
 
                                 _enable_get_key.assert_called_once_with()
-                                _clear.assert_called_once_with()
+                                clear.assert_called_once_with()
                                 _show_console_cursor.assert_called_once_with(False)
                                 _get_dimension.assert_called_once_with()
                                 flush.assert_called_once_with()
@@ -69,7 +69,7 @@ class UniIOTests(unittest.TestCase):
     def test__draw_16():
         io = tam_io.uni_tam.UniIO()
         with unittest.mock.patch.object(tam_io.uni_tam.io, "_enable_get_key", return_value=None) as _enable_get_key:
-            with unittest.mock.patch.object(io, "_clear", return_value=None) as _clear:
+            with unittest.mock.patch.object(io, "clear", return_value=None) as clear:
                 with unittest.mock.patch.object(io, "_show_console_cursor", return_value=None) as _show_console_cursor:
                     with unittest.mock.patch.object(sys.stdout, "write",
                                                     return_value=None) as write:
@@ -86,7 +86,7 @@ class UniIOTests(unittest.TestCase):
                                 io.draw(tam_buffer)
 
                                 _enable_get_key.assert_called_once_with()
-                                _clear.assert_called_once_with()
+                                clear.assert_called_once_with()
                                 _show_console_cursor.assert_called_once_with(False)
                                 _get_dimension.assert_called_once_with()
                                 flush.assert_called_once_with()
@@ -96,24 +96,24 @@ class UniIOTests(unittest.TestCase):
     def test_start():
         io = tam_io.uni_tam.UniIO()
         with unittest.mock.patch.object(tam_io.uni_tam.io, "_enable_get_key", return_value=None) as _enable_get_key:
-            with unittest.mock.patch.object(io, "_clear", return_value=None) as _clear:
+            with unittest.mock.patch.object(io, "clear", return_value=None) as clear:
                 with unittest.mock.patch.object(io, "_show_console_cursor", return_value=None) as _show_console_cursor:
                     io.start()
 
                     _enable_get_key.assert_called_once_with()
-                    _clear.assert_called_once_with()
+                    clear.assert_called_once_with()
                     _show_console_cursor.assert_called_once_with(False)
 
     @staticmethod
     def test_done():
         io = tam_io.uni_tam.UniIO()
         with unittest.mock.patch.object(tam_io.uni_tam.io, "_disable_get_key", return_value=None) as _disable_get_key:
-            with unittest.mock.patch.object(io, "_clear", return_value=None) as _clear:
+            with unittest.mock.patch.object(io, "clear", return_value=None) as clear:
                 with unittest.mock.patch.object(io, "_show_console_cursor", return_value=None) as _show_console_cursor:
                     io.done()
 
                     _disable_get_key.assert_called_once_with()
-                    _clear.assert_called_once_with()
+                    clear.assert_called_once_with()
                     _show_console_cursor.assert_called_once_with(True)
 
     def test_get_key(self):
@@ -182,8 +182,8 @@ class UniIOTests(unittest.TestCase):
         self.assertEqual(io._get_lin_tam_color(2, 5), (34, 90))
 
     @staticmethod
-    def test__clear():
+    def test_clear():
         with unittest.mock.patch.object(os, "system", return_value=0) as system:
             io = tam_io.uni_tam.UniIO()
-            io._clear()
+            io.clear()
             system.assert_called_once_with("tput reset")

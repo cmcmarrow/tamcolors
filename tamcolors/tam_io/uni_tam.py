@@ -264,6 +264,18 @@ class UniIO(io_tam.IO):
     def _get_lin_tam_color(self, foreground_color, background_color):
         return self.__color_map.get(foreground_color), self.__color_map.get(background_color)
 
+    def printc(self, output, color):
+        output_str = "\u001b[38;5;{0};48;5;{1}m{2}\u001b[0m".format(*self._get_lin_tam_color(*color), output)
+        sys.stdout.write(output_str)
+        sys.stdout.flush()
+
+    def inputc(self, output, color):
+        output_str = "\u001b[38;5;{0};48;5;{1}m{2}".format(*self._get_lin_tam_color(*color), output)
+        ret = input(output_str)
+        sys.stdout.write("\u001b[0m")
+        sys.stdout.flush()
+        return ret
+
     def clear(self):
         """
         info: will clear the screen. Note that it will also reset the terminal
