@@ -35,7 +35,7 @@ setup(
 
     ext_modules=ext_modules,
 
-    classifiers=["Development Status :: 5 - Production/Stable",
+    classifiers=["Development Status :: 3 - Alpha",
                  "Environment :: Console",
                  "Intended Audience :: Developers",
                  "Natural Language :: English",

@@ -8,13 +8,13 @@ from tamcolors import tam
 
 class TAMLoopTestTests(unittest.TestCase):
     def test_loop_init(self):
-        frame = tam.tam_loop.TAMFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
+        frame = self._get_dummy_frame(5, "A", 3, 4, 25, 35, 26, 36)
         loop = tam.tam_loop_test.TAMLoopTest(frame)
 
         self.assertIsInstance(loop, tam.tam_loop_test.TAMLoopTest)
 
     def test_loop_call(self):
-        frame = tam.tam_loop.TAMFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
+        frame = self._get_dummy_frame(5, "A", 3, 4, 25, 35, 26, 36)
         loop = tam.tam_loop_test.TAMLoopTest(frame)
         self.assertEqual(loop.get_running(), None)
         loop()
@@ -26,7 +26,7 @@ class TAMLoopTestTests(unittest.TestCase):
         self.assertEqual(loop.get_running(), False)
 
     def test_done(self):
-        frame = tam.tam_loop.TAMFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
+        frame = self._get_dummy_frame(5, "A", 3, 4, 25, 35, 26, 36)
         loop = tam.tam_loop_test.TAMLoopTest(frame)
         self.assertEqual(loop.get_running(), None)
         loop.done()
@@ -36,7 +36,7 @@ class TAMLoopTestTests(unittest.TestCase):
         self.assertEqual(loop.get_running(), False)
 
     def test_run(self):
-        frame = tam.tam_loop.TAMFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
+        frame = self._get_dummy_frame(5, "A", 3, 4, 25, 35, 26, 36)
         loop = tam.tam_loop_test.TAMLoopTest(frame)
         self.assertEqual(loop.get_running(), None)
         loop.run()
@@ -48,16 +48,16 @@ class TAMLoopTestTests(unittest.TestCase):
         self.assertEqual(loop.get_running(), False)
 
     def test_get_runner(self):
-        frame = tam.tam_loop.TAMFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
+        frame = self._get_dummy_frame(5, "A", 3, 4, 25, 35, 26, 36)
         loop = tam.tam_loop_test.TAMLoopTest(frame)
         self.assertEqual(loop.get_running(), None)
         loop()
         self.assertEqual(loop.get_running(), True)
 
     def test_add_frame_stack(self):
-        frame_1 = tam.tam_loop.TAMFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
-        frame_2 = tam.tam_loop.TAMFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
-        frame_3 = tam.tam_loop.TAMFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
+        frame_1 = self._get_dummy_frame(5, "A", 3, 4, 25, 35, 26, 36)
+        frame_2 = self._get_dummy_frame(5, "A", 3, 4, 25, 35, 26, 36)
+        frame_3 = self._get_dummy_frame(5, "A", 3, 4, 25, 35, 26, 36)
         loop = tam.tam_loop_test.TAMLoopTest(frame_1)
 
         loop.add_frame_stack(frame_2)
@@ -69,15 +69,17 @@ class TAMLoopTestTests(unittest.TestCase):
         self.assertIs(loop.pop_frame_stack(), None)
 
     def test_pop_frame_stack(self):
-        frame = tam.tam_loop.TAMFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
+        frame = self._get_dummy_frame(5, "A", 3, 4, 25, 35, 26, 36)
         loop = tam.tam_loop_test.TAMLoopTest(frame)
 
         self.assertIs(loop.pop_frame_stack(), frame)
         self.assertIs(loop.pop_frame_stack(), None)
 
     def test_update(self):
-        class Dummy:
-            def __init__(self, update_func, draw_func, done_func):
+        class Dummy(tam.tam_loop.TAMFrame):
+            def __init__(self, update_func, draw_func, done_func, *args):
+                super().__init__(*args)
+
                 self.__update_func = update_func
                 self.__draw_func = draw_func
                 self.__done_func = done_func
@@ -94,7 +96,7 @@ class TAMLoopTestTests(unittest.TestCase):
         update_func = unittest.mock.Mock()
         draw_func = unittest.mock.Mock()
         done_func = unittest.mock.Mock()
-        frame = tam.tam_loop.TAMFrame(Dummy(update_func, draw_func, done_func), 5, "A", 3, 4, 25, 35, 26, 36)
+        frame = Dummy(update_func, draw_func, done_func, 5, "A", 3, 4, 25, 35, 26, 36)
         loop = tam.tam_loop_test.TAMLoopTest(frame)
 
         loop()
@@ -132,8 +134,10 @@ class TAMLoopTestTests(unittest.TestCase):
         self.assertEqual(done_func.call_count, 1)
 
     def test_update_2(self):
-        class Dummy:
-            def __init__(self, update_func, draw_func, done_func):
+        class Dummy(tam.tam_loop.TAMFrame):
+            def __init__(self, update_func, draw_func, done_func, *args):
+                super().__init__(*args)
+
                 self.__update_func = update_func
                 self.__draw_func = draw_func
                 self.__done_func = done_func
@@ -151,7 +155,7 @@ class TAMLoopTestTests(unittest.TestCase):
         update_func = unittest.mock.Mock()
         draw_func = unittest.mock.Mock()
         done_func = unittest.mock.Mock()
-        frame = tam.tam_loop.TAMFrame(Dummy(update_func, draw_func, done_func), 5, "A", 3, 4, 25, 35, 26, 36)
+        frame = Dummy(update_func, draw_func, done_func, 5, "A", 3, 4, 25, 35, 26, 36)
         loop = tam.tam_loop_test.TAMLoopTest(frame)
 
         loop()
@@ -168,9 +172,9 @@ class TAMLoopTestTests(unittest.TestCase):
         self.assertEqual(done_func.call_count, 1)
 
     def test_update_3(self):
-        class Dummy:
-            def __init__(self):
-                pass
+        class Dummy(tam.tam_loop.TAMFrame):
+            def __init__(self, *args):
+                super().__init__(*args)
 
             def update(self, tam_loop, keys, loop_data):
                 for key in keys:
@@ -180,10 +184,7 @@ class TAMLoopTestTests(unittest.TestCase):
             def draw(self, tam_buffer, loop_data):
                 pass
 
-            def done(self, tam_loop, loop_data):
-                pass
-
-        frame = tam.tam_loop.TAMFrame(Dummy(), 5, "A", 3, 4, 25, 35, 26, 36)
+        frame = Dummy(5, "A", 3, 4, 25, 35, 26, 36)
         loop = tam.tam_loop_test.TAMLoopTest(frame)
         loop()
 
@@ -200,9 +201,9 @@ class TAMLoopTestTests(unittest.TestCase):
         self.assertFalse(loop.get_running())
 
     def test_update_4(self):
-        frame_1 = tam.tam_loop.TAMFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
-        frame_2 = tam.tam_loop.TAMFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
-        frame_3 = tam.tam_loop.TAMFrame(self._get_dummy_frame(), 5, "A", 3, 4, 25, 35, 26, 36)
+        frame_1 = self._get_dummy_frame(5, "A", 3, 4, 25, 35, 26, 36)
+        frame_2 = self._get_dummy_frame(5, "A", 3, 4, 25, 35, 26, 36)
+        frame_3 = self._get_dummy_frame(5, "A", 3, 4, 25, 35, 26, 36)
 
         loop = tam.tam_loop_test.TAMLoopTest(frame_1)
 
@@ -253,18 +254,15 @@ class TAMLoopTestTests(unittest.TestCase):
         self.assertIs(frame, None)
 
     @staticmethod
-    def _get_dummy_frame():
-        class Dummy:
+    def _get_dummy_frame(*args, **kwargs):
+        class Dummy(tam.tam_loop.TAMFrame):
             def __init__(self):
-                pass
+                super().__init__(*args, **kwargs)
 
             def update(self, tam_loop, keys, loop_data):
                 pass
 
             def draw(self, tam_buffer, loop_data):
-                pass
-
-            def done(self, tam_loop, loop_data):
                 pass
 
         return Dummy()

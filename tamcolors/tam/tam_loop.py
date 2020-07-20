@@ -170,7 +170,7 @@ class TAMLoop:
 
         if len(self.__frame_stack) != 0:
             frame = self.__frame_stack.pop()
-            frame.done(self, self.__loop_data)
+            frame._done(self, self.__loop_data)
             return frame
 
     def _update_loop(self):
@@ -202,7 +202,7 @@ class TAMLoop:
             self.done()
         finally:
             if frame is not None:
-                frame.done(self, self.__loop_data)
+                frame._done(self, self.__loop_data)
             self.done()
 
     def _draw_loop(self):
@@ -242,7 +242,6 @@ class TAMLoop:
 
 class TAMFrame:
     def __init__(self,
-                 frame,
                  fps,
                  char,
                  foreground_color,
@@ -253,7 +252,6 @@ class TAMFrame:
                  max_height=1000):
         """
         info: makes a TAMFrame object
-        :param frame: object
         :param fps: int or float: 0.0 - inf
         :param char: str: len of 1
         :param foreground_color: int: 0 - inf
@@ -263,7 +261,6 @@ class TAMFrame:
         :param min_height: int: 0 - inf
         :param max_height: int: min_height - inf
         """
-        self.__frame = frame
         self.__fps = fps
 
         self.__char = char
@@ -332,7 +329,7 @@ class TAMFrame:
         :param loop_data: dict
         :return:
         """
-        self.__frame.update(tam_loop, keys, loop_data)
+        raise NotImplementedError()
 
     def draw(self, tam_buffer, loop_data):
         """
@@ -341,9 +338,9 @@ class TAMFrame:
         :param loop_data: dict
         :return:
         """
-        self.__frame.draw(tam_buffer, loop_data)
+        raise NotImplementedError()
 
-    def done(self, tam_loop, loop_data):
+    def _done(self, tam_loop, loop_data):
         """
         info: will clean up the frame and can only be called once
         :param tam_loop: TAMLoop
@@ -352,4 +349,13 @@ class TAMFrame:
         """
         if not self.__done_called:
             self.__done_called = True
-            self.__frame.done(tam_loop, loop_data)
+            self.done(tam_loop, loop_data)
+
+    def done(self, tam_loop, loop_data):
+        """
+        info: will clean up the frame and can only be called once
+        :param tam_loop: TAMLoop
+        :param loop_data: dict
+        :return:
+        """
+        pass

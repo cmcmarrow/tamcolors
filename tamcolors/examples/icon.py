@@ -39,11 +39,17 @@ def get_icon():
     return tam_tools.tam_list_buffer.tam_list_buffer(icon_chars, 0, icon_background)
 
 
-class BootLogo:
+class BootLogo(tam.tam_loop.TAMFrame):
     def __init__(self):
         """
         info: Makes a BootLogo Object. Will display the logo and author's name
         """
+        super().__init__(10,
+                         " ",
+                         2,
+                         0,
+                         70, 70, 40, 40)
+
         self.icon = tam_tools.tam_fade.tam_fade_in(get_icon(),
                                                    " ",
                                                    0,
@@ -71,19 +77,7 @@ class BootLogo:
                                       15,
                                       0)
 
-    def done(self, tam_loop, loop_data):
-        pass
-
-    @staticmethod
-    def get_frame():
-        return tam.tam_loop.TAMFrame(BootLogo(),
-                                     10,
-                                     " ",
-                                     2,
-                                     0,
-                                     70, 70, 40, 40)
-
 
 def run():
-    loop = tam.tam_loop.TAMLoop(BootLogo.get_frame())
+    loop = tam.tam_loop.TAMLoop(BootLogo())
     loop.run()
