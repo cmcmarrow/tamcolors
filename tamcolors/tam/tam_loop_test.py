@@ -90,7 +90,7 @@ class TAMLoopTest:
 
         if len(self.__frame_stack) != 0:
             frame = self.__frame_stack.pop()
-            frame.done(self, self.__loop_data)
+            frame._done(self, self.__loop_data)
             return frame
 
     def update(self, keys, width, height):
@@ -123,13 +123,13 @@ class TAMLoopTest:
             except BaseException as error:
                 self.done()
                 if frame is not None:
-                    frame.done(self, self.__loop_data)
+                    frame._done(self, self.__loop_data)
                 raise error
         else:
             self.done()
 
         if not self.__running and len(self.__frame_stack) != 0:
             frame = self.__frame_stack[-1]
-            frame.done(self, self.__loop_data)
+            frame._done(self, self.__loop_data)
 
         return buffer, frame
