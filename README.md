@@ -1,3 +1,4 @@
+
 # tamcolors
 
 ![icon](https://github.com/cmcmarrow/tamcolors/blob/master/icon.png?raw=true)
@@ -24,7 +25,7 @@ import tamcolors
 tamcolors.examples.icon.run()
 ```
 ```python
-from tamcolors import tam, tam_tools
+from tamcolors import tam, tam_tools, tam_io
 
 
 class BootLogo(tam.tam_loop.TAMFrame):
@@ -37,8 +38,8 @@ class BootLogo(tam.tam_loop.TAMFrame):
 
         self.icon = tam_tools.tam_fade.tam_fade_in(buffer=tam_tools.tam_icon.get_icon(),
                                                    char=" ",
-                                                   foreground_color=tam.tam_colors.BLACK,
-                                                   background_color=tam.tam_colors.BLACK)
+                                                   foreground_color=tam_io.tam_colors.BLACK,
+                                                   background_color=tam_io.tam_colors.BLACK)
         self.wait = 10
 
     def update(self, tam_loop, keys, loop_data):
@@ -62,8 +63,8 @@ class BootLogo(tam.tam_loop.TAMFrame):
                                                                                 width=len("tamcolors"),
                                                                                 height=1),
                                       text="tamcolors",
-                                      foreground_color=tam.tam_colors.LIGHT_WHITE,
-                                      background_color=tam.tam_colors.BLACK)
+                                      foreground_color=tam_io.tam_colors.LIGHT_WHITE,
+                                      background_color=tam_io.tam_colors.BLACK)
 
 
 tam.tam_loop.TAMLoop(BootLogo()).run()

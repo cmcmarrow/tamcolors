@@ -3,12 +3,9 @@ import string
 import sys
 
 # tamcolors libraries
-from tamcolors.tam.tam_buffer import TAMBuffer
+from .tam_buffer import TAMBuffer
 from . import io_tam
-try:
-    from . import _win_tam as io
-except ImportError:
-    io = None
+from tamcolors.tam_c import _win_tam as io
 
 
 """

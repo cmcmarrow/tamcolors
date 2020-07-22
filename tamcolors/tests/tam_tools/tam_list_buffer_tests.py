@@ -2,6 +2,7 @@
 import unittest.mock
 
 # tamcolors libraries
+from tamcolors import tam_io
 from tamcolors import tam
 from tamcolors import tam_tools
 
@@ -11,7 +12,7 @@ class TAMListBufferTests(unittest.TestCase):
         buffer = [["1", "2", "3"],
                   ["4", "5", "6"]]
 
-        tam_buffer = tam.tam_buffer.TAMBuffer(3, 2, " ", 1, 2)
+        tam_buffer = tam_io.tam_buffer.TAMBuffer(3, 2, " ", 1, 2)
         for i in range(3):
             tam_buffer.set_spot(i, 0, str(i + 1), 1, 2)
             tam_buffer.set_spot(i, 1, str(i + 4), 1, 2)
@@ -25,7 +26,7 @@ class TAMListBufferTests(unittest.TestCase):
                   ["4", "5", "6"],
                   ["1", "2", "3"]]
 
-        tam_buffer = tam.tam_buffer.TAMBuffer(3, 3, " ", 1, 2)
+        tam_buffer = tam_io.tam_buffer.TAMBuffer(3, 3, " ", 1, 2)
         for i in range(3):
             tam_buffer.set_spot(i, 0, str(i + 1), 1, 2)
             tam_buffer.set_spot(i, 1, str(i + 4), 1, 2)
@@ -42,7 +43,7 @@ class TAMListBufferTests(unittest.TestCase):
         foreground_colors = [[1, 2, 3],
                              [4, 5, 6]]
 
-        tam_buffer = tam.tam_buffer.TAMBuffer(3, 2, " ", 1, 2)
+        tam_buffer = tam_io.tam_buffer.TAMBuffer(3, 2, " ", 1, 2)
         for i in range(3):
             tam_buffer.set_spot(i, 0, str(i + 1), i + 1, 2)
             tam_buffer.set_spot(i, 1, str(i + 4), i + 4, 2)
@@ -58,7 +59,7 @@ class TAMListBufferTests(unittest.TestCase):
         background_colors = [[1, 2, 3],
                              [4, 5, 6]]
 
-        tam_buffer = tam.tam_buffer.TAMBuffer(3, 2, " ", 1, 2)
+        tam_buffer = tam_io.tam_buffer.TAMBuffer(3, 2, " ", 1, 2)
         for i in range(3):
             tam_buffer.set_spot(i, 0, str(i + 1), 1, i + 1)
             tam_buffer.set_spot(i, 1, str(i + 4), 1, i + 4)
@@ -77,7 +78,7 @@ class TAMListBufferTests(unittest.TestCase):
         background_colors = [[1, 2, 3],
                              [4, 5, 6]]
 
-        tam_buffer = tam.tam_buffer.TAMBuffer(3, 2, " ", 1, 2)
+        tam_buffer = tam_io.tam_buffer.TAMBuffer(3, 2, " ", 1, 2)
         for i in range(3):
             tam_buffer.set_spot(i, 0, str(i + 1), (i + 1) * 2, i + 1)
             tam_buffer.set_spot(i, 1, str(i + 4), (i + 4) * 2, i + 4)

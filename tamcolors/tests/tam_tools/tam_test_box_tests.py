@@ -2,7 +2,7 @@
 import unittest.mock
 
 # tamcolors libraries
-from tamcolors import tam
+from tamcolors import tam_io
 from tamcolors import tam_tools
 
 
@@ -22,8 +22,8 @@ class TAMTextBoxTests(unittest.TestCase):
     def test_update(self):
         text_box = tam_tools.tam_text_box.TAMTextBox("", 20, 15, "#", 3, 5)
 
-        buffer = tam.tam_buffer.TAMBuffer(20, 15, " ", 3, 5)
-        buffer2 = tam.tam_buffer.TAMBuffer(20, 15, "@", 1, 2)
+        buffer = tam_io.tam_buffer.TAMBuffer(20, 15, " ", 3, 5)
+        buffer2 = tam_io.tam_buffer.TAMBuffer(20, 15, "@", 1, 2)
         text_box.draw(buffer2)
         self.assertEqual(buffer, buffer2)
 
@@ -41,8 +41,8 @@ class TAMTextBoxTests(unittest.TestCase):
 
     def test_draw(self):
         text_box = tam_tools.tam_text_box.TAMTextBox("hello world!", 20, 15, "#", 3, 5)
-        buffer = tam.tam_buffer.TAMBuffer(20, 15, " ", 3, 5)
-        buffer2 = tam.tam_buffer.TAMBuffer(20, 15, "@", 1, 2)
+        buffer = tam_io.tam_buffer.TAMBuffer(20, 15, " ", 3, 5)
+        buffer2 = tam_io.tam_buffer.TAMBuffer(20, 15, "@", 1, 2)
         text_box.draw(buffer2)
         self.assertEqual(buffer, buffer2)
 
@@ -63,8 +63,8 @@ class TAMTextBoxTests(unittest.TestCase):
 
     def test_draw_2(self):
         text_box = tam_tools.tam_text_box.TAMTextBox("hello world!", 20, 15, "#", 3, 5, clock=1)
-        buffer = tam.tam_buffer.TAMBuffer(20, 15, " ", 3, 5)
-        buffer2 = tam.tam_buffer.TAMBuffer(20, 15, "@", 1, 2)
+        buffer = tam_io.tam_buffer.TAMBuffer(20, 15, " ", 3, 5)
+        buffer2 = tam_io.tam_buffer.TAMBuffer(20, 15, "@", 1, 2)
         text_box.draw(buffer2)
         self.assertEqual(buffer, buffer2)
 
@@ -102,8 +102,8 @@ class TAMTextBoxTests(unittest.TestCase):
                                                      vertical_start=3,
                                                      char_background="%")
 
-        buffer = tam.tam_buffer.TAMBuffer(19, 16, "%", 1, 2)
-        buffer2 = tam.tam_buffer.TAMBuffer(19, 16, "@", 3, 4)
+        buffer = tam_io.tam_buffer.TAMBuffer(19, 16, "%", 1, 2)
+        buffer2 = tam_io.tam_buffer.TAMBuffer(19, 16, "@", 3, 4)
 
         for i in range(19):
             buffer.set_spot(i, 0, "#", 1, 2)

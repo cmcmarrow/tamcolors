@@ -5,7 +5,6 @@ import unittest
 import unittest.mock
 
 # tamcolors libraries
-from tamcolors import tam
 from tamcolors import tam_io
 
 
@@ -46,8 +45,8 @@ class WinIOTests(unittest.TestCase):
                 with unittest.mock.patch.object(tam_io.win_tam.io, "_show_console_cursor", return_value=None) as _show_console_cursor:
                     with unittest.mock.patch.object(io, "_print", return_value=None) as _print:
                         io.set_mode(2)
-                        buffer = tam.tam_buffer.TAMBuffer(5, 6, "A", 1, 2)
-                        buffer2 = tam.tam_buffer.TAMBuffer(15, 10, " ", 1, 2)
+                        buffer = tam_io.tam_buffer.TAMBuffer(5, 6, "A", 1, 2)
+                        buffer2 = tam_io.tam_buffer.TAMBuffer(15, 10, " ", 1, 2)
 
                         buffer.set_spot(1, 1, "B", 5, 7)
                         buffer.set_spot(4, 4, "C", 5, 7)
@@ -68,8 +67,8 @@ class WinIOTests(unittest.TestCase):
                 with unittest.mock.patch.object(tam_io.win_tam.io, "_show_console_cursor", return_value=None) as _show_console_cursor:
                     with unittest.mock.patch.object(io, "_print", return_value=None) as _print:
                         io.set_mode(16)
-                        buffer = tam.tam_buffer.TAMBuffer(5, 6, "A", 1, 2)
-                        buffer2 = tam.tam_buffer.TAMBuffer(15, 10, " ", 1, 2)
+                        buffer = tam_io.tam_buffer.TAMBuffer(5, 6, "A", 1, 2)
+                        buffer2 = tam_io.tam_buffer.TAMBuffer(15, 10, " ", 1, 2)
 
                         buffer.set_spot(1, 1, "B", 5, 7)
                         buffer.set_spot(3, 5, "C", 5, 7)

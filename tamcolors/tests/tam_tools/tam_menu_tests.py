@@ -3,7 +3,7 @@ import unittest
 import unittest.mock
 
 # tamcolors libraries
-from tamcolors import tam
+from tamcolors import tam_io
 from tamcolors import tam_tools
 
 
@@ -122,7 +122,7 @@ class TAMMenuTests(unittest.TestCase):
         menu = tam_tools.tam_menu.TAMMenu(buttons, "a", goto_map)
         with unittest.mock.patch.object(tam_tools.tam_menu.TAMTextButton, "draw", return_value=None) as text_draw:
             with unittest.mock.patch.object(tam_tools.tam_menu.TAMTextBoxButton, "draw", return_value=None) as box_draw:
-                buffer = tam.tam_buffer.TAMBuffer(0, 0, " ", 1, 2)
+                buffer = tam_io.tam_buffer.TAMBuffer(0, 0, " ", 1, 2)
                 menu.draw(buffer)
                 self.assertEqual(text_draw.call_count, 3)
                 box_draw.assert_called_once_with(buffer)
@@ -360,7 +360,7 @@ class TAMTextButtonTests(unittest.TestCase):
     def test_draw(self):
         button = tam_tools.tam_menu.TAMTextButton("Hello", 0, 0, 6, 2, lambda: None, 5, 2)
 
-        buffer = tam.tam_buffer.TAMBuffer(6, 6, " ", 0, 0)
+        buffer = tam_io.tam_buffer.TAMBuffer(6, 6, " ", 0, 0)
 
         button.draw(buffer)
 
@@ -370,7 +370,7 @@ class TAMTextButtonTests(unittest.TestCase):
     def test_draw_2(self):
         button = tam_tools.tam_menu.TAMTextButton("Hello\ncats", 0, 0, 6, 2, lambda: None, 5, 2)
 
-        buffer = tam.tam_buffer.TAMBuffer(6, 6, " ", 0, 0)
+        buffer = tam_io.tam_buffer.TAMBuffer(6, 6, " ", 0, 0)
 
         button.draw(buffer)
 
@@ -383,7 +383,7 @@ class TAMTextButtonTests(unittest.TestCase):
     def test_on(self):
         button = tam_tools.tam_menu.TAMTextButton("Hello 123\ncats", 2, 0, 6, 2, lambda: None, 5, 8)
 
-        buffer = tam.tam_buffer.TAMBuffer(15, 6, " ", 0, 0)
+        buffer = tam_io.tam_buffer.TAMBuffer(15, 6, " ", 0, 0)
 
         button.off()
         button.on()
@@ -406,7 +406,7 @@ class TAMTextButtonTests(unittest.TestCase):
                                                   3,
                                                   on_chars="!@#$%^&*")
 
-        buffer = tam.tam_buffer.TAMBuffer(15, 6, " ", 0, 0)
+        buffer = tam_io.tam_buffer.TAMBuffer(15, 6, " ", 0, 0)
 
         button.off()
         button.on()
@@ -424,7 +424,7 @@ class TAMTextButtonTests(unittest.TestCase):
     def test_off(self):
         button = tam_tools.tam_menu.TAMTextButton("Hello\ncats", 0, 0, 6, 2, lambda: None, 5, 2)
 
-        buffer = tam.tam_buffer.TAMBuffer(6, 6, " ", 0, 0)
+        buffer = tam_io.tam_buffer.TAMBuffer(6, 6, " ", 0, 0)
 
         button.on()
         button.off()
@@ -439,7 +439,7 @@ class TAMTextButtonTests(unittest.TestCase):
     def test_off_2(self):
         button = tam_tools.tam_menu.TAMTextButton("Hello 123\nc\tats", 3, 1, 6, 2, lambda: None, 5, 2)
 
-        buffer = tam.tam_buffer.TAMBuffer(19, 19, " ", 0, 0)
+        buffer = tam_io.tam_buffer.TAMBuffer(19, 19, " ", 0, 0)
 
         button.on()
         button.off()
@@ -511,7 +511,7 @@ class TAMTextButtonTests(unittest.TestCase):
     def test_set_position(self):
         button = tam_tools.tam_menu.TAMTextButton("Hello 123\nc\tats", 3, 1, 6, 2, lambda: None, 5, 2)
 
-        buffer = tam.tam_buffer.TAMBuffer(19, 19, " ", 0, 0)
+        buffer = tam_io.tam_buffer.TAMBuffer(19, 19, " ", 0, 0)
 
         button.on()
         button.off()
@@ -535,7 +535,7 @@ class TAMTextButtonTests(unittest.TestCase):
                                                   3,
                                                   on_chars="!@#$%^&*")
 
-        buffer = tam.tam_buffer.TAMBuffer(15, 6, " ", 0, 0)
+        buffer = tam_io.tam_buffer.TAMBuffer(15, 6, " ", 0, 0)
 
         button.off()
         button.on()
@@ -619,7 +619,7 @@ class TAMTextBoxButtonTests(unittest.TestCase):
     def test_draw(self):
         button = tam_tools.tam_menu.TAMTextBoxButton("test", 0, 0, 10, 5, "#", 6, 2, lambda: None, 5, 2)
 
-        buffer = tam.tam_buffer.TAMBuffer(12, 6, " ", 0, 0)
+        buffer = tam_io.tam_buffer.TAMBuffer(12, 6, " ", 0, 0)
 
         button.draw(buffer)
 
@@ -641,7 +641,7 @@ class TAMTextBoxButtonTests(unittest.TestCase):
                                                      3,
                                                      on_char="$")
 
-        buffer = tam.tam_buffer.TAMBuffer(12, 12, " ", 0, 0)
+        buffer = tam_io.tam_buffer.TAMBuffer(12, 12, " ", 0, 0)
 
         button.draw(buffer)
 
@@ -655,7 +655,7 @@ class TAMTextBoxButtonTests(unittest.TestCase):
     def test_on(self):
         button = tam_tools.tam_menu.TAMTextBoxButton("test", 0, 0, 10, 5, "#", 6, 2, lambda: None, 5, 1)
 
-        buffer = tam.tam_buffer.TAMBuffer(12, 6, " ", 0, 0)
+        buffer = tam_io.tam_buffer.TAMBuffer(12, 6, " ", 0, 0)
 
         button.off()
         button.on()
@@ -679,7 +679,7 @@ class TAMTextBoxButtonTests(unittest.TestCase):
                                                      5,
                                                      on_char="$")
 
-        buffer = tam.tam_buffer.TAMBuffer(15, 15, " ", 0, 0)
+        buffer = tam_io.tam_buffer.TAMBuffer(15, 15, " ", 0, 0)
 
         button.off()
         button.on()
@@ -695,7 +695,7 @@ class TAMTextBoxButtonTests(unittest.TestCase):
     def test_off(self):
         button = tam_tools.tam_menu.TAMTextBoxButton("test", 0, 0, 10, 5, "#", 6, 2, lambda: None, 5, 1)
 
-        buffer = tam.tam_buffer.TAMBuffer(12, 6, " ", 0, 0)
+        buffer = tam_io.tam_buffer.TAMBuffer(12, 6, " ", 0, 0)
 
         button.on()
         button.off()
@@ -719,7 +719,7 @@ class TAMTextBoxButtonTests(unittest.TestCase):
                                                      5,
                                                      on_char="$")
 
-        buffer = tam.tam_buffer.TAMBuffer(15, 15, " ", 0, 0)
+        buffer = tam_io.tam_buffer.TAMBuffer(15, 15, " ", 0, 0)
 
         button.on()
         button.off()
@@ -834,7 +834,7 @@ class TAMTextBoxButtonTests(unittest.TestCase):
                                                      5,
                                                      on_char="$")
 
-        buffer = tam.tam_buffer.TAMBuffer(15, 15, " ", 0, 0)
+        buffer = tam_io.tam_buffer.TAMBuffer(15, 15, " ", 0, 0)
 
         button.on()
         button.off()
@@ -862,7 +862,7 @@ class TAMTextBoxButtonTests(unittest.TestCase):
                                                      5,
                                                      on_char="$")
 
-        buffer = tam.tam_buffer.TAMBuffer(15, 15, " ", 0, 0)
+        buffer = tam_io.tam_buffer.TAMBuffer(15, 15, " ", 0, 0)
 
         button.off()
         button.on()

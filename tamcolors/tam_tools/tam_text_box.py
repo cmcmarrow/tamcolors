@@ -1,5 +1,5 @@
 # tamcolors libraries
-from tamcolors import tam
+from tamcolors import tam_io
 from . import tam_str
 
 """
@@ -47,7 +47,7 @@ class TAMTextBox:
         self.__background_color = background_color
         self.__char_background = char_background
 
-        self.__buffer = tam.tam_buffer.TAMBuffer(width, height, char_background, foreground_color, background_color)
+        self.__buffer = tam_io.tam_buffer.TAMBuffer(width, height, char_background, foreground_color, background_color)
 
         self.__clock = clock
         self.__clock_at = clock
@@ -206,11 +206,11 @@ class TAMTextBox:
         :return:
         """
 
-        self.__buffer = tam.tam_buffer.TAMBuffer(self.__width,
-                                                 self.__height,
-                                                 self.__char_background,
-                                                 self.__foreground_color,
-                                                 self.__background_color)
+        self.__buffer = tam_io.tam_buffer.TAMBuffer(self.__width,
+                                                    self.__height,
+                                                    self.__char_background,
+                                                    self.__foreground_color,
+                                                    self.__background_color)
 
         if self.__clock == -1:
             self.__clock_at = self.__clock

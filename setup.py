@@ -9,11 +9,11 @@ def get_c_file_path(directory, name):
 
 ext_modules = []
 if platform.system() == "Windows":
-    ext_modules.append(Extension("tamcolors.tam_io._win_tam", sources=[get_c_file_path("_win_tam", "_win_tam.cpp"),
-                                                                       get_c_file_path("_win_tam", "win_tam.cpp")]))
+    ext_modules.append(Extension("tamcolors.tam_c._win_tam", sources=[get_c_file_path("_win_tam_c", "_win_tam.cpp"),
+                                                                      get_c_file_path("_win_tam_c", "win_tam.cpp")]))
 elif platform.system() in ("Darwin", "Linux"):
-    ext_modules.append(Extension("tamcolors.tam_io._uni_tam", sources=[get_c_file_path("_uni_tam", "_uni_tam.cpp"),
-                                                                       get_c_file_path("_uni_tam", "uni_tam.cpp")]))
+    ext_modules.append(Extension("tamcolors.tam_c._uni_tam", sources=[get_c_file_path("_uni_tam_c", "_uni_tam.cpp"),
+                                                                      get_c_file_path("_uni_tam_c", "uni_tam.cpp")]))
 
 with open(os.path.join("tamcolors", "README.md")) as readme:
     long_description = readme.read()
@@ -38,12 +38,13 @@ setup(
               "tamcolors.tests.tam",
               "tamcolors.tests.tam_tools",
               "tamcolors.tests.tam_io",
-              "tamcolors.tam_c._win_tam",
-              "tamcolors.tam_c._uni_tam"],
+              "tamcolors.tam_c",
+              "tamcolors.tam_c._win_tam_c",
+              "tamcolors.tam_c._uni_tam_c"],
 
     package_data={"tamcolors": ["LICENSE", "README.md"],
-                  "tamcolors.tam_c._win_tam": ["*.cpp", "*.h"],
-                  "tamcolors.tam_c._uni_tam": ["*.cpp", "*.h"]},
+                  "tamcolors.tam_c._win_tam_c": ["*.cpp", "*.h"],
+                  "tamcolors.tam_c._uni_tam_c": ["*.cpp", "*.h"]},
 
     ext_modules=ext_modules,
 

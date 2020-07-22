@@ -1,5 +1,5 @@
 # tamcolors libraries
-from tamcolors import tam
+from tamcolors import tam_io
 from . import tam_film
 
 
@@ -39,7 +39,7 @@ def tam_fade_in(buffer,
     done_pool = []
 
     while any((len(start_pool), len(char_pool), len(foreground_pool), len(background_pool))):
-        new_frame = tam.tam_buffer.TAMBuffer(*buffer.get_dimensions(), char, foreground_color, background_color)
+        new_frame = tam_io.tam_buffer.TAMBuffer(*buffer.get_dimensions(), char, foreground_color, background_color)
 
         for pixel in done_pool:
             new_frame.set_spot(*pixel)

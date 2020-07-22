@@ -1,5 +1,5 @@
 # tamcolors libraries
-from tamcolors import tam
+from tamcolors import tam_io
 
 
 """
@@ -22,7 +22,7 @@ class TAMFilm:
         if tam_buffers is None:
             tam_buffers = []
 
-        if isinstance(tam_buffers, tam.tam_buffer.TAMBuffer):
+        if isinstance(tam_buffers, tam_io.tam_buffer.TAMBuffer):
             tam_buffers = [tam_buffers]
         else:
             tam_buffers = list(tam_buffers)

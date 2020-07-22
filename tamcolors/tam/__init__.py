@@ -1,6 +1,3 @@
-from . import tam_buffer
-from . import tam_colors
-from . import tam_keys
 from . import tam_loop
 from . import tam_loop_test
 
@@ -14,8 +11,5 @@ tam supports
 * Windows
 """
 
-__all__ = ("tam_buffer",
-           "tam_colors",
-           "tam_keys",
-           "tam_loop",
+__all__ = ("tam_loop",
            "tam_loop_test")

@@ -6,7 +6,6 @@ import unittest
 import unittest.mock
 
 # tamcolors libraries
-from tamcolors import tam
 from tamcolors import tam_io
 
 
@@ -50,7 +49,7 @@ class UniIOTests(unittest.TestCase):
                             with unittest.mock.patch.object(tam_io.uni_tam.io, "_get_dimension",
                                                             return_value=(15, 10)) as _get_dimension:
                                 io.set_mode(2)
-                                tam_buffer = tam.tam_buffer.TAMBuffer(5, 7, "A", 3, 4)
+                                tam_buffer = tam_io.tam_buffer.TAMBuffer(5, 7, "A", 3, 4)
                                 tam_buffer.set_spot(1, 1, "B", 7, 8)
                                 tam_buffer.set_spot(1, 2, "C", 7, 7)
                                 tam_buffer.set_spot(2, 2, "D", 4, 5)
@@ -77,7 +76,7 @@ class UniIOTests(unittest.TestCase):
                             with unittest.mock.patch.object(tam_io.uni_tam.io, "_get_dimension",
                                                             return_value=(15, 10)) as _get_dimension:
                                 io.set_mode(16)
-                                tam_buffer = tam.tam_buffer.TAMBuffer(5, 7, "A", 3, 4)
+                                tam_buffer = tam_io.tam_buffer.TAMBuffer(5, 7, "A", 3, 4)
                                 tam_buffer.set_spot(1, 1, "B", 7, 8)
                                 tam_buffer.set_spot(1, 2, "C", 7, 7)
                                 tam_buffer.set_spot(2, 2, "D", 4, 5)
