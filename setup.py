@@ -15,20 +15,20 @@ elif platform.system() in ("Darwin", "Linux"):
     ext_modules.append(Extension("tamcolors.tam_c._uni_tam", sources=[get_c_file_path("_uni_tam_c", "_uni_tam.cpp"),
                                                                       get_c_file_path("_uni_tam_c", "uni_tam.cpp")]))
 
-with open(os.path.join("tamcolors", "README.md")) as readme:
+with open(os.path.join("tamcolors", "README.rst")) as readme:
     long_description = readme.read()
 
 setup(
     name="tamcolors",
-    version="1.0.1",
+    version="1.0.2",
     author="Charles McMarrow",
     author_email="Charles.M.McMarrow@gmail.com",
     url="https://github.com/cmcmarrow/tamcolors",
     license="Apache Software License 2.0",
     description="This library standardizes console color output across multiple platforms.",
     description_content_type="text/plain",
-    # long_description=long_description,
-    # long_description_content_type="text/markdown",
+    long_description=long_description,
+    long_description_content_type="text/x-rst",
     packages=["tamcolors",
               "tamcolors.tam",
               "tamcolors.tam_tools",
@@ -42,7 +42,7 @@ setup(
               "tamcolors.tam_c._win_tam_c",
               "tamcolors.tam_c._uni_tam_c"],
 
-    package_data={"tamcolors": ["LICENSE", "README.md"],
+    package_data={"tamcolors": ["LICENSE", "README.rst"],
                   "tamcolors.tam_c._win_tam_c": ["*.cpp", "*.h"],
                   "tamcolors.tam_c._uni_tam_c": ["*.cpp", "*.h"]},
 
