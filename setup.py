@@ -1,3 +1,4 @@
+import setuptools
 from distutils.core import setup, Extension
 import platform
 import os
