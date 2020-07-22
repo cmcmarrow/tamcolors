@@ -34,6 +34,7 @@ setup(
               "tamcolors.tam_tools",
               "tamcolors.tam_basic",
               "tamcolors.examples",
+              "tamcolors.tam_io",
               "tamcolors.tests",
               "tamcolors.tests.tam",
               "tamcolors.tests.tam_tools",
