@@ -1,5 +1,5 @@
 # tamcolors libraries
-from tamcolors import tam
+from tamcolors import tam_io
 
 
 """
@@ -43,7 +43,7 @@ def _get_dimensions(func):
         :param buffer: TAMBuffer
         :return: x, y
         """
-        if isinstance(buffer, tam.tam_buffer.TAMBuffer):
+        if isinstance(buffer, tam_io.tam_buffer.TAMBuffer):
             width, height = buffer.get_dimensions()
 
         return func(x, y, width, height)

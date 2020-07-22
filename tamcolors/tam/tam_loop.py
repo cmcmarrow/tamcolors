@@ -7,7 +7,7 @@ import itertools
 
 # tamcolors libraries
 from tamcolors.tests import all_tests
-from .tam_buffer import TAMBuffer
+from tamcolors.tam_io.tam_buffer import TAMBuffer
 from tamcolors.tam_io import any_tam
 
 

@@ -4,6 +4,7 @@ import unittest
 import unittest.mock
 
 # tamcolors libraries
+from tamcolors import tam_io
 from tamcolors import tam
 
 
@@ -94,19 +95,19 @@ class TAMFrameTests(unittest.TestCase):
 
     def test_make_buffer_ready(self):
         frame = self._get_dummy_frame(10, "C", 5, 8, 15, 45, 47, 58)
-        buffer = tam.tam_buffer.TAMBuffer(30, 32, "C", 1, 2)
+        buffer = tam_io.tam_buffer.TAMBuffer(30, 32, "C", 1, 2)
         frame.make_buffer_ready(buffer, 46, 59)
         self.assertEqual(buffer.get_dimensions(), (45, 58))
 
     def test_make_buffer_ready_2(self):
         frame = self._get_dummy_frame(10, "C", 5, 8, 15, 45, 47, 58)
-        buffer = tam.tam_buffer.TAMBuffer(30, 32, "C", 1, 2)
+        buffer = tam_io.tam_buffer.TAMBuffer(30, 32, "C", 1, 2)
         frame.make_buffer_ready(buffer, 1, 2)
         self.assertEqual(buffer.get_dimensions(), (15, 47))
 
     def test_make_buffer_ready_3(self):
         frame = self._get_dummy_frame(10, "C", 5, 8, 15, 45, 47, 58)
-        buffer = tam.tam_buffer.TAMBuffer(30, 32, "C", 1, 2)
+        buffer = tam_io.tam_buffer.TAMBuffer(30, 32, "C", 1, 2)
         frame.make_buffer_ready(buffer, 33, 48)
         self.assertEqual(buffer.get_dimensions(), (33, 48))
 
@@ -119,7 +120,7 @@ class TAMFrameTests(unittest.TestCase):
 
     def test_draw(self):
         frame = self._get_dummy_frame(10, "C", 5, 8, 15, 45, 47, 58)
-        buffer = tam.tam_buffer.TAMBuffer(30, 32, "C", 1, 2)
+        buffer = tam_io.tam_buffer.TAMBuffer(30, 32, "C", 1, 2)
         with unittest.mock.patch.object(frame, "draw", return_value=None) as draw:
             frame.draw(buffer, {})
             draw.assert_called_once_with(buffer, {})

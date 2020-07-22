@@ -1,5 +1,5 @@
 # tamcolors libraries
-from tamcolors import tam
+from tamcolors import tam_io
 
 
 """
@@ -40,17 +40,17 @@ def tam_list_buffer(chars, foreground_colors, background_colors):
 
     # make buffer
     try:
-        buffer = tam.tam_buffer.TAMBuffer(len(chars[0]),
-                                          len(chars),
-                                          default_char,
-                                          default_foreground,
-                                          default_background)
+        buffer = tam_io.tam_buffer.TAMBuffer(len(chars[0]),
+                                             len(chars),
+                                             default_char,
+                                             default_foreground,
+                                             default_background)
     except IndexError:
-        buffer = tam.tam_buffer.TAMBuffer(0,
-                                          len(chars),
-                                          default_char,
-                                          default_foreground,
-                                          default_background)
+        buffer = tam_io.tam_buffer.TAMBuffer(0,
+                                             len(chars),
+                                             default_char,
+                                             default_foreground,
+                                             default_background)
 
     # if buffer is empty 0X? or ?X0
     if not any(buffer.get_dimensions()):

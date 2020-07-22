@@ -1,7 +1,10 @@
 from tamcolors.tam_io import any_tam
-from tamcolors.tam import tam_colors
+from tamcolors.tam_io import tam_colors
+
 
 IO = any_tam.get_io(any_os=True)
+
+
 _COLOR_NAME_TO_CODE = {"black": tam_colors.BLACK,
                        "blue": tam_colors.BLUE,
                        "green": tam_colors.GREEN,

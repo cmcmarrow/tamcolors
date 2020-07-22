@@ -1,5 +1,5 @@
 # tamcolors libraries
-from tamcolors import tam
+from tamcolors import tam_io
 
 
 """
@@ -8,7 +8,7 @@ TAMKeyManger mange key input
 
 
 class TAMKeyManager:
-    def __init__(self, all_keys=tam.tam_keys.KEYS):
+    def __init__(self, all_keys=tam_io.tam_keys.KEYS):
         """
         info: makes a TAMKeyManager object
         :param all_keys: tuple or list: [(str, str), ...]

@@ -1,5 +1,5 @@
 # tamcolors libraries
-from .tam_buffer import TAMBuffer
+from tamcolors.tam_io.tam_buffer import TAMBuffer
 
 
 """
