@@ -71,3 +71,5 @@ icon example
                                          text="tamcolors",
                                          foreground_color=tam_io.tam_colors.LIGHT_WHITE,
                                          background_color=tam_io.tam_colors.BLACK)
+
+   tam.tam_loop.TAMLoop(BootLogo()).run()
