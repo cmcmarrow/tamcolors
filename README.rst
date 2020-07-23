@@ -119,8 +119,7 @@ goals
 * bdist_wheel for macOS
 * implement a better clear function for Linux
 * add tests for tam_basic
-* implement a way to use terminal default color
-
+* implement console default colors
 
 ********
 versions
