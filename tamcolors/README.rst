@@ -3,6 +3,10 @@ tamcolors
 #########
 
 .. image:: https://raw.githubusercontent.com/cmcmarrow/tamcolors/master/icon.png
+.. image:: https://pepy.tech/badge/tamcolors
+.. image:: https://pepy.tech/badge/tamcolors/week
+.. image:: https://img.shields.io/badge/python-3-blue
+.. image:: https://img.shields.io/pypi/l/tamcolors
 
 *********************
 pip install tamcolors
