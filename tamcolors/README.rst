@@ -1,13 +1,16 @@
+#########
 tamcolors
-=========
+#########
 
 .. image:: https://raw.githubusercontent.com/cmcmarrow/tamcolors/master/icon.png
 
+*********************
 pip install tamcolors
----------------------
+*********************
 
+*************
 basic example
----------------------
+*************
 .. code-block:: python
 
    import tamcolors
@@ -21,8 +24,9 @@ basic example
    tamcolors.clear()
    tamcolors.printc("Hello, ", ("white", "red"), name, (2, 7), "!", ("gray", "light aqua"), sep="")
 
+************
 icon example
----------------------
+************
 .. code-block:: python
 
    import tamcolors
@@ -72,3 +76,76 @@ icon example
                                          background_color=tam_io.tam_colors.BLACK)
 
    tam.tam_loop.TAMLoop(BootLogo()).run()
+
+**************************************
+versions of Python currently supported
+**************************************
+* 3.8
+* 3.7
+* 3.6
+* 3.5
+
+*******************
+platforms tested on
+*******************
+* Windows 10
+* Ubuntu 20.04
+* macOS 10.15.5
+
+
+***************
+long term goals
+***************
+* build a community that builds fun terminal games
+* support color modes larger than 16
+* make windows run more efficient
+* text editor
+* .ci testing
+
+
+*****
+goals
+*****
+* support Solaris
+* support FreeBSD
+
+***********
+1.0.3 goals
+***********
+* add documentation
+* write more examples
+* remove duplicate files
+* bdist_wheel for macOS
+* implement a better clear function for Linux
+* add tests for tam_basic
+
+
+********
+versions
+********
+
+=====
+1.0.2
+=====
+* 7/22/2020
+* tamcolors is now very usable
+* bdist_wheel for Windows
+* added non interrupting keyboard input
+* added TAMLoop
+* added tam_tools
+* added tests
+* supports Python 3.8
+* supports Python 3.7
+* supports Python 3.6
+* supports Python 3.5
+
+
+=====
+0.2.0
+=====
+* 2/1/2018
+* tamcolors proof of concept
+* added printc
+* added inputc
+* added textBuffer
+* supports Python 3.6
