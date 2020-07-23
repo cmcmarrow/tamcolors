@@ -2,11 +2,8 @@
 tamcolors
 #########
 
-.. image:: https://raw.githubusercontent.com/cmcmarrow/tamcolors/master/icon.png
-.. image:: https://pepy.tech/badge/tamcolors
-.. image:: https://pepy.tech/badge/tamcolors/week
-.. image:: https://img.shields.io/badge/python-3-blue
-.. image:: https://img.shields.io/pypi/l/tamcolors
+|Icon|
+|TotalDownloads| |WeekDownloads| |Python3| |License|
 
 *********************
 pip install tamcolors
@@ -122,6 +119,7 @@ goals
 * bdist_wheel for macOS
 * implement a better clear function for Linux
 * add tests for tam_basic
+* implement a way to use terminal default color
 
 
 ********
@@ -153,3 +151,9 @@ versions
 * added inputc
 * added textBuffer
 * supports Python 3.6
+
+.. |Icon| image:: https://raw.githubusercontent.com/cmcmarrow/tamcolors/master/icon.png
+.. |TotalDownloads| image:: https://pepy.tech/badge/tamcolors
+.. |WeekDownloads| image:: https://pepy.tech/badge/tamcolors/week
+.. |Python3| image:: https://img.shields.io/badge/python-3-blue
+.. |License| image:: https://img.shields.io/pypi/l/tamcolors
