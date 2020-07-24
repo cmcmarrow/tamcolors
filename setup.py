@@ -16,7 +16,7 @@ elif platform.system() in ("Darwin", "Linux"):
     ext_modules.append(Extension("tamcolors.tam_c._uni_tam", sources=[get_c_file_path("_uni_tam_c", "_uni_tam.cpp"),
                                                                       get_c_file_path("_uni_tam_c", "uni_tam.cpp")]))
 
-with open(os.path.join("tamcolors", "README.rst")) as readme:
+with open(os.path.join("README.rst")) as readme:
     long_description = readme.read()
 
 setup(
@@ -44,9 +44,10 @@ setup(
               "tamcolors.tam_c._win_tam_c",
               "tamcolors.tam_c._uni_tam_c"],
 
-    package_data={"tamcolors": ["LICENSE", "README.rst"],
-                  "tamcolors.tam_c._win_tam_c": ["*.cpp", "*.h"],
+    package_data={"tamcolors.tam_c._win_tam_c": ["*.cpp", "*.h"],
                   "tamcolors.tam_c._uni_tam_c": ["*.cpp", "*.h"]},
+
+    extras_require={"dev": ["wheel", "check-manifest", "twine"]},
 
     ext_modules=ext_modules,
 
