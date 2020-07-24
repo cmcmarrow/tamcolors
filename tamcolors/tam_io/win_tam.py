@@ -99,7 +99,7 @@ class WinIO(io_tam.IO):
         self._draw_onto(self.__buffer, tam_buffer)
 
         # draw WinIO buffer to terminal
-        self._print(0, 0, "".join(self.__buffer.get_raw_buffers()[0]), *tam_buffer.get_defaults()[1:])
+        self._print(0, 0, "".join(self.__buffer.get_raw_buffers()[0]), *self._processes_special_color(*tam_buffer.get_defaults()[1:]))
 
     def _draw_16(self, tam_buffer):
         """
@@ -130,7 +130,7 @@ class WinIO(io_tam.IO):
                                                       char_buffer,
                                                       foreground_buffer,
                                                       background_buffer):
-
+            foreground, background = self._processes_special_color(foreground, background)
             # no block has benn made
             if start is None:
                 # last frame buffer is not None
@@ -247,6 +247,7 @@ class WinIO(io_tam.IO):
 
     def printc(self, output, color):
         default_color = io._get_default_color()
+        color = self._processes_special_color(*color)
         io._set_console_color((color[0] % 16) + (color[1] % 16) * 16)
         sys.stdout.write(output)
         sys.stdout.flush()
@@ -254,6 +255,7 @@ class WinIO(io_tam.IO):
 
     def inputc(self, output, color):
         default_color = io._get_default_color()
+        color = self._processes_special_color(*color)
         io._set_console_color((color[0] % 16) + (color[1] % 16)*16)
         ret = input(output)
         io._set_console_color(default_color)
@@ -280,3 +282,16 @@ class WinIO(io_tam.IO):
         io._set_cursor_info(x, y, (foreground_color % 16) + (background_color % 16)*16)
         sys.stdout.write(output)
         sys.stdout.flush()
+
+    def _processes_special_color(self, foreground_color, background_color):
+        if foreground_color == -1 or background_color == -1:
+            default_color = io._get_default_color()
+            default_background_color = default_color//16
+            default_foreground_color = default_color - default_background_color
+
+            if foreground_color == -1:
+                foreground_color = default_foreground_color
+            if background_color == -1:
+                background_color = default_background_color
+
+        return foreground_color, background_color

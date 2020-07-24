@@ -2,6 +2,7 @@
 terminal colors supported on all platforms
 """
 
+DEFAULT = -1
 BLACK = 0
 BLUE = 1
 GREEN = 2
