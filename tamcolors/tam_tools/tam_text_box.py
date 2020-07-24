@@ -61,6 +61,9 @@ class TAMTextBox:
 
         self.__generator = self.__update_generator()
 
+        if self.__clock == -1:
+            self.update()
+
     def __str__(self):
         """
         info: gets text

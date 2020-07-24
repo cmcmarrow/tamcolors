@@ -9,6 +9,14 @@ tamcolors
 pip install tamcolors
 *********************
 
+********************
+table tennis example
+********************
+.. code-block:: python
+
+   import tamcolors
+   tamcolors.examples.tabletennis.run()
+
 *************
 basic example
 *************

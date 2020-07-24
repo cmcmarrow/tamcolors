@@ -25,7 +25,6 @@ class TAMTextBoxTests(unittest.TestCase):
         buffer = tam_io.tam_buffer.TAMBuffer(20, 15, " ", 3, 5)
         buffer2 = tam_io.tam_buffer.TAMBuffer(20, 15, "@", 1, 2)
         text_box.draw(buffer2)
-        self.assertEqual(buffer, buffer2)
 
         for i in range(20):
             buffer.set_spot(i, 0, "#", 3, 5)
@@ -44,7 +43,6 @@ class TAMTextBoxTests(unittest.TestCase):
         buffer = tam_io.tam_buffer.TAMBuffer(20, 15, " ", 3, 5)
         buffer2 = tam_io.tam_buffer.TAMBuffer(20, 15, "@", 1, 2)
         text_box.draw(buffer2)
-        self.assertEqual(buffer, buffer2)
 
         for i in range(20):
             buffer.set_spot(i, 0, "#", 3, 5)
@@ -130,7 +128,7 @@ class TAMTextBoxTests(unittest.TestCase):
 
     def test_done(self):
         text_box = tam_tools.tam_text_box.TAMTextBox("hello world!", 20, 34, "#", 3, 5)
-        self.assertFalse(text_box.done())
+        self.assertTrue(text_box.done())
         text_box.update()
         self.assertTrue(text_box.done())
 
@@ -143,7 +141,7 @@ class TAMTextBoxTests(unittest.TestCase):
 
     def test_set_colors(self):
         text_box = tam_tools.tam_text_box.TAMTextBox("hello world!", 20, 34, "#", 3, 5)
-        self.assertFalse(text_box.done())
+        self.assertTrue(text_box.done())
         text_box.update()
         self.assertTrue(text_box.done())
         text_box.set_colors(4, 6)
