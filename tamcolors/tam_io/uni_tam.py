@@ -36,22 +36,41 @@ class UniIO(io_tam.IO):
         self.__buffer = TAMBuffer(0, 0, " ", 1, 1)
         self.__unix_keys = self.get_key_dict()
 
-        self.__color_map = {0: 232,
-                            1: 20,
-                            2: 34,
-                            3: 75,
-                            4: 1,
-                            5: 90,
-                            6: 3,
-                            7: 252,
-                            8: 243,
-                            9: 33,
-                            10: 76,
-                            11: 117,
-                            12: 161,
-                            13: 126,
-                            14: 229,
-                            15: 15}
+        self.__foreground_color_map = {-1: "39",
+                                        0: "38;5;232",
+                                        1: "38;5;20",
+                                        2: "38;5;34",
+                                        3: "38;5;75",
+                                        4: "38;5;1",
+                                        5: "38;5;90",
+                                        6: "38;5;3",
+                                        7: "38;5;252",
+                                        8: "38;5;243",
+                                        9: "38;5;33",
+                                        10: "38;5;76",
+                                        11: "38;5;117",
+                                        12: "38;5;161",
+                                        13: "38;5;126",
+                                        14: "38;5;229",
+                                        15: "38;5;15"}
+
+        self.__background_color_map = {-1: "49",
+                                       0: "48;5;232",
+                                       1: "48;5;20",
+                                       2: "48;5;34",
+                                       3: "48;5;75",
+                                       4: "48;5;1",
+                                       5: "48;5;90",
+                                       6: "48;5;3",
+                                       7: "48;5;252",
+                                       8: "48;5;243",
+                                       9: "48;5;33",
+                                       10: "48;5;76",
+                                       11: "48;5;117",
+                                       12: "48;5;161",
+                                       13: "48;5;126",
+                                       14: "48;5;229",
+                                       15: "48;5;15"}
 
     @classmethod
     def get_io(cls):
@@ -123,7 +142,7 @@ class UniIO(io_tam.IO):
 
         color = self._get_lin_tam_color(*self.__buffer.get_defaults()[1:])
         output = "".join(self.__buffer.get_raw_buffers()[0])
-        sys.stdout.write("\u001b[1;1H\u001b[38;5;{0};48;5;{1}m{2}".format(*color, output))
+        sys.stdout.write("\u001b[1;1H\u001b[{0};{1}m{2}\u001b[0".format(*color, output))
         sys.stdout.flush()
 
     def _draw_16(self, tam_buffer):
@@ -148,17 +167,17 @@ class UniIO(io_tam.IO):
             if foreground is None:
                 foreground = foreground_buffer[spot]
                 background = background_buffer[spot]
-                output.append("\u001b[38;5;{0};48;5;{1}m".format(*self._get_lin_tam_color(foreground, background)))
+                output.append("\u001b[{0};{1}m".format(*self._get_lin_tam_color(foreground, background)))
                 output.append(char_buffer[spot])
             elif foreground == foreground_buffer[spot] and background == background_buffer[spot]:
                 output.append(char_buffer[spot])
             else:
                 foreground = foreground_buffer[spot]
                 background = background_buffer[spot]
-                output.append("\u001b[38;5;{0};48;5;{1}m".format(*self._get_lin_tam_color(foreground, background)))
+                output.append("\u001b[{0};{1}m".format(*self._get_lin_tam_color(foreground, background)))
                 output.append(char_buffer[spot])
 
-        sys.stdout.write("".join(output))
+        sys.stdout.write("".join(output) + "\u001b[0")
         sys.stdout.flush()
 
     def start(self):
@@ -259,15 +278,16 @@ class UniIO(io_tam.IO):
                 os.system("setterm -cursor off")
 
     def _get_lin_tam_color(self, foreground_color, background_color):
-        return self.__color_map.get(foreground_color), self.__color_map.get(background_color)
+        return self.__foreground_color_map.get(foreground_color),\
+               self.__background_color_map.get(background_color)
 
     def printc(self, output, color):
-        output_str = "\u001b[38;5;{0};48;5;{1}m{2}\u001b[0m".format(*self._get_lin_tam_color(*color), output)
+        output_str = "\u001b[{0};{1}m{2}\u001b[0m".format(*self._get_lin_tam_color(*color), output)
         sys.stdout.write(output_str)
         sys.stdout.flush()
 
     def inputc(self, output, color):
-        output_str = "\u001b[38;5;{0};48;5;{1}m{2}".format(*self._get_lin_tam_color(*color), output)
+        output_str = "\u001b[{0};{1}m{2}".format(*self._get_lin_tam_color(*color), output)
         ret = input(output_str)
         sys.stdout.write("\u001b[0m")
         sys.stdout.flush()

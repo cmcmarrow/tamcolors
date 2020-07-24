@@ -178,7 +178,7 @@ class UniIOTests(unittest.TestCase):
 
     def test__get_lin_tam_color(self):
         io = tam_io.uni_tam.UniIO()
-        self.assertEqual(io._get_lin_tam_color(2, 5), (34, 90))
+        self.assertEqual(io._get_lin_tam_color(2, 5), ("38;5;34", "48;5;90"))
 
     @staticmethod
     def test_clear():
