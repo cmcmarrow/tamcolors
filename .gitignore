@@ -2,6 +2,7 @@ __pycache__/
 *.py[cod]
 *.so
 
-.idea
-dist
-tamcolors.egg-info
+/.idea
+/build
+/dist
+/tamcolors.egg-info
