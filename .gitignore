@@ -3,6 +3,5 @@ __pycache__/
 *.so
 
 .idea
-build
 dist
 tamcolors.egg-info
