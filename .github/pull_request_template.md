@@ -1,6 +1,13 @@
-Thank you for contributing to tamcolors!
+**Thank you for contributing to tamcolors!**
 
-Please link the relating issue(s).
+**Link the relating issue(s).**
+1. issue_1
+2. issue_2
 
-issue_1
-issue_2
+**Select ALL that apply.**
+- [ ] Bug fix
+- [ ] New feature
+- [ ] Breaking change
+
+**Additional context**
+Add any other context about the pull request here
