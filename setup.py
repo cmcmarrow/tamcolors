@@ -47,7 +47,7 @@ setup(
     package_data={"tamcolors.tam_c._win_tam_c": ["*.cpp", "*.h"],
                   "tamcolors.tam_c._uni_tam_c": ["*.cpp", "*.h"]},
 
-    extras_require={"dev": ["wheel", "check-manifest", "twine"]},
+    extras_require={"dev": ["wheel", "check-manifest", "twine", "sphinx"]},
 
     ext_modules=ext_modules,
 
