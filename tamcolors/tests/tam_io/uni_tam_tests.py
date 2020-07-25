@@ -176,9 +176,13 @@ class UniIOTests(unittest.TestCase):
             else:
                 system.assert_not_called()
 
-    def test__get_lin_tam_color(self):
+    def test__get_lin_tam_color_1(self):
         io = tam_io.uni_tam.UniIO()
         self.assertEqual(io._get_lin_tam_color(2, 5), ("38;5;34", "48;5;90"))
+
+    def test__get_lin_tam_color_2(self):
+        io = tam_io.uni_tam.UniIO()
+        self.assertEqual(io._get_lin_tam_color(-1, -1), ("0", "0"))
 
     @staticmethod
     def test_clear():

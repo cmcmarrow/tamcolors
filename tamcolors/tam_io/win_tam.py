@@ -283,11 +283,12 @@ class WinIO(io_tam.IO):
         sys.stdout.write(output)
         sys.stdout.flush()
 
-    def _processes_special_color(self, foreground_color, background_color):
+    @staticmethod
+    def _processes_special_color(foreground_color, background_color):
         if foreground_color == -1 or background_color == -1:
             default_color = io._get_default_color()
             default_background_color = default_color//16
-            default_foreground_color = default_color - default_background_color
+            default_foreground_color = default_color - default_background_color*16
 
             if foreground_color == -1:
                 foreground_color = default_foreground_color

@@ -200,3 +200,27 @@ class WinIOTests(unittest.TestCase):
                     _set_cursor_info.assert_called_once_with(-102, -124, 85)
                     write.assert_called_once_with("")
                     flush.assert_called_once_with()
+
+    def test__processes_special_color_1(self):
+        with unittest.mock.patch.object(tam_io.win_tam.io, "_get_default_color", return_value=55) as _get_default_color:
+            colors = tam_io.win_tam.WinIO()._processes_special_color(4, 5)
+            _get_default_color.assert_not_called()
+            self.assertEqual(colors, (4, 5))
+
+    def test__processes_special_color_2(self):
+        with unittest.mock.patch.object(tam_io.win_tam.io, "_get_default_color", return_value=55) as _get_default_color:
+            colors = tam_io.win_tam.WinIO()._processes_special_color(-1, -1)
+            _get_default_color.assert_called_once_with()
+            self.assertEqual(colors, (7, 3))
+
+    def test__processes_special_color_3(self):
+        with unittest.mock.patch.object(tam_io.win_tam.io, "_get_default_color", return_value=55) as _get_default_color:
+            colors = tam_io.win_tam.WinIO()._processes_special_color(-1, 0)
+            _get_default_color.assert_called_once_with()
+            self.assertEqual(colors, (7, 0))
+
+    def test__processes_special_color_4(self):
+        with unittest.mock.patch.object(tam_io.win_tam.io, "_get_default_color", return_value=43) as _get_default_color:
+            colors = tam_io.win_tam.WinIO()._processes_special_color(4, -1)
+            _get_default_color.assert_called_once_with()
+            self.assertEqual(colors, (4, 2))
