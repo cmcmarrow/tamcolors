@@ -10,6 +10,13 @@ pip install tamcolors
 *********************
 
 ********************
+links
+********************
+* `github`_
+* `pypi`_
+* `read the docs`_
+
+********************
 table tennis example
 ********************
 .. code-block:: python
@@ -165,3 +172,7 @@ versions
 .. |Python3| image:: https://img.shields.io/badge/python-3-blue
 .. |License| image:: https://img.shields.io/pypi/l/tamcolors
 .. |Docs| image:: https://readthedocs.org/projects/tamcolors/badge/?version=latest
+
+.. _github: https://github.com/cmcmarrow/tamcolors
+.. _pypi: https://pypi.org/project/tamcolors
+.. _read the docs: https://tamcolors.readthedocs.io/en/latest/
