@@ -122,10 +122,10 @@ class TAMLoop:
         """
         info: will run tam loop as an application
         note:
-            when tam loop is done running the program will quit
-            if tam loop has an error and the frame does not catch it
-            the error will be printed onto the screen and the program will quit
-            after user input
+        when tam loop is done running the program will quit
+        if tam loop has an error and the frame does not catch it
+        the error will be printed onto the screen and the program will quit
+        after user input
         :param args:
         :param kwargs:
         :return:
