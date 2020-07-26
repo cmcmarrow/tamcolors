@@ -8,6 +8,8 @@
 - [ ] Bug fix
 - [ ] New feature
 - [ ] Breaking change
+- [ ] Doc change
+- [ ] Tests added/change
 
 **Additional context**
 Add any other context about the pull request here
