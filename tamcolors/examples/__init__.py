@@ -1,7 +1,13 @@
 from . import icon
 from . import basic
 from . import tabletennis
+from . import tam_loop
+from . import tam_print
+from . import tam_text_box
 
 __all__ = ("icon",
            "basic",
-           "tabletennis")
+           "tabletennis",
+           "tam_loop",
+           "tam_print",
+           "tam_text_box")
