@@ -10,6 +10,8 @@ Welcome to tamcolors's documentation!
    :maxdepth: -1
    :caption: Contents:
 
+   modules
+
 
 Indices and tables
 ==================
