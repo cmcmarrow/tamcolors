@@ -1,5 +1,3 @@
-sphinx-apidoc -o ./source ..
-
 @ECHO OFF
 
 pushd %~dp0
