@@ -14,7 +14,6 @@ class TAMLoopTest:
                  io_list=None,
                  any_os=False,
                  only_any_os=False,
-                 buffer_count=3,
                  color_change_key="ESCAPE",
                  loop_data=None):
         """
@@ -23,7 +22,6 @@ class TAMLoopTest:
         :param io_list: list, tuple, None: ios that can be used
         :param any_os: bool: will use ANYIO if no other IO can be used if True
         :param only_any_os: bool: will only use ANYIO if True
-        :param buffer_count: int: 1 - inf
         :param color_change_key: char: key that will change color mode
         :param loop_data: dict
         """
@@ -35,11 +33,9 @@ class TAMLoopTest:
 
         self.__frame_stack = [tam_frame]
         self.__loop_data = loop_data
-
-        self.__update_ready_buffers = [TAMBuffer(0, 0, " ", 0, 0) for _ in range(buffer_count)]
-        self.__draw_ready_buffers = []
-
         self.__color_change_key = color_change_key
+
+        self.__buffer = TAMBuffer(0, 0, " ", 0, 0)
 
     def __call__(self):
         """
@@ -112,14 +108,8 @@ class TAMLoopTest:
                 frame = self.__frame_stack[-1]
                 frame.update(self, new_keys, self.__loop_data)
 
-                if len(self.__update_ready_buffers) != 0:
-                    tam_buffer = frame.make_buffer_ready(self.__update_ready_buffers.pop(0), width, height)
-                    frame.draw(tam_buffer, self.__loop_data)
-                    self.__draw_ready_buffers.append(tam_buffer)
-
-                    buffer = self.__draw_ready_buffers.pop(0)
-                    self.__update_ready_buffers.append(buffer)
-
+                frame.make_buffer_ready(self.__buffer, width, height)
+                frame.draw(self.__buffer, self.__loop_data)
             except BaseException as error:
                 self.done()
                 if frame is not None:
@@ -132,4 +122,4 @@ class TAMLoopTest:
             frame = self.__frame_stack[-1]
             frame._done(self, self.__loop_data)
 
-        return buffer, frame
+        return self.__buffer, frame
