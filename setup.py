@@ -40,6 +40,7 @@ setup(
               "tamcolors.tests.tam",
               "tamcolors.tests.tam_tools",
               "tamcolors.tests.tam_io",
+              "tamcolors.tests.tam_basic",
               "tamcolors.tam_c",
               "tamcolors.tam_c._win_tam_c",
               "tamcolors.tam_c._uni_tam_c"],
