@@ -30,7 +30,22 @@ setup(
     description_content_type="text/plain",
     long_description=long_description,
     long_description_content_type="text/x-rst",
-    packages=["tamcolors"],
+    packages=["tamcolors",
+              "tamcolors.tam",
+              "tamcolors.tam_tools",
+              "tamcolors.tam_basic",
+              "tamcolors.examples",
+              "tamcolors.tam_io",
+              "tamcolors.tests",
+              "tamcolors.tests.tam",
+              "tamcolors.tests.tam_tools",
+              "tamcolors.tests.tam_io",
+              "tamcolors.tam_c",
+              "tamcolors.tam_c._win_tam_c",
+              "tamcolors.tam_c._uni_tam_c"],
+
+    package_data={"tamcolors.tam_c._win_tam_c": ["*.cpp", "*.h"],
+                  "tamcolors.tam_c._uni_tam_c": ["*.cpp", "*.h"]},
 
     extras_require={"dev": ["wheel", "check-manifest", "twine", "sphinx", "sphinx-rtd-theme"]},
 
