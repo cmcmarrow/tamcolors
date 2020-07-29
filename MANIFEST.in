@@ -1,3 +1,26 @@
 include *.png
 include *.py
 include LICENSE
+include *.md
+
+recursive-include tamcolors *.bat
+recursive-include tamcolors *.buildinfo
+recursive-include tamcolors *.css
+recursive-include tamcolors *.doctree
+recursive-include tamcolors *.eot
+recursive-include tamcolors *.html
+recursive-include tamcolors *.inv
+recursive-include tamcolors *.js
+recursive-include tamcolors *.otf
+recursive-include tamcolors *.pickle
+recursive-include tamcolors *.png
+recursive-include tamcolors *.py
+recursive-include tamcolors *.rst
+recursive-include tamcolors *.svg
+recursive-include tamcolors *.ttf
+recursive-include tamcolors *.txt
+recursive-include tamcolors *.woff
+recursive-include tamcolors *.woff2
+recursive-include tamcolors *.cpp
+recursive-include tamcolors *.h
+recursive-include tamcolors Makefile
