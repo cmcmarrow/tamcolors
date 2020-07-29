@@ -123,22 +123,37 @@ long term goals
 goals
 *****
 * support Solaris
-* support FreeBSD
+* fix PowerShell colors
+
 
 ***********
-1.0.3 goals
+1.0.4 goals
 ***********
-* add documentation
+* clean up documentation
 * write more examples
-* remove duplicate files
-* bdist_wheel for macOS
-* implement a better clear function for Linux
-* add tests for tam_basic
-* implement console default colors
+* bdist_wheel for Linux
+* clean up win_tam, uni_tam, any_tam
+* add alpha color for TAMBuffer
+* support FreeBSD
 
 ********
 versions
 ********
+
+=====
+1.0.3
+=====
+* 7/28/2020
+* tamcolors
+* bdist_wheel for macOS
+* added more examples
+* added documentation
+* added tests for tam_basic
+* added default console colors
+* supports Python 3.8
+* supports Python 3.7
+* supports Python 3.6
+* supports Python 3.5
 
 =====
 1.0.2
