@@ -31,7 +31,6 @@ class TAMLoop:
                  io_list=None,
                  any_os=False,
                  only_any_os=False,
-                 buffer_count=3,
                  color_change_key="ESCAPE",
                  loop_data=None,
                  stability_check=False):
@@ -41,7 +40,6 @@ class TAMLoop:
         :param io_list: list, tuple, None: ios that can be used
         :param any_os: bool: will use ANYIO if no other IO can be used if True
         :param only_any_os: bool: will only use ANYIO if True
-        :param buffer_count: int: 1 - inf
         :param color_change_key: char: key that will change color mode
         :param loop_data: dict
         :param stability_check: bool: raises and error if a test did not pass
@@ -70,11 +68,10 @@ class TAMLoop:
         self.__loop_data = loop_data
         self.__input_keys = []
 
-        self.__update_ready_buffers = [TAMBuffer(0, 0, " ", 0, 0) for _ in range(buffer_count)]
-        self.__draw_ready_buffers = []
-
         self.__color_change_key = color_change_key
         self.__color_modes = itertools.cycle(self.__io.get_modes())
+
+        self.__timer = Timer()
 
     def __call__(self):
         """
@@ -87,10 +84,7 @@ class TAMLoop:
         self.__running = True
         self.__io.start()
 
-        self.__draw_loop_thread = threading.Thread(target=self._draw_loop, daemon=True)
         self.__key_loop_thread = threading.Thread(target=self._key_loop, daemon=True)
-
-        self.__draw_loop_thread.start()
         self.__key_loop_thread.start()
 
         self._update_loop()
@@ -105,8 +99,6 @@ class TAMLoop:
         """
         if self.__running:
             self.__running = False
-
-            self.__draw_loop_thread.join()
             self.__key_loop_thread.join()
             self.__io.done()
 
@@ -180,9 +172,9 @@ class TAMLoop:
         """
 
         frame = None
+        buffer = TAMBuffer(0, 0, " ", 0, 0)
         try:
             while self.__running and self.__error is None and len(self.__frame_stack) != 0:
-                start_time = time.time()
                 frame = self.__frame_stack[-1]
                 frame_time = 1/frame.get_fps()
                 keys = self.__input_keys.copy()
@@ -190,13 +182,12 @@ class TAMLoop:
 
                 frame.update(self, keys, self.__loop_data)
 
-                if len(self.__update_ready_buffers) != 0:
-                    tam_buffer = frame.make_buffer_ready(self.__update_ready_buffers.pop(0),
-                                                         *self.__io.get_dimensions())
-                    frame.draw(tam_buffer, self.__loop_data)
-                    self.__draw_ready_buffers.append(tam_buffer)
+                if self.__running and self.__error is None:
+                    frame.make_buffer_ready(buffer, *self.__io.get_dimensions())
+                    frame.draw(buffer, self.__loop_data)
+                    self.__io.draw(buffer)
 
-                time.sleep(max(frame_time - (time.time() - start_time), 0))
+                    self.__timer.offset_sleep(frame_time)
         except BaseException as error:
             self.__error = error
             self.done()
@@ -204,22 +195,6 @@ class TAMLoop:
             if frame is not None:
                 frame._done(self, self.__loop_data)
             self.done()
-
-    def _draw_loop(self):
-        """
-        info: will draw TAMBuffer
-        :return:
-        """
-
-        try:
-            while self.__running:
-                if len(self.__draw_ready_buffers) != 0:
-                    tam_buffer = self.__draw_ready_buffers.pop(0)
-                    self.__io.draw(tam_buffer)
-                    self.__update_ready_buffers.append(tam_buffer)
-                time.sleep(0.0001)
-        except BaseException as error:
-            self.__error = error
 
     def _key_loop(self):
         """
@@ -359,3 +334,39 @@ class TAMFrame:
         :return:
         """
         pass
+
+
+class Timer:
+    def __init__(self, time_corruption=0):
+        """
+        Makes a Timer Object
+        :param time_corruption: float: value that will replace the corrupted lap value
+        """
+        self._time_corruption = time_corruption
+        self._lap = time.perf_counter()
+
+    def lap(self):
+        """
+        Gets time difference from last lap.
+        :return: float
+        """
+        current_time = time.perf_counter()
+        ret = current_time - self._lap
+        if abs(ret) != ret:
+            ret = self._time_corruption
+        self._lap = current_time
+        return ret
+
+    def offset_sleep(self, sleep_time):
+        """
+        Will sleep the thread for a length of time based of the lap time.
+        :param sleep_time: float
+        :return: float
+        """
+        ran_time = time.perf_counter() - self._lap
+        while sleep_time - (time.perf_counter() - self._lap) > 0:
+            if sleep_time - (time.perf_counter() - self._lap) > 0.002:
+                time.sleep(0.00001)
+        total_time = time.perf_counter() - self._lap
+        self.lap()
+        return ran_time, total_time

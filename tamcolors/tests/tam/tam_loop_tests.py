@@ -21,13 +21,11 @@ class TAMLoopTests(unittest.TestCase):
                 with unittest.mock.patch.object(frame, "done", return_value=None) as done:
                     loop.run()
 
-                    self.assertEqual(start.call_count, 2)
+                    self.assertEqual(start.call_count, 1)
                     self.assertEqual(start.mock_calls[0], unittest.mock.call())
-                    self.assertEqual(start.mock_calls[1], unittest.mock.call())
 
-                    self.assertEqual(join.call_count, 2)
+                    self.assertEqual(join.call_count, 1)
                     self.assertEqual(join.mock_calls[0], unittest.mock.call())
-                    self.assertEqual(join.mock_calls[1], unittest.mock.call())
 
                     done.assert_called_once_with(loop, {})
 
