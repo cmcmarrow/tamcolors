@@ -143,7 +143,7 @@ versions
 =====
 1.0.3
 =====
-* 7/28/2020
+* 7/29/2020
 * tamcolors
 * bdist_wheel for macOS
 * added more examples
