@@ -173,6 +173,7 @@ class TAMLoop:
 
         frame = None
         buffer = TAMBuffer(0, 0, " ", 0, 0)
+        frame_skip = 0
         try:
             while self.__running and self.__error is None and len(self.__frame_stack) != 0:
                 frame = self.__frame_stack[-1]
@@ -183,11 +184,18 @@ class TAMLoop:
                 frame.update(self, keys, self.__loop_data)
 
                 if self.__running and self.__error is None:
-                    frame.make_buffer_ready(buffer, *self.__io.get_dimensions())
-                    frame.draw(buffer, self.__loop_data)
-                    self.__io.draw(buffer)
+                    if frame_skip == 0:
+                        frame.make_buffer_ready(buffer, *self.__io.get_dimensions())
+                        frame.draw(buffer, self.__loop_data)
+                        self.__io.draw(buffer)
 
-                    self.__timer.offset_sleep(frame_time)
+                    _, run_time = self.__timer.offset_sleep(max(frame_time - frame_skip, 0))
+
+                    if run_time >= frame_time + frame_time/10 and frame_skip == 0:
+                        frame_skip = run_time - frame_time
+                    else:
+                        frame_skip = 0
+
         except BaseException as error:
             self.__error = error
             self.done()
