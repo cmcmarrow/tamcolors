@@ -42,7 +42,7 @@ class IO:
     def get_dimensions(self):
         raise NotImplementedError()
 
-    def printc(self, value, color):
+    def printc(self, value, color, flush, stderr):
         raise NotImplementedError()
 
     def inputc(self, output, color):

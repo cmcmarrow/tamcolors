@@ -281,10 +281,16 @@ class UniIO(io_tam.IO):
         return self.__foreground_color_map.get(foreground_color),\
                self.__background_color_map.get(background_color)
 
-    def printc(self, output, color):
+    def printc(self, output, color, flush, stderr):
+        file = sys.stdout
+        if stderr:
+            file = sys.stderr
+
         output_str = "\u001b[{0};{1}m{2}\u001b[0m".format(*self._get_lin_tam_color(*color), output)
-        sys.stdout.write(output_str)
-        sys.stdout.flush()
+        file.write(output_str)
+
+        if flush:
+            file.flush()
 
     def inputc(self, output, color):
         output_str = "\u001b[{0};{1}m{2}".format(*self._get_lin_tam_color(*color), output)

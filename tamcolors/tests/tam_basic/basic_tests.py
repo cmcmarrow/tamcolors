@@ -41,14 +41,31 @@ class PrintCTests(unittest.TestCase):
     def test_same_color():
         with unittest.mock.patch.object(tam_basic.basic.IO, "printc", return_value=None) as printc:
             tam_basic.basic.printc("cats", "dogs", "test", ("green", "gray"), same_color=True, sep="$$*", end="!\n")
-            printc.assert_called_once_with("cats$$*dogs$$*test!\n", (tam_io.tam_colors.GREEN, tam_io.tam_colors.GRAY))
+            printc.assert_called_once_with("cats$$*dogs$$*test!\n",
+                                           (tam_io.tam_colors.GREEN, tam_io.tam_colors.GRAY),
+                                           True,
+                                           False)
 
     def test_not_same_color(self):
         with unittest.mock.patch.object(tam_basic.basic.IO, "printc", return_value=None) as printc:
             tam_basic.basic.printc("cats", (4, 7), "test", ("green", "gray"), sep="+!", end="\n!\n")
             self.assertEqual(printc.call_count, 2)
-            self.assertEqual(printc.mock_calls[0], unittest.mock.call("cats+!", (4, 7)))
-            self.assertEqual(printc.mock_calls[1], unittest.mock.call("test\n!\n", (2, 8)))
+            self.assertEqual(printc.mock_calls[0], unittest.mock.call("cats+!", (4, 7), True, False))
+            self.assertEqual(printc.mock_calls[1], unittest.mock.call("test\n!\n", (2, 8), True, False))
+
+    def test_flush_and_stderr(self):
+        with unittest.mock.patch.object(tam_basic.basic.IO, "printc", return_value=None) as printc:
+            tam_basic.basic.printc("cats",
+                                   (4, 7),
+                                   "test",
+                                   ("green", "gray"),
+                                   sep="+!",
+                                   end="\n!\n",
+                                   flush=False,
+                                   stderr=True)
+            self.assertEqual(printc.call_count, 2)
+            self.assertEqual(printc.mock_calls[0], unittest.mock.call("cats+!", (4, 7), False, True))
+            self.assertEqual(printc.mock_calls[1], unittest.mock.call("test\n!\n", (2, 8), False, True))
 
 
 class InputCTests(unittest.TestCase):

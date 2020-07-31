@@ -1,3 +1,5 @@
+import sys
+
 # tamcolors libraries
 from . import io_tam
 from . import uni_tam
@@ -83,8 +85,11 @@ class AnyIO(io_tam.IO):
     def get_key_dict(self):
         return {}
 
-    def printc(self, value, color):
-        print(value, end="")
+    def printc(self, value, color, flush, stderr):
+        file = sys.stdout
+        if stderr:
+            file = sys.stderr
+        print(value, end="", flush=flush, file=file)
 
     def inputc(self, value, color):
         return input(value)
