@@ -36,11 +36,11 @@ def _get_color_code(color):
     return foreground, background
 
 
-def printc(*value, same_color=False, sep=" ", end="\n"):
+def printc(*value, same_color=False, sep=" ", end="\n", flush=True, stderr=False):
     if same_color:
         color = value[-1]
         value = sep.join(value[:-1]) + end
-        IO.printc(value, _get_color_code(color))
+        IO.printc(value, _get_color_code(color), flush, stderr)
     else:
         for spot, value_and_color in enumerate(zip(value[::2], value[1::2])):
             this_value, this_color = value_and_color
@@ -48,7 +48,7 @@ def printc(*value, same_color=False, sep=" ", end="\n"):
                 this_value += end
             else:
                 this_value += sep
-            IO.printc(this_value, _get_color_code(this_color))
+            IO.printc(this_value, _get_color_code(this_color), flush, stderr)
 
 
 def inputc(value, color):

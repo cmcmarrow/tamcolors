@@ -245,12 +245,17 @@ class WinIO(io_tam.IO):
 
         return windows_keys
 
-    def printc(self, output, color):
+    def printc(self, output, color, flush, stderr):
+        file = sys.stdout
+        if stderr:
+            file = sys.stderr
+
         default_color = io._get_default_color()
         color = self._processes_special_color(*color)
         io._set_console_color((color[0] % 16) + (color[1] % 16) * 16)
-        sys.stdout.write(output)
-        sys.stdout.flush()
+        file.write(output)
+        if flush:
+            file.flush()
         io._set_console_color(default_color)
 
     def inputc(self, output, color):
