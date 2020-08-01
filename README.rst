@@ -123,6 +123,7 @@ long term goals
 goals
 *****
 * support Solaris
+* support FreeBSD
 * fix PowerShell colors
 
 
@@ -134,7 +135,6 @@ goals
 * bdist_wheel for Linux
 * clean up win_tam, uni_tam, any_tam
 * add alpha color for TAMBuffer
-* support FreeBSD
 
 ********
 versions
