@@ -215,6 +215,10 @@ class WinIO(io_tam.IO):
         return False
 
     def get_dimensions(self):
+        """
+        info: will get teh terminal dimensions
+        :return: (int, int)
+        """
         return io._get_dimension()
 
     @staticmethod
@@ -246,6 +250,14 @@ class WinIO(io_tam.IO):
         return windows_keys
 
     def printc(self, output, color, flush, stderr):
+        """
+        info: will print out user output with color
+        :param output: str
+        :param color: tuple: (int, int)
+        :param flush: boolean
+        :param stderr: boolean
+        :return: None
+        """
         file = sys.stdout
         if stderr:
             file = sys.stderr
@@ -259,6 +271,12 @@ class WinIO(io_tam.IO):
         io._set_console_color(default_color)
 
     def inputc(self, output, color):
+        """
+        info: will get user input with color
+        :param output: str
+        :param color: tuple: (int, int)
+        :return: str
+        """
         default_color = io._get_default_color()
         color = self._processes_special_color(*color)
         io._set_console_color((color[0] % 16) + (color[1] % 16)*16)
@@ -290,6 +308,13 @@ class WinIO(io_tam.IO):
 
     @staticmethod
     def _processes_special_color(foreground_color, background_color):
+        """
+        info: will processes special colors
+        -1 will become the default terminal color
+        :param foreground_color: int
+        :param background_color: int
+        :return: tuple: (int, int)
+        """
         if foreground_color == -1 or background_color == -1:
             default_color = io._get_default_color()
             default_background_color = default_color//16
