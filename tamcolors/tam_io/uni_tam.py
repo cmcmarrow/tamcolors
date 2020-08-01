@@ -304,4 +304,5 @@ class UniIO(io_tam.IO):
         info: will clear the screen. Note that it will also reset the terminal
         :return:
         """
+        os.system("clear")
         os.system("tput reset")
