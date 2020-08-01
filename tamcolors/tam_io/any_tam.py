@@ -86,12 +86,26 @@ class AnyIO(io_tam.IO):
         return {}
 
     def printc(self, value, color, flush, stderr):
+        """
+        info: will print out user output with color
+        :param value: str
+        :param color: tuple: (int, int)
+        :param flush: boolean
+        :param stderr: boolean
+        :return: None
+            """
         file = sys.stdout
         if stderr:
             file = sys.stderr
         print(value, end="", flush=flush, file=file)
 
     def inputc(self, value, color):
+        """
+        info: will get user input with color
+        :param value: str
+        :param color: tuple: (int, int)
+        :return: str
+        """
         return input(value)
 
     def clear(self):

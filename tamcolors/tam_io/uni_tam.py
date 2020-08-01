@@ -215,6 +215,10 @@ class UniIO(io_tam.IO):
         return False
 
     def get_dimensions(self):
+        """
+        info: will get teh terminal dimensions
+        :return: (int, int)
+        """
         return io._get_dimension()
 
     @staticmethod
@@ -278,10 +282,24 @@ class UniIO(io_tam.IO):
                 os.system("setterm -cursor off")
 
     def _get_lin_tam_color(self, foreground_color, background_color):
+        """
+        info: will get the ANI color code
+        :param foreground_color: int
+        :param background_color: int
+        :return: (str, sr)
+        """
         return self.__foreground_color_map.get(foreground_color),\
                self.__background_color_map.get(background_color)
 
     def printc(self, output, color, flush, stderr):
+        """
+        info: will print out user output with color
+        :param output: str
+        :param color: tuple: (int, int)
+        :param flush: boolean
+        :param stderr: boolean
+        :return: None
+        """
         file = sys.stdout
         if stderr:
             file = sys.stderr
@@ -293,6 +311,12 @@ class UniIO(io_tam.IO):
             file.flush()
 
     def inputc(self, output, color):
+        """
+        info: will get user input with color
+        :param output: str
+        :param color: tuple: (int, int)
+        :return: str
+        """
         output_str = "\u001b[{0};{1}m{2}".format(*self._get_lin_tam_color(*color), output)
         ret = input(output_str)
         sys.stdout.write("\u001b[0m")
