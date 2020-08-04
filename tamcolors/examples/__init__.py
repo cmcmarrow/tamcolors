@@ -1,3 +1,4 @@
+from . import alpha
 from . import icon
 from . import basic
 from . import tabletennis
@@ -6,7 +7,8 @@ from . import tam_print
 from . import tam_text_box
 from . import tam_list_buffer
 
-__all__ = ("icon",
+__all__ = ("alpha",
+           "icon",
            "basic",
            "tabletennis",
            "tam_loop",

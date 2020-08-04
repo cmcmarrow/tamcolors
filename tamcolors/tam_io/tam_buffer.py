@@ -6,9 +6,12 @@ import copy
 TAMBuffer
 stores char and colors for spot
 can get/set spots
-can clear 
+can clear
 can format to be outputted
 """
+
+
+ALPHA_CHAR = "\u0000"
 
 
 class TAMBuffer:
@@ -47,7 +50,17 @@ class TAMBuffer:
         """
         rows = []
         for y in range(self.__height):
-            rows.append("".join(self.__char_buffer[y * self.__width:(y + 1) * self.__width]))
+            row = []
+            for spot in range(y * self.__width, (y + 1) * self.__width):
+                spot_char = self.__char_buffer[spot]
+                if spot_char == ALPHA_CHAR:
+                    if self.__char == ALPHA_CHAR:
+                        row.append(" ")
+                    else:
+                        row.append(self.__char)
+                else:
+                    row.append(spot_char)
+            rows.append("".join(row))
 
         return "\n".join(rows)
 
@@ -159,23 +172,25 @@ class TAMBuffer:
             return -1
         return x + y * self.__width
 
-    def set_spot(self, x, y, char, foreground_color, background_color):
+    def set_spot(self, x, y, char, foreground_color, background_color, override_alpha=True):
         """
         info: sets a single spot on the buffer
         :param x: int
         :param y: int
         :param char: str: len of 1
-        :param foreground_color: int: -1 - inf: use current foreground_color
-        :param background_color: int: -1 - inf: use current background_color
+        :param foreground_color: int
+        :param background_color: int
+        :param override_alpha: bool
         :return:
         """
 
         spot = self.get_raw_spot(x, y)
         if spot != -1:
-            self.__char_buffer[spot] = char
-            if foreground_color != -1:
+            if not override_alpha or not char == ALPHA_CHAR:
+                self.__char_buffer[spot] = char
+            if not override_alpha or foreground_color != -2:
                 self.__foreground_buffer[spot] = foreground_color
-            if background_color != -1:
+            if not override_alpha or background_color != -2:
                 self.__background_buffer[spot] = background_color
 
     def get_spot(self, x, y):
@@ -208,7 +223,8 @@ class TAMBuffer:
                   buffer_start_x=0,
                   buffer_start_y=0,
                   buffer_size_x=-1,
-                  buffer_size_y=-1):
+                  buffer_size_y=-1,
+                  override_alpha=True):
         """
         info: will draw tam_buffer or part of a TAMBuffer onto another TAMBuffer
         :param tam_buffer: TAMBuffer
@@ -218,6 +234,7 @@ class TAMBuffer:
         :param buffer_start_y: int
         :param buffer_size_x: int: 0 - inf
         :param buffer_size_y: int: 0 - inf
+        :param override_alpha: bool
         :return:
         """
 
@@ -240,9 +257,12 @@ class TAMBuffer:
             to_spot = self.get_raw_spot(start_x, start_y + y)
             draw_spot = tam_buffer.get_raw_spot(buffer_start_x, buffer_start_y + y)
             for ts, ds in zip(range(to_spot, to_spot + buffer_size_x), range(draw_spot, draw_spot + buffer_size_x)):
-                this_char_buffer[ts] = char_buffer[ds]
-                this_foreground_buffer[ts] = foreground_buffer[ds]
-                this_background_buffer[ts] = background_buffer[ds]
+                if not override_alpha or not isinstance(char_buffer[ds], TAMBuffer):
+                    this_char_buffer[ts] = char_buffer[ds]
+                if not override_alpha or foreground_buffer[ds] != -2:
+                    this_foreground_buffer[ts] = foreground_buffer[ds]
+                if not override_alpha or background_buffer[ds] != -2:
+                    this_background_buffer[ts] = background_buffer[ds]
 
     def get_cross_rect(self,
                        tam_buffer,
@@ -293,3 +313,18 @@ class TAMBuffer:
         buffer_size_y = max(min(buffer_size_y, height - buffer_start_y, self.__height - start_y), 0)
 
         return start_x, start_y, buffer_start_x, buffer_start_y, buffer_size_x, buffer_size_y
+
+    def replace_alpha_chars(self, alpha_replacement=None):
+        """
+        :param alpha_replacement: None or str
+        :return:
+        """
+        if alpha_replacement is None:
+            alpha_replacement = self.__char
+
+        if alpha_replacement == ALPHA_CHAR:
+            alpha_replacement = " "
+
+        for spot, char in enumerate(self.__char_buffer):
+            if char == ALPHA_CHAR:
+                self.__char_buffer[spot] = alpha_replacement

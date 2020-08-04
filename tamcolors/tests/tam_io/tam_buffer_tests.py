@@ -14,6 +14,16 @@ class TAMBufferTests(unittest.TestCase):
         buffer = tam_io.tam_buffer.TAMBuffer(3, 400, "&", 1, 2)
         self.assertEqual(str(buffer), ("&&&\n" * 400)[:-1])
 
+    def test_buffer_str_2(self):
+        buffer = tam_io.tam_buffer.TAMBuffer(3, 400, "&", 1, 2)
+        buffer.set_spot(1, 2, tam_io.tam_buffer.ALPHA_CHAR, -2, -2, False)
+        self.assertEqual(str(buffer), ("&&&\n" * 400)[:-1])
+
+    def test_buffer_str_3(self):
+        buffer = tam_io.tam_buffer.TAMBuffer(3, 2, tam_io.tam_buffer.ALPHA_CHAR, 1, 2)
+        buffer.set_spot(2, 1, "#", -2, -2, False)
+        self.assertEqual(str(buffer), "   \n  #")
+
     def test_buffer_len(self):
         buffer = tam_io.tam_buffer.TAMBuffer(5, 4, "&", 1, 2)
         self.assertEqual(len(buffer), 20)
@@ -195,14 +205,35 @@ class TAMBufferTests(unittest.TestCase):
 
     def test_set_spot_4(self):
         buffer = tam_io.tam_buffer.TAMBuffer(5, 5, "&", 1, 2)
-        buffer.set_spot(0, 1, "C", -1, -1)
+        buffer.set_spot(0, 1, "C", -2, -2)
         self.assertEqual(buffer.get_spot(0, 1), ("C", 1, 2))
 
     def test_set_spot_5(self):
         buffer = tam_io.tam_buffer.TAMBuffer(5, 5, "&", 1, 2)
+        buffer.set_spot(3, 2, "A", 4, -2)
+        buffer.set_spot(3, 2, "C", -2, -2)
+        self.assertEqual(buffer.get_spot(3, 2), ("C", 4, 2))
+
+    def test_set_spot_6(self):
+        buffer = tam_io.tam_buffer.TAMBuffer(5, 5, "&", 1, 2)
         buffer.set_spot(3, 2, "A", 4, -1)
         buffer.set_spot(3, 2, "C", -1, -1)
-        self.assertEqual(buffer.get_spot(3, 2), ("C", 4, 2))
+        self.assertEqual(buffer.get_spot(3, 2), ("C", -1, -1))
+
+    def test_set_spot_7(self):
+        buffer = tam_io.tam_buffer.TAMBuffer(5, 5, "&", 1, 2)
+        buffer.set_spot(3, 2, "C", -1, 9)
+        self.assertEqual(buffer.get_spot(3, 2), ("C", -1, 9))
+
+    def test_set_spot_8(self):
+        buffer = tam_io.tam_buffer.TAMBuffer(5, 5, "&", 1, 2)
+        buffer.set_spot(3, 2, tam_io.tam_buffer.ALPHA_CHAR, -2, -2, False)
+        self.assertEqual(buffer.get_spot(3, 2), (tam_io.tam_buffer.ALPHA_CHAR, -2, -2))
+
+    def test_set_spot_9(self):
+        buffer = tam_io.tam_buffer.TAMBuffer(5, 5, "&", 1, 2)
+        buffer.set_spot(3, 2, tam_io.tam_buffer.ALPHA_CHAR, -2, -2)
+        self.assertEqual(buffer.get_spot(3, 2), ("&", 1, 2))
 
     def test_get_spot(self):
         buffer = tam_io.tam_buffer.TAMBuffer(5, 6, "&", 1, 2)

@@ -58,6 +58,7 @@ class AnyIO(io_tam.IO):
         :return:
         """
 
+        tam_buffer.replace_alpha_chars()
         print(tam_buffer)
 
     def _draw_2(self, tam_buffer):
