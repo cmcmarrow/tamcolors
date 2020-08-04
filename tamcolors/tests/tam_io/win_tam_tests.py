@@ -224,3 +224,15 @@ class WinIOTests(unittest.TestCase):
             colors = tam_io.win_tam.WinIO()._processes_special_color(4, -1)
             _get_default_color.assert_called_once_with()
             self.assertEqual(colors, (4, 2))
+
+    def test__processes_special_color_5(self):
+        with unittest.mock.patch.object(tam_io.win_tam.io, "_get_default_color", return_value=55) as _get_default_color:
+            colors = tam_io.win_tam.WinIO()._processes_special_color(-2, 0)
+            _get_default_color.assert_called_once_with()
+            self.assertEqual(colors, (7, 0))
+
+    def test__processes_special_color_6(self):
+        with unittest.mock.patch.object(tam_io.win_tam.io, "_get_default_color", return_value=43) as _get_default_color:
+            colors = tam_io.win_tam.WinIO()._processes_special_color(4, -2)
+            _get_default_color.assert_called_once_with()
+            self.assertEqual(colors, (4, 2))

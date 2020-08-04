@@ -19,7 +19,7 @@ class TAMPrintTests(unittest.TestCase):
     def test_tam_print_2(self):
         buffer = tam_io.tam_buffer.TAMBuffer(7, 5, "@", 1, 2)
         buffer.set_spot(3, 1, "E", 8, 9)
-        tam_tools.tam_print.tam_print(buffer, 2, 1, "Test", 3, -1)
+        tam_tools.tam_print.tam_print(buffer, 2, 1, "Test", 3, -2)
         self.assertEqual(buffer.get_spot(2, 1), ("T", 3, 2))
         self.assertEqual(buffer.get_spot(3, 1), ("e", 3, 9))
         self.assertEqual(buffer.get_spot(4, 1), ("s", 3, 2))
@@ -29,7 +29,7 @@ class TAMPrintTests(unittest.TestCase):
     def test_tam_print_3(self):
         buffer = tam_io.tam_buffer.TAMBuffer(7, 5, "@", 1, 2)
         buffer.set_spot(3, 1, "E", 8, 9)
-        tam_tools.tam_print.tam_print(buffer, 2, 1, "Test\n\tcat", 3, -1)
+        tam_tools.tam_print.tam_print(buffer, 2, 1, "Test\n\tcat", 3, -2)
         self.assertEqual(buffer.get_spot(2, 1), ("T", 3, 2))
         self.assertEqual(buffer.get_spot(3, 1), ("e", 3, 9))
         self.assertEqual(buffer.get_spot(4, 1), ("s", 3, 2))
@@ -45,7 +45,7 @@ class TAMPrintTests(unittest.TestCase):
     def test_tam_print_4(self):
         buffer = tam_io.tam_buffer.TAMBuffer(7, 5, "@", 1, 2)
         buffer.set_spot(3, 1, "E", 8, 9)
-        tam_tools.tam_print.tam_print(buffer, 2, 1, "Test\n\r\tcat", 3, -1)
+        tam_tools.tam_print.tam_print(buffer, 2, 1, "Test\n\r\tcat", 3, -2)
         self.assertEqual(buffer.get_spot(2, 1), ("T", 3, 2))
         self.assertEqual(buffer.get_spot(3, 1), ("e", 3, 9))
         self.assertEqual(buffer.get_spot(4, 1), ("s", 3, 2))

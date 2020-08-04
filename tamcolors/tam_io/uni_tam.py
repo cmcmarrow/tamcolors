@@ -36,25 +36,27 @@ class UniIO(io_tam.IO):
         self.__buffer = TAMBuffer(0, 0, " ", 1, 1)
         self.__unix_keys = self.get_key_dict()
 
-        self.__foreground_color_map = {-1: "39",
-                                        0: "38;5;232",
-                                        1: "38;5;20",
-                                        2: "38;5;34",
-                                        3: "38;5;75",
-                                        4: "38;5;1",
-                                        5: "38;5;90",
-                                        6: "38;5;3",
-                                        7: "38;5;252",
-                                        8: "38;5;243",
-                                        9: "38;5;33",
-                                        10: "38;5;76",
-                                        11: "38;5;117",
-                                        12: "38;5;161",
-                                        13: "38;5;126",
-                                        14: "38;5;229",
-                                        15: "38;5;15"}
+        self.__foreground_color_map = {-2: "39",
+                                       -1: "39",
+                                       0: "38;5;232",
+                                       1: "38;5;20",
+                                       2: "38;5;34",
+                                       3: "38;5;75",
+                                       4: "38;5;1",
+                                       5: "38;5;90",
+                                       6: "38;5;3",
+                                       7: "38;5;252",
+                                       8: "38;5;243",
+                                       9: "38;5;33",
+                                       10: "38;5;76",
+                                       11: "38;5;117",
+                                       12: "38;5;161",
+                                       13: "38;5;126",
+                                       14: "38;5;229",
+                                       15: "38;5;15"}
 
-        self.__background_color_map = {-1: "49",
+        self.__background_color_map = {-2: "49",
+                                       -1: "49",
                                        0: "48;5;232",
                                        1: "48;5;20",
                                        2: "48;5;34",
@@ -116,6 +118,7 @@ class UniIO(io_tam.IO):
         :param tam_buffer: TAMBuffer
         :return:
         """
+        tam_buffer.replace_alpha_chars()
         dimension = io._get_dimension()
         if self.__buffer.get_dimensions() != dimension:
             self.clear()

@@ -184,6 +184,10 @@ class UniIOTests(unittest.TestCase):
         io = tam_io.uni_tam.UniIO()
         self.assertEqual(io._get_lin_tam_color(-1, -1), ("39", "49"))
 
+    def test__get_lin_tam_color_3(self):
+        io = tam_io.uni_tam.UniIO()
+        self.assertEqual(io._get_lin_tam_color(-2, -2), ("39", "49"))
+
     @staticmethod
     def test_clear():
         with unittest.mock.patch.object(os, "system", return_value=0) as system:

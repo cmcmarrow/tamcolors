@@ -76,6 +76,8 @@ class WinIO(io_tam.IO):
         :param tam_buffer: TAMBuffer
         :return:
         """
+
+        tam_buffer.replace_alpha_chars()
         if self.__buffer.get_dimensions() != io._get_dimension():
             self.clear()
             io._show_console_cursor(False)
@@ -310,19 +312,19 @@ class WinIO(io_tam.IO):
     def _processes_special_color(foreground_color, background_color):
         """
         info: will processes special colors
-        -1 will become the default terminal color
+        -1 and -2 will become the default terminal color
         :param foreground_color: int
         :param background_color: int
         :return: tuple: (int, int)
         """
-        if foreground_color == -1 or background_color == -1:
+        if foreground_color in (-1, -2) or background_color in (-1, -2):
             default_color = io._get_default_color()
             default_background_color = default_color//16
             default_foreground_color = default_color - default_background_color*16
 
-            if foreground_color == -1:
+            if foreground_color in (-1, -2):
                 foreground_color = default_foreground_color
-            if background_color == -1:
+            if background_color in (-1, -2):
                 background_color = default_background_color
 
         return foreground_color, background_color
