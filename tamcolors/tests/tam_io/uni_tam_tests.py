@@ -106,14 +106,16 @@ class UniIOTests(unittest.TestCase):
     @staticmethod
     def test_done():
         io = tam_io.uni_tam.UniIO()
-        with unittest.mock.patch.object(tam_io.uni_tam.io, "_disable_get_key", return_value=None) as _disable_get_key:
-            with unittest.mock.patch.object(io, "clear", return_value=None) as clear:
-                with unittest.mock.patch.object(io, "_show_console_cursor", return_value=None) as _show_console_cursor:
-                    io.done()
+        with unittest.mock.patch.object(os, "system", return_value=None) as system:
+            with unittest.mock.patch.object(tam_io.uni_tam.io, "_disable_get_key", return_value=None) as _disable_get_key:
+                with unittest.mock.patch.object(io, "clear", return_value=None) as clear:
+                    with unittest.mock.patch.object(io, "_show_console_cursor", return_value=None) as _show_console_cursor:
+                        io.done()
 
-                    _disable_get_key.assert_called_once_with()
-                    clear.assert_called_once_with()
-                    _show_console_cursor.assert_called_once_with(True)
+                        _disable_get_key.assert_called_once_with()
+                        clear.assert_called_once_with()
+                        _show_console_cursor.assert_called_once_with(True)
+                        system.assert_called_once_with("clear")
 
     def test_get_key(self):
         with unittest.mock.patch.object(tam_io.uni_tam.io, "_get_key", side_effect=[65, -1]) as _get_key:
