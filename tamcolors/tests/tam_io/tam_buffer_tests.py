@@ -338,3 +338,21 @@ class TAMBufferTests(unittest.TestCase):
         buffer2 = tam_io.tam_buffer.TAMBuffer(3, 4, "B", 1, 2)
 
         self.assertEqual(buffer.get_cross_rect(buffer2, -6, -6, -12, -12, 100, 100), (6, 6, 0, 0, 0, 0))
+
+    def test_replace_alpha_chars_1(self):
+        buffer = tam_io.tam_buffer.TAMBuffer(5, 6, "A", 1, 2)
+        buffer.set_spot(0, 0, tam_io.tam_buffer.ALPHA_CHAR, 5, 7, False)
+        buffer.replace_alpha_chars()
+        self.assertEqual(buffer.get_spot(0, 0), ("A", 5, 7))
+
+    def test_replace_alpha_chars_2(self):
+        buffer = tam_io.tam_buffer.TAMBuffer(5, 6, "A", 1, 2)
+        buffer.set_spot(0, 0, tam_io.tam_buffer.ALPHA_CHAR, -2, 7, False)
+        buffer.replace_alpha_chars("C")
+        self.assertEqual(buffer.get_spot(0, 0), ("C", -2, 7))
+
+    def test_replace_alpha_chars_3(self):
+        buffer = tam_io.tam_buffer.TAMBuffer(5, 6, tam_io.tam_buffer.ALPHA_CHAR, 1, 2)
+        buffer.set_spot(0, 0, tam_io.tam_buffer.ALPHA_CHAR, -2, 7, False)
+        buffer.replace_alpha_chars(tam_io.tam_buffer.ALPHA_CHAR)
+        self.assertEqual(buffer.get_spot(0, 0), (" ", -2, 7))
