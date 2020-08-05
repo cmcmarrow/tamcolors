@@ -200,6 +200,7 @@ class UniIO(io_tam.IO):
         self.clear()
         self._show_console_cursor(True)
         io._disable_get_key()
+        os.system("clear")
 
     def get_key(self):
         """
@@ -331,5 +332,4 @@ class UniIO(io_tam.IO):
         info: will clear the screen. Note that it will also reset the terminal
         :return:
         """
-        os.system("clear")
         os.system("tput reset")
