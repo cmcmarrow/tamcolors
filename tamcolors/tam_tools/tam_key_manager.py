@@ -13,7 +13,7 @@ class TAMKeyManager:
         info: makes a TAMKeyManager object
         :param all_keys: tuple or list: [(str, str), ...]
         """
-        self.__all_keys = {key[0]: False for key in all_keys}
+        self.__all_keys = {key[0]: 0 for key in all_keys}
         self.__raw_input = ()
         self.__input_generator = self.get_user_input_generator()
 
@@ -31,10 +31,10 @@ class TAMKeyManager:
         :return:
         """
         for key in self.__all_keys:
-            self.__all_keys[key] = False
+            self.__all_keys[key] = 0
 
         for key in keys:
-            self.__all_keys[key[0]] = True
+            self.__all_keys[key[0]] += 1
 
         self.__raw_input = keys
         self.__input_generator = self.get_user_input_generator()
@@ -43,19 +43,19 @@ class TAMKeyManager:
         """
         info: will get a state of a key
         :param key: str
-        :return: bool
+        :return: int
         """
         return self.__all_keys[key]
 
     def silent_key_state(self, key):
         """
-        info: will get a key state and make it False
+        info: will get a key state and make it 0
         :param key: str
-        :return: bool
+        :return: int
         """
         key_state = self.__all_keys[key]
         if key_state:
-            self.__all_keys[key] = False
+            self.__all_keys[key] = 0
         return key_state
 
     def get_user_input(self):
