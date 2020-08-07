@@ -7,7 +7,7 @@ from tamcolors import tam_io
 
 class AnyIOTests(unittest.TestCase):
     def test_get_io(self):
-        self.assertIsInstance(tam_io.any_tam.AnyIO.get_io(), tam_io.any_tam.AnyIO)
+        self.assertTrue(tam_io.any_tam.AnyIO.able_to_execute())
 
     def test_set_slash_get_mode(self):
         io = tam_io.any_tam.AnyIO()

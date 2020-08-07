@@ -10,7 +10,7 @@ from tamcolors import tam_io
 
 @unittest.skipIf(platform.system() != "Windows", "Most be on Windows.")
 class WinIOTests(unittest.TestCase):
-    def test_get_io(self):
+    def test_able_to_execute(self):
         with unittest.mock.patch.object(tam_io.win_tam.io,
                                         "_init_default_color",
                                         return_value=0) as _init_default_color:
@@ -18,11 +18,8 @@ class WinIOTests(unittest.TestCase):
             if hasattr(tam_io.win_tam.WinIO, "win_io"):
                 del tam_io.win_tam.WinIO.win_io
 
-            io = tam_io.win_tam.WinIO.get_io()
-
+            self.assertFalse(tam_io.win_tam.WinIO.able_to_execute())
             _init_default_color.assert_called_once_with()
-
-            self.assertEqual(io, None)
 
     def test_set_slash_get_mode(self):
         io = tam_io.win_tam.WinIO()

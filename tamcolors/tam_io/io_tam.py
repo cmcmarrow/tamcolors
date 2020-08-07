@@ -9,7 +9,7 @@ class IO:
         pass
 
     @classmethod
-    def get_io(cls):
+    def able_to_execute(cls):
         raise NotImplementedError()
 
     def set_mode(self, mode):
@@ -68,3 +68,15 @@ class IO:
         start_x = (buffer_size_x // 2) - (width // 2)
         start_y = (buffer_size_y // 2) - (height // 2)
         tam_buffer.draw_onto(tam_buffer2, max(start_x, 0), max(start_y, 0))
+
+
+class SingletonIO(IO):
+    """
+    Only lets one IO instance exist
+    """
+    def __new__(cls, *args, **kwargs):
+        if not hasattr(cls, "_instance"):
+            cls._instance = None
+            if cls.able_to_execute():
+                cls._instance = super().__new__(cls, *args, **kwargs)
+        return cls._instance
