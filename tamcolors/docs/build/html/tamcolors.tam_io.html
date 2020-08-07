@@ -238,12 +238,22 @@
 <dl class="py method">
 <dt id="tamcolors.tam_io.any_tam.AnyIO.inputc">
 <code class="sig-name descname">inputc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.any_tam.AnyIO.inputc" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>info: will get user input with color
+:param value: str
+:param color: tuple: (int, int)
+:return: str</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="tamcolors.tam_io.any_tam.AnyIO.printc">
-<code class="sig-name descname">printc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.any_tam.AnyIO.printc" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-name descname">printc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="n">color</span></em>, <em class="sig-param"><span class="n">flush</span></em>, <em class="sig-param"><span class="n">stderr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.any_tam.AnyIO.printc" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will print out user output with color
+:param value: str
+:param color: tuple: (int, int)
+:param flush: boolean
+:param stderr: boolean
+:return: None</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="tamcolors.tam_io.any_tam.AnyIO.set_mode">
@@ -336,7 +346,7 @@ defines standards for all terminal IO</p>
 
 <dl class="py method">
 <dt id="tamcolors.tam_io.io_tam.IO.printc">
-<code class="sig-name descname">printc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.printc" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">printc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="n">color</span></em>, <em class="sig-param"><span class="n">flush</span></em>, <em class="sig-param"><span class="n">stderr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.printc" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -374,7 +384,7 @@ defines standards for all terminal IO</p>
 
 <dl class="py method">
 <dt id="tamcolors.tam_io.tam_buffer.TAMBuffer.draw_onto">
-<code class="sig-name descname">draw_onto</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_buffer</span></em>, <em class="sig-param"><span class="n">start_x</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">start_y</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">buffer_start_x</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">buffer_start_y</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">buffer_size_x</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">buffer_size_y</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_buffer.TAMBuffer.draw_onto" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">draw_onto</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_buffer</span></em>, <em class="sig-param"><span class="n">start_x</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">start_y</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">buffer_start_x</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">buffer_start_y</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">buffer_size_x</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">buffer_size_y</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">override_alpha</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_buffer.TAMBuffer.draw_onto" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: will draw tam_buffer or part of a TAMBuffer onto another TAMBuffer
 :param tam_buffer: TAMBuffer
 :param start_x: int
@@ -383,6 +393,7 @@ defines standards for all terminal IO</p>
 :param buffer_start_y: int
 :param buffer_size_x: int: 0 - inf
 :param buffer_size_y: int: 0 - inf
+:param override_alpha: bool
 :return:</p>
 </dd></dl>
 
@@ -448,6 +459,19 @@ defines standards for all terminal IO</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="tamcolors.tam_io.tam_buffer.TAMBuffer.replace_alpha_chars">
+<code class="sig-name descname">replace_alpha_chars</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">alpha_replacement</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_buffer.TAMBuffer.replace_alpha_chars" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>alpha_replacement</strong> – None or str</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt id="tamcolors.tam_io.tam_buffer.TAMBuffer.set_defaults_and_clear">
 <code class="sig-name descname">set_defaults_and_clear</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">char</span></em>, <em class="sig-param"><span class="n">foreground_color</span></em>, <em class="sig-param"><span class="n">background_color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_buffer.TAMBuffer.set_defaults_and_clear" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: clears buffer and resets defaults
@@ -468,13 +492,14 @@ defines standards for all terminal IO</p>
 
 <dl class="py method">
 <dt id="tamcolors.tam_io.tam_buffer.TAMBuffer.set_spot">
-<code class="sig-name descname">set_spot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">char</span></em>, <em class="sig-param"><span class="n">foreground_color</span></em>, <em class="sig-param"><span class="n">background_color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_buffer.TAMBuffer.set_spot" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">set_spot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">char</span></em>, <em class="sig-param"><span class="n">foreground_color</span></em>, <em class="sig-param"><span class="n">background_color</span></em>, <em class="sig-param"><span class="n">override_alpha</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_buffer.TAMBuffer.set_spot" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: sets a single spot on the buffer
 :param x: int
 :param y: int
 :param char: str: len of 1
-:param foreground_color: int: -1 - inf: use current foreground_color
-:param background_color: int: -1 - inf: use current background_color
+:param foreground_color: int
+:param background_color: int
+:param override_alpha: bool
 :return:</p>
 </dd></dl>
 
@@ -519,7 +544,9 @@ defines standards for all terminal IO</p>
 <dl class="py method">
 <dt id="tamcolors.tam_io.uni_tam.UniIO.get_dimensions">
 <code class="sig-name descname">get_dimensions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.uni_tam.UniIO.get_dimensions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>info: will get teh terminal dimensions
+:return: (int, int)</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="tamcolors.tam_io.uni_tam.UniIO.get_io">
@@ -559,12 +586,22 @@ defines standards for all terminal IO</p>
 <dl class="py method">
 <dt id="tamcolors.tam_io.uni_tam.UniIO.inputc">
 <code class="sig-name descname">inputc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.uni_tam.UniIO.inputc" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>info: will get user input with color
+:param output: str
+:param color: tuple: (int, int)
+:return: str</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="tamcolors.tam_io.uni_tam.UniIO.printc">
-<code class="sig-name descname">printc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.uni_tam.UniIO.printc" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-name descname">printc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output</span></em>, <em class="sig-param"><span class="n">color</span></em>, <em class="sig-param"><span class="n">flush</span></em>, <em class="sig-param"><span class="n">stderr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.uni_tam.UniIO.printc" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will print out user output with color
+:param output: str
+:param color: tuple: (int, int)
+:param flush: boolean
+:param stderr: boolean
+:return: None</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="tamcolors.tam_io.uni_tam.UniIO.set_mode">
@@ -621,7 +658,9 @@ defines standards for all terminal IO</p>
 <dl class="py method">
 <dt id="tamcolors.tam_io.win_tam.WinIO.get_dimensions">
 <code class="sig-name descname">get_dimensions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.win_tam.WinIO.get_dimensions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>info: will get teh terminal dimensions
+:return: (int, int)</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="tamcolors.tam_io.win_tam.WinIO.get_io">
@@ -661,12 +700,22 @@ defines standards for all terminal IO</p>
 <dl class="py method">
 <dt id="tamcolors.tam_io.win_tam.WinIO.inputc">
 <code class="sig-name descname">inputc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.win_tam.WinIO.inputc" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>info: will get user input with color
+:param output: str
+:param color: tuple: (int, int)
+:return: str</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="tamcolors.tam_io.win_tam.WinIO.printc">
-<code class="sig-name descname">printc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.win_tam.WinIO.printc" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-name descname">printc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output</span></em>, <em class="sig-param"><span class="n">color</span></em>, <em class="sig-param"><span class="n">flush</span></em>, <em class="sig-param"><span class="n">stderr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.win_tam.WinIO.printc" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will print out user output with color
+:param output: str
+:param color: tuple: (int, int)
+:param flush: boolean
+:param stderr: boolean
+:return: None</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="tamcolors.tam_io.win_tam.WinIO.set_mode">
