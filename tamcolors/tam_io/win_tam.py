@@ -21,7 +21,7 @@ class WinIOError(Exception):
     pass
 
 
-class WinIO(io_tam.IO):
+class WinIO(io_tam.SingletonIO):
     def __init__(self):
         """
         info: makes WinIO object
@@ -35,18 +35,14 @@ class WinIO(io_tam.IO):
         self.__windows_keys = self.get_key_dict()
 
     @classmethod
-    def get_io(cls):
+    def able_to_execute(cls):
         """
         info: will see if environment supported by WinIO
-        :return: WinIO object or None
+        :return: bool
         """
-        if hasattr(cls, "win_io"):
-            return cls.win_io
-        if hasattr(io, "_init_default_color"):
-            if io._init_default_color() == 1:
-                cls.win_io = WinIO()
-                return cls.win_io
-        return None
+        if io is not None:
+            return io._init_default_color() == 1
+        return False
 
     def set_mode(self, mode):
         """

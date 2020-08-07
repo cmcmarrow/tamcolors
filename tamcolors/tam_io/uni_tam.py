@@ -23,7 +23,7 @@ class UniIOError(Exception):
     pass
 
 
-class UniIO(io_tam.IO):
+class UniIO(io_tam.SingletonIO):
     def __init__(self):
         """
         info: makes UniIO object
@@ -75,20 +75,15 @@ class UniIO(io_tam.IO):
                                        15: "48;5;15"}
 
     @classmethod
-    def get_io(cls):
+    def able_to_execute(cls):
         """
-        info: will see if environment supported by LinIO
-        :return: LinIO object or None
+        info: will see if environment supported by UniIO
+        :return: bool
         """
-        if hasattr(cls, "uni_io"):
-            return cls.uni_io
-
-        if platform.system() in ["Darwin", "Linux"]:
+        if platform.system() in ("Darwin", "Linux"):
             if os.system("test -t 0 -a -t 1 -a -t 2") == 0:
-                cls.uni_io = UniIO()
-                return cls.uni_io
-
-        return None
+                return io is not None
+        return False
 
     def set_mode(self, mode):
         """

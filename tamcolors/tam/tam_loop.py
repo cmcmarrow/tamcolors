@@ -58,7 +58,7 @@ class TAMLoop:
         self.__error = None
 
         if only_any_os:
-            self.__io = any_tam.AnyIO.get_io()
+            self.__io = any_tam.AnyIO()
         else:
             self.__io = any_tam.get_io(io_list=io_list, any_os=any_os)
             if self.__io is None:

@@ -17,21 +17,18 @@ class AnyIOError(Exception):
     pass
 
 
-class AnyIO(io_tam.IO):
+class AnyIO(io_tam.SingletonIO):
     def __init__(self):
         super().__init__()
         self.__mode = 16
 
     @classmethod
-    def get_io(cls):
+    def able_to_execute(cls):
         """
         info: will see if environment supported by AnyIO
-        :return: AnyIO object or None
+        :return: bool
         """
-        if hasattr(cls, 'any_io'):
-            return cls.any_io
-        cls.any_io = AnyIO()
-        return cls.any_io
+        return True
 
     def set_mode(self, mode):
         """
@@ -126,10 +123,10 @@ def get_io(io_list=None, any_os=False):
         io_list = (win_tam.WinIO, uni_tam.UniIO)
 
     for io in io_list:
-        io_object = io.get_io()
+        io_object = io()
         if io_object is not None:
             return io_object
 
     if any_os:
-        return AnyIO.get_io()
+        return AnyIO()
     return None
