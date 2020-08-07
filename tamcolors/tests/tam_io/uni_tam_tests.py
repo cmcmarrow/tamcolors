@@ -18,11 +18,8 @@ class UniIOTests(unittest.TestCase):
             if hasattr(tam_io.uni_tam.UniIO, "uni_io"):
                 del tam_io.uni_tam.UniIO.uni_io
 
-            io = tam_io.uni_tam.UniIO.get_io()
-
+            self.assertFalse(tam_io.uni_tam.UniIO.able_to_execute())
             system.assert_called_once_with("test -t 0 -a -t 1 -a -t 2")
-
-            self.assertEqual(io, None)
 
     def test_set_slash_get_mode(self):
         io = tam_io.uni_tam.UniIO()
