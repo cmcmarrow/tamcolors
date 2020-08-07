@@ -27,9 +27,6 @@ class WinIO(io_tam.SingletonIO):
         info: makes WinIO object
         """
         super().__init__()
-        self.__mode = 16
-        self.__modes = {2: self._draw_2,
-                        16: self._draw_16}
         self.__buffer = TAMBuffer(0, 0, " ", 1, 1)
         self.__last_frame = TAMBuffer(0, 0, " ", 1, 1)
         self.__windows_keys = self.get_key_dict()
@@ -44,28 +41,6 @@ class WinIO(io_tam.SingletonIO):
             return io._init_default_color() == 1
         return False
 
-    def set_mode(self, mode):
-        """
-        info: will set the color mode
-        :param mode: int: key to color mode
-        :return:
-        """
-        self.__mode = mode
-
-    def get_mode(self):
-        """
-        info: will return the current color mode
-        :return: int
-        """
-        return self.__mode
-
-    def get_modes(self):
-        """
-        info: will return a tuple of all color modes
-        :return: (int, int, ...)
-        """
-        return tuple(self.__modes)
-
     def draw(self, tam_buffer):
         """
         info: will draw tam buffer to terminal
@@ -73,14 +48,13 @@ class WinIO(io_tam.SingletonIO):
         :return:
         """
 
-        tam_buffer.replace_alpha_chars()
         if self.__buffer.get_dimensions() != io._get_dimension():
             self.clear()
             io._show_console_cursor(False)
             self.__buffer.set_dimensions_and_clear(*io._get_dimension())
             self.__last_frame = None
 
-        self.__modes[self.__mode](tam_buffer)
+        super().draw(tam_buffer)
 
     def _draw_2(self, tam_buffer):
         """

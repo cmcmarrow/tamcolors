@@ -5,24 +5,54 @@ defines standards for all terminal IO
 
 
 class IO:
-    def __init__(self):
-        pass
+    def __init__(self, mode_2=True, mode_16=True):
+        """
+        Makes a IO object
+        :param mode_2: bool
+        :param mode_16: bool
+        """
+        self._modes = []
+        if mode_2:
+            self._modes.append(2)
+        if mode_16:
+            self._modes.append(16)
+
+        if 16 in self._modes:
+            self._mode = 16
+        else:
+            self._mode = self._modes[0]
+
+        self._modes = tuple(self._modes)
 
     @classmethod
     def able_to_execute(cls):
         raise NotImplementedError()
 
     def set_mode(self, mode):
-        raise NotImplementedError()
+        """
+        info: will set the color mode
+        :param mode: int: key to color mode
+        :return:
+        """
+        self._mode = mode
 
     def get_mode(self):
-        raise NotImplementedError()
+        """
+        info: will return the current color mode
+        :return: int
+        """
+        return self._mode
 
     def get_modes(self):
-        raise NotImplementedError()
+        """
+        info: will return a tuple of all color modes
+        :return: (int, int, ...)
+        """
+        return self._modes
 
     def draw(self, tam_buffer):
-        raise NotImplementedError()
+        tam_buffer.replace_alpha_chars()
+        self.get_mode_draw()(tam_buffer)
 
     def _draw_2(self, tam_buffer):
         raise NotImplementedError()
@@ -50,6 +80,9 @@ class IO:
 
     def clear(self):
         raise NotImplementedError()
+
+    def get_mode_draw(self):
+        return getattr(self, "_draw_{}".format(self._mode))
 
     @staticmethod
     def get_key_dict():
