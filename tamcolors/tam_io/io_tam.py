@@ -1,3 +1,6 @@
+import sys
+
+
 """
 IO
 defines standards for all terminal IO
@@ -52,7 +55,7 @@ class IO:
 
     def draw(self, tam_buffer):
         tam_buffer.replace_alpha_chars()
-        self.get_mode_draw()(tam_buffer)
+        self._get_mode_draw()(tam_buffer)
 
     def _draw_2(self, tam_buffer):
         raise NotImplementedError()
@@ -81,7 +84,7 @@ class IO:
     def clear(self):
         raise NotImplementedError()
 
-    def get_mode_draw(self):
+    def _get_mode_draw(self):
         return getattr(self, "_draw_{}".format(self._mode))
 
     @staticmethod
@@ -101,6 +104,22 @@ class IO:
         start_x = (buffer_size_x // 2) - (width // 2)
         start_y = (buffer_size_y // 2) - (height // 2)
         tam_buffer.draw_onto(tam_buffer2, max(start_x, 0), max(start_y, 0))
+
+    @staticmethod
+    def _write_to_output_stream(output, flush, stderr):
+        """
+        info: will write to the right stream
+        :param stderr: bool
+        :return: stdout or stderr
+        """
+        file = sys.stdout
+        if stderr:
+            file = sys.stderr
+
+        file.write(output)
+
+        if flush:
+            file.flush()
 
 
 class SingletonIO(IO):

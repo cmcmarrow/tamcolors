@@ -1,6 +1,5 @@
 # built in libraries
 import string
-import sys
 
 # tamcolors libraries
 from .tam_buffer import TAMBuffer
@@ -230,16 +229,10 @@ class WinIO(io_tam.SingletonIO):
         :param stderr: boolean
         :return: None
         """
-        file = sys.stdout
-        if stderr:
-            file = sys.stderr
-
         default_color = io._get_default_color()
         color = self._processes_special_color(*color)
         io._set_console_color((color[0] % 16) + (color[1] % 16) * 16)
-        file.write(output)
-        if flush:
-            file.flush()
+        self._write_to_output_stream(output, flush, stderr)
         io._set_console_color(default_color)
 
     def inputc(self, output, color):
@@ -263,8 +256,8 @@ class WinIO(io_tam.SingletonIO):
         """
         io._clear()
 
-    @staticmethod
-    def _print(x, y, output, foreground_color, background_color):
+    @classmethod
+    def _print(cls, x, y, output, foreground_color, background_color):
         """
         info: will print to terminal
         :param x: int
@@ -275,8 +268,7 @@ class WinIO(io_tam.SingletonIO):
         :return:
         """
         io._set_cursor_info(x, y, (foreground_color % 16) + (background_color % 16)*16)
-        sys.stdout.write(output)
-        sys.stdout.flush()
+        cls._write_to_output_stream(output, True, False)
 
     @staticmethod
     def _processes_special_color(foreground_color, background_color):

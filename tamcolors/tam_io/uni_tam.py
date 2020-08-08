@@ -273,15 +273,8 @@ class UniIO(io_tam.SingletonIO):
         :param stderr: boolean
         :return: None
         """
-        file = sys.stdout
-        if stderr:
-            file = sys.stderr
-
         output_str = "\u001b[{0};{1}m{2}\u001b[0m".format(*self._get_lin_tam_color(*color), output)
-        file.write(output_str)
-
-        if flush:
-            file.flush()
+        self._write_to_output_stream(output_str, flush, stderr)
 
     def inputc(self, output, color):
         """
