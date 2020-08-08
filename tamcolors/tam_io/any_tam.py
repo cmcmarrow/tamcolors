@@ -1,5 +1,3 @@
-import sys
-
 # tamcolors libraries
 from . import io_tam
 from . import uni_tam
@@ -63,10 +61,7 @@ class AnyIO(io_tam.SingletonIO):
         :param stderr: boolean
         :return: None
             """
-        file = sys.stdout
-        if stderr:
-            file = sys.stderr
-        print(value, end="", flush=flush, file=file)
+        self._write_to_output_stream(value, flush, stderr)
 
     def inputc(self, value, color):
         """
