@@ -1,4 +1,5 @@
 # built in libraries
+import sys
 import unittest.mock
 
 # tamcolors libraries
@@ -48,3 +49,62 @@ class IOTAMTest(unittest.TestCase):
         buffer3.draw_onto(buffer2, 10, 10)
 
         self.assertEqual(str(buffer), str(buffer3))
+
+    @staticmethod
+    def test__write_to_output_stream():
+        with unittest.mock.patch.object(sys.stdout, "write") as write_stdout:
+            with unittest.mock.patch.object(sys.stdout, "flush") as flush_stdout:
+                with unittest.mock.patch.object(sys.stderr, "write") as write_stderr:
+                    with unittest.mock.patch.object(sys.stderr, "flush") as flush_stderr:
+                        tam_io.io_tam.IO._write_to_output_stream("cats", True, False)
+                        write_stdout.assert_called_once_with("cats")
+                        flush_stdout.assert_called_once_with()
+                        write_stderr.assert_not_called()
+                        flush_stderr.assert_not_called()
+
+    @staticmethod
+    def test__write_to_output_stream_2():
+        with unittest.mock.patch.object(sys.stdout, "write") as write_stdout:
+            with unittest.mock.patch.object(sys.stdout, "flush") as flush_stdout:
+                with unittest.mock.patch.object(sys.stderr, "write") as write_stderr:
+                    with unittest.mock.patch.object(sys.stderr, "flush") as flush_stderr:
+                        tam_io.io_tam.IO._write_to_output_stream("dogs", False, True)
+                        write_stdout.assert_not_called()
+                        flush_stdout.assert_not_called()
+                        write_stderr.assert_called_once_with("dogs")
+                        flush_stderr.assert_not_called()
+
+
+class SingletonIOTest(unittest.TestCase):
+    def test_same_instance(self):
+        class DUMMYIO(tam_io.io_tam.SingletonIO):
+            @classmethod
+            def able_to_execute(cls):
+                return True
+
+        instance = DUMMYIO()
+        self.assertIsInstance(instance, DUMMYIO)
+        self.assertIs(instance, DUMMYIO())
+        self.assertIs(instance, DUMMYIO())
+
+    def test_same_instance_2(self):
+        class DUMMYIO2(tam_io.io_tam.SingletonIO):
+            @classmethod
+            def able_to_execute(cls):
+                return True
+
+        instance = DUMMYIO2()
+        self.assertIsInstance(instance, DUMMYIO2)
+        self.assertIs(instance, DUMMYIO2())
+        self.assertIs(instance, DUMMYIO2())
+
+    def test_not_able_to_execute(self):
+        class DUMMYIO(tam_io.io_tam.SingletonIO):
+            @classmethod
+            def able_to_execute(cls):
+                return False
+
+        instance = DUMMYIO()
+        self.assertIsNone(instance)
+        self.assertIs(instance, DUMMYIO())
+        self.assertIs(instance, DUMMYIO())
