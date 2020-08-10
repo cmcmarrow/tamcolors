@@ -256,6 +256,14 @@ class WinIO(io_tam.SingletonIO):
         """
         io._clear()
 
+    def get_color(self, spot):
+        return io._get_rgb_color(spot)
+
+    def set_color(self, spot, color):
+        super().set_color(spot, color)
+        io._set_rgb_color(spot, *color)
+        self.clear()
+
     @classmethod
     def _print(cls, x, y, output, foreground_color, background_color):
         """

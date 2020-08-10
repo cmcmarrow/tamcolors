@@ -2,6 +2,7 @@
 #include <conio.h>
 #include <iostream>
 #include <windows.h>
+#include <wingdi.h>
 
 
 /*
@@ -150,3 +151,19 @@ int get_key() {
 	return -1;
 }
 
+void set_rgb_color(int spot, COLORREF color) {
+	CONSOLE_SCREEN_BUFFER_INFOEX info;
+	info.cbSize = sizeof(CONSOLE_SCREEN_BUFFER_INFOEX);
+	static const HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
+	GetConsoleScreenBufferInfoEx(out, &info);
+	info.ColorTable[spot] = color;
+	SetConsoleScreenBufferInfoEx(out, &info);
+}
+
+COLORREF get_rgb_color(int spot) {
+	CONSOLE_SCREEN_BUFFER_INFOEX info;
+	info.cbSize = sizeof(CONSOLE_SCREEN_BUFFER_INFOEX);
+	static const HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
+	GetConsoleScreenBufferInfoEx(out, &info);
+	return info.ColorTable[spot];
+}

@@ -33,7 +33,8 @@ class TAMLoop:
                  only_any_os=False,
                  color_change_key="ESCAPE",
                  loop_data=None,
-                 stability_check=False):
+                 stability_check=False,
+                 tam_color_defaults=True):
         """
         info: makes a TAMLoop object
         :param tam_frame: TAMFrame: first frame in tam loop
@@ -43,6 +44,7 @@ class TAMLoop:
         :param color_change_key: char: key that will change color mode
         :param loop_data: dict
         :param stability_check: bool: raises and error if a test did not pass
+        :param tam_color_defaults: bool
         """
 
         if loop_data is None:
@@ -73,6 +75,9 @@ class TAMLoop:
 
         self.__timer = Timer()
 
+        if tam_color_defaults:
+            self.__io.set_tam_color_defaults()
+
     def __call__(self):
         """
         info: will run tam loop
@@ -92,15 +97,18 @@ class TAMLoop:
         if self.__error is not None:
             raise self.__error
 
-    def done(self):
+    def done(self, reset_colors_to_console_defaults=True):
         """
         info: will stop tam loop
+        :param: reset_colors_to_console_defaults: bool
         :return:
         """
         if self.__running:
             self.__running = False
             self.__key_loop_thread.join()
             self.__io.done()
+            if reset_colors_to_console_defaults:
+                self.__io.reset_colors_to_console_defaults()
 
     def run(self):
         """
