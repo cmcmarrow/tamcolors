@@ -85,7 +85,7 @@ void clear(){
 	info: will clear the screen and reset console cursor position, color and show cursor
 	return: void
 	*/
-	static const HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+	HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
 	if (!GetConsoleScreenBufferInfo(hOut, &csbi)) {
 		abort();
 	}
@@ -153,17 +153,19 @@ int get_key() {
 
 void set_rgb_color(int spot, COLORREF color) {
 	CONSOLE_SCREEN_BUFFER_INFOEX info;
-	info.cbSize = sizeof(CONSOLE_SCREEN_BUFFER_INFOEX);
-	static const HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
+	info.cbSize = sizeof(info);
+	HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
 	GetConsoleScreenBufferInfoEx(out, &info);
+	info.srWindow.Right += 1;
+	info.srWindow.Bottom += 1;
 	info.ColorTable[spot] = color;
 	SetConsoleScreenBufferInfoEx(out, &info);
 }
 
 COLORREF get_rgb_color(int spot) {
 	CONSOLE_SCREEN_BUFFER_INFOEX info;
-	info.cbSize = sizeof(CONSOLE_SCREEN_BUFFER_INFOEX);
-	static const HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
+	info.cbSize = sizeof(info);
+	HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
 	GetConsoleScreenBufferInfoEx(out, &info);
 	return info.ColorTable[spot];
 }
