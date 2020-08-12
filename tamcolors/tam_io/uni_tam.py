@@ -28,47 +28,16 @@ class UniIO(io_tam.SingletonIO):
         """
         info: makes UniIO object
         """
-        super().__init__()
         self.__buffer = TAMBuffer(0, 0, " ", 1, 1)
         self.__unix_keys = self.get_key_dict()
 
         self.__foreground_color_map = {-2: "39",
-                                       -1: "39",
-                                       0: "38;5;232",
-                                       1: "38;5;20",
-                                       2: "38;5;34",
-                                       3: "38;5;75",
-                                       4: "38;5;1",
-                                       5: "38;5;90",
-                                       6: "38;5;3",
-                                       7: "38;5;252",
-                                       8: "38;5;243",
-                                       9: "38;5;33",
-                                       10: "38;5;76",
-                                       11: "38;5;117",
-                                       12: "38;5;161",
-                                       13: "38;5;126",
-                                       14: "38;5;229",
-                                       15: "38;5;15"}
+                                       -1: "39"}
 
         self.__background_color_map = {-2: "49",
-                                       -1: "49",
-                                       0: "48;5;232",
-                                       1: "48;5;20",
-                                       2: "48;5;34",
-                                       3: "48;5;75",
-                                       4: "48;5;1",
-                                       5: "48;5;90",
-                                       6: "48;5;3",
-                                       7: "48;5;252",
-                                       8: "48;5;243",
-                                       9: "48;5;33",
-                                       10: "48;5;76",
-                                       11: "48;5;117",
-                                       12: "48;5;161",
-                                       13: "48;5;126",
-                                       14: "48;5;229",
-                                       15: "48;5;15"}
+                                       -1: "49"}
+        super().__init__()
+        self.set_tam_color_defaults()
 
     @classmethod
     def able_to_execute(cls):
@@ -171,6 +140,11 @@ class UniIO(io_tam.SingletonIO):
         io._disable_get_key()
         os.system("clear")
 
+    def set_color(self, spot, color):
+        self.__foreground_color_map[spot] = "38;2;{};{};{}".format(*color)
+        self.__background_color_map[spot] = "48;2;{};{};{}".format(*color)
+        super().set_color(spot, color)
+
     def get_key(self):
         """
         info: will get single key input or return False
@@ -240,6 +214,9 @@ class UniIO(io_tam.SingletonIO):
         linux_keys["27"] = ("ESCAPE", "SPECIAL")
 
         return linux_keys
+
+    def get_color(self, spot):
+        return self._colors[spot]
 
     @staticmethod
     def _show_console_cursor(show_flag):

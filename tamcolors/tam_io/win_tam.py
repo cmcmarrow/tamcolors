@@ -25,10 +25,10 @@ class WinIO(io_tam.SingletonIO):
         """
         info: makes WinIO object
         """
-        super().__init__()
         self.__buffer = TAMBuffer(0, 0, " ", 1, 1)
         self.__last_frame = TAMBuffer(0, 0, " ", 1, 1)
         self.__windows_keys = self.get_key_dict()
+        super().__init__()
 
     @classmethod
     def able_to_execute(cls):

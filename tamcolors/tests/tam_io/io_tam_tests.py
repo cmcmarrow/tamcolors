@@ -82,6 +82,9 @@ class SingletonIOTest(unittest.TestCase):
             def able_to_execute(cls):
                 return True
 
+            def get_color(self, spot):
+                return self._colors[spot]
+
         instance = DUMMYIO()
         self.assertIsInstance(instance, DUMMYIO)
         self.assertIs(instance, DUMMYIO())
@@ -93,6 +96,9 @@ class SingletonIOTest(unittest.TestCase):
             def able_to_execute(cls):
                 return True
 
+            def get_color(self, spot):
+                return self._colors[spot]
+
         instance = DUMMYIO2()
         self.assertIsInstance(instance, DUMMYIO2)
         self.assertIs(instance, DUMMYIO2())
@@ -103,6 +109,9 @@ class SingletonIOTest(unittest.TestCase):
             @classmethod
             def able_to_execute(cls):
                 return False
+
+            def get_color(self, spot):
+                return self._colors[spot]
 
         instance = DUMMYIO()
         self.assertIsNone(instance)
