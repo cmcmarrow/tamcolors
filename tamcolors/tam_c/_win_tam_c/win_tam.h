@@ -15,4 +15,6 @@ void clear();
 void set_cursor_info(int x, int y, int color);
 void set_console_color(int color);
 int get_key();
+void set_rgb_color(int spot, COLORREF color);
+COLORREF get_rgb_color(int spot);
 #endif

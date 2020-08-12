@@ -124,6 +124,31 @@ static PyObject* _get_key(PyObject *self, PyObject *args) {
 	return Py_BuildValue("i", get_key());
 }
 
+static PyObject* _set_rgb_color(PyObject *self, PyObject *args) {
+	/*
+	*/
+	int spot, r, g, b;
+	if (!PyArg_ParseTuple(args, "iiii", &spot, &r, &g, &b)) {
+		return NULL;
+	}
+	set_rgb_color(spot, RGB(r, g, b));
+	Py_RETURN_NONE;
+}
+
+static PyObject* _get_rgb_color(PyObject *self, PyObject *args) {
+	/*
+	*/
+	int spot, r, g, b;
+	if (!PyArg_ParseTuple(args, "i", &spot)) {
+		return NULL;
+	}
+	COLORREF color = get_rgb_color(spot);
+	r = GetRValue(color);
+	g = GetGValue(color);
+	b = GetBValue(color);
+	return Py_BuildValue("(iii)", r, g, b);
+}
+
 static PyMethodDef _win_tam_methods[] = {
 	{
 		"_show_console_cursor", _show_console_cursor, METH_VARARGS,
@@ -156,6 +181,14 @@ static PyMethodDef _win_tam_methods[] = {
 	{
 		"_get_key", _get_key, METH_VARARGS,
 		"_get_key"
+	},
+	{
+		"_set_rgb_color", _set_rgb_color, METH_VARARGS,
+		"_set_rgb_color"
+	},
+	{
+		"_get_rgb_color", _get_rgb_color, METH_VARARGS,
+		"_get_rgb_color"
 	},
 { NULL, NULL, 0, NULL }
 };

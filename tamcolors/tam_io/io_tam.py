@@ -6,6 +6,23 @@ IO
 defines standards for all terminal IO
 """
 
+IO_DEFAULT_COLORS = {0: (12, 12, 12),
+                     1: (0, 55, 218),
+                     2: (19, 161, 14),
+                     3: (58, 150, 221),
+                     4: (197, 15, 31),
+                     5: (136, 23, 152),
+                     6: (193, 156, 0),
+                     7: (204, 204, 204),
+                     8: (118, 118, 118),
+                     9: (59, 120, 255),
+                     10: (22, 198, 12),
+                     11: (97, 214, 214),
+                     12: (231, 72, 86),
+                     13: (180, 0, 158),
+                     14: (249, 241, 165),
+                     15: (242, 242, 242)}
+
 
 class IO:
     def __init__(self, mode_2=True, mode_16=True):
@@ -26,6 +43,9 @@ class IO:
             self._mode = self._modes[0]
 
         self._modes = tuple(self._modes)
+        self._colors = IO_DEFAULT_COLORS.copy()
+        self._default_colors = self._colors.copy()
+        self._set_defaults()
 
     @classmethod
     def able_to_execute(cls):
@@ -83,6 +103,24 @@ class IO:
 
     def clear(self):
         raise NotImplementedError()
+
+    def get_color(self, spot):
+        raise NotImplementedError()
+
+    def set_color(self, spot, color):
+        self._colors[spot] = color
+
+    def reset_colors_to_console_defaults(self):
+        for spot in self._default_colors:
+            self.set_color(spot, self._default_colors[spot])
+
+    def set_tam_color_defaults(self):
+        for spot in IO_DEFAULT_COLORS:
+            self.set_color(spot, IO_DEFAULT_COLORS[spot])
+
+    def _set_defaults(self):
+        for spot in range(16):
+            self._default_colors[spot] = self.get_color(spot)
 
     def _get_mode_draw(self):
         return getattr(self, "_draw_{}".format(self._mode))

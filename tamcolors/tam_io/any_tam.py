@@ -75,6 +75,9 @@ class AnyIO(io_tam.SingletonIO):
     def clear(self):
         pass
 
+    def get_color(self, spot):
+        return self._colors[spot]
+
 
 def get_io(io_list=None, any_os=False):
     """
