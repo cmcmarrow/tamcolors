@@ -230,6 +230,18 @@ class TAMLoop:
         except BaseException as error:
             self.__error = error
 
+    def get_color(self, spot):
+        return self.__io.get_color(spot)
+
+    def set_color(self, spot, color):
+        self.__io.set_color(spot, color)
+
+    def reset_colors_to_console_defaults(self):
+        self.__io.reset_colors_to_console_defaults()
+
+    def set_tam_color_defaults(self):
+        self.__io.set_tam_color_defaults()
+
 
 class TAMFrame:
     def __init__(self,
