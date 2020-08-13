@@ -1,4 +1,5 @@
 # tamcolors libraries
+from tamcolors.tam_io.any_tam import AnyIO
 from tamcolors.tam_io.tam_buffer import TAMBuffer
 
 
@@ -34,6 +35,7 @@ class TAMLoopTest:
         self.__frame_stack = [tam_frame]
         self.__loop_data = loop_data
         self.__color_change_key = color_change_key
+        self.__io = AnyIO()
 
         self.__buffer = TAMBuffer(0, 0, " ", 0, 0)
 
@@ -123,3 +125,15 @@ class TAMLoopTest:
             frame._done(self, self.__loop_data)
 
         return self.__buffer, frame
+
+    def get_color(self, spot):
+        return self.__io.get_color(spot)
+
+    def set_color(self, spot, color):
+        self.__io.set_color(spot, color)
+
+    def reset_colors_to_console_defaults(self):
+        self.__io.reset_colors_to_console_defaults()
+
+    def set_tam_color_defaults(self):
+        self.__io.set_tam_color_defaults()

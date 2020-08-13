@@ -1,5 +1,6 @@
 from . import alpha
 from . import icon
+from . import rgb_color
 from . import basic
 from . import tabletennis
 from . import tam_loop
@@ -11,6 +12,7 @@ from . import tam_key_manager
 
 __all__ = ("alpha",
            "icon",
+           "rgb_color",
            "basic",
            "tabletennis",
            "tam_loop",

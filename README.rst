@@ -114,7 +114,6 @@ platforms tested on
 long term goals
 ***************
 * build a community that builds fun terminal games
-* support color modes larger than 16
 * make windows run more efficient
 * text editor
 * .ci testing
@@ -125,17 +124,16 @@ goals
 *****
 * support Solaris
 * support FreeBSD
-* fix PowerShell colors
 
 
 ***********
 1.0.4 goals
 ***********
-* clean up documentation
 * write more examples
 * bdist_wheel for Linux
 * clean up win_tam, uni_tam, any_tam
 * add alpha color for TAMBuffer
+* set and get rgb value of color (fix PowerShell colors)
 
 ********
 versions
