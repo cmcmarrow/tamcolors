@@ -60,6 +60,20 @@ class RGBCOLOR(tam.tam_loop.TAMFrame):
             for foreground_color in range(16):
                 tam_buffer.set_spot(foreground_color, background_color, "@", foreground_color, background_color)
 
+        tam_tools.tam_print.tam_print(tam_buffer,
+                                      0,
+                                      20,
+                                      text="Press backspace to quit.",
+                                      foreground_color=tam_io.tam_colors.LIGHT_AQUA,
+                                      background_color=tam_io.tam_colors.BLACK)
+
+        tam_tools.tam_print.tam_print(tam_buffer,
+                                      0,
+                                      21,
+                                      text="Press a or b to change colors",
+                                      foreground_color=tam_io.tam_colors.LIGHT_AQUA,
+                                      background_color=tam_io.tam_colors.BLACK)
+
 
 def run():
     tam.tam_loop.TAMLoop(RGBCOLOR()).run()
