@@ -251,7 +251,7 @@
 
 <dl class="py class">
 <dt id="tamcolors.tam.tam_loop.TAMLoop">
-<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam.tam_loop.</code><code class="sig-name descname">TAMLoop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_frame</span></em>, <em class="sig-param"><span class="n">io_list</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">any_os</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">only_any_os</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">color_change_key</span><span class="o">=</span><span class="default_value">'ESCAPE'</span></em>, <em class="sig-param"><span class="n">loop_data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">stability_check</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam.tam_loop.TAMLoop" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam.tam_loop.</code><code class="sig-name descname">TAMLoop</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_frame</span></em>, <em class="sig-param"><span class="n">io_list</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">any_os</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">only_any_os</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">color_change_key</span><span class="o">=</span><span class="default_value">'ESCAPE'</span></em>, <em class="sig-param"><span class="n">loop_data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">stability_check</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">tam_color_defaults</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam.tam_loop.TAMLoop" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt id="tamcolors.tam.tam_loop.TAMLoop.add_frame_stack">
@@ -263,10 +263,16 @@
 
 <dl class="py method">
 <dt id="tamcolors.tam.tam_loop.TAMLoop.done">
-<code class="sig-name descname">done</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam.tam_loop.TAMLoop.done" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">done</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">reset_colors_to_console_defaults</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam.tam_loop.TAMLoop.done" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: will stop tam loop
+:param: reset_colors_to_console_defaults: bool
 :return:</p>
 </dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam.tam_loop.TAMLoop.get_color">
+<code class="sig-name descname">get_color</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam.tam_loop.TAMLoop.get_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt id="tamcolors.tam.tam_loop.TAMLoop.get_running">
@@ -281,6 +287,11 @@
 <dd><p>info: will remove TAMFrame from stack
 :return: TAMFrame or None</p>
 </dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam.tam_loop.TAMLoop.reset_colors_to_console_defaults">
+<code class="sig-name descname">reset_colors_to_console_defaults</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam.tam_loop.TAMLoop.reset_colors_to_console_defaults" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt id="tamcolors.tam.tam_loop.TAMLoop.run">
@@ -302,6 +313,16 @@ after user input
 :param kwargs:
 :return:</p>
 </dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam.tam_loop.TAMLoop.set_color">
+<code class="sig-name descname">set_color</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam.tam_loop.TAMLoop.set_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam.tam_loop.TAMLoop.set_tam_color_defaults">
+<code class="sig-name descname">set_tam_color_defaults</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam.tam_loop.TAMLoop.set_tam_color_defaults" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -355,6 +376,11 @@ after user input
 </dd></dl>
 
 <dl class="py method">
+<dt id="tamcolors.tam.tam_loop_test.TAMLoopTest.get_color">
+<code class="sig-name descname">get_color</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam.tam_loop_test.TAMLoopTest.get_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt id="tamcolors.tam.tam_loop_test.TAMLoopTest.get_running">
 <code class="sig-name descname">get_running</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam.tam_loop_test.TAMLoopTest.get_running" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: None has not ran, True is running, False has ran
@@ -369,11 +395,26 @@ after user input
 </dd></dl>
 
 <dl class="py method">
+<dt id="tamcolors.tam.tam_loop_test.TAMLoopTest.reset_colors_to_console_defaults">
+<code class="sig-name descname">reset_colors_to_console_defaults</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam.tam_loop_test.TAMLoopTest.reset_colors_to_console_defaults" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
 <dt id="tamcolors.tam.tam_loop_test.TAMLoopTest.run">
 <code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam.tam_loop_test.TAMLoopTest.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: will call tam loop
 :return:</p>
 </dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam.tam_loop_test.TAMLoopTest.set_color">
+<code class="sig-name descname">set_color</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam.tam_loop_test.TAMLoopTest.set_color" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam.tam_loop_test.TAMLoopTest.set_tam_color_defaults">
+<code class="sig-name descname">set_tam_color_defaults</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam.tam_loop_test.TAMLoopTest.set_tam_color_defaults" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt id="tamcolors.tam.tam_loop_test.TAMLoopTest.update">

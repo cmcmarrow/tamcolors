@@ -52,7 +52,7 @@ setup(
 
     ext_modules=ext_modules,
 
-    classifiers=["Development Status :: 3 - Alpha",
+    classifiers=["Development Status :: 4 - Beta",
                  "Environment :: Console",
                  "Intended Audience :: Developers",
                  "Natural Language :: English",
@@ -61,7 +61,6 @@ setup(
                  "Operating System :: MacOS :: MacOS X",
                  "Programming Language :: C",
                  "Programming Language :: C++",
-                 "Programming Language :: Python :: Implementation :: CPython",
                  "Programming Language :: Python :: 3.5",
                  "Programming Language :: Python :: 3.6",
                  "Programming Language :: Python :: 3.7",

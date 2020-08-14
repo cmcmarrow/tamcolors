@@ -4,6 +4,14 @@ tamcolors.examples package
 Submodules
 ----------
 
+tamcolors.examples.alpha module
+-------------------------------
+
+.. automodule:: tamcolors.examples.alpha
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 tamcolors.examples.basic module
 -------------------------------
 
@@ -20,10 +28,26 @@ tamcolors.examples.icon module
    :undoc-members:
    :show-inheritance:
 
+tamcolors.examples.rgb\_color module
+------------------------------------
+
+.. automodule:: tamcolors.examples.rgb_color
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 tamcolors.examples.tabletennis module
 -------------------------------------
 
 .. automodule:: tamcolors.examples.tabletennis
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+tamcolors.examples.tam\_key\_manager module
+-------------------------------------------
+
+.. automodule:: tamcolors.examples.tam_key_manager
    :members:
    :undoc-members:
    :show-inheritance:

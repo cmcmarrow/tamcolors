@@ -179,8 +179,15 @@
 <span id="tamcolors-tam-io-any-tam-module"></span><h2>tamcolors.tam_io.any_tam module<a class="headerlink" href="#module-tamcolors.tam_io.any_tam" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="tamcolors.tam_io.any_tam.AnyIO">
-<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.any_tam.</code><code class="sig-name descname">AnyIO</code><a class="headerlink" href="#tamcolors.tam_io.any_tam.AnyIO" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_io.io_tam.IO" title="tamcolors.tam_io.io_tam.IO"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.io_tam.IO</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.any_tam.</code><code class="sig-name descname">AnyIO</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.any_tam.AnyIO" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_io.io_tam.SingletonIO" title="tamcolors.tam_io.io_tam.SingletonIO"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.io_tam.SingletonIO</span></code></a></p>
+<dl class="py method">
+<dt id="tamcolors.tam_io.any_tam.AnyIO.able_to_execute">
+<em class="property">classmethod </em><code class="sig-name descname">able_to_execute</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.any_tam.AnyIO.able_to_execute" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will see if environment supported by AnyIO
+:return: bool</p>
+</dd></dl>
+
 <dl class="py method">
 <dt id="tamcolors.tam_io.any_tam.AnyIO.clear">
 <code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.any_tam.AnyIO.clear" title="Permalink to this definition">¶</a></dt>
@@ -192,24 +199,17 @@
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="tamcolors.tam_io.any_tam.AnyIO.draw">
-<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_buffer</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.any_tam.AnyIO.draw" title="Permalink to this definition">¶</a></dt>
-<dd><p>info: draws tam_buffer to terminal
-:param tam_buffer:
-:return:</p>
+<dt id="tamcolors.tam_io.any_tam.AnyIO.get_color">
+<code class="sig-name descname">get_color</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.any_tam.AnyIO.get_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will get the color value
+:param spot: int
+:return: tuple: (int, int, int)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="tamcolors.tam_io.any_tam.AnyIO.get_dimensions">
 <code class="sig-name descname">get_dimensions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.any_tam.AnyIO.get_dimensions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-
-<dl class="py method">
-<dt id="tamcolors.tam_io.any_tam.AnyIO.get_io">
-<em class="property">classmethod </em><code class="sig-name descname">get_io</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.any_tam.AnyIO.get_io" title="Permalink to this definition">¶</a></dt>
-<dd><p>info: will see if environment supported by AnyIO
-:return: AnyIO object or None</p>
-</dd></dl>
 
 <dl class="py method">
 <dt id="tamcolors.tam_io.any_tam.AnyIO.get_key">
@@ -221,18 +221,6 @@
 <dl class="py method">
 <dt id="tamcolors.tam_io.any_tam.AnyIO.get_key_dict">
 <code class="sig-name descname">get_key_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.any_tam.AnyIO.get_key_dict" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt id="tamcolors.tam_io.any_tam.AnyIO.get_mode">
-<code class="sig-name descname">get_mode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.any_tam.AnyIO.get_mode" title="Permalink to this definition">¶</a></dt>
-<dd><p>info: will return the current color mode
-:return: int</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="tamcolors.tam_io.any_tam.AnyIO.get_modes">
-<code class="sig-name descname">get_modes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.any_tam.AnyIO.get_modes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -253,14 +241,6 @@
 :param flush: boolean
 :param stderr: boolean
 :return: None</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="tamcolors.tam_io.any_tam.AnyIO.set_mode">
-<code class="sig-name descname">set_mode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mode</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.any_tam.AnyIO.set_mode" title="Permalink to this definition">¶</a></dt>
-<dd><p>info: will set the color mode
-:param mode: int: key to color mode
-:return:</p>
 </dd></dl>
 
 <dl class="py method">
@@ -288,12 +268,15 @@
 </div>
 <div class="section" id="module-tamcolors.tam_io.io_tam">
 <span id="tamcolors-tam-io-io-tam-module"></span><h2>tamcolors.tam_io.io_tam module<a class="headerlink" href="#module-tamcolors.tam_io.io_tam" title="Permalink to this headline">¶</a></h2>
-<p>IO
-defines standards for all terminal IO</p>
 <dl class="py class">
 <dt id="tamcolors.tam_io.io_tam.IO">
-<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.io_tam.</code><code class="sig-name descname">IO</code><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.io_tam.</code><code class="sig-name descname">IO</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mode_2</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">mode_16</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.able_to_execute">
+<em class="property">classmethod </em><code class="sig-name descname">able_to_execute</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.able_to_execute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt id="tamcolors.tam_io.io_tam.IO.clear">
 <code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.clear" title="Permalink to this definition">¶</a></dt>
@@ -310,13 +293,13 @@ defines standards for all terminal IO</p>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="tamcolors.tam_io.io_tam.IO.get_dimensions">
-<code class="sig-name descname">get_dimensions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.get_dimensions" title="Permalink to this definition">¶</a></dt>
+<dt id="tamcolors.tam_io.io_tam.IO.get_color">
+<code class="sig-name descname">get_color</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.get_color" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="tamcolors.tam_io.io_tam.IO.get_io">
-<em class="property">classmethod </em><code class="sig-name descname">get_io</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.get_io" title="Permalink to this definition">¶</a></dt>
+<dt id="tamcolors.tam_io.io_tam.IO.get_dimensions">
+<code class="sig-name descname">get_dimensions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.get_dimensions" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -332,12 +315,16 @@ defines standards for all terminal IO</p>
 <dl class="py method">
 <dt id="tamcolors.tam_io.io_tam.IO.get_mode">
 <code class="sig-name descname">get_mode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.get_mode" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>info: will return the current color mode
+:return: int</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="tamcolors.tam_io.io_tam.IO.get_modes">
 <code class="sig-name descname">get_modes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.get_modes" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>info: will return a tuple of all color modes
+:return: (int, int, …)</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="tamcolors.tam_io.io_tam.IO.inputc">
@@ -350,15 +337,48 @@ defines standards for all terminal IO</p>
 <dd></dd></dl>
 
 <dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.reset_colors_to_console_defaults">
+<code class="sig-name descname">reset_colors_to_console_defaults</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.reset_colors_to_console_defaults" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will reset colors to consoloe defaults
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.set_color">
+<code class="sig-name descname">set_color</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.set_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: sets a color value
+:param spot: int: 0 - 15
+:param color: tuple: (int, int, int)
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
 <dt id="tamcolors.tam_io.io_tam.IO.set_mode">
 <code class="sig-name descname">set_mode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mode</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.set_mode" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>info: will set the color mode
+:param mode: int: key to color mode
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.set_tam_color_defaults">
+<code class="sig-name descname">set_tam_color_defaults</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.set_tam_color_defaults" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will set console colors to tam defaults
+:return: None</p>
+</dd></dl>
 
 <dl class="py method">
 <dt id="tamcolors.tam_io.io_tam.IO.start">
 <code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.start" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.tam_io.io_tam.SingletonIO">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.io_tam.</code><code class="sig-name descname">SingletonIO</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.SingletonIO" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_io.io_tam.IO" title="tamcolors.tam_io.io_tam.IO"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.io_tam.IO</span></code></a></p>
+<p>Only lets one IO instance exist</p>
 </dd></dl>
 
 </div>
@@ -517,8 +537,15 @@ defines standards for all terminal IO</p>
 <span id="tamcolors-tam-io-uni-tam-module"></span><h2>tamcolors.tam_io.uni_tam module<a class="headerlink" href="#module-tamcolors.tam_io.uni_tam" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="tamcolors.tam_io.uni_tam.UniIO">
-<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.uni_tam.</code><code class="sig-name descname">UniIO</code><a class="headerlink" href="#tamcolors.tam_io.uni_tam.UniIO" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_io.io_tam.IO" title="tamcolors.tam_io.io_tam.IO"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.io_tam.IO</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.uni_tam.</code><code class="sig-name descname">UniIO</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.uni_tam.UniIO" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_io.io_tam.SingletonIO" title="tamcolors.tam_io.io_tam.SingletonIO"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.io_tam.SingletonIO</span></code></a></p>
+<dl class="py method">
+<dt id="tamcolors.tam_io.uni_tam.UniIO.able_to_execute">
+<em class="property">classmethod </em><code class="sig-name descname">able_to_execute</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.uni_tam.UniIO.able_to_execute" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will see if environment supported by UniIO
+:return: bool</p>
+</dd></dl>
+
 <dl class="py method">
 <dt id="tamcolors.tam_io.uni_tam.UniIO.clear">
 <code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.uni_tam.UniIO.clear" title="Permalink to this definition">¶</a></dt>
@@ -542,17 +569,18 @@ defines standards for all terminal IO</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="tamcolors.tam_io.uni_tam.UniIO.get_color">
+<code class="sig-name descname">get_color</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.uni_tam.UniIO.get_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will get the color value
+:param spot: int
+:return: tuple: (int, int, int)</p>
+</dd></dl>
+
+<dl class="py method">
 <dt id="tamcolors.tam_io.uni_tam.UniIO.get_dimensions">
 <code class="sig-name descname">get_dimensions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.uni_tam.UniIO.get_dimensions" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: will get teh terminal dimensions
 :return: (int, int)</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="tamcolors.tam_io.uni_tam.UniIO.get_io">
-<em class="property">classmethod </em><code class="sig-name descname">get_io</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.uni_tam.UniIO.get_io" title="Permalink to this definition">¶</a></dt>
-<dd><p>info: will see if environment supported by LinIO
-:return: LinIO object or None</p>
 </dd></dl>
 
 <dl class="py method">
@@ -567,20 +595,6 @@ defines standards for all terminal IO</p>
 <em class="property">static </em><code class="sig-name descname">get_key_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.uni_tam.UniIO.get_key_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: makes a dict mapping key codes to key
 :return: dict</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="tamcolors.tam_io.uni_tam.UniIO.get_mode">
-<code class="sig-name descname">get_mode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.uni_tam.UniIO.get_mode" title="Permalink to this definition">¶</a></dt>
-<dd><p>info: will return the current color mode
-:return: int</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="tamcolors.tam_io.uni_tam.UniIO.get_modes">
-<code class="sig-name descname">get_modes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.uni_tam.UniIO.get_modes" title="Permalink to this definition">¶</a></dt>
-<dd><p>info: will return a tuple of all color modes
-:return: (int, int, …)</p>
 </dd></dl>
 
 <dl class="py method">
@@ -604,11 +618,12 @@ defines standards for all terminal IO</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="tamcolors.tam_io.uni_tam.UniIO.set_mode">
-<code class="sig-name descname">set_mode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mode</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.uni_tam.UniIO.set_mode" title="Permalink to this definition">¶</a></dt>
-<dd><p>info: will set the color mode
-:param mode: int: key to color mode
-:return:</p>
+<dt id="tamcolors.tam_io.uni_tam.UniIO.set_color">
+<code class="sig-name descname">set_color</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.uni_tam.UniIO.set_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: sets a color value
+:param spot: int: 0 - 15
+:param color: tuple: (int, int, int)
+:return: None</p>
 </dd></dl>
 
 <dl class="py method">
@@ -631,8 +646,15 @@ defines standards for all terminal IO</p>
 <span id="tamcolors-tam-io-win-tam-module"></span><h2>tamcolors.tam_io.win_tam module<a class="headerlink" href="#module-tamcolors.tam_io.win_tam" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="tamcolors.tam_io.win_tam.WinIO">
-<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.win_tam.</code><code class="sig-name descname">WinIO</code><a class="headerlink" href="#tamcolors.tam_io.win_tam.WinIO" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_io.io_tam.IO" title="tamcolors.tam_io.io_tam.IO"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.io_tam.IO</span></code></a></p>
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.win_tam.</code><code class="sig-name descname">WinIO</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.win_tam.WinIO" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_io.io_tam.SingletonIO" title="tamcolors.tam_io.io_tam.SingletonIO"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.io_tam.SingletonIO</span></code></a></p>
+<dl class="py method">
+<dt id="tamcolors.tam_io.win_tam.WinIO.able_to_execute">
+<em class="property">classmethod </em><code class="sig-name descname">able_to_execute</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.win_tam.WinIO.able_to_execute" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will see if environment supported by WinIO
+:return: bool</p>
+</dd></dl>
+
 <dl class="py method">
 <dt id="tamcolors.tam_io.win_tam.WinIO.clear">
 <code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.win_tam.WinIO.clear" title="Permalink to this definition">¶</a></dt>
@@ -656,17 +678,18 @@ defines standards for all terminal IO</p>
 </dd></dl>
 
 <dl class="py method">
+<dt id="tamcolors.tam_io.win_tam.WinIO.get_color">
+<code class="sig-name descname">get_color</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.win_tam.WinIO.get_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will get the color value
+:param spot: int
+:return: tuple: (int, int, int)</p>
+</dd></dl>
+
+<dl class="py method">
 <dt id="tamcolors.tam_io.win_tam.WinIO.get_dimensions">
 <code class="sig-name descname">get_dimensions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.win_tam.WinIO.get_dimensions" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: will get teh terminal dimensions
 :return: (int, int)</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="tamcolors.tam_io.win_tam.WinIO.get_io">
-<em class="property">classmethod </em><code class="sig-name descname">get_io</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.win_tam.WinIO.get_io" title="Permalink to this definition">¶</a></dt>
-<dd><p>info: will see if environment supported by WinIO
-:return: WinIO object or None</p>
 </dd></dl>
 
 <dl class="py method">
@@ -681,20 +704,6 @@ defines standards for all terminal IO</p>
 <em class="property">static </em><code class="sig-name descname">get_key_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.win_tam.WinIO.get_key_dict" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: makes a dict mapping key codes to key
 :return: dict</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="tamcolors.tam_io.win_tam.WinIO.get_mode">
-<code class="sig-name descname">get_mode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.win_tam.WinIO.get_mode" title="Permalink to this definition">¶</a></dt>
-<dd><p>info: will return the current color mode
-:return: int</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="tamcolors.tam_io.win_tam.WinIO.get_modes">
-<code class="sig-name descname">get_modes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.win_tam.WinIO.get_modes" title="Permalink to this definition">¶</a></dt>
-<dd><p>info: will return a tuple of all color modes
-:return: (int, int, …)</p>
 </dd></dl>
 
 <dl class="py method">
@@ -718,11 +727,12 @@ defines standards for all terminal IO</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="tamcolors.tam_io.win_tam.WinIO.set_mode">
-<code class="sig-name descname">set_mode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mode</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.win_tam.WinIO.set_mode" title="Permalink to this definition">¶</a></dt>
-<dd><p>info: will set the color mode
-:param mode: int: key to color mode
-:return:</p>
+<dt id="tamcolors.tam_io.win_tam.WinIO.set_color">
+<code class="sig-name descname">set_color</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.win_tam.WinIO.set_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: sets a color value
+:param spot: int: 0 - 15
+:param color: tuple: (int, int, int)
+:return: None</p>
 </dd></dl>
 
 <dl class="py method">
@@ -731,11 +741,6 @@ defines standards for all terminal IO</p>
 <dd><p>info: will setup terminal to be used
 :return:</p>
 </dd></dl>
-
-<dl class="py attribute">
-<dt id="tamcolors.tam_io.win_tam.WinIO.win_io">
-<code class="sig-name descname">win_io</code><em class="property"> = &lt;tamcolors.tam_io.win_tam.WinIO object&gt;</em><a class="headerlink" href="#tamcolors.tam_io.win_tam.WinIO.win_io" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 

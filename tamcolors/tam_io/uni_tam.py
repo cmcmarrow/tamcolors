@@ -141,6 +141,12 @@ class UniIO(io_tam.SingletonIO):
         os.system("clear")
 
     def set_color(self, spot, color):
+        """
+        info: sets a color value
+        :param spot: int: 0 - 15
+        :param color: tuple: (int, int, int)
+        :return: None
+        """
         self.__foreground_color_map[spot] = "38;2;{};{};{}".format(*color)
         self.__background_color_map[spot] = "48;2;{};{};{}".format(*color)
         super().set_color(spot, color)
@@ -216,6 +222,11 @@ class UniIO(io_tam.SingletonIO):
         return linux_keys
 
     def get_color(self, spot):
+        """
+        info: will get the color value
+        :param spot: int
+        :return: tuple: (int, int, int)
+        """
         return self._colors[spot]
 
     @staticmethod
