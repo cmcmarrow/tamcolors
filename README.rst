@@ -127,17 +127,27 @@ goals
 
 
 ***********
-1.0.4 goals
+1.1.0 goals
 ***********
-* write more examples
-* bdist_wheel for Linux
-* clean up win_tam, uni_tam, any_tam
-* add alpha color for TAMBuffer
-* set and get rgb value of color (fix PowerShell colors)
+* save/rest Windows buffer size on exit
+* clean up Windows C/C++
+* add RGB color mode (more than 16 colors at a time!)
+* add .wav support
+* add sound tools
 
 ********
 versions
 ********
+
+=====
+1.0.4
+=====
+* 8/13/2020
+* added more examples
+* bdist_wheel for Linux
+* cleaned up win_tam, uni_tam and any_tam
+* added alpha color for TAMBuffer
+* set and get rgb value of color (fixed PowerShell colors)
 
 =====
 1.0.3

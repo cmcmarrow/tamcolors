@@ -257,9 +257,20 @@ class WinIO(io_tam.SingletonIO):
         io._clear()
 
     def get_color(self, spot):
+        """
+        info: will get the color value
+        :param spot: int
+        :return: tuple: (int, int, int)
+        """
         return io._get_rgb_color(spot)
 
     def set_color(self, spot, color):
+        """
+        info: sets a color value
+        :param spot: int: 0 - 15
+        :param color: tuple: (int, int, int)
+        :return: None
+        """
         super().set_color(spot, color)
         io._set_rgb_color(spot, *color)
         self.__last_frame = None

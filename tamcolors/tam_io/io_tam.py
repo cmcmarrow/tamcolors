@@ -108,21 +108,43 @@ class IO:
         raise NotImplementedError()
 
     def set_color(self, spot, color):
+        """
+        info: sets a color value
+        :param spot: int: 0 - 15
+        :param color: tuple: (int, int, int)
+        :return: None
+        """
         self._colors[spot] = color
 
     def reset_colors_to_console_defaults(self):
+        """
+        info: will reset colors to consoloe defaults
+        :return: None
+        """
         for spot in self._default_colors:
             self.set_color(spot, self._default_colors[spot])
 
     def set_tam_color_defaults(self):
+        """
+        info: will set console colors to tam defaults
+        :return: None
+        """
         for spot in IO_DEFAULT_COLORS:
             self.set_color(spot, IO_DEFAULT_COLORS[spot])
 
     def _set_defaults(self):
+        """
+        info: will save console defaults
+        :return: None
+        """
         for spot in range(16):
             self._default_colors[spot] = self.get_color(spot)
 
     def _get_mode_draw(self):
+        """
+        info: will get the current draw mode function
+        :return: func
+        """
         return getattr(self, "_draw_{}".format(self._mode))
 
     @staticmethod
@@ -165,6 +187,11 @@ class SingletonIO(IO):
     Only lets one IO instance exist
     """
     def __new__(cls, *args, **kwargs):
+        """
+        Only lets one instance exists and will return None if an instance cant exist.
+        :param args: io args
+        :param kwargs: io kwargs
+        """
         if not hasattr(cls, "_instance"):
             cls._instance = None
             if cls.able_to_execute():

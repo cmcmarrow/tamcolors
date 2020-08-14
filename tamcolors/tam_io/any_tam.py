@@ -76,6 +76,11 @@ class AnyIO(io_tam.SingletonIO):
         pass
 
     def get_color(self, spot):
+        """
+        info: will get the color value
+        :param spot: int
+        :return: tuple: (int, int, int)
+        """
         return self._colors[spot]
 
 
