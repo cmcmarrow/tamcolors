@@ -135,6 +135,15 @@ goals
 * add .wav support
 * add sound tools
 
+
+***********
+1.0.5 goals
+***********
+* fix macOS! (Colors don’t work!)
+* break up IO
+* add terminal identifier
+
+
 ********
 versions
 ********
