@@ -1,3 +1,4 @@
+from abc import ABC
 import sys
 
 
@@ -24,8 +25,8 @@ IO_DEFAULT_COLORS = {0: (12, 12, 12),
                      15: (242, 242, 242)}
 
 
-class IO:
-    def __init__(self, mode_2=True, mode_16=True):
+class IO(ABC):
+    def __init__(self, identifier, mode_2=True, mode_16=True):
         """
         Makes a IO object
         :param mode_2: bool
@@ -42,6 +43,7 @@ class IO:
         else:
             self._mode = self._modes[0]
 
+        self._identifier = identifier
         self._modes = tuple(self._modes)
         self._colors = IO_DEFAULT_COLORS.copy()
         self._default_colors = self._colors.copy()
@@ -107,6 +109,10 @@ class IO:
     def get_color(self, spot):
         raise NotImplementedError()
 
+    @staticmethod
+    def get_key_dict():
+        raise NotImplementedError()
+
     def set_color(self, spot, color):
         """
         info: sets a color value
@@ -132,6 +138,9 @@ class IO:
         for spot in IO_DEFAULT_COLORS:
             self.set_color(spot, IO_DEFAULT_COLORS[spot])
 
+    def get_info_dict(self):
+        return self._identifier.get_info_dict()
+
     def _set_defaults(self):
         """
         info: will save console defaults
@@ -146,10 +155,6 @@ class IO:
         :return: func
         """
         return getattr(self, "_draw_{}".format(self._mode))
-
-    @staticmethod
-    def get_key_dict():
-        raise NotImplementedError()
 
     @staticmethod
     def _draw_onto(tam_buffer, tam_buffer2):
@@ -180,20 +185,3 @@ class IO:
 
         if flush:
             file.flush()
-
-
-class SingletonIO(IO):
-    """
-    Only lets one IO instance exist
-    """
-    def __new__(cls, *args, **kwargs):
-        """
-        Only lets one instance exists and will return None if an instance cant exist.
-        :param args: io args
-        :param kwargs: io kwargs
-        """
-        if not hasattr(cls, "_instance"):
-            cls._instance = None
-            if cls.able_to_execute():
-                cls._instance = super().__new__(cls, *args, **kwargs)
-        return cls._instance

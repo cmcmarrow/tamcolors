@@ -23,7 +23,7 @@ class UniIOError(Exception):
     pass
 
 
-class UniIO(io_tam.SingletonIO):
+class UniIO():
     def __init__(self):
         """
         info: makes UniIO object

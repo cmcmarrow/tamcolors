@@ -8,7 +8,7 @@ import itertools
 # tamcolors libraries
 from tamcolors.tests import all_tests
 from tamcolors.tam_io.tam_buffer import TAMBuffer
-from tamcolors.tam_io import any_tam
+from tamcolors.tam_io import identifier
 
 
 """
@@ -28,8 +28,7 @@ class TAMLoopError(Exception):
 class TAMLoop:
     def __init__(self,
                  tam_frame,
-                 io_list=None,
-                 any_os=False,
+                 io=None,
                  only_any_os=False,
                  color_change_key="ESCAPE",
                  loop_data=None,
@@ -38,9 +37,8 @@ class TAMLoop:
         """
         info: makes a TAMLoop object
         :param tam_frame: TAMFrame: first frame in tam loop
-        :param io_list: list, tuple, None: ios that can be used
-        :param any_os: bool: will use ANYIO if no other IO can be used if True
-        :param only_any_os: bool: will only use ANYIO if True
+        :param io: IO
+        :param only_any_os: bool: will only use Any Drivers if True
         :param color_change_key: char: key that will change color mode
         :param loop_data: dict
         :param stability_check: bool: raises and error if a test did not pass
@@ -60,9 +58,12 @@ class TAMLoop:
         self.__error = None
 
         if only_any_os:
-            self.__io = any_tam.AnyIO()
+            self.__io = identifier.ANY_IO
         else:
-            self.__io = any_tam.get_io(io_list=io_list, any_os=any_os)
+            if io is None:
+                self.__io = identifier.IO
+            else:
+                self.__io = io
             if self.__io is None:
                 raise TAMLoopError("tam io is None")
 
