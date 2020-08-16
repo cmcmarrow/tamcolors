@@ -1,8 +1,8 @@
-from tamcolors.tam_io import identifier
+from tamcolors.tam_io import tam_identifier
 from tamcolors.tam_io import tam_colors
 
 
-IO = identifier.IO
+IO = tam_identifier.IO
 
 
 _COLOR_NAME_TO_CODE = {"default": tam_colors.DEFAULT,

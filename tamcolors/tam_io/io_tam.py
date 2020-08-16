@@ -109,6 +109,21 @@ class IO(ABC):
     def get_color(self, spot):
         raise NotImplementedError()
 
+    def show_console_cursor(self, show):
+        raise NotImplementedError()
+
+    def utilities_driver_operational(self):
+        raise NotImplementedError()
+
+    def color_change_driver_operational(self):
+        return NotImplementedError()
+
+    def color_driver_operational(self):
+        return NotImplementedError()
+
+    def key_driver_operational(self):
+        return NotImplementedError()
+
     @staticmethod
     def get_key_dict():
         raise NotImplementedError()

@@ -5,7 +5,7 @@ from . import win_drivers
 from . import tam_buffer
 from . import tam_colors
 from . import tam_keys
-from . import identifier
+from . import tam_identifier
 from . import tam_drivers
 
 __all__ = ("any_drivers",
@@ -15,5 +15,5 @@ __all__ = ("any_drivers",
            "tam_buffer",
            "tam_colors",
            "tam_keys",
-           "identifier",
+           "tam_identifier",
            "tam_drivers")

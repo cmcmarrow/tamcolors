@@ -7,6 +7,7 @@ from abc import ABC
 from .tam_buffer import TAMBuffer
 from tamcolors.tam_c import _win_tam as io
 from tamcolors.tam_io import tam_drivers
+from tamcolors.tam_io import tam_colors
 
 
 WIN_STABLE = None
@@ -16,7 +17,7 @@ if io is not None:
 
 class WinSharedData(tam_drivers.TAMDriver, ABC):
     def __init__(self, *args, **kwargs):
-        self._last_frame = TAMBuffer(0, 0, " ", 1, 1)
+        self._last_frame = TAMBuffer(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
         super().__init__(*args, **kwargs)
 
     @classmethod
@@ -26,7 +27,7 @@ class WinSharedData(tam_drivers.TAMDriver, ABC):
         return False
 
     def done(self):
-        self._last_frame = TAMBuffer(0, 0, " ", 1, 1)
+        self._last_frame = TAMBuffer(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
         super().done()
 
 
@@ -81,11 +82,11 @@ class WINKeyDriver(tam_drivers.KeyDriver, WinSharedData, ABC):
 
 class WINColorDriver(tam_drivers.ColorDriver, WinSharedData, ABC):
     def __init__(self, *args, **kwargs):
-        self.__buffer = TAMBuffer(0, 0, " ", 1, 1)
+        self.__buffer = TAMBuffer(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
         super().__init__(*args, **kwargs)
 
     def done(self):
-        self.__buffer = TAMBuffer(0, 0, " ", 1, 1)
+        self.__buffer = TAMBuffer(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
         io._set_cursor_info(0, 0, io._get_default_color())
         super().done()
 
@@ -139,17 +140,20 @@ class WINColorDriver(tam_drivers.ColorDriver, WinSharedData, ABC):
         :param tam_buffer: TAMBuffer
         :return:
         """
+        foreground, background = tam_buffer.get_defaults()[1:]
+        foreground, background = foreground.mode_2, background.mode_2
+
         # checks if buffer needs to be updated
         if " " != self.__buffer.get_defaults()[0] or self.__buffer.get_defaults()[1:] != tam_buffer.get_defaults()[1:]:
             # buffer defaults changed
-            self.__buffer.set_defaults_and_clear(" ", *tam_buffer.get_defaults()[1:])
+            self.__buffer.set_defaults_and_clear(" ", foreground, background)
 
         # draw onto WinIO buffer
         self._draw_onto(self.__buffer, tam_buffer)
 
         # draw WinIO buffer to terminal
         self._print(0, 0, "".join(self.__buffer.get_raw_buffers()[0]),
-                    *self._processes_special_color(*tam_buffer.get_defaults()[1:]))
+                    *self._processes_special_color(foreground, background))
 
     def _draw_16(self, tam_buffer):
         """
@@ -158,7 +162,7 @@ class WINColorDriver(tam_drivers.ColorDriver, WinSharedData, ABC):
         :return:
         """
         # checks if buffer needs to be updated
-        if "." != self.__buffer.get_defaults()[0] or self.__buffer.get_defaults()[2] != tam_buffer.get_defaults()[2]:
+        if "." != self.__buffer.get_defaults()[0] or self.__buffer.get_defaults()[2].mode_16 != tam_buffer.get_defaults()[2].mode_16:
             # buffer defaults changed
             background = tam_buffer.get_defaults()[2]
             self.__buffer.set_defaults_and_clear(".", background, background)
@@ -180,13 +184,15 @@ class WINColorDriver(tam_drivers.ColorDriver, WinSharedData, ABC):
                                                       char_buffer,
                                                       foreground_buffer,
                                                       background_buffer):
-            foreground, background = self._processes_special_color(foreground, background)
+            foreground, background = self._processes_special_color(foreground.mode_16, background.mode_16)
             # no block has benn made
             if start is None:
                 # last frame buffer is not None
                 if self._last_frame is not None:
                     # spot has not change
-                    if (char, foreground, background) == self._last_frame.get_from_raw_spot(spot):
+                    last_char, last_foreground, last_background = self._last_frame.get_from_raw_spot(spot)
+                    last_foreground, last_background = last_foreground.mode_16, last_background.mode_16
+                    if (char, foreground, background) == (last_char, last_foreground, last_background):
                         continue
                 # make block
                 start = spot
@@ -210,7 +216,9 @@ class WINColorDriver(tam_drivers.ColorDriver, WinSharedData, ABC):
                 # last frame buffer is not None
                 if self._last_frame is not None:
                     # spot has not change
-                    if (char, foreground, background) == self._last_frame.get_from_raw_spot(spot):
+                    last_char, last_foreground, last_background = self._last_frame.get_from_raw_spot(spot)
+                    last_foreground, last_background = last_foreground.mode_16, last_background.mode_16
+                    if (char, foreground, background) == (last_char, last_foreground, last_background):
                         # remove new block
                         start = None
                         length = 0
@@ -264,7 +272,7 @@ class WINColorDriver(tam_drivers.ColorDriver, WinSharedData, ABC):
         return foreground_color, background_color
 
 
-class WINColorChangedDriver(tam_drivers.ColorChangedDriver, WinSharedData, ABC):
+class WINColorChangerDriver(tam_drivers.ColorChangerDriver, WinSharedData, ABC):
     def get_color(self, spot):
         """
         info: will get the color value

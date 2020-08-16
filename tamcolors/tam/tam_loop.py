@@ -8,7 +8,7 @@ import itertools
 # tamcolors libraries
 from tamcolors.tests import all_tests
 from tamcolors.tam_io.tam_buffer import TAMBuffer
-from tamcolors.tam_io import identifier
+from tamcolors.tam_io import tam_identifier
 
 
 """
@@ -58,10 +58,10 @@ class TAMLoop:
         self.__error = None
 
         if only_any_os:
-            self.__io = identifier.ANY_IO
+            self.__io = tam_identifier.ANY_IO
         else:
             if io is None:
-                self.__io = identifier.IO
+                self.__io = tam_identifier.IO
             else:
                 self.__io = io
             if self.__io is None:

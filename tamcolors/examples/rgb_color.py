@@ -58,7 +58,11 @@ class RGBCOLOR(tam.tam_loop.TAMFrame):
 
         for background_color in range(16):
             for foreground_color in range(16):
-                tam_buffer.set_spot(foreground_color, background_color, "@", foreground_color, background_color)
+                tam_buffer.set_spot(foreground_color,
+                                    background_color,
+                                    "@",
+                                    tam_io.tam_colors.COLOR_LIST[foreground_color],
+                                    tam_io.tam_colors.COLOR_LIST[background_color])
 
         tam_tools.tam_print.tam_print(tam_buffer,
                                       0,

@@ -4,7 +4,7 @@ from tamcolors.tam_io import win_drivers
 from tamcolors.tam_io import any_drivers
 
 
-class Identifier:
+class TAMIdentifier:
     def __init__(self,
                  name=None,
                  color_driver=None,
@@ -19,7 +19,7 @@ class Identifier:
             color_driver = any_drivers.ANYColorDriver
 
         if color_change_driver is None:
-            color_change_driver = any_drivers.ANYColorChangedDriver
+            color_change_driver = any_drivers.ANYColorChangerDriver
 
         if key_driver is None:
             key_driver = any_drivers.ANYKeyDriver
@@ -83,7 +83,7 @@ class Identifier:
                 if name in ("cmd", "PowerShell"):
                     return cls(name,
                                win_drivers.WINColorDriver,
-                               win_drivers.WINColorChangedDriver,
+                               win_drivers.WINColorChangerDriver,
                                win_drivers.WINKeyDriver,
                                win_drivers.WINUtilitiesDriver)
             except FileNotFoundError:
@@ -105,8 +105,8 @@ class Identifier:
             pass
 
         if EnvironmentIO.able_to_execute():
-            return EnvironmentIO(self)
+            return EnvironmentIO(identifier=self)
 
 
-ANY_IO = Identifier().build_io()
-IO = Identifier.identify().build_io()
+ANY_IO = TAMIdentifier().build_io()
+IO = TAMIdentifier.identify().build_io()

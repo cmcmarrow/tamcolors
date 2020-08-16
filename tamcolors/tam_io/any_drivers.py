@@ -43,7 +43,7 @@ class ANYColorDriver(tam_drivers.ColorDriver, ABC):
         print(tam_buffer)
 
 
-class ANYColorChangedDriver(tam_drivers.ColorChangedDriver, ABC):
+class ANYColorChangerDriver(tam_drivers.ColorChangerDriver, ABC):
     def get_color(self, spot):
         return self._colors[spot]
 
