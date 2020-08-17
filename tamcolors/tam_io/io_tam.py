@@ -1,28 +1,12 @@
 from abc import ABC
 import sys
+from tamcolors.tam_io import tam_colors
 
 
 """
 IO
 defines standards for all terminal IO
 """
-
-IO_DEFAULT_COLORS = {0: (12, 12, 12),
-                     1: (0, 55, 218),
-                     2: (19, 161, 14),
-                     3: (58, 150, 221),
-                     4: (197, 15, 31),
-                     5: (136, 23, 152),
-                     6: (193, 156, 0),
-                     7: (204, 204, 204),
-                     8: (118, 118, 118),
-                     9: (59, 120, 255),
-                     10: (22, 198, 12),
-                     11: (97, 214, 214),
-                     12: (231, 72, 86),
-                     13: (180, 0, 158),
-                     14: (249, 241, 165),
-                     15: (242, 242, 242)}
 
 
 class IO(ABC):
@@ -45,7 +29,7 @@ class IO(ABC):
 
         self._identifier = identifier
         self._modes = tuple(self._modes)
-        self._colors = IO_DEFAULT_COLORS.copy()
+        self._colors = [color.mode_rgb for color in tam_colors.COLOR_LIST]
         self._default_colors = self._colors.copy()
         self._set_defaults()
 
@@ -142,16 +126,16 @@ class IO(ABC):
         info: will reset colors to consoloe defaults
         :return: None
         """
-        for spot in self._default_colors:
-            self.set_color(spot, self._default_colors[spot])
+        for spot, color in enumerate(self._default_colors):
+            self.set_color(spot, color)
 
     def set_tam_color_defaults(self):
         """
         info: will set console colors to tam defaults
         :return: None
         """
-        for spot in IO_DEFAULT_COLORS:
-            self.set_color(spot, IO_DEFAULT_COLORS[spot])
+        for spot, color in enumerate(tam_colors.COLOR_LIST):
+            self.set_color(spot, color.mode_rgb)
 
     def get_info_dict(self):
         return self._identifier.get_info_dict()

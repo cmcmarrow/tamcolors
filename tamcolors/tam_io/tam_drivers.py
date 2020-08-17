@@ -53,6 +53,12 @@ class ColorDriver(TAMDriver, ABC):
     def _draw_16(self, tam_buffer):
         raise NotImplementedError()
 
+    def _draw_256(self, tam_buffer):
+        raise NotImplementedError()
+
+    def _draw_rgb(self, tam_buffer):
+        raise NotImplementedError()
+
     def color_driver_operational(self):
         return self._color_driver_operational
 

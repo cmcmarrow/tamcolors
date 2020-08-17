@@ -18,6 +18,15 @@ if io is not None:
 class WinSharedData(tam_drivers.TAMDriver, ABC):
     def __init__(self, *args, **kwargs):
         self._last_frame = TAMBuffer(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
+        self._spot_swap_dict = {1: 4,
+                                3: 6,
+                                4: 1,
+                                6: 3,
+                                9: 12,
+                                11: 14,
+                                12: 9,
+                                14: 11}
+
         super().__init__(*args, **kwargs)
 
     @classmethod
@@ -29,6 +38,9 @@ class WinSharedData(tam_drivers.TAMDriver, ABC):
     def done(self):
         self._last_frame = TAMBuffer(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
         super().done()
+
+    def _spot_swap(self, spot):
+        return self._spot_swap_dict.get(spot, spot)
 
 
 class WINKeyDriver(tam_drivers.KeyDriver, WinSharedData, ABC):
@@ -191,7 +203,8 @@ class WINColorDriver(tam_drivers.ColorDriver, WinSharedData, ABC):
                 if self._last_frame is not None:
                     # spot has not change
                     last_char, last_foreground, last_background = self._last_frame.get_from_raw_spot(spot)
-                    last_foreground, last_background = last_foreground.mode_16, last_background.mode_16
+                    last_foreground, last_background = self._processes_special_color(last_foreground.mode_16,
+                                                                                     last_background.mode_16)
                     if (char, foreground, background) == (last_char, last_foreground, last_background):
                         continue
                 # make block
@@ -217,7 +230,8 @@ class WINColorDriver(tam_drivers.ColorDriver, WinSharedData, ABC):
                 if self._last_frame is not None:
                     # spot has not change
                     last_char, last_foreground, last_background = self._last_frame.get_from_raw_spot(spot)
-                    last_foreground, last_background = last_foreground.mode_16, last_background.mode_16
+                    last_foreground, last_background = self._processes_special_color(last_foreground.mode_16,
+                                                                                     last_background.mode_16)
                     if (char, foreground, background) == (last_char, last_foreground, last_background):
                         # remove new block
                         start = None
@@ -236,8 +250,7 @@ class WINColorDriver(tam_drivers.ColorDriver, WinSharedData, ABC):
             # draw tam_buffer onto last frame
             self._draw_onto(self._last_frame, tam_buffer)
 
-    @classmethod
-    def _print(cls, x, y, output, foreground_color, background_color):
+    def _print(self, x, y, output, foreground_color, background_color):
         """
         info: will print to terminal
         :param x: int
@@ -247,11 +260,11 @@ class WINColorDriver(tam_drivers.ColorDriver, WinSharedData, ABC):
         :param background_color: int
         :return:
         """
+        foreground_color, background_color = self._spot_swap(foreground_color), self._spot_swap(background_color)
         io._set_cursor_info(x, y, (foreground_color % 16) + (background_color % 16) * 16)
-        cls._write_to_output_stream(output, True, False)
+        self._write_to_output_stream(output, True, False)
 
-    @staticmethod
-    def _processes_special_color(foreground_color, background_color):
+    def _processes_special_color(self, foreground_color, background_color):
         """
         info: will processes special colors
         -1 and -2 will become the default terminal color
@@ -279,7 +292,8 @@ class WINColorChangerDriver(tam_drivers.ColorChangerDriver, WinSharedData, ABC):
         :param spot: int
         :return: tuple: (int, int, int)
         """
-        return io._get_rgb_color(spot)
+        spot = self._spot_swap(spot)
+        return tam_colors.build_rgba(*io._get_rgb_color(spot))
 
     def set_color(self, spot, color):
         """
@@ -288,8 +302,9 @@ class WINColorChangerDriver(tam_drivers.ColorChangerDriver, WinSharedData, ABC):
         :param color: tuple: (int, int, int)
         :return: None
         """
+        spot = self._spot_swap(spot)
         super().set_color(spot, color)
-        io._set_rgb_color(spot, *color)
+        io._set_rgb_color(spot, color.R, color.G, color.B)
         self._last_frame = None
 
 
