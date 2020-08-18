@@ -293,7 +293,7 @@ class WINColorChangerDriver(tam_drivers.ColorChangerDriver, WinSharedData, ABC):
         :return: tuple: (int, int, int)
         """
         spot = self._spot_swap(spot)
-        return tam_colors.build_rgba(*io._get_rgb_color(spot))
+        return tam_colors.RGBA(*io._get_rgb_color(spot))
 
     def set_color(self, spot, color):
         """
@@ -304,7 +304,7 @@ class WINColorChangerDriver(tam_drivers.ColorChangerDriver, WinSharedData, ABC):
         """
         spot = self._spot_swap(spot)
         super().set_color(spot, color)
-        io._set_rgb_color(spot, color.R, color.G, color.B)
+        io._set_rgb_color(spot, color.r, color.g, color.b)
         self._last_frame = None
 
 

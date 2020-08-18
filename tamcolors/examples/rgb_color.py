@@ -1,21 +1,21 @@
 from tamcolors import tam, tam_tools, tam_io
 
-OTHER_COLORS = (tam_io.tam_colors.build_rgba(128, 0, 0),
-                tam_io.tam_colors.build_rgba(139, 0, 0),
-                tam_io.tam_colors.build_rgba(165, 42, 42),
-                tam_io.tam_colors.build_rgba(178, 34, 34),
-                tam_io.tam_colors.build_rgba(220, 20, 60),
-                tam_io.tam_colors.build_rgba(255, 0, 0),
-                tam_io.tam_colors.build_rgba(255, 99, 71),
-                tam_io.tam_colors.build_rgba(255, 127, 80),
-                tam_io.tam_colors.build_rgba(205, 92, 92),
-                tam_io.tam_colors.build_rgba(240, 128, 128),
-                tam_io.tam_colors.build_rgba(233, 150, 122),
-                tam_io.tam_colors.build_rgba(250, 128, 114),
-                tam_io.tam_colors.build_rgba(255, 160, 122),
-                tam_io.tam_colors.build_rgba(255, 69, 0),
-                tam_io.tam_colors.build_rgba(255, 140, 0),
-                tam_io.tam_colors.build_rgba(255, 165, 0))
+OTHER_COLORS = (tam_io.tam_colors.RGBA(128, 0, 0),
+                tam_io.tam_colors.RGBA(139, 0, 0),
+                tam_io.tam_colors.RGBA(165, 42, 42),
+                tam_io.tam_colors.RGBA(178, 34, 34),
+                tam_io.tam_colors.RGBA(220, 20, 60),
+                tam_io.tam_colors.RGBA(255, 0, 0),
+                tam_io.tam_colors.RGBA(255, 99, 71),
+                tam_io.tam_colors.RGBA(255, 127, 80),
+                tam_io.tam_colors.RGBA(205, 92, 92),
+                tam_io.tam_colors.RGBA(240, 128, 128),
+                tam_io.tam_colors.RGBA(233, 150, 122),
+                tam_io.tam_colors.RGBA(250, 128, 114),
+                tam_io.tam_colors.RGBA(255, 160, 122),
+                tam_io.tam_colors.RGBA(255, 69, 0),
+                tam_io.tam_colors.RGBA(255, 140, 0),
+                tam_io.tam_colors.RGBA(255, 165, 0))
 
 
 class RGBCOLOR(tam.tam_loop.TAMFrame):
@@ -49,9 +49,9 @@ class RGBCOLOR(tam.tam_loop.TAMFrame):
             self._timer = 0
             self._color = not self._color
             if self._color:
-                tam_loop.set_color(1, tam_io.tam_colors.build_rgba(55, 155, 155))
+                tam_loop.set_color(1, tam_io.tam_colors.RGBA(55, 155, 155))
             else:
-                tam_loop.set_color(1, tam_io.tam_colors.build_rgba(155, 155, 55))
+                tam_loop.set_color(1, tam_io.tam_colors.RGBA(155, 155, 55))
 
     def draw(self, tam_buffer, loop_data):
         tam_buffer.clear()

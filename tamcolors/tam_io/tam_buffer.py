@@ -1,6 +1,5 @@
 # built in library
 import copy
-from tamcolors.tam_io.tam_colors import place_color_over
 
 
 """
@@ -190,15 +189,13 @@ class TAMBuffer:
             if not override_alpha or not char == ALPHA_CHAR:
                 self.__char_buffer[spot] = char
             if foreground_color.has_alpha:
-                self.__foreground_buffer[spot] = place_color_over(foreground_color,
-                                                                  self.__foreground_buffer[spot],
-                                                                  override_alpha)
+                self.__foreground_buffer[spot] = foreground_color.place_color_over(self.__foreground_buffer[spot],
+                                                                                   override_alpha)
             else:
                 self.__foreground_buffer[spot] = foreground_color
             if background_color.has_alpha:
-                self.__background_buffer[spot] = place_color_over(background_color,
-                                                                  self.__background_buffer[spot],
-                                                                  override_alpha)
+                self.__background_buffer[spot] = background_color.place_color_over(self.__background_buffer[spot],
+                                                                                   override_alpha)
             else:
                 self.__background_buffer[spot] = background_color
 
@@ -269,15 +266,13 @@ class TAMBuffer:
                 if not override_alpha or not isinstance(char_buffer[ds], TAMBuffer):
                     this_char_buffer[ts] = char_buffer[ds]
                 if foreground_buffer[ds].has_alpha:
-                    this_foreground_buffer[ts] = place_color_over(foreground_buffer[ds],
-                                                                  this_foreground_buffer[ts],
-                                                                  override_alpha)
+                    this_foreground_buffer[ts] = foreground_buffer[ds].place_color_over(this_foreground_buffer[ts],
+                                                                                        override_alpha)
                 else:
                     this_foreground_buffer[ts] = foreground_buffer[ds]
                 if background_buffer[ds].has_alpha:
-                    this_background_buffer[ts] = place_color_over(background_buffer[ds],
-                                                                  this_background_buffer[ts],
-                                                                  override_alpha)
+                    this_background_buffer[ts] = background_buffer[ds].place_color_over(this_background_buffer[ts],
+                                                                                        override_alpha)
                 else:
                     this_background_buffer[ts] = background_buffer[ds]
 

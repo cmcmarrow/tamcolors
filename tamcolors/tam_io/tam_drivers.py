@@ -74,6 +74,15 @@ class ColorChangerDriver(TAMDriver, ABC):
     def set_color(self, spot, color):
         super().set_color(spot, color)
 
+    def _get_console_color(self, spot):
+        raise NotImplementedError()
+
+    def _set_console_color(self, spot, color):
+        raise NotImplementedError()
+
+    def console_color_count(self):
+        raise NotImplementedError()
+
     def color_change_driver_operational(self):
         return self._color_change_driver_operational
 
