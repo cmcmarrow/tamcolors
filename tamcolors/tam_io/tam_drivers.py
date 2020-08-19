@@ -87,6 +87,10 @@ class ColorChangerDriver(TAMDriver, ABC):
         return self._color_change_driver_operational
 
 
+class FullColorDriver(ColorDriver, ColorChangerDriver, ABC):
+    pass
+
+
 class UtilitiesDriver(TAMDriver, ABC):
     def __init__(self, utilities_driver_operational=True, *args, **kwargs):
         self._utilities_driver_operational = utilities_driver_operational

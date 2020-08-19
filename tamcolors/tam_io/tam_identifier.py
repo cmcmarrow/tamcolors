@@ -13,12 +13,19 @@ class TAMIdentifier:
         self._name = name
         self._drivers = list(drivers)
         self._system = platform.system()
+        self._environment_io = None
 
     def __str__(self):
         output = ""
         info = self.get_info_dict()
         for key in info:
-            output += "{}:\t\t\t{}\n".format(key, info[key])
+            data = info[key]
+            if isinstance(data, (list, tuple)):
+                data = "\n\t".join(data)
+            output += "{}:\n\t{}\n".format(key, data)
+
+        if len(output) != 0:
+            output = output[:-1]
         return output
 
     def get_name(self):
@@ -31,9 +38,8 @@ class TAMIdentifier:
         return self._system
 
     def get_info_dict(self):
-        # TODO fix drivers
         return {"name": self.get_name(),
-                "drivers": self.get_all_drivers(),
+                "drivers": [driver.__name__ for driver in self.get_all_drivers()],
                 "system": self.get_system()}
 
     @classmethod
@@ -45,8 +51,7 @@ class TAMIdentifier:
                                           capture_output=True).stdout, encoding="utf-8").strip("\n").strip("\r")
                 if name in ("cmd", "PowerShell"):
                     return cls(name,
-                               win_drivers.WINColorDriver,
-                               win_drivers.WINColorChangerDriver,
+                               win_drivers.WINFullColorDriver,
                                win_drivers.WINKeyDriver,
                                win_drivers.WINUtilitiesDriver)
             except FileNotFoundError:
@@ -57,18 +62,31 @@ class TAMIdentifier:
             if guess_identifier is not None:
                 return guess_identifier
 
-        return ANY_IO
+        return ANY_IO_IDENTIFIER
 
     @classmethod
     def _guess(cls):
-        pass
+        name = "GUESS"
+        if platform.system().lower() == "windows":
+            if win_drivers.WinSharedData.able_to_execute():
+                return cls(name,
+                           win_drivers.WINFullColorDriver,
+                           win_drivers.WINKeyDriver,
+                           win_drivers.WINUtilitiesDriver)
 
     def build_io(self):
-        class EnvironmentIO(*self.get_all_drivers()):
-            pass
+        if self._environment_io is None:
+            class EnvironmentIO(*self.get_all_drivers()):
+                pass
+            self._environment_io = EnvironmentIO(identifier=self)
+        return self._environment_io
 
-        return EnvironmentIO(identifier=self)
 
+ANY_IO_IDENTIFIER = TAMIdentifier("UNKNOW",
+                                  any_drivers.ANYKeyDriver,
+                                  any_drivers.ANYColorDriver,
+                                  any_drivers.ANYColorChangerDriver,
+                                  any_drivers.ANYUtilitiesDriver)
 
-#ANY_IO = TAMIdentifier("UNKNOW").build_io()
+ANY_IO = ANY_IO_IDENTIFIER.build_io()
 IO = TAMIdentifier.identify().build_io()

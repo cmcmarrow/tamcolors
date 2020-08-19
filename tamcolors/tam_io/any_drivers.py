@@ -45,7 +45,7 @@ class ANYColorDriver(tam_drivers.ColorDriver, ABC):
 
 class ANYColorChangerDriver(tam_drivers.ColorChangerDriver, ABC):
     def get_color(self, spot):
-        return self._colors[spot]
+        return self._color_palette[spot]
 
     def set_color(self, spot, color):
         super().set_color(spot, color)

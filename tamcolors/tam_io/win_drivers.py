@@ -16,31 +16,11 @@ if io is not None:
 
 
 class WinSharedData(tam_drivers.TAMDriver, ABC):
-    def __init__(self, *args, **kwargs):
-        self._last_frame = TAMBuffer(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
-        self._spot_swap_dict = {1: 4,
-                                3: 6,
-                                4: 1,
-                                6: 3,
-                                9: 12,
-                                11: 14,
-                                12: 9,
-                                14: 11}
-
-        super().__init__(*args, **kwargs)
-
     @classmethod
     def able_to_execute(cls):
         if io is not None:
             return WIN_STABLE and super().able_to_execute()
         return False
-
-    def done(self):
-        self._last_frame = TAMBuffer(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
-        super().done()
-
-    def _spot_swap(self, spot):
-        return self._spot_swap_dict.get(spot, spot)
 
 
 class WINKeyDriver(tam_drivers.KeyDriver, WinSharedData, ABC):
@@ -92,13 +72,23 @@ class WINKeyDriver(tam_drivers.KeyDriver, WinSharedData, ABC):
         return windows_keys
 
 
-class WINColorDriver(tam_drivers.ColorDriver, WinSharedData, ABC):
+class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
     def __init__(self, *args, **kwargs):
         self.__buffer = TAMBuffer(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
+        self._last_frame = TAMBuffer(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
+        self._spot_swap_dict = {1: 4,
+                                3: 6,
+                                4: 1,
+                                6: 3,
+                                9: 12,
+                                11: 14,
+                                12: 9,
+                                14: 11}
         super().__init__(*args, **kwargs)
 
     def done(self):
         self.__buffer = TAMBuffer(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
+        self._last_frame = TAMBuffer(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
         io._set_cursor_info(0, 0, io._get_default_color())
         super().done()
 
@@ -284,8 +274,6 @@ class WINColorDriver(tam_drivers.ColorDriver, WinSharedData, ABC):
 
         return foreground_color, background_color
 
-
-class WINColorChangerDriver(tam_drivers.ColorChangerDriver, WinSharedData, ABC):
     def get_color(self, spot):
         """
         info: will get the color value
@@ -306,6 +294,9 @@ class WINColorChangerDriver(tam_drivers.ColorChangerDriver, WinSharedData, ABC):
         super().set_color(spot, color)
         io._set_rgb_color(spot, color.r, color.g, color.b)
         self._last_frame = None
+
+    def _spot_swap(self, spot):
+        return self._spot_swap_dict.get(spot, spot)
 
 
 class WINUtilitiesDriver(tam_drivers.UtilitiesDriver, WinSharedData, ABC):

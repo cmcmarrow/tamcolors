@@ -29,9 +29,12 @@ class IO(ABC):
 
         self._identifier = identifier
         self._modes = tuple(self._modes)
-        self._colors = [color.mode_rgb for color in tam_colors.COLOR_LIST]
-        self._default_colors = self._colors.copy()
+        self._color_palette = [color.mode_rgb for color in tam_colors.COLOR_LIST]
+        self._default_colors = self._color_palette.copy()
         self._set_defaults()
+
+    def __str__(self):
+        return str(self._identifier)
 
     @classmethod
     def able_to_execute(cls):
@@ -119,7 +122,7 @@ class IO(ABC):
         :param color: tuple: (int, int, int)
         :return: None
         """
-        self._colors[spot] = color
+        self._color_palette[spot] = color
 
     def reset_colors_to_console_defaults(self):
         """
