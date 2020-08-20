@@ -50,6 +50,9 @@ class ANYColorChangerDriver(tam_drivers.ColorChangerDriver, ABC):
     def set_color(self, spot, color):
         super().set_color(spot, color)
 
+    def console_color_count(self):
+        return 0
+
 
 class ANYUtilitiesDriver(tam_drivers.UtilitiesDriver, ABC):
     def get_dimensions(self):

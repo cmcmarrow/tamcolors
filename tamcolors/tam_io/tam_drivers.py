@@ -69,7 +69,7 @@ class ColorChangerDriver(TAMDriver, ABC):
         super().__init__(*args, **kwargs)
 
     def get_color(self, spot):
-        raise NotImplementedError()
+        return super().get_color(spot)
 
     def set_color(self, spot, color):
         super().set_color(spot, color)
@@ -85,6 +85,9 @@ class ColorChangerDriver(TAMDriver, ABC):
 
     def color_change_driver_operational(self):
         return self._color_change_driver_operational
+
+    def set_mode(self, mode):
+        super().set_mode(mode)
 
 
 class FullColorDriver(ColorDriver, ColorChangerDriver, ABC):

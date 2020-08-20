@@ -372,19 +372,7 @@ COLOR_254 = Color(14, 254, RGBA(228, 228, 228))
 COLOR_255 = Color(15, 255, RGBA(238, 238, 238))
 
 
-COLOR_LIST = [BLACK,
-              RED,
-              GREEN,
-              YELLOW,
-              BLUE,
-              PURPLE,
-              AQUA,
-              WHITE,
-              GRAY,
-              LIGHT_RED,
-              LIGHT_GREEN,
-              LIGHT_YELLOW,
-              LIGHT_BLUE,
-              LIGHT_PURPLE,
-              LIGHT_AQUA,
-              LIGHT_WHITE]
+COLOR_LIST = []
+
+for color_id in range(256):
+    COLOR_LIST.append(vars()["COLOR_{}".format(color_id)])

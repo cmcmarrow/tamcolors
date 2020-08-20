@@ -10,7 +10,7 @@ defines standards for all terminal IO
 
 
 class IO(ABC):
-    def __init__(self, identifier, mode_2=True, mode_16=True):
+    def __init__(self, identifier, mode_2=True, mode_16=True, mode_256=True):
         """
         Makes a IO object
         :param mode_2: bool
@@ -21,17 +21,18 @@ class IO(ABC):
             self._modes.append(2)
         if mode_16:
             self._modes.append(16)
-
-        if 16 in self._modes:
-            self._mode = 16
-        else:
-            self._mode = self._modes[0]
+        if mode_256:
+            self._modes.append(256)
 
         self._identifier = identifier
         self._modes = tuple(self._modes)
         self._color_palette = [color.mode_rgb for color in tam_colors.COLOR_LIST]
-        self._default_colors = self._color_palette.copy()
+
+        self._default_console_colors = []
         self._set_defaults()
+
+        self._mode = None
+        self.set_mode(self._modes[-1])
 
     def __str__(self):
         return str(self._identifier)
@@ -72,6 +73,9 @@ class IO(ABC):
     def _draw_16(self, tam_buffer):
         raise NotImplementedError()
 
+    def _draw_256(self, tam_buffer):
+        raise NotImplementedError()
+
     def start(self):
         raise NotImplementedError()
 
@@ -94,7 +98,7 @@ class IO(ABC):
         raise NotImplementedError()
 
     def get_color(self, spot):
-        raise NotImplementedError()
+        return self._color_palette[spot]
 
     def show_console_cursor(self, show):
         raise NotImplementedError()
@@ -110,6 +114,15 @@ class IO(ABC):
 
     def key_driver_operational(self):
         return NotImplementedError()
+
+    def _get_console_color(self, spot):
+        raise NotImplementedError()
+
+    def _set_console_color(self, spot, color):
+        raise NotImplementedError()
+
+    def console_color_count(self):
+        raise NotImplementedError()
 
     @staticmethod
     def get_key_dict():
@@ -129,8 +142,12 @@ class IO(ABC):
         info: will reset colors to consoloe defaults
         :return: None
         """
-        for spot, color in enumerate(self._default_colors):
+        for spot, color in enumerate(self._default_console_colors):
             self.set_color(spot, color)
+            self._set_console_color(spot, color)
+
+        for spot in range(self.console_color_count(), 256):
+            self.set_color(spot, tam_colors.COLOR_LIST[spot].mode_rgb)
 
     def set_tam_color_defaults(self):
         """
@@ -139,6 +156,8 @@ class IO(ABC):
         """
         for spot, color in enumerate(tam_colors.COLOR_LIST):
             self.set_color(spot, color.mode_rgb)
+            if self.console_color_count() > spot:
+                self._set_console_color(spot, color.mode_rgb)
 
     def get_info_dict(self):
         return self._identifier.get_info_dict()
@@ -148,8 +167,11 @@ class IO(ABC):
         info: will save console defaults
         :return: None
         """
-        for spot in range(16):
-            self._default_colors[spot] = self.get_color(spot)
+        self._default_console_colors = []
+        for spot in range(self.console_color_count()):
+            color = self._get_console_color(spot)
+            self._default_console_colors.append(color)
+            self._color_palette[spot] = color
 
     def _get_mode_draw(self):
         """
