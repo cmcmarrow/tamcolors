@@ -1,6 +1,13 @@
+# built in library
 from abc import ABC
 
+# tamcolors library
 from tamcolors.tam_io.io_tam import IO
+
+
+"""
+Holds all the core drivers to build an IO
+"""
 
 
 class TAMDriver(IO, ABC):

@@ -9,10 +9,18 @@ class ANYKeyDriver(tam_drivers.KeyDriver, ABC):
         super().__init__(*args, **kwargs)
 
     def get_key(self):
+        """
+        info: Gets an input from the terminal
+        :return: tuple or false
+        """
         return False
 
     @staticmethod
     def get_key_dict():
+        """
+        info: Gets a dict of all the keys
+        :return: {str: (str, str), ...}
+        """
         raise {}
 
 
@@ -24,16 +32,16 @@ class ANYColorDriver(tam_drivers.ColorDriver, ABC):
         kwargs.setdefault("mode_rgb", False)
         super().__init__(*args, **kwargs)
 
-    def printc(self, value, color, flush, stderr):
+    def printc(self, output, color, flush, stderr):
         """
         info: will print out user output with color
-        :param value: str
+        :param output: str
         :param color: tuple: (int, int)
         :param flush: boolean
         :param stderr: boolean
         :return: None
             """
-        self._write_to_output_stream(value, flush, stderr)
+        self._write_to_output_stream(output, flush, stderr)
 
     def inputc(self, value, color):
         """
@@ -45,9 +53,19 @@ class ANYColorDriver(tam_drivers.ColorDriver, ABC):
         return input(value)
 
     def draw(self, tam_buffer):
+        """
+        info: Will draw TAMBuffer to console
+        :param tam_buffer: TAMBuffer
+        :return: None
+        """
         super().draw(tam_buffer)
 
     def _draw_2(self, tam_buffer):
+        """
+        info: Will draw TAMBuffer to console in mode 2
+        :param tam_buffer: TAMBuffer
+        :return: None
+        """
         print(tam_buffer)
 
 
@@ -57,18 +75,44 @@ class ANYColorChangerDriver(tam_drivers.ColorChangerDriver, ABC):
         super().__init__(*args, **kwargs)
 
     def get_color(self, spot):
-        return self._color_palette[spot]
+        """
+        info: Will get color from color palette
+        :param spot: int
+        :return: RGBA
+        """
+        return super().get_color(spot)
 
     def set_color(self, spot, color):
+        """
+        info: sets a color value
+        :param spot: int
+        :param color: RGBA
+        :return: None
+        """
         super().set_color(spot, color)
 
     def _get_console_color(self, spot):
+        """
+        info: Will get a console color
+        :param spot: int
+        :return: RGBA
+        """
         pass
 
     def _set_console_color(self, spot, color):
+        """
+        info: Will set a console color
+        :param spot: int
+        :param color: RGBA
+        :return: None
+        """
         pass
 
     def _console_color_count(self):
+        """
+        info: Get console color
+        :return: int
+        """
         return 0
 
 
@@ -78,10 +122,23 @@ class ANYUtilitiesDriver(tam_drivers.UtilitiesDriver, ABC):
         super().__init__(*args, **kwargs)
 
     def get_dimensions(self):
+        """
+        info: Gets the dimensions of console
+        :return: (int, int): (row, column)
+        """
         return 85, 25
 
     def clear(self):
+        """
+        info: Will clear the console
+        :return: None
+        """
         pass
 
     def show_console_cursor(self, show):
+        """
+        info: Will show or hide console cursor
+        :param show: int
+        :return: None
+        """
         pass

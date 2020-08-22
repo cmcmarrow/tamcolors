@@ -18,6 +18,10 @@ if io is not None:
 class WinSharedData(tam_drivers.TAMDriver, ABC):
     @classmethod
     def able_to_execute(cls):
+        """
+        info: checks that io is stable in current environment
+        :return: bool
+        """
         if io is not None:
             return WIN_STABLE and super().able_to_execute()
         return False
@@ -91,6 +95,10 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
         super().__init__(*args, **kwargs)
 
     def done(self):
+        """
+        info: operations for IO to stop
+        :return: None
+        """
         self.__buffer = TAMBuffer(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
         self._last_frame = TAMBuffer(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
         io._set_cursor_info(0, 0, io._get_default_color())
@@ -106,6 +114,7 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
         :return: None
         """
         default_color = io._get_default_color()
+        color = color[0].mode_16, color[1].mode_16
         color = self._processes_special_color(*color)
         io._set_console_color((color[0] % 16) + (color[1] % 16) * 16)
         self._write_to_output_stream(output, flush, stderr)
@@ -131,7 +140,6 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
         :param tam_buffer: TAMBuffer
         :return:
         """
-
         if self.__buffer.get_dimensions() != io._get_dimension():
             self.clear()
             self.show_console_cursor(False)
@@ -298,18 +306,38 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
             self._set_console_color(spot, color)
 
     def _spot_swap(self, spot):
+        """
+        info: Will swap spots this is so cmd will look normal
+        :param spot: int
+        :return: int
+        """
         return self._spot_swap_dict.get(spot, spot)
 
     def _get_console_color(self, spot):
+        """
+        info: Will get a console color
+        :param spot: int
+        :return: RGBA
+        """
         spot = self._spot_swap(spot)
         return tam_colors.RGBA(*io._get_rgb_color(spot))
 
     def _set_console_color(self, spot, color):
+        """
+        info: Will set a console color
+        :param spot: int
+        :param color: RGBA
+        :return: None
+        """
         spot = self._spot_swap(spot)
         io._set_rgb_color(spot, color.r, color.g, color.b)
         self._last_frame = None
 
     def _console_color_count(self):
+        """
+        info: Get console color
+        :return: int
+        """
         return 16
 
 
@@ -329,14 +357,27 @@ class WINUtilitiesDriver(tam_drivers.UtilitiesDriver, WinSharedData, ABC):
         io._clear()
 
     def show_console_cursor(self, show):
+        """
+        info: Will show or hide console cursor
+        :param show: int
+        :return: None
+        """
         io._show_console_cursor(show)
 
     def start(self):
+        """
+        info: operations for IO to start
+        :return: None
+        """
         self.clear()
         self.show_console_cursor(False)
         super().start()
 
     def done(self):
+        """
+        info: operations for IO to stop
+        :return: None
+        """
         self.clear()
         self.show_console_cursor(True)
         super().done()

@@ -25,6 +25,15 @@ class Color:
         self._mode_rgb = mode_rgb
         self._has_alpha = -2 in (mode_2, mode_16, mode_256) or (mode_rgb.a != 255 and not mode_rgb.is_default)
 
+    def __eq__(self, other):
+        if isinstance(other, self.__class__):
+            return self.mode_2 == other.mode_2 and self.mode_16 == other.mode_16 and self.mode_256 == other.mode_256 \
+                   and self.mode_rgb == other.mode_rgb and self.has_alpha == other.has_alpha
+        return False
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
     @property
     def mode_2(self):
         """
@@ -112,6 +121,15 @@ class RGBA:
         self._b = b
         self._a = a
         self._is_default = is_default
+
+    def __eq__(self, other):
+        if isinstance(other, self.__class__):
+            return self.r == other.r and self.g == other.g and self.b == other.b and self.a == other.a \
+                   and self.is_default == other.is_default
+        return False
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
 
     @property
     def r(self):
