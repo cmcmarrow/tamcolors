@@ -1,17 +1,21 @@
-from collections import namedtuple
-
-
 """
 terminal colors supported on all platforms
+Color holds all color values for all supported modes
+RGBA holds the values for mode rgb
 """
-
-COLOR = namedtuple("COLOR", ("mode_2", "mode_16", "mode_256", "mode_rgb", "has_alpha"))
 
 
 class Color:
     __slots__ = ("_mode_2", "_mode_16", "_mode_256", "_mode_rgb", "_has_alpha")
 
     def __init__(self, mode_16, mode_256, mode_rgb, mode_2=None):
+        """
+        info: Makes a Color object
+        :param mode_16: int
+        :param mode_256: int
+        :param mode_rgb: RGBA
+        :param mode_2: int or None
+        """
         if mode_2 is None:
             mode_2 = mode_16
 
@@ -23,27 +27,53 @@ class Color:
 
     @property
     def mode_2(self):
+        """
+        info: Gets mode 2
+        :return: int
+        """
         return self._mode_2
 
     @property
     def mode_16(self):
+        """
+        info: Gets mode 16
+        :return: int
+        """
         return self._mode_16
 
     @property
     def mode_256(self):
+        """
+        info: Gets mode 256
+        :return: int
+        """
         return self._mode_256
 
     @property
     def mode_rgb(self):
+        """
+        info: Gets mode rgb
+        :return: RGBA
+        """
         return self._mode_rgb
 
     @property
     def has_alpha(self):
+        """
+        info: Checks if color has any alpha
+        :return: bool
+        """
         return self._has_alpha
 
     def place_color_over(self, old_color, override_alpha):
+        """
+        info: Will calculate what the new color will be
+        :param old_color: Color
+        :param override_alpha: bool
+        :return: color
+        """
         if override_alpha:
-            return old_color
+            return self
 
         mode_2 = self.mode_2
         if mode_2 == -2:
@@ -57,8 +87,10 @@ class Color:
         if mode_256 == -2:
             mode_256 = old_color.mode_256
 
-        # TODO
+        # TODO make rgb work
         mode_rgb = self.mode_rgb
+        if mode_rgb.a != 255:
+            mode_rgb = old_color.mode_rgb
 
         return self.__class__(mode_16, mode_256, mode_rgb, mode_2)
 
@@ -67,6 +99,14 @@ class RGBA:
     __slots__ = ("_r", "_g", "_b", "_a", "_is_default")
 
     def __init__(self, r, g, b, a=255, is_default=False):
+        """
+        info: Will make a RGBA object
+        :param r: int
+        :param g: int
+        :param b: int
+        :param a: int
+        :param is_default: Bool
+        """
         self._r = r
         self._g = g
         self._b = b
@@ -75,22 +115,42 @@ class RGBA:
 
     @property
     def r(self):
+        """
+        info: Will get the r value
+        :return: int
+        """
         return self._r
 
     @property
     def g(self):
+        """
+        info: Will get the g value
+        :return: int
+        """
         return self._g
 
     @property
     def b(self):
+        """
+        info: Will get the b value
+        :return: int
+        """
         return self._b
 
     @property
     def a(self):
+        """
+        info: Will get the a value
+        :return: int
+        """
         return self._a
 
     @property
     def is_default(self):
+        """
+        info: See if color is default
+        :return: bool
+        """
         return self._is_default
 
 
@@ -371,8 +431,7 @@ COLOR_253 = Color(13, 253, RGBA(218, 218, 218))
 COLOR_254 = Color(14, 254, RGBA(228, 228, 228))
 COLOR_255 = Color(15, 255, RGBA(238, 238, 238))
 
-
-COLOR_LIST = []
-
+COLORS = []
 for color_id in range(256):
-    COLOR_LIST.append(vars()["COLOR_{}".format(color_id)])
+    COLORS.append(vars()["COLOR_{}".format(color_id)])
+COLORS = tuple(COLORS)

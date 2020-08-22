@@ -9,13 +9,197 @@ defines standards for all terminal IO
 """
 
 
-class IO(ABC):
-    def __init__(self, identifier, mode_2=True, mode_16=True, mode_256=True):
+class RAWIO(ABC):
+    def __str__(self):
+        raise NotImplementedError()
+
+    @classmethod
+    def able_to_execute(cls):
+        """
+        info: checks that io is stable in current environment
+        :return: bool
+        """
+        raise NotImplementedError()
+
+    def set_mode(self, mode):
+        """
+        info: will set the color mode
+        :param mode: int: key to color mode
+        :return:
+        """
+        raise NotImplementedError()
+
+    def get_mode(self):
+        """
+        info: will return the current color mode
+        :return: int
+        """
+        raise NotImplementedError()
+
+    def get_modes(self):
+        """
+        info: will return a tuple of all color modes
+        :return: (int, int, ...)
+        """
+        raise NotImplementedError()
+
+    def draw(self, tam_buffer):
+        """
+        info: Will draw TAMBuffer to console
+        :param tam_buffer: TAMBuffer
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def start(self):
+        """
+        info: operations for IO to start
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def done(self):
+        """
+        info: operations for IO to stop
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def get_key(self):
+        """
+        info: Gets an input from the terminal
+        :return: tuple or false
+        """
+        raise NotImplementedError()
+
+    def get_dimensions(self):
+        """
+        info: Gets the dimensions of console
+        :return: (int, int): (row, column)
+        """
+        raise NotImplementedError()
+
+    def printc(self, output, color, flush, stderr):
+        """
+        info: Will print to the console in color
+        :param output: str
+        :param color: COLOR
+        :param flush: bool
+        :param stderr: std
+        :return:
+        """
+        raise NotImplementedError()
+
+    def inputc(self, output, color):
+        """
+        info: Will get input from the console in color
+        :param output: str
+        :param color: COLOR
+        :return: str
+        """
+        raise NotImplementedError()
+
+    def clear(self):
+        """
+        info: Will clear the console
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def get_color(self, spot):
+        """
+        info: Will get color from color palette
+        :param spot: int
+        :return: RGBA
+        """
+        raise NotImplementedError()
+
+    def show_console_cursor(self, show):
+        """
+        info: Will show or hide console cursor
+        :param show: int
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def utilities_driver_operational(self):
+        """
+        info: checks if the utilities driver is operational
+        :return: bool
+        """
+        raise NotImplementedError()
+
+    def color_change_driver_operational(self):
+        """
+        info: checks if the color changer driver is operational
+        :return: bool
+        """
+        raise NotImplementedError()
+
+    def color_driver_operational(self):
+        """
+        info: checks if the color driver is operational
+        :return: bool
+        """
+        raise NotImplementedError()
+
+    def key_driver_operational(self):
+        """
+        info: checks if the key driver is operational
+        :return: bool
+        """
+        raise NotImplementedError()
+
+    @staticmethod
+    def get_key_dict():
+        """
+        info: Gets a dict of all the keys
+        :return: {str: (str, str), ...}
+        """
+        raise NotImplementedError()
+
+    def set_color(self, spot, color):
+        """
+        info: sets a color value
+        :param spot: int
+        :param color: RGBA
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def reset_colors_to_console_defaults(self):
+        """
+        info: will reset colors to consoloe defaults
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def set_tam_color_defaults(self):
+        """
+        info: will set console colors to tam defaults
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def get_info_dict(self):
+        """
+        info: will get the identifier dict
+        :return: dict
+        """
+        raise NotImplementedError()
+
+
+class IO(RAWIO, ABC):
+    def __init__(self, identifier, mode_2=True, mode_16=True, mode_256=True, mode_rgb=True):
         """
         Makes a IO object
+        :param identifier: TAMIdentifier
         :param mode_2: bool
         :param mode_16: bool
+        :param mode_256: bool
+        :param mode_rgb: bool
         """
+
         self._modes = []
         if mode_2:
             self._modes.append(2)
@@ -23,10 +207,12 @@ class IO(ABC):
             self._modes.append(16)
         if mode_256:
             self._modes.append(256)
+        if mode_rgb:
+            self._modes.append("rgb")
 
         self._identifier = identifier
         self._modes = tuple(self._modes)
-        self._color_palette = [color.mode_rgb for color in tam_colors.COLOR_LIST]
+        self._color_palette = [color.mode_rgb for color in tam_colors.COLORS]
 
         self._default_console_colors = []
         self._set_defaults()
@@ -39,6 +225,10 @@ class IO(ABC):
 
     @classmethod
     def able_to_execute(cls):
+        """
+        info: checks that io is stable in current environment
+        :return: bool
+        """
         raise NotImplementedError()
 
     def set_mode(self, mode):
@@ -64,75 +254,182 @@ class IO(ABC):
         return self._modes
 
     def draw(self, tam_buffer):
+        """
+        info: Will draw TAMBuffer to console
+        :param tam_buffer: TAMBuffer
+        :return: None
+        """
         tam_buffer.replace_alpha_chars()
         self._get_mode_draw()(tam_buffer)
 
     def _draw_2(self, tam_buffer):
+        """
+        info: Will draw TAMBuffer to console in mode 2
+        :param tam_buffer: TAMBuffer
+        :return: None
+        """
         raise NotImplementedError()
 
     def _draw_16(self, tam_buffer):
+        """
+        info: Will draw TAMBuffer to console in mode 16
+        :param tam_buffer: TAMBuffer
+        :return: None
+        """
         raise NotImplementedError()
 
     def _draw_256(self, tam_buffer):
+        """
+        info: Will draw TAMBuffer to console in mode 256
+        :param tam_buffer: TAMBuffer
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def _draw_rgb(self, tam_buffer):
+        """
+        info: Will draw TAMBuffer to console in mode rgb
+        :param tam_buffer: TAMBuffer
+        :return: None
+        """
         raise NotImplementedError()
 
     def start(self):
-        raise NotImplementedError()
+        """
+        info: operations for IO to start
+        :return: None
+        """
+        pass
 
     def done(self):
-        raise NotImplementedError()
+        """
+        info: operations for IO to stop
+        :return: None
+        """
+        pass
 
     def get_key(self):
+        """
+        info: Gets an input from the terminal
+        :return: tuple or false
+        """
         raise NotImplementedError()
 
     def get_dimensions(self):
+        """
+        info: Gets the dimensions of console
+        :return: (int, int): (row, column)
+        """
         raise NotImplementedError()
 
-    def printc(self, value, color, flush, stderr):
+    def printc(self, output, color, flush, stderr):
+        """
+        info: Will print to the console in color
+        :param output: str
+        :param color: COLOR
+        :param flush: bool
+        :param stderr: std
+        :return:
+        """
         raise NotImplementedError()
 
     def inputc(self, output, color):
+        """
+        info: Will get input from the console in color
+        :param output: str
+        :param color: COLOR
+        :return: str
+        """
         raise NotImplementedError()
 
     def clear(self):
+        """
+        info: Will clear the console
+        :return: None
+        """
         raise NotImplementedError()
 
     def get_color(self, spot):
+        """
+        info: Will get color from color palette
+        :param spot: int
+        :return: RGBA
+        """
         return self._color_palette[spot]
 
     def show_console_cursor(self, show):
+        """
+        info: Will show or hide console cursor
+        :param show: int
+        :return: None
+        """
         raise NotImplementedError()
 
     def utilities_driver_operational(self):
+        """
+        info: checks if the utilities driver is operational
+        :return: bool
+        """
         raise NotImplementedError()
 
-    def color_change_driver_operational(self):
+    def color_changer_driver_operational(self):
+        """
+        info: checks if the color changer driver is operational
+        :return: bool
+        """
         return NotImplementedError()
 
     def color_driver_operational(self):
+        """
+        info: checks if the color driver is operational
+        :return: bool
+        """
         return NotImplementedError()
 
     def key_driver_operational(self):
+        """
+        info: checks if the key driver is operational
+        :return: bool
+        """
         return NotImplementedError()
 
     def _get_console_color(self, spot):
+        """
+        info: Will get a console color
+        :param spot: int
+        :return: RGBA
+        """
         raise NotImplementedError()
 
     def _set_console_color(self, spot, color):
+        """
+        info: Will set a console color
+        :param spot: int
+        :param color: RGBA
+        :return: None
+        """
         raise NotImplementedError()
 
-    def console_color_count(self):
+    def _console_color_count(self):
+        """
+        info: Get console color
+        :return: int
+        """
         raise NotImplementedError()
 
     @staticmethod
     def get_key_dict():
+        """
+        info: Gets a dict of all the keys
+        :return: {str: (str, str), ...}
+        """
         raise NotImplementedError()
 
     def set_color(self, spot, color):
         """
         info: sets a color value
-        :param spot: int: 0 - 15
-        :param color: tuple: (int, int, int)
+        :param spot: int
+        :param color: RGBA
         :return: None
         """
         self._color_palette[spot] = color
@@ -146,20 +443,24 @@ class IO(ABC):
             self.set_color(spot, color)
             self._set_console_color(spot, color)
 
-        for spot in range(self.console_color_count(), 256):
-            self.set_color(spot, tam_colors.COLOR_LIST[spot].mode_rgb)
+        for spot in range(self._console_color_count(), 256):
+            self.set_color(spot, tam_colors.COLORS[spot].mode_rgb)
 
     def set_tam_color_defaults(self):
         """
         info: will set console colors to tam defaults
         :return: None
         """
-        for spot, color in enumerate(tam_colors.COLOR_LIST):
+        for spot, color in enumerate(tam_colors.COLORS):
             self.set_color(spot, color.mode_rgb)
-            if self.console_color_count() > spot:
+            if self._console_color_count() > spot:
                 self._set_console_color(spot, color.mode_rgb)
 
     def get_info_dict(self):
+        """
+        info: will get the identifier dict
+        :return: dict
+        """
         return self._identifier.get_info_dict()
 
     def _set_defaults(self):
@@ -168,7 +469,7 @@ class IO(ABC):
         :return: None
         """
         self._default_console_colors = []
-        for spot in range(self.console_color_count()):
+        for spot in range(self._console_color_count()):
             color = self._get_console_color(spot)
             self._default_console_colors.append(color)
             self._color_palette[spot] = color
