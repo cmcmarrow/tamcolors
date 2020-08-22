@@ -10,7 +10,7 @@ from tamcolors.tam_io import tam_drivers
 from tamcolors.tam_io import tam_colors
 
 
-WIN_STABLE = None
+WIN_STABLE = False
 if io is not None:
     WIN_STABLE = bool(io._init_default_color())
 
@@ -22,9 +22,7 @@ class WinSharedData(tam_drivers.TAMDriver, ABC):
         info: checks that io is stable in current environment
         :return: bool
         """
-        if io is not None:
-            return WIN_STABLE and super().able_to_execute()
-        return False
+        return WIN_STABLE and super().able_to_execute()
 
 
 class WINKeyDriver(tam_drivers.KeyDriver, WinSharedData, ABC):
