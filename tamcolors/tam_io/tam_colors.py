@@ -25,6 +25,16 @@ class Color:
         self._mode_rgb = mode_rgb
         self._has_alpha = -2 in (mode_2, mode_16, mode_256) or (mode_rgb.a != 255 and not mode_rgb.is_default)
 
+    def __str__(self):
+        return "(2: {}, 16: {}, 256: {}, rgb: {}, has_alpha: {})".format(self.mode_2,
+                                                                        self.mode_16,
+                                                                        self.mode_256,
+                                                                        self.mode_rgb,
+                                                                        self.has_alpha)
+
+    def __repr__(self):
+        return str(self)
+
     def __eq__(self, other):
         if isinstance(other, self.__class__):
             return self.mode_2 == other.mode_2 and self.mode_16 == other.mode_16 and self.mode_256 == other.mode_256 \
@@ -98,7 +108,7 @@ class Color:
 
         # TODO make rgb work
         mode_rgb = self.mode_rgb
-        if mode_rgb.a != 255:
+        if mode_rgb.a != 255 and not self.mode_rgb.is_default:
             mode_rgb = old_color.mode_rgb
 
         return self.__class__(mode_16, mode_256, mode_rgb, mode_2)
@@ -121,6 +131,16 @@ class RGBA:
         self._b = b
         self._a = a
         self._is_default = is_default
+
+    def __str__(self):
+        return "(r: {}, g: {}, b: {}, a: {}, is_default: {})".format(self.r,
+                                                                     self.g,
+                                                                     self.b,
+                                                                     self.a,
+                                                                     self.is_default)
+
+    def __repr__(self):
+        return str(self)
 
     def __eq__(self, other):
         if isinstance(other, self.__class__):
