@@ -20,8 +20,8 @@ def tam_fade_in(buffer,
     info: makes a fade in or fade out via TAMFilm
     :param buffer: TAMBuffer
     :param char: single block char
-    :param foreground_color: 0 - inf
-    :param background_color: 0 - inf
+    :param foreground_color: Color
+    :param background_color: Color
     :param rand: list: [True, bool, bool, bool, ...]
     :param reverse: bool
     :return: TAMFilm

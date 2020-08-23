@@ -112,7 +112,7 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
         :return: None
         """
         default_color = io._get_default_color()
-        color = color[0].mode_16, color[1].mode_16
+        color = self._spot_swap(color[0].mode_16), self._spot_swap(color[1].mode_16)
         color = self._processes_special_color(*color)
         io._set_console_color((color[0] % 16) + (color[1] % 16) * 16)
         self._write_to_output_stream(output, flush, stderr)
@@ -126,6 +126,7 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
         :return: str
         """
         default_color = io._get_default_color()
+        color = self._spot_swap(color[0].mode_16), self._spot_swap(color[1].mode_16)
         color = self._processes_special_color(*color)
         io._set_console_color((color[0] % 16) + (color[1] % 16) * 16)
         ret = input(output)

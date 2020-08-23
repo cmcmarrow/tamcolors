@@ -4,6 +4,7 @@ import unittest.mock
 # tamcolors libraries
 from tamcolors import tam_io
 from tamcolors import tam_tools
+from tamcolors.tam_io.tam_colors import *
 
 
 class TAMPlacingTests(unittest.TestCase):
@@ -29,13 +30,13 @@ class TAMPlacingTests(unittest.TestCase):
         @tam_tools.tam_placing._get_dimensions
         def func(x, y, w, h):
             return x, y, w, h
-        self.assertEqual(func(1, 2, None, None, tam_io.tam_buffer.TAMBuffer(3, 4, "c", 8, 9)), (1, 2, 3, 4))
+        self.assertEqual(func(1, 2, None, None, tam_io.tam_buffer.TAMBuffer(3, 4, "c", GRAY, LIGHT_RED)), (1, 2, 3, 4))
 
     def test__get_dimensions_wrapper_3(self):
         @tam_tools.tam_placing._get_dimensions
         def func(x, y, w, h):
             return x, y, w, h
-        self.assertEqual(func(1, 2, 12, 15, tam_io.tam_buffer.TAMBuffer(30, 40, "c", 8, 9)), (1, 2, 30, 40))
+        self.assertEqual(func(1, 2, 12, 15, tam_io.tam_buffer.TAMBuffer(30, 40, "c", GRAY, LIGHT_RED)), (1, 2, 30, 40))
 
     def test_top_left(self):
         self.assertEqual(tam_tools.tam_placing.top_left(1, 2, 3, 4), (1, 2))
