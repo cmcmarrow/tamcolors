@@ -40,10 +40,11 @@ basic example
 .. code-block:: python
 
    import tamcolors
+   from tamcolors.tam_io.tam_colors import *
    tamcolors.printc("Hello", "World!", ("light blue", "white"), same_color=True)
    name = tamcolors.inputc("Whats Your Name? >>> ", ("light aqua", "gray"))
    tamcolors.clear()
-   tamcolors.printc("Hello, ", ("default", "default"), name, (2, 7), "!", ("gray", "light aqua"), sep="")
+   tamcolors.printc("Hello, ", ("default", "default"), name, (GREEN, WHITE), "!", ("gray", "light aqua"), sep="")
 
 ************
 icon example
