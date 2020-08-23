@@ -4,7 +4,7 @@ from tamcolors import tam, tam_tools, tam_io
 class TAMKeyManager(tam.tam_loop.TAMFrame):
     def __init__(self):
         super().__init__(fps=10,
-                         char=" ",
+                         char="@",
                          foreground_color=tam_io.tam_colors.GRAY,
                          background_color=tam_io.tam_colors.BLACK,
                          min_width=70, max_width=70, min_height=40, max_height=40)

@@ -172,7 +172,7 @@ class TAMBuffer:
             return -1
         return x + y * self.__width
 
-    def set_spot(self, x, y, char, foreground_color, background_color, override_alpha=True):
+    def set_spot(self, x, y, char, foreground_color, background_color, override_alpha=False):
         """
         info: sets a single spot on the buffer
         :param x: int
@@ -186,11 +186,17 @@ class TAMBuffer:
 
         spot = self.get_raw_spot(x, y)
         if spot != -1:
-            if not override_alpha or not char == ALPHA_CHAR:
+            if override_alpha or not char == ALPHA_CHAR:
                 self.__char_buffer[spot] = char
-            if not override_alpha or foreground_color != -2:
+            if foreground_color.has_alpha:
+                self.__foreground_buffer[spot] = foreground_color.place_color_over(self.__foreground_buffer[spot],
+                                                                                   override_alpha)
+            else:
                 self.__foreground_buffer[spot] = foreground_color
-            if not override_alpha or background_color != -2:
+            if background_color.has_alpha:
+                self.__background_buffer[spot] = background_color.place_color_over(self.__background_buffer[spot],
+                                                                                   override_alpha)
+            else:
                 self.__background_buffer[spot] = background_color
 
     def get_spot(self, x, y):
@@ -224,7 +230,7 @@ class TAMBuffer:
                   buffer_start_y=0,
                   buffer_size_x=-1,
                   buffer_size_y=-1,
-                  override_alpha=True):
+                  override_alpha=False):
         """
         info: will draw tam_buffer or part of a TAMBuffer onto another TAMBuffer
         :param tam_buffer: TAMBuffer
@@ -257,11 +263,17 @@ class TAMBuffer:
             to_spot = self.get_raw_spot(start_x, start_y + y)
             draw_spot = tam_buffer.get_raw_spot(buffer_start_x, buffer_start_y + y)
             for ts, ds in zip(range(to_spot, to_spot + buffer_size_x), range(draw_spot, draw_spot + buffer_size_x)):
-                if not override_alpha or not isinstance(char_buffer[ds], TAMBuffer):
+                if override_alpha or not isinstance(char_buffer[ds], TAMBuffer):
                     this_char_buffer[ts] = char_buffer[ds]
-                if not override_alpha or foreground_buffer[ds] != -2:
+                if foreground_buffer[ds].has_alpha:
+                    this_foreground_buffer[ts] = foreground_buffer[ds].place_color_over(this_foreground_buffer[ts],
+                                                                                        override_alpha)
+                else:
                     this_foreground_buffer[ts] = foreground_buffer[ds]
-                if not override_alpha or background_buffer[ds] != -2:
+                if background_buffer[ds].has_alpha:
+                    this_background_buffer[ts] = background_buffer[ds].place_color_over(this_background_buffer[ts],
+                                                                                        override_alpha)
+                else:
                     this_background_buffer[ts] = background_buffer[ds]
 
     def get_cross_rect(self,

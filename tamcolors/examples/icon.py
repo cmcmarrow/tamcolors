@@ -5,8 +5,8 @@ class BootLogo(tam.tam_loop.TAMFrame):
     def __init__(self):
         super().__init__(fps=10,
                          char=" ",
-                         foreground_color=2,
-                         background_color=0,
+                         foreground_color=tam_io.tam_colors.ALPHA,
+                         background_color=tam_io.tam_colors.BLACK,
                          min_width=70, max_width=70, min_height=40, max_height=40)
 
         self.icon = tam_tools.tam_fade.tam_fade_in(buffer=tam_tools.tam_icon.get_icon(),

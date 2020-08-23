@@ -1,6 +1,8 @@
 # built in library
 import itertools
 
+from tamcolors.tam_io.tam_colors import *
+
 
 """
 ColorPalette set and get colors
@@ -22,7 +24,7 @@ class TAMColorPalette:
         if color_rules is None:
             color_rules = {}
 
-        self.__color_palette = {key: key for key in color_range}
+        self.__color_palette = {key: COLORS[key] for key in color_range}
         self.__color_rules = color_rules
 
     def __str__(self):
@@ -44,7 +46,7 @@ class TAMColorPalette:
         """
         info sets a color to the color palette
         :param key: object
-        :param color: int
+        :param color: Color
         :return:
         """
 
@@ -64,7 +66,7 @@ class TAMColorPalette:
         """
         info sets a color to the color palette
         :param key: object
-        :param color: int
+        :param color: Color
         :return:
         """
 
@@ -86,7 +88,7 @@ class TAMColorPalette:
 
     def update(self):
         """
-        info: upsdates color_palette rules
+        info: updates color_palette rules
         :return:
         """
         # checks
@@ -129,7 +131,7 @@ class TAMDefaultColor(TAMColorPaletteRule):
     def __init__(self, color):
         """
         info: will rest the color every time when updated
-        :param color: int
+        :param color: Color
         """
         super().__init__()
         self.__color = color
@@ -137,14 +139,14 @@ class TAMDefaultColor(TAMColorPaletteRule):
     def get_color(self):
         """
         info: gets the default color
-        :return: int
+        :return: Color
         """
         return self.__color
 
     def set_color(self, color):
         """
         info: sets the default color
-        :param color: int
+        :param color: Color
         :return:
         """
         self.__color = color
@@ -163,7 +165,7 @@ class TAMCycleColor(TAMColorPaletteRule):
     def __init__(self, colors, clock=1):
         """
         info: will cycle colors
-        :param colors: tuple or int: [int, int, int, ...]
+        :param colors: tuple or int: [Color, Color, Color, ...]
         :param clock: int: 1 - inf
         """
         super().__init__()
@@ -174,7 +176,7 @@ class TAMCycleColor(TAMColorPaletteRule):
     def set_colors(self, colors):
         """
         info: sets all the colors
-        :param colors: tuple or int: [int, int, int, ...]
+        :param colors: tuple or int: [Color, Color, Color, ...]
         :return:
         """
         self.__cycle_color = itertools.cycle(colors)

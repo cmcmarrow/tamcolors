@@ -8,9 +8,9 @@ from tamcolors import tam_io
 
 class IOTAMTest(unittest.TestCase):
     def test__draw_onto(self):
-        buffer = tam_io.tam_buffer.TAMBuffer(5, 6, "A", 1, 2)
-        buffer2 = tam_io.tam_buffer.TAMBuffer(3, 4, "B", 1, 2)
-        buffer3 = tam_io.tam_buffer.TAMBuffer(5, 6, "A", 1, 2)
+        buffer = tam_io.tam_buffer.TAMBuffer(5, 6, "A", tam_io.tam_colors.RED, tam_io.tam_colors.GREEN)
+        buffer2 = tam_io.tam_buffer.TAMBuffer(3, 4, "B", tam_io.tam_colors.RED, tam_io.tam_colors.GREEN)
+        buffer3 = tam_io.tam_buffer.TAMBuffer(5, 6, "A", tam_io.tam_colors.RED, tam_io.tam_colors.GREEN)
 
         tam_io.io_tam.IO._draw_onto(buffer, buffer2)
         buffer3.draw_onto(buffer2, 1, 1)
@@ -18,15 +18,15 @@ class IOTAMTest(unittest.TestCase):
         self.assertEqual(str(buffer), str(buffer3))
 
     def test__draw_onto_2(self):
-        buffer = tam_io.tam_buffer.TAMBuffer(5, 6, "A", 1, 2)
-        buffer2 = tam_io.tam_buffer.TAMBuffer(3, 4, "B", 1, 2)
-        buffer3 = tam_io.tam_buffer.TAMBuffer(5, 6, "A", 1, 2)
+        buffer = tam_io.tam_buffer.TAMBuffer(5, 6, "A", tam_io.tam_colors.RED, tam_io.tam_colors.GREEN)
+        buffer2 = tam_io.tam_buffer.TAMBuffer(3, 4, "B", tam_io.tam_colors.RED, tam_io.tam_colors.GREEN)
+        buffer3 = tam_io.tam_buffer.TAMBuffer(5, 6, "A", tam_io.tam_colors.RED, tam_io.tam_colors.GREEN)
 
-        buffer2.set_spot(0, 0, "C", 4, 5)
-        buffer2.set_spot(1, 0, "D", 4, 5)
-        buffer2.set_spot(2, 1, "E", 4, 5)
-        buffer2.set_spot(2, 3, "F", 4, 5)
-        buffer2.set_spot(1, 1, "G", 4, 5)
+        buffer2.set_spot(0, 0, "C", tam_io.tam_colors.BLUE, tam_io.tam_colors.PURPLE)
+        buffer2.set_spot(1, 0, "D", tam_io.tam_colors.BLUE, tam_io.tam_colors.PURPLE)
+        buffer2.set_spot(2, 1, "E", tam_io.tam_colors.BLUE, tam_io.tam_colors.PURPLE)
+        buffer2.set_spot(2, 3, "F", tam_io.tam_colors.BLUE, tam_io.tam_colors.PURPLE)
+        buffer2.set_spot(1, 1, "G", tam_io.tam_colors.BLUE, tam_io.tam_colors.PURPLE)
 
         tam_io.io_tam.IO._draw_onto(buffer, buffer2)
         buffer3.draw_onto(buffer2, 1, 1)
@@ -34,15 +34,15 @@ class IOTAMTest(unittest.TestCase):
         self.assertEqual(str(buffer), str(buffer3))
 
     def test__draw_onto_3(self):
-        buffer = tam_io.tam_buffer.TAMBuffer(50, 60, "A", 1, 2)
-        buffer2 = tam_io.tam_buffer.TAMBuffer(30, 40, "B", 1, 2)
-        buffer3 = tam_io.tam_buffer.TAMBuffer(50, 60, "A", 1, 2)
+        buffer = tam_io.tam_buffer.TAMBuffer(50, 60, "A", tam_io.tam_colors.RED, tam_io.tam_colors.GREEN)
+        buffer2 = tam_io.tam_buffer.TAMBuffer(30, 40, "B", tam_io.tam_colors.RED, tam_io.tam_colors.GREEN)
+        buffer3 = tam_io.tam_buffer.TAMBuffer(50, 60, "A", tam_io.tam_colors.RED, tam_io.tam_colors.GREEN)
 
-        buffer2.set_spot(0, 0, "C", 4, 5)
-        buffer2.set_spot(1, 0, "D", 4, 5)
-        buffer2.set_spot(2, 1, "E", 4, 5)
-        buffer2.set_spot(2, 3, "F", 4, 5)
-        buffer2.set_spot(1, 1, "G", 4, 5)
+        buffer2.set_spot(0, 0, "C", tam_io.tam_colors.BLUE, tam_io.tam_colors.PURPLE)
+        buffer2.set_spot(1, 0, "D", tam_io.tam_colors.BLUE, tam_io.tam_colors.PURPLE)
+        buffer2.set_spot(2, 1, "E", tam_io.tam_colors.BLUE, tam_io.tam_colors.PURPLE)
+        buffer2.set_spot(2, 3, "F", tam_io.tam_colors.BLUE, tam_io.tam_colors.PURPLE)
+        buffer2.set_spot(1, 1, "G", tam_io.tam_colors.BLUE, tam_io.tam_colors.PURPLE)
 
         tam_io.io_tam.IO._draw_onto(buffer, buffer2)
 
@@ -73,47 +73,3 @@ class IOTAMTest(unittest.TestCase):
                         flush_stdout.assert_not_called()
                         write_stderr.assert_called_once_with("dogs")
                         flush_stderr.assert_not_called()
-
-
-class SingletonIOTest(unittest.TestCase):
-    def test_same_instance(self):
-        class DUMMYIO(tam_io.io_tam.SingletonIO):
-            @classmethod
-            def able_to_execute(cls):
-                return True
-
-            def get_color(self, spot):
-                return self._colors[spot]
-
-        instance = DUMMYIO()
-        self.assertIsInstance(instance, DUMMYIO)
-        self.assertIs(instance, DUMMYIO())
-        self.assertIs(instance, DUMMYIO())
-
-    def test_same_instance_2(self):
-        class DUMMYIO2(tam_io.io_tam.SingletonIO):
-            @classmethod
-            def able_to_execute(cls):
-                return True
-
-            def get_color(self, spot):
-                return self._colors[spot]
-
-        instance = DUMMYIO2()
-        self.assertIsInstance(instance, DUMMYIO2)
-        self.assertIs(instance, DUMMYIO2())
-        self.assertIs(instance, DUMMYIO2())
-
-    def test_not_able_to_execute(self):
-        class DUMMYIO(tam_io.io_tam.SingletonIO):
-            @classmethod
-            def able_to_execute(cls):
-                return False
-
-            def get_color(self, spot):
-                return self._colors[spot]
-
-        instance = DUMMYIO()
-        self.assertIsNone(instance)
-        self.assertIs(instance, DUMMYIO())
-        self.assertIs(instance, DUMMYIO())

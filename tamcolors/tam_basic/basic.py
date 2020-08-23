@@ -1,9 +1,8 @@
-from tamcolors.tam_io import any_tam
+# tamcolors libraries
 from tamcolors.tam_io import tam_colors
+from tamcolors.tam_io import tam_identifier
 
-
-IO = any_tam.get_io(any_os=True)
-
+IO = tam_identifier.IO
 
 _COLOR_NAME_TO_CODE = {"default": tam_colors.DEFAULT,
                        "black": tam_colors.BLACK,
@@ -25,6 +24,11 @@ _COLOR_NAME_TO_CODE = {"default": tam_colors.DEFAULT,
 
 
 def _get_color_code(color):
+    """
+    info: Get console color
+    :param color: tuple
+    :return: tuple
+    """
     foreground, background = color
 
     if isinstance(foreground, str):
@@ -36,24 +40,44 @@ def _get_color_code(color):
     return foreground, background
 
 
-def printc(*value, same_color=False, sep=" ", end="\n", flush=True, stderr=False):
+def printc(*output, same_color=False, sep=" ", end="\n", flush=True, stderr=False):
+    """
+    info: Prints color output to the console
+    :param output:
+    :param same_color: bool
+    :param sep: str
+    :param end: str
+    :param flush: bool
+    :param stderr: std
+    :return: None
+    """
     if same_color:
-        color = value[-1]
-        value = sep.join(value[:-1]) + end
-        IO.printc(value, _get_color_code(color), flush, stderr)
+        color = output[-1]
+        output = sep.join(output[:-1]) + end
+        IO.printc(output, _get_color_code(color), flush, stderr)
     else:
-        for spot, value_and_color in enumerate(zip(value[::2], value[1::2])):
+        for spot, value_and_color in enumerate(zip(output[::2], output[1::2])):
             this_value, this_color = value_and_color
-            if (spot+1)*2 == len(value):
+            if (spot + 1) * 2 == len(output):
                 this_value += end
             else:
                 this_value += sep
             IO.printc(this_value, _get_color_code(this_color), flush, stderr)
 
 
-def inputc(value, color):
-    return IO.inputc(value, _get_color_code(color))
+def inputc(output, color):
+    """
+    info: Will get color input from console
+    :param output: str
+    :param color: tuple
+    :return: str
+    """
+    return IO.inputc(output, _get_color_code(color))
 
 
 def clear():
+    """
+    info: Clears the console
+    :return: None
+    """
     IO.clear()

@@ -22,7 +22,8 @@ class ColorNameToCodeTests(unittest.TestCase):
 
 class GetColorCodeTests(unittest.TestCase):
     def test__get_color_code_1(self):
-        self.assertEqual(tam_basic.basic._get_color_code((4, "black")), (4, tam_io.tam_colors.BLACK))
+        self.assertEqual(tam_basic.basic._get_color_code((tam_io.tam_colors.BLUE, "black")),
+                         (tam_io.tam_colors.BLUE, tam_io.tam_colors.BLACK))
 
     def test__get_color_code_2(self):
         self.assertEqual(tam_basic.basic._get_color_code(["red", "gray"]), (tam_io.tam_colors.RED,
@@ -48,15 +49,26 @@ class PrintCTests(unittest.TestCase):
 
     def test_not_same_color(self):
         with unittest.mock.patch.object(tam_basic.basic.IO, "printc", return_value=None) as printc:
-            tam_basic.basic.printc("cats", (4, 7), "test", ("green", "gray"), sep="+!", end="\n!\n")
+            tam_basic.basic.printc("cats",
+                                   (tam_io.tam_colors.BLUE, tam_io.tam_colors.WHITE),
+                                   "test",
+                                   ("green", "gray"),
+                                   sep="+!",
+                                   end="\n!\n")
             self.assertEqual(printc.call_count, 2)
-            self.assertEqual(printc.mock_calls[0], unittest.mock.call("cats+!", (4, 7), True, False))
-            self.assertEqual(printc.mock_calls[1], unittest.mock.call("test\n!\n", (2, 8), True, False))
+            self.assertEqual(printc.mock_calls[0], unittest.mock.call("cats+!",
+                                                                      (tam_io.tam_colors.BLUE, tam_io.tam_colors.WHITE),
+                                                                      True,
+                                                                      False))
+            self.assertEqual(printc.mock_calls[1], unittest.mock.call("test\n!\n",
+                                                                      (tam_io.tam_colors.GREEN, tam_io.tam_colors.GRAY),
+                                                                      True,
+                                                                      False))
 
     def test_flush_and_stderr(self):
         with unittest.mock.patch.object(tam_basic.basic.IO, "printc", return_value=None) as printc:
             tam_basic.basic.printc("cats",
-                                   (4, 7),
+                                   (tam_io.tam_colors.BLUE, tam_io.tam_colors.WHITE),
                                    "test",
                                    ("green", "gray"),
                                    sep="+!",
@@ -64,8 +76,14 @@ class PrintCTests(unittest.TestCase):
                                    flush=False,
                                    stderr=True)
             self.assertEqual(printc.call_count, 2)
-            self.assertEqual(printc.mock_calls[0], unittest.mock.call("cats+!", (4, 7), False, True))
-            self.assertEqual(printc.mock_calls[1], unittest.mock.call("test\n!\n", (2, 8), False, True))
+            self.assertEqual(printc.mock_calls[0], unittest.mock.call("cats+!",
+                                                                      (tam_io.tam_colors.BLUE, tam_io.tam_colors.WHITE),
+                                                                      False,
+                                                                      True))
+            self.assertEqual(printc.mock_calls[1], unittest.mock.call("test\n!\n",
+                                                                      (tam_io.tam_colors.GREEN, tam_io.tam_colors.GRAY),
+                                                                      False,
+                                                                      True))
 
 
 class InputCTests(unittest.TestCase):

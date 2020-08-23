@@ -1,21 +1,21 @@
 from tamcolors import tam, tam_tools, tam_io
 
-OTHER_COLORS = ((128, 0, 0),
-                (139, 0, 0),
-                (165, 42, 42),
-                (178, 34, 34),
-                (220, 20, 60),
-                (255, 0, 0),
-                (255, 99, 71),
-                (255, 127, 80),
-                (205, 92, 92),
-                (240, 128, 128),
-                (233, 150, 122),
-                (250, 128, 114),
-                (255, 160, 122),
-                (255, 69, 0),
-                (255, 140, 0),
-                (255, 165, 0))
+OTHER_COLORS = (tam_io.tam_colors.RGBA(128, 0, 0),
+                tam_io.tam_colors.RGBA(139, 0, 0),
+                tam_io.tam_colors.RGBA(165, 42, 42),
+                tam_io.tam_colors.RGBA(178, 34, 34),
+                tam_io.tam_colors.RGBA(220, 20, 60),
+                tam_io.tam_colors.RGBA(255, 0, 0),
+                tam_io.tam_colors.RGBA(255, 99, 71),
+                tam_io.tam_colors.RGBA(255, 127, 80),
+                tam_io.tam_colors.RGBA(205, 92, 92),
+                tam_io.tam_colors.RGBA(240, 128, 128),
+                tam_io.tam_colors.RGBA(233, 150, 122),
+                tam_io.tam_colors.RGBA(250, 128, 114),
+                tam_io.tam_colors.RGBA(255, 160, 122),
+                tam_io.tam_colors.RGBA(255, 69, 0),
+                tam_io.tam_colors.RGBA(255, 140, 0),
+                tam_io.tam_colors.RGBA(255, 165, 0))
 
 
 class RGBCOLOR(tam.tam_loop.TAMFrame):
@@ -49,16 +49,20 @@ class RGBCOLOR(tam.tam_loop.TAMFrame):
             self._timer = 0
             self._color = not self._color
             if self._color:
-                tam_loop.set_color(1, (55, 155, 155))
+                tam_loop.set_color(1, tam_io.tam_colors.RGBA(55, 155, 155))
             else:
-                tam_loop.set_color(1, (155, 155, 55))
+                tam_loop.set_color(1, tam_io.tam_colors.RGBA(155, 155, 55))
 
     def draw(self, tam_buffer, loop_data):
         tam_buffer.clear()
 
         for background_color in range(16):
             for foreground_color in range(16):
-                tam_buffer.set_spot(foreground_color, background_color, "@", foreground_color, background_color)
+                tam_buffer.set_spot(foreground_color,
+                                    background_color,
+                                    "@",
+                                    tam_io.tam_colors.COLORS[foreground_color],
+                                    tam_io.tam_colors.COLORS[background_color])
 
         tam_tools.tam_print.tam_print(tam_buffer,
                                       0,

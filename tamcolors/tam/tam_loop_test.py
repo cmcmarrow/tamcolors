@@ -1,6 +1,6 @@
 # tamcolors libraries
-from tamcolors.tam_io.any_tam import AnyIO
 from tamcolors.tam_io.tam_buffer import TAMBuffer
+from tamcolors.tam_io import tam_identifier
 
 
 """
@@ -35,7 +35,7 @@ class TAMLoopTest:
         self.__frame_stack = [tam_frame]
         self.__loop_data = loop_data
         self.__color_change_key = color_change_key
-        self.__io = AnyIO()
+        self.__io = tam_identifier.ANY_IO
 
         self.__buffer = TAMBuffer(0, 0, " ", 0, 0)
 

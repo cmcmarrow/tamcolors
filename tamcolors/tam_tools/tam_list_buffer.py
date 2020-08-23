@@ -16,8 +16,8 @@ def tam_list_buffer(chars, foreground_colors, background_colors):
     :param background_colors: list, tuple, int
     :return: TAMBuffer
     """
-    foreground_mode = not isinstance(foreground_colors, int)
-    background_mode = not isinstance(background_colors, int)
+    foreground_mode = not isinstance(foreground_colors, tam_io.tam_colors.Color)
+    background_mode = not isinstance(background_colors, tam_io.tam_colors.Color)
 
     # get default parts
     default_char = " "

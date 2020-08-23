@@ -1,4 +1,6 @@
+from abc import ABC
 import sys
+from tamcolors.tam_io import tam_colors
 
 
 """
@@ -6,49 +8,227 @@ IO
 defines standards for all terminal IO
 """
 
-IO_DEFAULT_COLORS = {0: (12, 12, 12),
-                     1: (0, 55, 218),
-                     2: (19, 161, 14),
-                     3: (58, 150, 221),
-                     4: (197, 15, 31),
-                     5: (136, 23, 152),
-                     6: (193, 156, 0),
-                     7: (204, 204, 204),
-                     8: (118, 118, 118),
-                     9: (59, 120, 255),
-                     10: (22, 198, 12),
-                     11: (97, 214, 214),
-                     12: (231, 72, 86),
-                     13: (180, 0, 158),
-                     14: (249, 241, 165),
-                     15: (242, 242, 242)}
+
+class RAWIO(ABC):
+    def __str__(self):
+        raise NotImplementedError()
+
+    @classmethod
+    def able_to_execute(cls):
+        """
+        info: checks that io is stable in current environment
+        :return: bool
+        """
+        raise NotImplementedError()
+
+    def set_mode(self, mode):
+        """
+        info: will set the color mode
+        :param mode: int: key to color mode
+        :return:
+        """
+        raise NotImplementedError()
+
+    def get_mode(self):
+        """
+        info: will return the current color mode
+        :return: int
+        """
+        raise NotImplementedError()
+
+    def get_modes(self):
+        """
+        info: will return a tuple of all color modes
+        :return: (int, int, ...)
+        """
+        raise NotImplementedError()
+
+    def draw(self, tam_buffer):
+        """
+        info: Will draw TAMBuffer to console
+        :param tam_buffer: TAMBuffer
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def start(self):
+        """
+        info: operations for IO to start
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def done(self):
+        """
+        info: operations for IO to stop
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def get_key(self):
+        """
+        info: Gets an input from the terminal
+        :return: tuple or false
+        """
+        raise NotImplementedError()
+
+    def get_dimensions(self):
+        """
+        info: Gets the dimensions of console
+        :return: (int, int): (row, column)
+        """
+        raise NotImplementedError()
+
+    def printc(self, output, color, flush, stderr):
+        """
+        info: Will print to the console in color
+        :param output: str
+        :param color: COLOR
+        :param flush: bool
+        :param stderr: std
+        :return:
+        """
+        raise NotImplementedError()
+
+    def inputc(self, output, color):
+        """
+        info: Will get input from the console in color
+        :param output: str
+        :param color: COLOR
+        :return: str
+        """
+        raise NotImplementedError()
+
+    def clear(self):
+        """
+        info: Will clear the console
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def get_color(self, spot):
+        """
+        info: Will get color from color palette
+        :param spot: int
+        :return: RGBA
+        """
+        raise NotImplementedError()
+
+    def show_console_cursor(self, show):
+        """
+        info: Will show or hide console cursor
+        :param show: int
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def utilities_driver_operational(self):
+        """
+        info: checks if the utilities driver is operational
+        :return: bool
+        """
+        raise NotImplementedError()
+
+    def color_change_driver_operational(self):
+        """
+        info: checks if the color changer driver is operational
+        :return: bool
+        """
+        raise NotImplementedError()
+
+    def color_driver_operational(self):
+        """
+        info: checks if the color driver is operational
+        :return: bool
+        """
+        raise NotImplementedError()
+
+    def key_driver_operational(self):
+        """
+        info: checks if the key driver is operational
+        :return: bool
+        """
+        raise NotImplementedError()
+
+    @staticmethod
+    def get_key_dict():
+        """
+        info: Gets a dict of all the keys
+        :return: {str: (str, str), ...}
+        """
+        raise NotImplementedError()
+
+    def set_color(self, spot, color):
+        """
+        info: sets a color value
+        :param spot: int
+        :param color: RGBA
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def reset_colors_to_console_defaults(self):
+        """
+        info: will reset colors to consoloe defaults
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def set_tam_color_defaults(self):
+        """
+        info: will set console colors to tam defaults
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def get_info_dict(self):
+        """
+        info: will get the identifier dict
+        :return: dict
+        """
+        raise NotImplementedError()
 
 
-class IO:
-    def __init__(self, mode_2=True, mode_16=True):
+class IO(RAWIO, ABC):
+    def __init__(self, identifier, mode_2=True, mode_16=True, mode_256=True, mode_rgb=True):
         """
         Makes a IO object
+        :param identifier: TAMIdentifier
         :param mode_2: bool
         :param mode_16: bool
+        :param mode_256: bool
+        :param mode_rgb: bool
         """
+
         self._modes = []
         if mode_2:
             self._modes.append(2)
         if mode_16:
             self._modes.append(16)
+        if mode_256:
+            self._modes.append(256)
+        if mode_rgb:
+            self._modes.append("rgb")
 
-        if 16 in self._modes:
-            self._mode = 16
-        else:
-            self._mode = self._modes[0]
-
+        self._identifier = identifier
         self._modes = tuple(self._modes)
-        self._colors = IO_DEFAULT_COLORS.copy()
-        self._default_colors = self._colors.copy()
+        self._color_palette = [color.mode_rgb for color in tam_colors.COLORS]
+
+        self._default_console_colors = []
         self._set_defaults()
+
+        self._mode = None
+        self.set_mode(self._modes[-1])
+
+    def __str__(self):
+        return str(self._identifier)
 
     @classmethod
     def able_to_execute(cls):
+        """
+        info: checks that io is stable in current environment
+        :return: bool
+        """
         raise NotImplementedError()
 
     def set_mode(self, mode):
@@ -74,71 +254,225 @@ class IO:
         return self._modes
 
     def draw(self, tam_buffer):
+        """
+        info: Will draw TAMBuffer to console
+        :param tam_buffer: TAMBuffer
+        :return: None
+        """
         tam_buffer.replace_alpha_chars()
         self._get_mode_draw()(tam_buffer)
 
     def _draw_2(self, tam_buffer):
+        """
+        info: Will draw TAMBuffer to console in mode 2
+        :param tam_buffer: TAMBuffer
+        :return: None
+        """
         raise NotImplementedError()
 
     def _draw_16(self, tam_buffer):
+        """
+        info: Will draw TAMBuffer to console in mode 16
+        :param tam_buffer: TAMBuffer
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def _draw_256(self, tam_buffer):
+        """
+        info: Will draw TAMBuffer to console in mode 256
+        :param tam_buffer: TAMBuffer
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def _draw_rgb(self, tam_buffer):
+        """
+        info: Will draw TAMBuffer to console in mode rgb
+        :param tam_buffer: TAMBuffer
+        :return: None
+        """
         raise NotImplementedError()
 
     def start(self):
-        raise NotImplementedError()
+        """
+        info: operations for IO to start
+        :return: None
+        """
+        pass
 
     def done(self):
-        raise NotImplementedError()
+        """
+        info: operations for IO to stop
+        :return: None
+        """
+        pass
 
     def get_key(self):
+        """
+        info: Gets an input from the terminal
+        :return: tuple or false
+        """
         raise NotImplementedError()
 
     def get_dimensions(self):
+        """
+        info: Gets the dimensions of console
+        :return: (int, int): (row, column)
+        """
         raise NotImplementedError()
 
-    def printc(self, value, color, flush, stderr):
+    def printc(self, output, color, flush, stderr):
+        """
+        info: Will print to the console in color
+        :param output: str
+        :param color: COLOR
+        :param flush: bool
+        :param stderr: std
+        :return:
+        """
         raise NotImplementedError()
 
     def inputc(self, output, color):
+        """
+        info: Will get input from the console in color
+        :param output: str
+        :param color: COLOR
+        :return: str
+        """
         raise NotImplementedError()
 
     def clear(self):
+        """
+        info: Will clear the console
+        :return: None
+        """
         raise NotImplementedError()
 
     def get_color(self, spot):
+        """
+        info: Will get color from color palette
+        :param spot: int
+        :return: RGBA
+        """
+        return self._color_palette[spot]
+
+    def show_console_cursor(self, show):
+        """
+        info: Will show or hide console cursor
+        :param show: int
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def utilities_driver_operational(self):
+        """
+        info: checks if the utilities driver is operational
+        :return: bool
+        """
+        raise NotImplementedError()
+
+    def color_changer_driver_operational(self):
+        """
+        info: checks if the color changer driver is operational
+        :return: bool
+        """
+        return NotImplementedError()
+
+    def color_driver_operational(self):
+        """
+        info: checks if the color driver is operational
+        :return: bool
+        """
+        return NotImplementedError()
+
+    def key_driver_operational(self):
+        """
+        info: checks if the key driver is operational
+        :return: bool
+        """
+        return NotImplementedError()
+
+    def _get_console_color(self, spot):
+        """
+        info: Will get a console color
+        :param spot: int
+        :return: RGBA
+        """
+        raise NotImplementedError()
+
+    def _set_console_color(self, spot, color):
+        """
+        info: Will set a console color
+        :param spot: int
+        :param color: RGBA
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def _console_color_count(self):
+        """
+        info: Get console color
+        :return: int
+        """
+        raise NotImplementedError()
+
+    @staticmethod
+    def get_key_dict():
+        """
+        info: Gets a dict of all the keys
+        :return: {str: (str, str), ...}
+        """
         raise NotImplementedError()
 
     def set_color(self, spot, color):
         """
         info: sets a color value
-        :param spot: int: 0 - 15
-        :param color: tuple: (int, int, int)
+        :param spot: int
+        :param color: RGBA
         :return: None
         """
-        self._colors[spot] = color
+        self._color_palette[spot] = color
 
     def reset_colors_to_console_defaults(self):
         """
         info: will reset colors to consoloe defaults
         :return: None
         """
-        for spot in self._default_colors:
-            self.set_color(spot, self._default_colors[spot])
+        for spot, color in enumerate(self._default_console_colors):
+            self.set_color(spot, color)
+            self._set_console_color(spot, color)
+
+        for spot in range(self._console_color_count(), 256):
+            self.set_color(spot, tam_colors.COLORS[spot].mode_rgb)
 
     def set_tam_color_defaults(self):
         """
         info: will set console colors to tam defaults
         :return: None
         """
-        for spot in IO_DEFAULT_COLORS:
-            self.set_color(spot, IO_DEFAULT_COLORS[spot])
+        for spot, color in enumerate(tam_colors.COLORS):
+            self.set_color(spot, color.mode_rgb)
+            if self._console_color_count() > spot:
+                self._set_console_color(spot, color.mode_rgb)
+
+    def get_info_dict(self):
+        """
+        info: will get the identifier dict
+        :return: dict
+        """
+        return self._identifier.get_info_dict()
 
     def _set_defaults(self):
         """
         info: will save console defaults
         :return: None
         """
-        for spot in range(16):
-            self._default_colors[spot] = self.get_color(spot)
+        self._default_console_colors = []
+        for spot in range(self._console_color_count()):
+            color = self._get_console_color(spot)
+            self._default_console_colors.append(color)
+            self._color_palette[spot] = color
 
     def _get_mode_draw(self):
         """
@@ -146,10 +480,6 @@ class IO:
         :return: func
         """
         return getattr(self, "_draw_{}".format(self._mode))
-
-    @staticmethod
-    def get_key_dict():
-        raise NotImplementedError()
 
     @staticmethod
     def _draw_onto(tam_buffer, tam_buffer2):
@@ -180,20 +510,3 @@ class IO:
 
         if flush:
             file.flush()
-
-
-class SingletonIO(IO):
-    """
-    Only lets one IO instance exist
-    """
-    def __new__(cls, *args, **kwargs):
-        """
-        Only lets one instance exists and will return None if an instance cant exist.
-        :param args: io args
-        :param kwargs: io kwargs
-        """
-        if not hasattr(cls, "_instance"):
-            cls._instance = None
-            if cls.able_to_execute():
-                cls._instance = super().__new__(cls, *args, **kwargs)
-        return cls._instance

@@ -1,4 +1,5 @@
 from . import tam_list_buffer
+from tamcolors.tam_io.tam_colors import *
 
 
 def get_icon():
@@ -27,7 +28,7 @@ def get_icon():
                   (c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, n, n, n, n, n, n, n),
                   (c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, c, n, n, n, n, n, n, n))
 
-    char_to_color = {c: 3, n: 4, s: 6}
+    char_to_color = {c: LIGHT_BLUE, n: LIGHT_RED, s: LIGHT_YELLOW}
     icon_background = []
     for row in icon_chars:
         new_row = []
@@ -36,4 +37,4 @@ def get_icon():
 
         icon_background.append(new_row)
 
-    return tam_list_buffer.tam_list_buffer(icon_chars, 0, icon_background)
+    return tam_list_buffer.tam_list_buffer(icon_chars, BLACK, icon_background)
