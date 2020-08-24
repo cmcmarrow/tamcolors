@@ -21,8 +21,8 @@ class WinGlobalsTests(unittest.TestCase):
         self.assertIsInstance(tam_io.win_drivers.WIN_STABLE, bool)
 
 
-@unittest.skipIf(platform.system() != "Windows", "Most be on Windows.")
-@unittest.skipIf(not get_win_io().able_to_execute(), "Console does not support WIN Drivers")
+@unittest.skipIf(tam_io.win_drivers.WIN_STABLE and not get_win_io().able_to_execute(),
+                 "Console does not support WIN Drivers")
 class WinDriversTests(unittest.TestCase):
     def test_able_to_execute(self):
         io = get_win_io()
