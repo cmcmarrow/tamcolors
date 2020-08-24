@@ -4,6 +4,7 @@ import platform
 # tamcolors libraries
 from tamcolors.tam_io import any_drivers
 from tamcolors.tam_io import win_drivers
+from tamcolors.tam_io import uni_drivers
 
 
 """
@@ -91,6 +92,11 @@ class TAMIdentifier:
                                 win_drivers.WINUtilitiesDriver)
             if io_identifier.stable():
                 return io_identifier
+        return cls("UNI_DRIVERS",
+                   uni_drivers.UNIKeyDriver,
+                   uni_drivers.UNIUtilitiesDriver,
+                   any_drivers.ANYColorDriver,
+                   any_drivers.ANYColorChangerDriver)
         return ANY_IO_IDENTIFIER
 
     def _build_io(self):

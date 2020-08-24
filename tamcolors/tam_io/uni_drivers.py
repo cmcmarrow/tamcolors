@@ -3,11 +3,12 @@ import platform
 import string
 import sys
 import os
+from abc import ABC
 
 # tamcolors libraries
 from .tam_buffer import TAMBuffer
-from . import io_tam
 from tamcolors.tam_c import _uni_tam as io
+from tamcolors.tam_io import tam_drivers
 
 
 """
@@ -38,17 +39,6 @@ class UniIO():
                                        -1: "49"}
         super().__init__()
         self.set_tam_color_defaults()
-
-    @classmethod
-    def able_to_execute(cls):
-        """
-        info: will see if environment supported by UniIO
-        :return: bool
-        """
-        if platform.system() in ("Darwin", "Linux"):
-            if os.system("test -t 0 -a -t 1 -a -t 2") == 0:
-                return io is not None
-        return False
 
     def draw(self, tam_buffer):
         """
@@ -121,25 +111,6 @@ class UniIO():
         sys.stdout.write("".join(output) + "\u001b[0")
         sys.stdout.flush()
 
-    def start(self):
-        """
-        info: will setup terminal to be used
-        :return:
-        """
-        self.clear()
-        self._show_console_cursor(False)
-        io._enable_get_key()
-
-    def done(self):
-        """
-        info: will reset terminal
-        :return:
-        """
-        self.clear()
-        self._show_console_cursor(True)
-        io._disable_get_key()
-        os.system("clear")
-
     def set_color(self, spot, color):
         """
         info: sets a color value
@@ -151,10 +122,87 @@ class UniIO():
         self.__background_color_map[spot] = "48;2;{};{};{}".format(*color)
         super().set_color(spot, color)
 
+    def get_color(self, spot):
+        """
+        info: will get the color value
+        :param spot: int
+        :return: tuple: (int, int, int)
+        """
+        return self._colors[spot]
+
+    def _get_lin_tam_color(self, foreground_color, background_color):
+        """
+        info: will get the ANI color code
+        :param foreground_color: int
+        :param background_color: int
+        :return: (str, sr)
+        """
+        return self.__foreground_color_map.get(foreground_color),\
+               self.__background_color_map.get(background_color)
+
+    def printc(self, output, color, flush, stderr):
+        """
+        info: will print out user output with color
+        :param output: str
+        :param color: tuple: (int, int)
+        :param flush: boolean
+        :param stderr: boolean
+        :return: None
+        """
+        output_str = "\u001b[{0};{1}m{2}\u001b[0m".format(*self._get_lin_tam_color(*color), output)
+        self._write_to_output_stream(output_str, flush, stderr)
+
+    def inputc(self, output, color):
+        """
+        info: will get user input with color
+        :param output: str
+        :param color: tuple: (int, int)
+        :return: str
+        """
+        output_str = "\u001b[{0};{1}m{2}".format(*self._get_lin_tam_color(*color), output)
+        ret = input(output_str)
+        sys.stdout.write("\u001b[0m")
+        sys.stdout.flush()
+        return ret
+
+
+class UNISharedData(tam_drivers.TAMDriver, ABC):
+    @classmethod
+    def able_to_execute(cls):
+        """
+        info: checks that io is stable in current environment
+        :return: bool
+        """
+        if platform.system() in ("Darwin", "Linux") and io is not None:
+            return os.system("test -t 0 -a -t 1 -a -t 2") == 0
+        return False
+
+
+class UNIKeyDriver(tam_drivers.KeyDriver, UNISharedData, ABC):
+    def __init__(self, *args, **kwargs):
+        self._uni_keys = self.get_key_dict()
+        super().__init__(*args, **kwargs)
+
+    def start(self):
+        """
+        info: operations for IO to start
+        :return: None
+        """
+        super().start()
+        io._enable_get_key()
+
+    def done(self):
+        """
+        info: operations for IO to stop
+        :return: None
+        """
+        super().done()
+        io._disable_get_key()
+
     def get_key(self):
         """
-        info: will get single key input or return False
-        :return: str or False
+        info: Gets an input from the terminal
+        :return: tuple or false
         """
         key_bytes = []
         key_byte = io._get_key()
@@ -163,22 +211,15 @@ class UniIO():
             key_byte = io._get_key()
 
         if len(key_bytes) != 0:
-            return self.__unix_keys.get(";".join([str(key_byte) for key_byte in key_bytes]), False)
+            return self._uni_keys.get(";".join([str(key_byte) for key_byte in key_bytes]), False)
 
         return False
-
-    def get_dimensions(self):
-        """
-        info: will get teh terminal dimensions
-        :return: (int, int)
-        """
-        return io._get_dimension()
 
     @staticmethod
     def get_key_dict():
         """
-        info: makes a dict mapping key codes to key
-        :return: dict
+        info: Gets a dict of all the keys
+        :return: {str: (str, str), ...}
         """
         normal_key = string.digits + string.ascii_letters + "`-=[]\\;',./~!@#$%^&*()_+{}|:\"<>?"
         linux_keys = {str(ord(key)): (key, "NORMAL") for key in normal_key}
@@ -221,65 +262,49 @@ class UniIO():
 
         return linux_keys
 
-    def get_color(self, spot):
-        """
-        info: will get the color value
-        :param spot: int
-        :return: tuple: (int, int, int)
-        """
-        return self._colors[spot]
 
-    @staticmethod
-    def _show_console_cursor(show_flag):
+class UNIUtilitiesDriver(tam_drivers.UtilitiesDriver, UNISharedData, ABC):
+    def start(self):
         """
-        info: will show or hide the cursor
-        :param show_flag: bool:
-        :return:
-        """
-        if platform.system() != "Darwin":
-            if show_flag:
-                os.system("setterm -cursor on")
-            else:
-                os.system("setterm -cursor off")
-
-    def _get_lin_tam_color(self, foreground_color, background_color):
-        """
-        info: will get the ANI color code
-        :param foreground_color: int
-        :param background_color: int
-        :return: (str, sr)
-        """
-        return self.__foreground_color_map.get(foreground_color),\
-               self.__background_color_map.get(background_color)
-
-    def printc(self, output, color, flush, stderr):
-        """
-        info: will print out user output with color
-        :param output: str
-        :param color: tuple: (int, int)
-        :param flush: boolean
-        :param stderr: boolean
+        info: operations for IO to start
         :return: None
         """
-        output_str = "\u001b[{0};{1}m{2}\u001b[0m".format(*self._get_lin_tam_color(*color), output)
-        self._write_to_output_stream(output_str, flush, stderr)
+        self.clear()
+        self.show_console_cursor(False)
+        super().start()
 
-    def inputc(self, output, color):
+    def done(self):
         """
-        info: will get user input with color
-        :param output: str
-        :param color: tuple: (int, int)
-        :return: str
+        info: operations for IO to stop
+        :return: None
         """
-        output_str = "\u001b[{0};{1}m{2}".format(*self._get_lin_tam_color(*color), output)
-        ret = input(output_str)
-        sys.stdout.write("\u001b[0m")
-        sys.stdout.flush()
-        return ret
+        self.clear()
+        self.show_console_cursor(True)
+        os.system("clear")
+        super().done()
+
+    def get_dimensions(self):
+        """
+        info: Gets the dimensions of console
+        :return: (int, int): (row, column)
+        """
+        return io._get_dimension()
 
     def clear(self):
         """
-        info: will clear the screen. Note that it will also reset the terminal
-        :return:
+        info: Will clear the console
+        :return: None
         """
         os.system("tput reset")
+
+    def show_console_cursor(self, show):
+        """
+        info: Will show or hide console cursor
+        :param show: int
+        :return: None
+        """
+        if platform.system() != "Darwin":
+            if show:
+                os.system("setterm -cursor on")
+            else:
+                os.system("setterm -cursor off")

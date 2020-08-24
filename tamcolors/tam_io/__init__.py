@@ -6,7 +6,7 @@ from . import tam_drivers
 from . import tam_identifier
 from . import tam_keys
 from . import tcp_tam
-from . import uni_tam
+from . import uni_drivers
 from . import win_drivers
 
 __all__ = ("any_drivers",
@@ -17,5 +17,5 @@ __all__ = ("any_drivers",
            "tam_identifier",
            "tam_keys",
            "tcp_tam",
-           "uni_tam",
+           "uni_drivers",
            "win_drivers")
