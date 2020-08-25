@@ -308,3 +308,7 @@ class UNIUtilitiesDriver(tam_drivers.UtilitiesDriver, UNISharedData, ABC):
                 os.system("setterm -cursor on")
             else:
                 os.system("setterm -cursor off")
+
+        if not show:
+            # TODO break out
+            io._enable_get_key()
