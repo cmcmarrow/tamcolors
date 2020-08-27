@@ -26,27 +26,15 @@ class UNIKeyDriver(tam_drivers.KeyDriver, UNISharedData, ABC):
         self._uni_keys = self.get_key_dict()
         super().__init__(*args, **kwargs)
 
-    def start(self):
-        """
-        info: operations for IO to start
-        :return: None
-        """
-        super().start()
-        io._enable_get_key()
-
-    def done(self):
-        """
-        info: operations for IO to stop
-        :return: None
-        """
-        super().done()
-        io._disable_get_key()
-
     def get_key(self):
         """
         info: Gets an input from the terminal
         :return: tuple or false
         """
+
+        if not self.is_console_keys_enabled():
+            return False
+
         key_bytes = []
         key_byte = io._get_key()
         while key_byte != -1:
@@ -105,24 +93,20 @@ class UNIKeyDriver(tam_drivers.KeyDriver, UNISharedData, ABC):
 
         return linux_keys
 
+    def enable_console_keys(self, enable):
+        if enable:
+            io._enable_get_key()
+        else:
+            io._disable_get_key()
+        super().enable_console_keys(enable)
+
 
 class UNIUtilitiesDriver(tam_drivers.UtilitiesDriver, UNISharedData, ABC):
-    def start(self):
-        """
-        info: operations for IO to start
-        :return: None
-        """
-        self.clear()
-        self.show_console_cursor(False)
-        super().start()
-
     def done(self):
         """
         info: operations for IO to stop
         :return: None
         """
-        self.clear()
-        self.show_console_cursor(True)
         os.system("clear")
         super().done()
 
@@ -139,6 +123,7 @@ class UNIUtilitiesDriver(tam_drivers.UtilitiesDriver, UNISharedData, ABC):
         :return: None
         """
         os.system("tput reset")
+        super().clear()
 
     def show_console_cursor(self, show):
         """
@@ -153,6 +138,3 @@ class UNIUtilitiesDriver(tam_drivers.UtilitiesDriver, UNISharedData, ABC):
                 os.system("setterm -cursor off")
         super().show_console_cursor(show)
 
-        if not show:
-            # TODO break out
-            io._enable_get_key()
