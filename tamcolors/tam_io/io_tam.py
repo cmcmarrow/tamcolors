@@ -248,7 +248,7 @@ class IO(RAWIO, ABC):
         info: checks that io is stable in current environment
         :return: bool
         """
-        raise NotImplementedError()
+        return True
 
     def set_mode(self, mode):
         """

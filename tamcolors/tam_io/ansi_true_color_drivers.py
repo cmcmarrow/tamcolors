@@ -6,14 +6,8 @@ import sys
 
 class ANSITrueColorDriver(tam_drivers.ColorDriver, ABC):
     def __init__(self, *args, **kwargs):
-        self.__buffer = TAMBuffer(0, 0, " ", 1, 1)
-        self.__unix_keys = self.get_key_dict()
-
-        self.__foreground_color_map = {-2: "39",
-                                       -1: "39"}
-
-        self.__background_color_map = {-2: "49",
-                                       -1: "49"}
+        self._buffer = TAMBuffer(0, 0, " ", 1, 1)
+        self._unix_keys = self.get_key_dict()
         super().__init__(*args, **kwargs)
 
     def printc(self, output, color, flush, stderr):
@@ -60,10 +54,9 @@ class ANSITrueColorDriver(tam_drivers.ColorDriver, ABC):
         :return: None
         """
         dimension = self.get_dimensions()
-        if self.__buffer.get_dimensions() != dimension:
+        if self._buffer.get_dimensions() != dimension:
             self.clear()
-            self.show_console_cursor(False)
-            self.__buffer.set_dimensions_and_clear(*dimension)
+            self._buffer.set_dimensions_and_clear(*dimension)
 
         super().draw(tam_buffer)
 
@@ -74,17 +67,17 @@ class ANSITrueColorDriver(tam_drivers.ColorDriver, ABC):
         :return: None
         """
         # checks if buffer needs to be updated
-        if " " != self.__buffer.get_defaults()[0] or self.__buffer.get_defaults()[1:] != tam_buffer.get_defaults()[1:]:
+        if " " != self._buffer.get_defaults()[0] or self._buffer.get_defaults()[1:] != tam_buffer.get_defaults()[1:]:
             # buffer defaults changed
-            self.__buffer.set_defaults_and_clear(" ", *tam_buffer.get_defaults()[1:])
+            self._buffer.set_defaults_and_clear(" ", *tam_buffer.get_defaults()[1:])
 
         # draw onto LinIO buffer
-        self._draw_onto(self.__buffer, tam_buffer)
+        self._draw_onto(self._buffer, tam_buffer)
 
-        color = self.__buffer.get_defaults()[1:]
+        color = self._buffer.get_defaults()[1:]
         foreground = self._process_2_color(color[0])
         background = self._process_2_color(color[1], False)
-        output = "".join(self.__buffer.get_raw_buffers()[0])
+        output = "".join(self._buffer.get_raw_buffers()[0])
         sys.stdout.write("\u001b[1;1H\u001b[{0};{1}m{2}\u001b[0".format(foreground, background, output))
         sys.stdout.flush()
 
@@ -94,34 +87,7 @@ class ANSITrueColorDriver(tam_drivers.ColorDriver, ABC):
         :param tam_buffer: TAMBuffer
         :return: None
         """
-        # checks if buffer needs to be updated
-        if " " != self.__buffer.get_defaults()[0] or self.__buffer.get_defaults()[1:] != tam_buffer.get_defaults()[1:]:
-            # buffer defaults changed
-            self.__buffer.set_defaults_and_clear(" ", *tam_buffer.get_defaults()[1:])
-
-        # draw onto LinIO buffer
-        self._draw_onto(self.__buffer, tam_buffer)
-
-        # make output string
-        output = ["\u001b[1;1H"]
-        foreground, background = None, None
-        char_buffer, foreground_buffer, background_buffer = self.__buffer.get_raw_buffers()
-        for spot in range(len(char_buffer)):
-            if foreground is None:
-                foreground = self._process_16_color(foreground_buffer[spot])
-                background = self._process_16_color(background_buffer[spot], False)
-                output.append("\u001b[{0};{1}m".format(foreground, background))
-                output.append(char_buffer[spot])
-            elif foreground == foreground_buffer[spot] and background == background_buffer[spot]:
-                output.append(char_buffer[spot])
-            else:
-                foreground = self._process_16_color(foreground_buffer[spot])
-                background = self._process_16_color(background_buffer[spot], False)
-                output.append("\u001b[{0};{1}m".format(foreground, background))
-                output.append(char_buffer[spot])
-
-        sys.stdout.write("".join(output) + "\u001b[0")
-        sys.stdout.flush()
+        self._draw(tam_buffer, self._process_16_color)
 
     def _draw_256(self, tam_buffer):
         """
@@ -129,34 +95,7 @@ class ANSITrueColorDriver(tam_drivers.ColorDriver, ABC):
         :param tam_buffer: TAMBuffer
         :return: None
         """
-        # checks if buffer needs to be updated
-        if " " != self.__buffer.get_defaults()[0] or self.__buffer.get_defaults()[1:] != tam_buffer.get_defaults()[1:]:
-            # buffer defaults changed
-            self.__buffer.set_defaults_and_clear(" ", *tam_buffer.get_defaults()[1:])
-
-        # draw onto LinIO buffer
-        self._draw_onto(self.__buffer, tam_buffer)
-
-        # make output string
-        output = ["\u001b[1;1H"]
-        foreground, background = None, None
-        char_buffer, foreground_buffer, background_buffer = self.__buffer.get_raw_buffers()
-        for spot in range(len(char_buffer)):
-            if foreground is None:
-                foreground = self._process_256_color(foreground_buffer[spot])
-                background = self._process_256_color(background_buffer[spot], False)
-                output.append("\u001b[{0};{1}m".format(foreground, background))
-                output.append(char_buffer[spot])
-            elif foreground == foreground_buffer[spot] and background == background_buffer[spot]:
-                output.append(char_buffer[spot])
-            else:
-                foreground = self._process_256_color(foreground_buffer[spot])
-                background = self._process_256_color(background_buffer[spot], False)
-                output.append("\u001b[{0};{1}m".format(foreground, background))
-                output.append(char_buffer[spot])
-
-        sys.stdout.write("".join(output) + "\u001b[0")
-        sys.stdout.flush()
+        self._draw(tam_buffer, self._process_256_color)
 
     def _draw_rgb(self, tam_buffer):
         """
@@ -164,29 +103,32 @@ class ANSITrueColorDriver(tam_drivers.ColorDriver, ABC):
         :param tam_buffer: TAMBuffer
         :return: None
         """
+        self._draw(tam_buffer, self._process_rgb_color)
+
+    def _draw(self, tam_buffer, process_func):
         # checks if buffer needs to be updated
-        if " " != self.__buffer.get_defaults()[0] or self.__buffer.get_defaults()[1:] != tam_buffer.get_defaults()[1:]:
+        if " " != self._buffer.get_defaults()[0] or self._buffer.get_defaults()[1:] != tam_buffer.get_defaults()[1:]:
             # buffer defaults changed
-            self.__buffer.set_defaults_and_clear(" ", *tam_buffer.get_defaults()[1:])
+            self._buffer.set_defaults_and_clear(" ", *tam_buffer.get_defaults()[1:])
 
         # draw onto LinIO buffer
-        self._draw_onto(self.__buffer, tam_buffer)
+        self._draw_onto(self._buffer, tam_buffer)
 
         # make output string
         output = ["\u001b[1;1H"]
         foreground, background = None, None
-        char_buffer, foreground_buffer, background_buffer = self.__buffer.get_raw_buffers()
+        char_buffer, foreground_buffer, background_buffer = self._buffer.get_raw_buffers()
         for spot in range(len(char_buffer)):
             if foreground is None:
-                foreground = self._process_rgb_color(foreground_buffer[spot])
-                background = self._process_rgb_color(background_buffer[spot], False)
+                foreground = process_func(foreground_buffer[spot])
+                background = process_func(background_buffer[spot], False)
                 output.append("\u001b[{0};{1}m".format(foreground, background))
                 output.append(char_buffer[spot])
             elif foreground == foreground_buffer[spot] and background == background_buffer[spot]:
                 output.append(char_buffer[spot])
             else:
-                foreground = self._process_rgb_color(foreground_buffer[spot])
-                background = self._process_rgb_color(background_buffer[spot], False)
+                foreground = process_func(foreground_buffer[spot])
+                background = process_func(background_buffer[spot], False)
                 output.append("\u001b[{0};{1}m".format(foreground, background))
                 output.append(char_buffer[spot])
 
@@ -194,39 +136,46 @@ class ANSITrueColorDriver(tam_drivers.ColorDriver, ABC):
         sys.stdout.flush()
 
     def _process_2_color(self, color, foreground=True):
-        rgb = self.get_color(color.mode_2)
+        if color.mode_2 not in (-2, -1):
+            rgb = self.get_color(color.mode_2)
+        elif foreground:
+            return "39"
+        else:
+            return "49"
+
         if foreground:
-            if rgb.is_default or rgb.a == 0:
-                return "39"
             return "38;2;{};{};{}".format(rgb.r, rgb.g, rgb.b)
         else:
-            if rgb.is_default or rgb.a == 0:
-                return "49"
             return "48;2;{};{};{}".format(rgb.r, rgb.g, rgb.b)
 
     def _process_16_color(self, color, foreground=True):
-        rgb = self.get_color(color.mode_16)
+        if color.mode_16 not in (-2, -1):
+            rgb = self.get_color(color.mode_16)
+        elif foreground:
+            return "39"
+        else:
+            return "49"
+
         if foreground:
-            if rgb.is_default or rgb.a == 0:
-                return "39"
             return "38;2;{};{};{}".format(rgb.r, rgb.g, rgb.b)
         else:
-            if rgb.is_default or rgb.a == 0:
-                return "49"
             return "48;2;{};{};{}".format(rgb.r, rgb.g, rgb.b)
 
     def _process_256_color(self, color, foreground=True):
-        rgb = self.get_color(color.mode_256)
+        if color.mode_256 not in (-2, -1):
+            rgb = self.get_color(color.mode_256)
+        elif foreground:
+            return "39"
+        else:
+            return "49"
+
         if foreground:
-            if rgb.is_default or rgb.a == 0:
-                return "39"
             return "38;2;{};{};{}".format(rgb.r, rgb.g, rgb.b)
         else:
-            if rgb.is_default or rgb.a == 0:
-                return "49"
             return "48;2;{};{};{}".format(rgb.r, rgb.g, rgb.b)
 
-    def _process_rgb_color(self, color, foreground=True):
+    @staticmethod
+    def _process_rgb_color(color, foreground=True):
         rgb = color.mode_rgb
         if foreground:
             if rgb.is_default or rgb.a == 0:

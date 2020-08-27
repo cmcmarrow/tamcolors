@@ -31,18 +31,10 @@ class TAMDriver(IO, ABC):
         info: checks that io is stable in current environment
         :return: bool
         """
-        return True
+        return super().able_to_execute()
 
 
 class KeyDriver(TAMDriver, ABC):
-    def __init__(self, *args, **kwargs):
-        """
-        info: Makes part of IO
-        :param args: *args
-        :param kwargs: **kwargs
-        """
-        super().__init__(*args, **kwargs)
-
     def get_key(self):
         """
         info: Gets an input from the terminal
@@ -63,14 +55,6 @@ class KeyDriver(TAMDriver, ABC):
 
 
 class ColorDriver(TAMDriver, ABC):
-    def __init__(self, *args, **kwargs):
-        """
-        info: Makes part of IO
-        :param args: *args
-        :param kwargs: **kwargs
-        """
-        super().__init__(*args, **kwargs)
-
     def printc(self, output, color, flush, stderr):
         """
         info: Will print to the console in color
@@ -141,14 +125,6 @@ class ColorDriver(TAMDriver, ABC):
 
 
 class ColorChangerDriver(TAMDriver, ABC):
-    def __init__(self, *args, **kwargs):
-        """
-        info: Makes part of IO
-        :param args: *args
-        :param kwargs: **kwargs
-        """
-        super().__init__(*args, **kwargs)
-
     def get_color(self, spot):
         """
         info: Will get color from color palette
@@ -200,14 +176,6 @@ class ColorChangerDriver(TAMDriver, ABC):
 
 
 class UtilitiesDriver(TAMDriver, ABC):
-    def __init__(self, *args, **kwargs):
-        """
-        info: Makes part of IO
-        :param args: *args
-        :param kwargs: **kwargs
-        """
-        super().__init__(*args, **kwargs)
-
     def get_dimensions(self):
         """
         info: Gets the dimensions of console
