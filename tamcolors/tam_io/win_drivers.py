@@ -35,6 +35,9 @@ class WINKeyDriver(tam_drivers.KeyDriver, WinSharedData, ABC):
         info: will get single key input or return False
         :return: str or False
         """
+        if not self.is_console_keys_enabled():
+            return False
+
         key_bytes = []
         key_byte = io._get_key()
         while key_byte != -1:
@@ -141,7 +144,6 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
         """
         if self.__buffer.get_dimensions() != io._get_dimension():
             self.clear()
-            self.show_console_cursor(False)
             self.__buffer.set_dimensions_and_clear(*io._get_dimension())
             self._last_frame = None
 
@@ -354,29 +356,13 @@ class WINUtilitiesDriver(tam_drivers.UtilitiesDriver, WinSharedData, ABC):
         :return:
         """
         io._clear()
+        super().clear()
 
     def show_console_cursor(self, show):
         """
         info: Will show or hide console cursor
-        :param show: int
+        :param show: bool
         :return: None
         """
         io._show_console_cursor(show)
-
-    def start(self):
-        """
-        info: operations for IO to start
-        :return: None
-        """
-        self.clear()
-        self.show_console_cursor(False)
-        super().start()
-
-    def done(self):
-        """
-        info: operations for IO to stop
-        :return: None
-        """
-        self.clear()
-        self.show_console_cursor(True)
-        super().done()
+        super().show_console_cursor(show)

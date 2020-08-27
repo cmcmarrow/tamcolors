@@ -7,7 +7,7 @@ from tamcolors import tam_io
 
 class StandardTest(unittest.TestCase):
     def test_same_keys(self):
-        uni_key_dict = tam_io.uni_tam.UniIO.get_key_dict()
+        uni_key_dict = tam_io.uni_drivers.UNIKeyDriver.get_key_dict()
         win_key_dict = tam_io.win_drivers.WINKeyDriver.get_key_dict()
 
         uni_key_set = set([uni_key_dict[key] for key in uni_key_dict])

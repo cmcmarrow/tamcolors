@@ -190,7 +190,16 @@ class RAWIO(ABC):
 
 
 class IO(RAWIO, ABC):
-    def __init__(self, identifier, mode_2=True, mode_16=True, mode_256=True, mode_rgb=True):
+    def __init__(self,
+                 identifier,
+                 mode_2=True,
+                 mode_16=True,
+                 mode_256=True,
+                 mode_rgb=True,
+                 key_driver_operational=True,
+                 color_driver_operational=True,
+                 color_changer_driver_operational=True,
+                 utilities_driver_operational=True):
         """
         Makes a IO object
         :param identifier: TAMIdentifier
@@ -198,6 +207,8 @@ class IO(RAWIO, ABC):
         :param mode_16: bool
         :param mode_256: bool
         :param mode_rgb: bool
+        :param color_changer_driver_operational: bool
+        :param utilities_driver_operational: bool
         """
 
         self._modes = []
@@ -209,6 +220,14 @@ class IO(RAWIO, ABC):
             self._modes.append(256)
         if mode_rgb:
             self._modes.append("rgb")
+
+        self._key_driver_operational = key_driver_operational
+        self._color_driver_operational = color_driver_operational
+        self._color_changer_driver_operational = color_changer_driver_operational
+        self._utilities_driver_operational = utilities_driver_operational
+
+        self._is_console_cursor_enabled = True
+        self._is_console_keys_enabled = False
 
         self._identifier = identifier
         self._modes = tuple(self._modes)
@@ -299,14 +318,18 @@ class IO(RAWIO, ABC):
         info: operations for IO to start
         :return: None
         """
-        pass
+        self.clear()
+        self.show_console_cursor(False)
+        self.enable_console_keys(True)
 
     def done(self):
         """
         info: operations for IO to stop
         :return: None
         """
-        pass
+        self.clear()
+        self.show_console_cursor(True)
+        self.enable_console_keys(False)
 
     def get_key(self):
         """
@@ -347,7 +370,9 @@ class IO(RAWIO, ABC):
         info: Will clear the console
         :return: None
         """
-        raise NotImplementedError()
+        # Most console will show cursor and disable keys on clear
+        self.show_console_cursor(self.is_console_cursor_enabled())
+        self.enable_console_keys(self.is_console_keys_enabled())
 
     def get_color(self, spot):
         """
@@ -360,38 +385,38 @@ class IO(RAWIO, ABC):
     def show_console_cursor(self, show):
         """
         info: Will show or hide console cursor
-        :param show: int
+        :param show: bool
         :return: None
         """
-        raise NotImplementedError()
+        self._is_console_cursor_enabled = show
 
     def utilities_driver_operational(self):
         """
         info: checks if the utilities driver is operational
         :return: bool
         """
-        raise NotImplementedError()
+        return self._utilities_driver_operational
 
     def color_changer_driver_operational(self):
         """
         info: checks if the color changer driver is operational
         :return: bool
         """
-        return NotImplementedError()
+        return self._color_changer_driver_operational
 
     def color_driver_operational(self):
         """
         info: checks if the color driver is operational
         :return: bool
         """
-        return NotImplementedError()
+        return self._color_driver_operational
 
     def key_driver_operational(self):
         """
         info: checks if the key driver is operational
         :return: bool
         """
-        return NotImplementedError()
+        return self._key_driver_operational
 
     def _get_console_color(self, spot):
         """
@@ -473,6 +498,28 @@ class IO(RAWIO, ABC):
             color = self._get_console_color(spot)
             self._default_console_colors.append(color)
             self._color_palette[spot] = color
+
+    def is_console_cursor_enabled(self):
+        """
+        info: will check if console cursor is enabled
+        :return: bool
+        """
+        return self._is_console_cursor_enabled
+
+    def enable_console_keys(self, enable):
+        """
+        info: will enable console keys
+        :param enable: boool
+        :return: None
+        """
+        self._is_console_keys_enabled = enable
+
+    def is_console_keys_enabled(self):
+        """
+        info: will check if console keys enabled
+        :return: bool
+        """
+        return self._is_console_keys_enabled
 
     def _get_mode_draw(self):
         """

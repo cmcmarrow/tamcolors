@@ -46,58 +46,53 @@ class WinDriversTests(unittest.TestCase):
         io = get_win_io()
         with unittest.mock.patch.object(tam_io.win_drivers.io, "_get_dimension", return_value=(15, 10)) as _get_dimension:
             with unittest.mock.patch.object(io, "clear", return_value=None) as clear:
-                with unittest.mock.patch.object(tam_io.win_drivers.io, "_show_console_cursor", return_value=None) as _show_console_cursor:
-                    with unittest.mock.patch.object(io, "_print", return_value=None) as _print:
-                        io.set_mode(2)
-                        buffer = tam_io.tam_buffer.TAMBuffer(5, 6, "A", RED, GREEN)
-                        buffer2 = tam_io.tam_buffer.TAMBuffer(15, 10, " ", RED, GREEN)
+                with unittest.mock.patch.object(io, "_print", return_value=None) as _print:
+                    io.set_mode(2)
+                    buffer = tam_io.tam_buffer.TAMBuffer(5, 6, "A", RED, GREEN)
+                    buffer2 = tam_io.tam_buffer.TAMBuffer(15, 10, " ", RED, GREEN)
 
-                        buffer.set_spot(1, 1, "B", PURPLE, WHITE)
-                        buffer.set_spot(4, 4, "C", PURPLE, WHITE)
-                        buffer.set_spot(4, 5, "D", PURPLE, WHITE)
+                    buffer.set_spot(1, 1, "B", PURPLE, WHITE)
+                    buffer.set_spot(4, 4, "C", PURPLE, WHITE)
+                    buffer.set_spot(4, 5, "D", PURPLE, WHITE)
 
-                        buffer2.draw_onto(buffer, 5, 2)
-                        io.draw(buffer)
+                    buffer2.draw_onto(buffer, 5, 2)
+                    io.draw(buffer)
 
-                        _get_dimension.assert_called()
-                        clear.assert_called_once_with()
-                        _show_console_cursor.assert_called_once_with(False)
-                        _print.assert_called_once_with(0, 0, "".join(c for c in str(buffer2) if c != "\n"), 1, 2)
+                    _get_dimension.assert_called()
+                    clear.assert_called_once_with()
+                    _print.assert_called_once_with(0, 0, "".join(c for c in str(buffer2) if c != "\n"), 1, 2)
 
     def test__draw_16(self):
         io = get_win_io()
         with unittest.mock.patch.object(tam_io.win_drivers.io, "_get_dimension", return_value=(15, 10)) as _get_dimension:
             with unittest.mock.patch.object(io, "clear", return_value=None) as clear:
-                with unittest.mock.patch.object(tam_io.win_drivers.io, "_show_console_cursor", return_value=None) as _show_console_cursor:
-                    with unittest.mock.patch.object(io, "_print", return_value=None) as _print:
-                        io.set_mode(16)
-                        buffer = tam_io.tam_buffer.TAMBuffer(5, 6, "A", RED, GREEN)
-                        buffer2 = tam_io.tam_buffer.TAMBuffer(15, 10, " ", RED, GREEN)
+                with unittest.mock.patch.object(io, "_print", return_value=None) as _print:
+                    io.set_mode(16)
+                    buffer = tam_io.tam_buffer.TAMBuffer(5, 6, "A", RED, GREEN)
+                    buffer2 = tam_io.tam_buffer.TAMBuffer(15, 10, " ", RED, GREEN)
 
-                        buffer.set_spot(1, 1, "B", PURPLE, WHITE)
-                        buffer.set_spot(3, 5, "C", PURPLE, WHITE)
-                        buffer.set_spot(4, 5, "D", PURPLE, WHITE)
-                        buffer.set_spot(1, 2, " ", PURPLE, GREEN)
+                    buffer.set_spot(1, 1, "B", PURPLE, WHITE)
+                    buffer.set_spot(3, 5, "C", PURPLE, WHITE)
+                    buffer.set_spot(4, 5, "D", PURPLE, WHITE)
+                    buffer.set_spot(1, 2, " ", PURPLE, GREEN)
 
-                        buffer2.draw_onto(buffer, 5, 2)
-                        io.draw(buffer)
+                    buffer2.draw_onto(buffer, 5, 2)
+                    io.draw(buffer)
 
-                        _get_dimension.assert_called()
-                        clear.assert_called_once_with()
-                        _show_console_cursor.assert_called_once_with(False)
+                    _get_dimension.assert_called()
+                    clear.assert_called_once_with()
 
-                        self.assertEqual(_print.call_count, 16)
+                    self.assertEqual(_print.call_count, 16)
 
-                        self.assertEqual(_print.mock_calls[0], unittest.mock.call(0, 0, "." * 35, 2, 2))
-                        self.assertEqual(_print.mock_calls[1], unittest.mock.call(5, 2, "A" * 5, 1, 2))
-                        self.assertEqual(_print.mock_calls[2], unittest.mock.call(10, 2, "." * 10, 2, 2))
-                        self.assertEqual(_print.mock_calls[3], unittest.mock.call(5, 3, "A", 1, 2))
-                        self.assertEqual(_print.mock_calls[4], unittest.mock.call(6, 3, "B", 5, 7))
-                        self.assertEqual(_print.mock_calls[10], unittest.mock.call(10, 5, "." * 10, 2, 2))
-                        self.assertEqual(_print.mock_calls[15], unittest.mock.call(10, 7, "." * 35, 2, 2))
+                    self.assertEqual(_print.mock_calls[0], unittest.mock.call(0, 0, "." * 35, 2, 2))
+                    self.assertEqual(_print.mock_calls[1], unittest.mock.call(5, 2, "A" * 5, 1, 2))
+                    self.assertEqual(_print.mock_calls[2], unittest.mock.call(10, 2, "." * 10, 2, 2))
+                    self.assertEqual(_print.mock_calls[3], unittest.mock.call(5, 3, "A", 1, 2))
+                    self.assertEqual(_print.mock_calls[4], unittest.mock.call(6, 3, "B", 5, 7))
+                    self.assertEqual(_print.mock_calls[10], unittest.mock.call(10, 5, "." * 10, 2, 2))
+                    self.assertEqual(_print.mock_calls[15], unittest.mock.call(10, 7, "." * 35, 2, 2))
 
-    @staticmethod
-    def test_start():
+    def test_start(self):
         io = get_win_io()
         with unittest.mock.patch.object(tam_io.win_drivers.io, "_clear", return_value=None) as _clear:
             with unittest.mock.patch.object(tam_io.win_drivers.io,
@@ -106,10 +101,9 @@ class WinDriversTests(unittest.TestCase):
                 io.start()
 
                 _clear.assert_called_once_with()
-                _show_console_cursor.assert_called_once_with(False)
+                self.assertEqual(_show_console_cursor.call_count, 2)
 
-    @staticmethod
-    def test_done():
+    def test_done(self):
         io = get_win_io()
         with unittest.mock.patch.object(tam_io.win_drivers.io, "_get_default_color", return_value=2) as _get_default_color:
             with unittest.mock.patch.object(tam_io.win_drivers.io, "_set_cursor_info", return_value=None) as _set_cursor_info:
@@ -122,10 +116,11 @@ class WinDriversTests(unittest.TestCase):
                         _get_default_color.assert_called_once_with()
                         _set_cursor_info.assert_called_once_with(0, 0, 2)
                         _clear.assert_called_once_with()
-                        _show_console_cursor.assert_called_once_with(True)
+                        self.assertEqual(_show_console_cursor.call_count, 2)
 
     def test_get_key(self):
         io = get_win_io()
+        io.enable_console_keys(True)
         with unittest.mock.patch.object(tam_io.win_drivers.io, "_get_key", side_effect=[65, -1]) as _get_key:
             self.assertEqual(io.get_key(), ("A", "NORMAL"))
 
@@ -133,6 +128,7 @@ class WinDriversTests(unittest.TestCase):
 
     def test_get_key_2(self):
         io = get_win_io()
+        io.enable_console_keys(True)
         with unittest.mock.patch.object(tam_io.win_drivers.io, "_get_key", side_effect=[224, 72, -1]) as _get_key:
             self.assertEqual(io.get_key(), ("UP", "SPECIAL"))
 
@@ -140,6 +136,7 @@ class WinDriversTests(unittest.TestCase):
 
     def test_get_key_3(self):
         io = get_win_io()
+        io.enable_console_keys(True)
         with unittest.mock.patch.object(tam_io.win_drivers.io, "_get_key", side_effect=[224, 134, -1]) as _get_key:
             self.assertEqual(io.get_key(), ("F12", "SPECIAL"))
 
@@ -147,6 +144,7 @@ class WinDriversTests(unittest.TestCase):
 
     def test_get_key_4(self):
         io = get_win_io()
+        io.enable_console_keys(True)
         with unittest.mock.patch.object(tam_io.win_drivers.io, "_get_key", side_effect=[155, 65, -1]) as _get_key:
             self.assertEqual(io.get_key(), False)
 
@@ -154,6 +152,7 @@ class WinDriversTests(unittest.TestCase):
 
     def test_get_key_5(self):
         io = get_win_io()
+        io.enable_console_keys(True)
         with unittest.mock.patch.object(tam_io.win_drivers.io, "_get_key", side_effect=[66, -1, 224, 83, -1]) as _get_key:
             self.assertEqual(io.get_key(), ("B", "NORMAL"))
             self.assertEqual(io.get_key(), ("DELETE", "SPECIAL"))
