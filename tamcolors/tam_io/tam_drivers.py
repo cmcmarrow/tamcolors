@@ -35,14 +35,12 @@ class TAMDriver(IO, ABC):
 
 
 class KeyDriver(TAMDriver, ABC):
-    def __init__(self, key_driver_operational=True, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         """
         info: Makes part of IO
-        :param key_driver_operational: bool
         :param args: *args
         :param kwargs: **kwargs
         """
-        self._key_driver_operational = key_driver_operational
         super().__init__(*args, **kwargs)
 
     def get_key(self):
@@ -60,23 +58,17 @@ class KeyDriver(TAMDriver, ABC):
         """
         raise NotImplementedError()
 
-    def key_driver_operational(self):
-        """
-        info: checks if the key driver is operational
-        :return: bool
-        """
-        return self._key_driver_operational
+    def enable_console_keys(self, enable):
+        super().enable_console_keys(enable)
 
 
 class ColorDriver(TAMDriver, ABC):
-    def __init__(self, color_driver_operational=True, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         """
         info: Makes part of IO
-        :param color_driver_operational: bool
         :param args: *args
         :param kwargs: **kwargs
         """
-        self._color_driver_operational = color_driver_operational
         super().__init__(*args, **kwargs)
 
     def printc(self, output, color, flush, stderr):
@@ -147,23 +139,14 @@ class ColorDriver(TAMDriver, ABC):
         """
         raise NotImplementedError()
 
-    def color_driver_operational(self):
-        """
-        info: checks if the color driver is operational
-        :return: bool
-        """
-        return self._color_driver_operational
-
 
 class ColorChangerDriver(TAMDriver, ABC):
-    def __init__(self, color_changer_driver_operational=True, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         """
         info: Makes part of IO
-        :param color_changer_driver_operational: bool
         :param args: *args
         :param kwargs: **kwargs
         """
-        self._color_changer_driver_operational = color_changer_driver_operational
         super().__init__(*args, **kwargs)
 
     def get_color(self, spot):
@@ -207,13 +190,6 @@ class ColorChangerDriver(TAMDriver, ABC):
         """
         raise NotImplementedError()
 
-    def color_changer_driver_operational(self):
-        """
-        info: checks if the color changer driver is operational
-        :return: bool
-        """
-        return self._color_changer_driver_operational
-
     def set_mode(self, mode):
         """
         info: will set the color mode
@@ -223,19 +199,13 @@ class ColorChangerDriver(TAMDriver, ABC):
         super().set_mode(mode)
 
 
-class FullColorDriver(ColorDriver, ColorChangerDriver, ABC):
-    pass
-
-
 class UtilitiesDriver(TAMDriver, ABC):
-    def __init__(self, utilities_driver_operational=True, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         """
         info: Makes part of IO
-        :param utilities_driver_operational: bool
         :param args: *args
         :param kwargs: **kwargs
         """
-        self._utilities_driver_operational = utilities_driver_operational
         super().__init__(*args, **kwargs)
 
     def get_dimensions(self):
@@ -250,7 +220,7 @@ class UtilitiesDriver(TAMDriver, ABC):
         info: Will clear the console
         :return: None
         """
-        raise NotImplementedError()
+        super().clear()
 
     def show_console_cursor(self, show):
         """
@@ -258,11 +228,9 @@ class UtilitiesDriver(TAMDriver, ABC):
         :param show: int
         :return: None
         """
-        raise NotImplementedError()
+        super().show_console_cursor(show)
 
-    def utilities_driver_operational(self):
-        """
-        info: checks if the utilities driver is operational
-        :return: bool
-        """
-        return self._utilities_driver_operational
+
+class FullColorDriver(ColorDriver, ColorChangerDriver, ABC):
+    pass
+
