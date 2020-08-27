@@ -23,8 +23,8 @@ class UniIOTests(unittest.TestCase):
 
     def test_set_slash_get_mode(self):
         io = tam_io.uni_tam.UniIO()
-        io.set_mode(2)
-        self.assertEqual(io.get_mode(), 2)
+        io.set_mode(tam_io.io_tam.MODE_2)
+        self.assertEqual(io.get_mode(), tam_io.io_tam.MODE_2)
 
     def test_get_modes(self):
         io = tam_io.uni_tam.UniIO()
@@ -45,7 +45,7 @@ class UniIOTests(unittest.TestCase):
                         with unittest.mock.patch.object(sys.stdout, "flush", return_value=None) as flush:
                             with unittest.mock.patch.object(tam_io.uni_tam.io, "_get_dimension",
                                                             return_value=(15, 10)) as _get_dimension:
-                                io.set_mode(2)
+                                io.set_mode(tam_io.io_tam.MODE_2)
                                 tam_buffer = tam_io.tam_buffer.TAMBuffer(5, 7, "A", 3, 4)
                                 tam_buffer.set_spot(1, 1, "B", 7, 8)
                                 tam_buffer.set_spot(1, 2, "C", 7, 7)
@@ -72,7 +72,7 @@ class UniIOTests(unittest.TestCase):
                         with unittest.mock.patch.object(sys.stdout, "flush", return_value=None) as flush:
                             with unittest.mock.patch.object(tam_io.uni_tam.io, "_get_dimension",
                                                             return_value=(15, 10)) as _get_dimension:
-                                io.set_mode(16)
+                                io.set_mode(tam_io.io_tam.MODE_16)
                                 tam_buffer = tam_io.tam_buffer.TAMBuffer(5, 7, "A", 3, 4)
                                 tam_buffer.set_spot(1, 1, "B", 7, 8)
                                 tam_buffer.set_spot(1, 2, "C", 7, 7)

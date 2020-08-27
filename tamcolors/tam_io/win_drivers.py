@@ -8,6 +8,7 @@ from .tam_buffer import TAMBuffer
 from tamcolors.tam_c import _win_tam as io
 from tamcolors.tam_io import tam_drivers
 from tamcolors.tam_io import tam_colors
+from tamcolors.tam_io import io_tam
 
 
 WIN_STABLE = False
@@ -135,6 +136,13 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
         ret = input(output)
         io._set_console_color(default_color)
         return ret
+
+    def get_printc_mode(self):
+        """
+        Gets the modes used by printc and inputc
+        :return: str
+        """
+        return io_tam.MODE_16
 
     def draw(self, tam_buffer):
         """

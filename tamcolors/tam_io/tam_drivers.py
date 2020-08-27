@@ -75,6 +75,13 @@ class ColorDriver(TAMDriver, ABC):
         """
         raise NotImplementedError()
 
+    def get_printc_mode(self):
+        """
+        Gets the modes used by printc and inputc
+        :return: str
+        """
+        raise NotImplementedError()
+
     def set_mode(self, mode):
         """
         info: will set the color mode
