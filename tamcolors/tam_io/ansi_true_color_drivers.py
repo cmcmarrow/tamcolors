@@ -1,6 +1,7 @@
 from abc import ABC
 from tamcolors.tam_io import tam_drivers
 from .tam_buffer import TAMBuffer
+from tamcolors.tam_io import io_tam
 import sys
 
 
@@ -38,6 +39,13 @@ class ANSITrueColorDriver(tam_drivers.ColorDriver, ABC):
         sys.stdout.write("\u001b[0m")
         sys.stdout.flush()
         return ret
+
+    def get_printc_mode(self):
+        """
+        Gets the modes used by printc and inputc
+        :return: str
+        """
+        return io_tam.MODE_RGB
 
     def set_mode(self, mode):
         """
@@ -188,9 +196,6 @@ class ANSITrueColorDriver(tam_drivers.ColorDriver, ABC):
 
 
 class ANSITrueColorChangerDriver(tam_drivers.ColorChangerDriver, ABC):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
     def _console_color_count(self):
         """
         info: Get console color

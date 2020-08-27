@@ -20,12 +20,12 @@ class AnyIOTests(unittest.TestCase):
 
     def test_set_slash_get_mode(self):
         io = get_any_io()
-        io.set_mode(2)
-        self.assertEqual(io.get_mode(), 2)
+        io.set_mode(tam_io.io_tam.MODE_2)
+        self.assertEqual(io.get_mode(), tam_io.io_tam.MODE_2)
 
     def test_get_modes(self):
         io = get_any_io()
-        self.assertEqual(io.get_modes(), (2,))
+        self.assertEqual(io.get_modes(), (tam_io.io_tam.MODE_2,))
 
     def test_get_key(self):
         io = get_any_io()

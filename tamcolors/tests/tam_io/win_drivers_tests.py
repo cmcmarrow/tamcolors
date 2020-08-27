@@ -21,8 +21,7 @@ class WinGlobalsTests(unittest.TestCase):
         self.assertIsInstance(tam_io.win_drivers.WIN_STABLE, bool)
 
 
-@unittest.skipIf(tam_io.win_drivers.WIN_STABLE and not get_win_io().able_to_execute(),
-                 "Console does not support WIN Drivers")
+@unittest.skipIf(get_win_io() is None, "Console does not support WIN Drivers")
 class WinDriversTests(unittest.TestCase):
     def test_able_to_execute(self):
         io = get_win_io()
@@ -30,16 +29,14 @@ class WinDriversTests(unittest.TestCase):
 
     def test_set_slash_get_mode(self):
         io = get_win_io()
-        io.set_mode(2)
-        self.assertEqual(io.get_mode(), 2)
+        io.set_mode(tam_io.io_tam.MODE_2)
+        self.assertEqual(io.get_mode(), tam_io.io_tam.MODE_2)
 
     def test_get_modes(self):
         io = get_win_io()
         modes = io.get_modes()
         self.assertIsInstance(modes, tuple)
-        modes = list(modes)
-        modes.sort()
-        self.assertEqual(modes, [2, 16])
+        self.assertEqual(modes, (tam_io.io_tam.MODE_2, tam_io.io_tam.MODE_16))
 
     @staticmethod
     def test__draw_2():
@@ -47,7 +44,7 @@ class WinDriversTests(unittest.TestCase):
         with unittest.mock.patch.object(tam_io.win_drivers.io, "_get_dimension", return_value=(15, 10)) as _get_dimension:
             with unittest.mock.patch.object(io, "clear", return_value=None) as clear:
                 with unittest.mock.patch.object(io, "_print", return_value=None) as _print:
-                    io.set_mode(2)
+                    io.set_mode(tam_io.io_tam.MODE_2)
                     buffer = tam_io.tam_buffer.TAMBuffer(5, 6, "A", RED, GREEN)
                     buffer2 = tam_io.tam_buffer.TAMBuffer(15, 10, " ", RED, GREEN)
 
@@ -67,7 +64,7 @@ class WinDriversTests(unittest.TestCase):
         with unittest.mock.patch.object(tam_io.win_drivers.io, "_get_dimension", return_value=(15, 10)) as _get_dimension:
             with unittest.mock.patch.object(io, "clear", return_value=None) as clear:
                 with unittest.mock.patch.object(io, "_print", return_value=None) as _print:
-                    io.set_mode(16)
+                    io.set_mode(tam_io.io_tam.MODE_16)
                     buffer = tam_io.tam_buffer.TAMBuffer(5, 6, "A", RED, GREEN)
                     buffer2 = tam_io.tam_buffer.TAMBuffer(15, 10, " ", RED, GREEN)
 

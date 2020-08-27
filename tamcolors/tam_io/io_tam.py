@@ -9,6 +9,12 @@ defines standards for all terminal IO
 """
 
 
+MODE_2 = "2"
+MODE_16 = "16"
+MODE_256 = "256"
+MODE_RGB = "rgb"
+
+
 class RAWIO(ABC):
     def __str__(self):
         raise NotImplementedError()
@@ -213,13 +219,13 @@ class IO(RAWIO, ABC):
 
         self._modes = []
         if mode_2:
-            self._modes.append(2)
+            self._modes.append(MODE_2)
         if mode_16:
-            self._modes.append(16)
+            self._modes.append(MODE_16)
         if mode_256:
-            self._modes.append(256)
+            self._modes.append(MODE_256)
         if mode_rgb:
-            self._modes.append("rgb")
+            self._modes.append(MODE_RGB)
 
         self._key_driver_operational = key_driver_operational
         self._color_driver_operational = color_driver_operational
@@ -238,6 +244,10 @@ class IO(RAWIO, ABC):
 
         self._mode = None
         self.set_mode(self._modes[-1])
+
+    def __new__(cls, *args, **kwargs):
+        if cls.able_to_execute():
+            return super(IO, cls).__new__(cls)
 
     def __str__(self):
         return str(self._identifier)
@@ -361,6 +371,13 @@ class IO(RAWIO, ABC):
         info: Will get input from the console in color
         :param output: str
         :param color: COLOR
+        :return: str
+        """
+        raise NotImplementedError()
+
+    def get_printc_mode(self):
+        """
+        Gets the modes used by printc and inputc
         :return: str
         """
         raise NotImplementedError()

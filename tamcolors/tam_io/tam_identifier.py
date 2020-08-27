@@ -68,6 +68,8 @@ class TAMIdentifier:
         info: Sees if this IO is able to execute
         :return: bool
         """
+        if self._environment_io is None:
+            return False
         return self._environment_io.able_to_execute()
 
     def get_info_dict(self):
@@ -93,11 +95,14 @@ class TAMIdentifier:
                                 win_drivers.WINUtilitiesDriver)
             if io_identifier.stable():
                 return io_identifier
-        return cls("UNI_DRIVERS",
-                   uni_drivers.UNIKeyDriver,
-                   uni_drivers.UNIUtilitiesDriver,
-                   ansi_true_color_drivers.ANSITrueColorChangerDriver,
-                   ansi_true_color_drivers.ANSITrueColorDriver)
+        if platform.system().lower() in ("darwin", "linux"):
+            io_identifier = cls("UNI_DRIVERS",
+                                uni_drivers.UNIKeyDriver,
+                                uni_drivers.UNIUtilitiesDriver,
+                                ansi_true_color_drivers.ANSITrueColorChangerDriver,
+                                ansi_true_color_drivers.ANSITrueColorDriver)
+            if io_identifier.stable():
+                return io_identifier
         return ANY_IO_IDENTIFIER
 
     def _build_io(self):
