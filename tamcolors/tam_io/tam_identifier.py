@@ -6,6 +6,7 @@ from tamcolors.tam_io import any_drivers
 from tamcolors.tam_io import win_drivers
 from tamcolors.tam_io import uni_drivers
 from tamcolors.tam_io import ansi_true_color_drivers
+from tamcolors.tam_io import ansi_256_drivers
 
 
 """
@@ -95,14 +96,24 @@ class TAMIdentifier:
                                 win_drivers.WINUtilitiesDriver)
             if io_identifier.stable():
                 return io_identifier
-        if platform.system().lower() in ("darwin", "linux"):
-            io_identifier = cls("UNI_DRIVERS",
+
+        if platform.system().lower() == "linux":
+            io_identifier = cls("UNI_TRUE_COLOR_DRIVERS",
                                 uni_drivers.UNIKeyDriver,
                                 uni_drivers.UNIUtilitiesDriver,
-                                ansi_true_color_drivers.ANSITrueColorChangerDriver,
-                                ansi_true_color_drivers.ANSITrueColorDriver)
+                                ansi_true_color_drivers.ANSITrueFullColorDriver)
             if io_identifier.stable():
                 return io_identifier
+
+        if platform.system().lower() == "darwin":
+            io_identifier = cls("UNI_256_DRIVERS",
+                                uni_drivers.UNIKeyDriver,
+                                uni_drivers.UNIUtilitiesDriver,
+                                ansi_256_drivers.ANSI256ColorDriver,
+                                ansi_256_drivers.ANSI256ChangerDriver)
+            if io_identifier.stable():
+                return io_identifier
+
         return ANY_IO_IDENTIFIER
 
     def _build_io(self):
