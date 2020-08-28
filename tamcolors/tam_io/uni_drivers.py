@@ -9,6 +9,9 @@ from tamcolors.tam_c import _uni_tam as io
 from tamcolors.tam_io import tam_drivers
 
 
+UNI_STABLE = io is not None
+
+
 class UNISharedData(tam_drivers.TAMDriver, ABC):
     @classmethod
     def able_to_execute(cls):
@@ -16,8 +19,8 @@ class UNISharedData(tam_drivers.TAMDriver, ABC):
         info: checks that io is stable in current environment
         :return: bool
         """
-        if platform.system() in ("Darwin", "Linux") and io is not None:
-            return os.system("test -t 0 -a -t 1 -a -t 2") == 0
+        if UNI_STABLE:
+            return os.system("test -t 0 -a -t 1 -a -t 2") == 0 and super().able_to_execute()
         return False
 
 

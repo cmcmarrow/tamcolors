@@ -311,8 +311,6 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
         :return: None
         """
         super().set_color(spot, color)
-        if self._console_color_count() > spot:
-            self._set_console_color(spot, color)
 
     def _spot_swap(self, spot):
         """

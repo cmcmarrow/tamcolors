@@ -474,6 +474,8 @@ class IO(RAWIO, ABC):
         :param color: RGBA
         :return: None
         """
+        if self._console_color_count() > spot:
+            self._set_console_color(spot, color)
         self._color_palette[spot] = color
 
     def reset_colors_to_console_defaults(self):

@@ -5,7 +5,7 @@ from tamcolors.tam_io import io_tam
 import sys
 
 
-class ANSITrueColorDriver(tam_drivers.ColorDriver, ABC):
+class ANSITrueFullColorDriver(tam_drivers.FullColorDriver, ABC):
     def __init__(self, *args, **kwargs):
         self._buffer = TAMBuffer(0, 0, " ", 1, 1)
         self._unix_keys = self.get_key_dict()
@@ -194,8 +194,6 @@ class ANSITrueColorDriver(tam_drivers.ColorDriver, ABC):
                 return "49"
             return "48;2;{};{};{}".format(rgb.r, rgb.g, rgb.b)
 
-
-class ANSITrueColorChangerDriver(tam_drivers.ColorChangerDriver, ABC):
     def _console_color_count(self):
         """
         info: Get console color
