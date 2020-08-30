@@ -145,7 +145,7 @@ class ANSITrueFullColorDriver(tam_drivers.FullColorDriver, ABC):
 
     def _process_2_color(self, color, foreground=True):
         if color.mode_2 not in (-2, -1):
-            rgb = self.get_color(color.mode_2)
+            rgb = self.get_color_2(color.mode_2)
         elif foreground:
             return "39"
         else:
@@ -158,7 +158,7 @@ class ANSITrueFullColorDriver(tam_drivers.FullColorDriver, ABC):
 
     def _process_16_color(self, color, foreground=True):
         if color.mode_16 not in (-2, -1):
-            rgb = self.get_color(color.mode_16)
+            rgb = self.get_color_16(color.mode_16)
         elif foreground:
             return "39"
         else:
@@ -171,7 +171,7 @@ class ANSITrueFullColorDriver(tam_drivers.FullColorDriver, ABC):
 
     def _process_256_color(self, color, foreground=True):
         if color.mode_256 not in (-2, -1):
-            rgb = self.get_color(color.mode_256)
+            rgb = self.get_color_256(color.mode_256)
         elif foreground:
             return "39"
         else:
