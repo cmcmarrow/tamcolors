@@ -55,36 +55,6 @@ class TAMLoopTests(unittest.TestCase):
 
         return Dummy()
 
-    def test_get_color(self):
-        frame_1 = self._get_dummy_frame(5, "A", YELLOW, BLUE, 25, 35, 26, 36)
-        loop = tam.tam_loop.TAMLoop(frame_1, only_any_os=True)
-        loop()
-        for spot in range(256):
-            color = loop.get_color(spot)
-            self.assertIsInstance(color, RGBA)
-
-    def test_set_color(self):
-        frame_1 = self._get_dummy_frame(5, "A", YELLOW, BLUE, 25, 35, 26, 36)
-        loop = tam.tam_loop.TAMLoop(frame_1, only_any_os=True)
-        loop()
-
-        loop.set_color(5, RGBA(55, 66, 77))
-        color = loop.get_color(5)
-
-        self.assertEqual(color, RGBA(55, 66, 77))
-        loop.set_tam_color_defaults()
-
-    def test_set_color_2(self):
-        frame_1 = self._get_dummy_frame(5, "A", YELLOW, BLUE, 25, 35, 26, 36)
-        loop = tam.tam_loop.TAMLoop(frame_1, only_any_os=True)
-        loop()
-
-        loop.set_color(1, RGBA(155, 166, 177))
-        color = loop.get_color(1)
-
-        self.assertEqual(color, RGBA(155, 166, 177))
-        loop.set_tam_color_defaults()
-
     def test_reset_colors_to_console_defaults(self):
         frame_1 = self._get_dummy_frame(5, "A", YELLOW, BLUE, 25, 35, 26, 36)
         loop = tam.tam_loop.TAMLoop(frame_1, only_any_os=True)

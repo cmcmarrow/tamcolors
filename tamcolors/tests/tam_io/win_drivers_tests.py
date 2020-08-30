@@ -248,29 +248,6 @@ class WinDriversTests(unittest.TestCase):
             _get_default_color.assert_called_once_with()
             self.assertEqual(colors, (4, 2))
 
-    def test_get_color(self):
-        io = get_win_io()
-        for spot in range(io._console_color_count()):
-            color = io.get_color(spot)
-            self.assertIsInstance(color, RGBA)
-
-    def test_set_color(self):
-        io = get_win_io()
-        io.set_color(5, RGBA(55, 66, 77))
-        color = io.get_color(5)
-
-        self.assertEqual(color, RGBA(55, 66, 77))
-        io.reset_colors_to_console_defaults()
-
-    def test_set_color_2(self):
-        io = get_win_io()
-
-        io.set_color(1, RGBA(155, 166, 177))
-        color = io.get_color(1)
-
-        self.assertEqual(color, RGBA(155, 166, 177))
-        io.reset_colors_to_console_defaults()
-
     def test_reset_colors_to_console_defaults(self):
         io = get_win_io()
         io.reset_colors_to_console_defaults()

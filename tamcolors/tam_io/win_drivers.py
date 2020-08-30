@@ -303,23 +303,6 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
 
         return foreground_color, background_color
 
-    def get_color(self, spot):
-        """
-        info: will get the color value
-        :param spot: int
-        :return: tuple: (int, int, int)
-        """
-        return super().get_color(spot)
-
-    def set_color(self, spot, color):
-        """
-        info: sets a color value
-        :param spot: int: 0 - 15
-        :param color: tuple: (int, int, int)
-        :return: None
-        """
-        super().set_color(spot, color)
-
     def _spot_swap(self, spot):
         """
         info: Will swap spots this is so cmd will look normal
