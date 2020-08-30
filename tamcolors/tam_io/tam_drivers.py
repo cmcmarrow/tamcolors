@@ -132,22 +132,56 @@ class ColorDriver(TAMDriver, ABC):
 
 
 class ColorChangerDriver(TAMDriver, ABC):
-    def get_color(self, spot):
+    def get_color_2(self, spot):
         """
-        info: Will get color from color palette
+        info: Will get color from color palette 2
         :param spot: int
         :return: RGBA
         """
-        return super().get_color(spot)
+        return super().get_color_2(spot)
 
-    def set_color(self, spot, color):
+    def get_color_16(self, spot):
+        """
+        info: Will get color from color palette 16
+        :param spot: int
+        :return: RGBA
+        """
+        return super().get_color_16(spot)
+
+    def get_color_256(self, spot):
+        """
+        info: Will get color from color palette 256
+        :param spot: int
+        :return: RGBA
+        """
+        return super().get_color_256(spot)
+
+    def set_color_2(self, spot, color):
         """
         info: sets a color value
         :param spot: int
         :param color: RGBA
         :return: None
         """
-        super().set_color(spot, color)
+        super().set_color_2(spot, color)
+
+    def set_color_16(self, spot, color):
+        """
+        info: sets a color value
+        :param spot: int
+        :param color: RGBA
+        :return: None
+        """
+        super().set_color_16(spot, color)
+
+    def set_color_256(self, spot, color):
+        """
+        info: sets a color value
+        :param spot: int
+        :param color: RGBA
+        :return: None
+        """
+        super().set_color_256(spot, color)
 
     def _get_console_color(self, spot):
         """

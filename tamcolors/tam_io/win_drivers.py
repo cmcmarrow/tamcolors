@@ -1,6 +1,7 @@
 # built in libraries
 import string
 from abc import ABC
+from threading import Lock
 
 
 # tamcolors libraries
@@ -82,6 +83,7 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
     def __init__(self, *args, **kwargs):
         self.__buffer = TAMBuffer(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
         self._last_frame = TAMBuffer(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
+        self._last_frame_lock = Lock()
         self._spot_swap_dict = {1: 4,
                                 3: 6,
                                 4: 1,
@@ -169,7 +171,7 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
         # checks if buffer needs to be updated
         if " " != self.__buffer.get_defaults()[0] or self.__buffer.get_defaults()[1:] != tam_buffer.get_defaults()[1:]:
             # buffer defaults changed
-            self.__buffer.set_defaults_and_clear(" ", foreground, background)
+            self.__buffer.set_defaults_and_clear(" ", *tam_buffer.get_defaults()[1:])
 
         # draw onto WinIO buffer
         self._draw_onto(self.__buffer, tam_buffer)
@@ -198,68 +200,73 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
         A block is a string or spots that 
         all share the same colors
         """
-        start = None
-        width = self.__buffer.get_dimensions()[0]
-        length = 0
-        this_foreground, this_background = None, None
-        char_buffer, foreground_buffer, background_buffer = self.__buffer.get_raw_buffers()
-        for spot, char, foreground, background in zip(range(len(self.__buffer)),
-                                                      char_buffer,
-                                                      foreground_buffer,
-                                                      background_buffer):
-            foreground, background = self._processes_special_color(foreground.mode_16, background.mode_16)
-            # no block has benn made
-            if start is None:
-                # last frame buffer is not None
-                if self._last_frame is not None:
-                    # spot has not change
-                    last_char, last_foreground, last_background = self._last_frame.get_from_raw_spot(spot)
-                    last_foreground, last_background = self._processes_special_color(last_foreground.mode_16,
-                                                                                     last_background.mode_16)
-                    if (char, foreground, background) == (last_char, last_foreground, last_background):
-                        continue
-                # make block
-                start = spot
-                this_foreground, this_background = foreground, background
-                length = 1
-            # spot has same colors as block
-            elif (this_foreground == foreground or " " == char) and this_background == background:
-                # add to block
-                length += 1
-            # spot does not have same colors as block
-            else:
-                # draw block to terminal
-                self._print(start % width,
-                            start // width,
-                            "".join(char_buffer[start:start + length]),
+        try:
+            self._last_frame_lock.acquire()
+
+            start = None
+            width = self.__buffer.get_dimensions()[0]
+            length = 0
+            this_foreground, this_background = None, None
+            char_buffer, foreground_buffer, background_buffer = self.__buffer.get_raw_buffers()
+            for spot, char, foreground, background in zip(range(len(self.__buffer)),
+                                                          char_buffer,
+                                                          foreground_buffer,
+                                                          background_buffer):
+                foreground, background = self._processes_special_color(foreground.mode_16, background.mode_16)
+                # no block has benn made
+                if start is None:
+                    # last frame buffer is not None
+                    if self._last_frame is not None:
+                        # spot has not change
+                        last_char, last_foreground, last_background = self._last_frame.get_from_raw_spot(spot)
+                        last_foreground, last_background = self._processes_special_color(last_foreground.mode_16,
+                                                                                         last_background.mode_16)
+                        if (char, foreground, background) == (last_char, last_foreground, last_background):
+                            continue
+                    # make block
+                    start = spot
+                    this_foreground, this_background = foreground, background
+                    length = 1
+                # spot has same colors as block
+                elif (this_foreground == foreground or " " == char) and this_background == background:
+                    # add to block
+                    length += 1
+                # spot does not have same colors as block
+                else:
+                    # draw block to terminal
+                    self._print(start % width,
+                                start // width,
+                                "".join(char_buffer[start:start + length]),
+                                this_foreground, this_background)
+                    # start new block
+                    this_foreground, this_background = foreground, background
+                    start = spot
+                    length = 1
+                    # last frame buffer is not None
+                    if self._last_frame is not None:
+                        # spot has not change
+                        last_char, last_foreground, last_background = self._last_frame.get_from_raw_spot(spot)
+                        last_foreground, last_background = self._processes_special_color(last_foreground.mode_16,
+                                                                                         last_background.mode_16)
+                        if (char, foreground, background) == (last_char, last_foreground, last_background):
+                            # remove new block
+                            start = None
+                            length = 0
+
+            if start is not None:
+                # draw last block
+                self._print(start % width, start // width, "".join(char_buffer[start:start + length]),
                             this_foreground, this_background)
-                # start new block
-                this_foreground, this_background = foreground, background
-                start = spot
-                length = 1
-                # last frame buffer is not None
-                if self._last_frame is not None:
-                    # spot has not change
-                    last_char, last_foreground, last_background = self._last_frame.get_from_raw_spot(spot)
-                    last_foreground, last_background = self._processes_special_color(last_foreground.mode_16,
-                                                                                     last_background.mode_16)
-                    if (char, foreground, background) == (last_char, last_foreground, last_background):
-                        # remove new block
-                        start = None
-                        length = 0
 
-        if start is not None:
-            # draw last block
-            self._print(start % width, start // width, "".join(char_buffer[start:start + length]),
-                        this_foreground, this_background)
-
-        # update last frame
-        if self._last_frame is None:
-            # last frame is not made
-            self._last_frame = self.__buffer.copy()
-        else:
-            # draw tam_buffer onto last frame
-            self._draw_onto(self._last_frame, tam_buffer)
+            # update last frame
+            if self._last_frame is None:
+                # last frame is not made
+                self._last_frame = self.__buffer.copy()
+            else:
+                # draw tam_buffer onto last frame
+                self._draw_onto(self._last_frame, tam_buffer)
+        finally:
+            self._last_frame_lock.release()
 
     def _print(self, x, y, output, foreground_color, background_color):
         """
@@ -289,6 +296,7 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
             default_foreground_color = default_color - default_background_color * 16
 
             if foreground_color in (-1, -2):
+                # fix!
                 foreground_color = default_foreground_color
             if background_color in (-1, -2):
                 background_color = default_background_color
@@ -336,9 +344,13 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
         :param color: RGBA
         :return: None
         """
-        spot = self._spot_swap(spot)
-        io._set_rgb_color(spot, color.r, color.g, color.b)
-        self._last_frame = None
+        try:
+            self._last_frame_lock.acquire()
+            spot = self._spot_swap(spot)
+            io._set_rgb_color(spot, color.r, color.g, color.b)
+            self._last_frame = None
+        finally:
+            self._last_frame_lock.release()
 
     def _console_color_count(self):
         """

@@ -231,11 +231,56 @@ class TAMLoop:
         except BaseException as error:
             self.__error = error
 
-    def get_color(self, spot):
-        return self.__io.get_color(spot)
+    def get_color_2(self, spot):
+        """
+        info: Will get color from color palette 2
+        :param spot: int
+        :return: RGBA
+        """
+        return self.__io.get_color_2(spot)
 
-    def set_color(self, spot, color):
-        self.__io.set_color(spot, color)
+    def get_color_16(self, spot):
+        """
+        info: Will get color from color palette 16
+        :param spot: int
+        :return: RGBA
+        """
+        return self.__io.get_color_16(spot)
+
+    def get_color_256(self, spot):
+        """
+        info: Will get color from color palette 256
+        :param spot: int
+        :return: RGBA
+        """
+        return self.__io.get_color_256(spot)
+
+    def set_color_2(self, spot, color):
+        """
+        info: sets a color value
+        :param spot: int
+        :param color: RGBA
+        :return: None
+        """
+        self.__io.set_color_2(spot, color)
+
+    def set_color_16(self, spot, color):
+        """
+        info: sets a color value
+        :param spot: int
+        :param color: RGBA
+        :return: None
+        """
+        self.__io.set_color_16(spot, color)
+
+    def set_color_256(self, spot, color):
+        """
+        info: sets a color value
+        :param spot: int
+        :param color: RGBA
+        :return: None
+        """
+        self.__io.set_color_256(spot, color)
 
     def reset_colors_to_console_defaults(self):
         self.__io.reset_colors_to_console_defaults()

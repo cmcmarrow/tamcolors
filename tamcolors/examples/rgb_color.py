@@ -39,7 +39,8 @@ class RGBCOLOR(tam.tam_loop.TAMFrame):
 
         if self._key_manager.get_key_state("b"):
             for spot, color in enumerate(OTHER_COLORS):
-                tam_loop.set_color(spot, color)
+                tam_loop.set_color_16(spot, color)
+                tam_loop.set_color_256(spot, color)
 
         if self._key_manager.get_key_state("BACKSPACE"):
             tam_loop.done()
@@ -49,9 +50,11 @@ class RGBCOLOR(tam.tam_loop.TAMFrame):
             self._timer = 0
             self._color = not self._color
             if self._color:
-                tam_loop.set_color(1, tam_io.tam_colors.RGBA(55, 155, 155))
+                tam_loop.set_color_16(1, tam_io.tam_colors.RGBA(55, 155, 155))
+                tam_loop.set_color_256(1, tam_io.tam_colors.RGBA(55, 155, 155))
             else:
-                tam_loop.set_color(1, tam_io.tam_colors.RGBA(155, 155, 55))
+                tam_loop.set_color_16(1, tam_io.tam_colors.RGBA(155, 155, 55))
+                tam_loop.set_color_256(1, tam_io.tam_colors.RGBA(155, 155, 55))
 
     def draw(self, tam_buffer, loop_data):
         tam_buffer.clear()
