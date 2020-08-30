@@ -29,14 +29,14 @@ def tam_list_buffer(chars, foreground_colors, background_colors):
         if len(background_colors) != 0 and len(background_colors[0]) != 0:
             default_background = background_colors[0][0]
         else:
-            default_background = 0
+            default_background = background_colors
 
     default_foreground = foreground_colors
     if foreground_mode:
         if len(foreground_colors) != 0 and len(foreground_colors[0]) != 0:
             default_foreground = foreground_colors[0][0]
         else:
-            default_foreground = 0
+            default_foreground = foreground_colors
 
     # make buffer
     try:

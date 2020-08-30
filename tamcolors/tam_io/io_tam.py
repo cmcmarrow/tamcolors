@@ -112,14 +112,6 @@ class RAWIO(ABC):
         """
         raise NotImplementedError()
 
-    def get_color(self, spot):
-        """
-        info: Will get color from color palette
-        :param spot: int
-        :return: RGBA
-        """
-        raise NotImplementedError()
-
     def show_console_cursor(self, show):
         """
         info: Will show or hide console cursor
@@ -161,15 +153,6 @@ class RAWIO(ABC):
         """
         info: Gets a dict of all the keys
         :return: {str: (str, str), ...}
-        """
-        raise NotImplementedError()
-
-    def set_color(self, spot, color):
-        """
-        info: sets a color value
-        :param spot: int
-        :param color: RGBA
-        :return: None
         """
         raise NotImplementedError()
 
@@ -237,7 +220,10 @@ class IO(RAWIO, ABC):
 
         self._identifier = identifier
         self._modes = tuple(self._modes)
-        self._color_palette = [color.mode_rgb for color in tam_colors.COLORS]
+
+        self._color_palette_2 = [tam_colors.COLORS[spot].mode_rgb for spot in range(16)]
+        self._color_palette_16 = [tam_colors.COLORS[spot].mode_rgb for spot in range(16)]
+        self._color_palette_256 = [tam_colors.COLORS[spot].mode_rgb for spot in range(256)]
 
         self._default_console_colors = []
         self._set_defaults()
@@ -267,6 +253,16 @@ class IO(RAWIO, ABC):
         :return:
         """
         self._mode = mode
+
+        if mode == MODE_2:
+            for spot, color in enumerate(self._color_palette_2):
+                self.set_color_2(spot, color)
+        elif mode == MODE_16:
+            for spot, color in enumerate(self._color_palette_16):
+                self.set_color_16(spot, color)
+        elif mode == MODE_256:
+            for spot, color in enumerate(self._color_palette_256):
+                self.set_color_256(spot, color)
 
     def get_mode(self):
         """
@@ -391,13 +387,29 @@ class IO(RAWIO, ABC):
         self.show_console_cursor(self.is_console_cursor_enabled())
         self.enable_console_keys(self.is_console_keys_enabled())
 
-    def get_color(self, spot):
+    def get_color_2(self, spot):
         """
-        info: Will get color from color palette
+        info: Will get color from color palette 2
         :param spot: int
         :return: RGBA
         """
-        return self._color_palette[spot]
+        return self._color_palette_2[spot]
+
+    def get_color_16(self, spot):
+        """
+        info: Will get color from color palette 16
+        :param spot: int
+        :return: RGBA
+        """
+        return self._color_palette_16[spot]
+
+    def get_color_256(self, spot):
+        """
+        info: Will get color from color palette 256
+        :param spot: int
+        :return: RGBA
+        """
+        return self._color_palette_256[spot]
 
     def show_console_cursor(self, show):
         """
@@ -467,16 +479,38 @@ class IO(RAWIO, ABC):
         """
         raise NotImplementedError()
 
-    def set_color(self, spot, color):
+    def set_color_2(self, spot, color):
         """
         info: sets a color value
         :param spot: int
         :param color: RGBA
         :return: None
         """
-        if self._console_color_count() > spot:
+        if self._console_color_count() > spot and self.get_mode() == MODE_2:
             self._set_console_color(spot, color)
-        self._color_palette[spot] = color
+        self._color_palette_2[spot] = color
+
+    def set_color_16(self, spot, color):
+        """
+        info: sets a color value
+        :param spot: int
+        :param color: RGBA
+        :return: None
+        """
+        if self._console_color_count() > spot and self.get_mode() == MODE_16:
+            self._set_console_color(spot, color)
+        self._color_palette_16[spot] = color
+
+    def set_color_256(self, spot, color):
+        """
+        info: sets a color value
+        :param spot: int
+        :param color: RGBA
+        :return: None
+        """
+        if self._console_color_count() > spot and self.get_mode() == MODE_256:
+            self._set_console_color(spot, color)
+        self._color_palette_256[spot] = color
 
     def reset_colors_to_console_defaults(self):
         """
@@ -484,11 +518,19 @@ class IO(RAWIO, ABC):
         :return: None
         """
         for spot, color in enumerate(self._default_console_colors):
-            self.set_color(spot, color)
+            if spot < 16:
+                self.set_color_2(spot, color)
+                self.set_color_16(spot, color)
+            if spot < 256:
+                self.set_color_256(spot, color)
             self._set_console_color(spot, color)
 
         for spot in range(self._console_color_count(), 256):
-            self.set_color(spot, tam_colors.COLORS[spot].mode_rgb)
+            if spot < 16:
+                self.set_color_2(spot, tam_colors.COLORS[spot].mode_rgb)
+                self.set_color_16(spot, tam_colors.COLORS[spot].mode_rgb)
+            if spot < 256:
+                self.set_color_256(spot, tam_colors.COLORS[spot].mode_rgb)
 
     def set_tam_color_defaults(self):
         """
@@ -496,7 +538,12 @@ class IO(RAWIO, ABC):
         :return: None
         """
         for spot, color in enumerate(tam_colors.COLORS):
-            self.set_color(spot, color.mode_rgb)
+            if spot < 16:
+                self.set_color_2(spot, color.mode_rgb)
+                self.set_color_16(spot, color.mode_rgb)
+            if spot < 256:
+                self.set_color_256(spot, color.mode_rgb)
+
             if self._console_color_count() > spot:
                 self._set_console_color(spot, color.mode_rgb)
 
@@ -516,7 +563,11 @@ class IO(RAWIO, ABC):
         for spot in range(self._console_color_count()):
             color = self._get_console_color(spot)
             self._default_console_colors.append(color)
-            self._color_palette[spot] = color
+            if spot < 16:
+                self._color_palette_2[spot] = color
+                self._color_palette_16[spot] = color
+            if spot < 256:
+                self._color_palette_256[spot] = color
 
     def is_console_cursor_enabled(self):
         """
