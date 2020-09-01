@@ -33,16 +33,20 @@ class TAMLoop:
                  color_change_key="ESCAPE",
                  loop_data=None,
                  stability_check=False,
-                 tam_color_defaults=True):
+                 tam_color_defaults=True,
+                 highest_mode_lock=False,
+                 test_mode=False):
         """
         info: makes a TAMLoop object
         :param tam_frame: TAMFrame: first frame in tam loop
         :param io: IO
         :param only_any_os: bool: will only use Any Drivers if True
         :param color_change_key: char: key that will change color mode
-        :param loop_data: dict
+        :param loop_data: dict: will hold context so all TAMFrames can see
         :param stability_check: bool: raises and error if a test did not pass
         :param tam_color_defaults: bool
+        :param highest_mode_lock: bool: will disable change key and put IO in its highest color mode
+        :param test_mode: bool: Will enable the method step and only any os
         """
 
         if loop_data is None:
@@ -57,13 +61,13 @@ class TAMLoop:
         self.__key_loop_thread = None
         self.__error = None
 
-        if only_any_os:
+        if only_any_os or test_mode:
             self.__io = tam_identifier.ANY_IO
         else:
+            self.__io = io
             if io is None:
                 self.__io = tam_identifier.IO
-            else:
-                self.__io = io
+
             if self.__io is None:
                 raise TAMLoopError("tam io is None")
 
@@ -73,10 +77,14 @@ class TAMLoop:
 
         self.__color_change_key = color_change_key
         self.__color_modes = itertools.cycle(self.__io.get_modes())
+        if highest_mode_lock:
+            self.__color_modes = itertools.cycle(self.__io.get_modes()[0:1])
 
         self.__timer = Timer()
 
-        if tam_color_defaults:
+        self.__test_mode = test_mode
+
+        if tam_color_defaults and not self.__test_mode:
             self.__io.set_tam_color_defaults()
 
     def __call__(self):
@@ -88,15 +96,16 @@ class TAMLoop:
             return
 
         self.__running = True
-        self.__io.start()
+        if not self.__test_mode:
+            self.__io.start()
 
-        self.__key_loop_thread = threading.Thread(target=self._key_loop, daemon=True)
-        self.__key_loop_thread.start()
+            self.__key_loop_thread = threading.Thread(target=self._key_loop, daemon=True)
+            self.__key_loop_thread.start()
 
-        self._update_loop()
+            self._update_loop()
 
-        if self.__error is not None:
-            raise self.__error
+            if self.__error is not None:
+                raise self.__error
 
     def done(self, reset_colors_to_console_defaults=True):
         """
@@ -106,10 +115,13 @@ class TAMLoop:
         """
         if self.__running:
             self.__running = False
-            self.__key_loop_thread.join()
-            self.__io.done()
-            if reset_colors_to_console_defaults:
-                self.__io.reset_colors_to_console_defaults()
+            for frame in self.__frame_stack[::-1]:
+                frame._done(self, self.__loop_data)
+            if not self.__test_mode:
+                self.__key_loop_thread.join()
+                self.__io.done()
+                if reset_colors_to_console_defaults:
+                    self.__io.reset_colors_to_console_defaults()
 
     def run(self):
         """
@@ -207,10 +219,7 @@ class TAMLoop:
 
         except BaseException as error:
             self.__error = error
-            self.done()
         finally:
-            if frame is not None:
-                frame._done(self, self.__loop_data)
             self.done()
 
     def _key_loop(self):
@@ -287,6 +296,24 @@ class TAMLoop:
 
     def set_tam_color_defaults(self):
         self.__io.set_tam_color_defaults()
+
+    def step(self, keys=()):
+        """
+        info: only works in test mode but lets you update and draw in tests
+        :param keys: tuple: ((str, str), ...)
+        :return: TAMBuffer or None
+        """
+        if self.__test_mode and self.__running:
+            buffer = TAMBuffer(0, 0, " ", 0, 0)
+            frame = self.__frame_stack[-1]
+            try:
+                frame.update(self, keys, self.__loop_data)
+                frame.make_buffer_ready(buffer, *self.__io.get_dimensions())
+                frame.draw(buffer, self.__loop_data)
+                return buffer
+            except BaseException:
+                frame._done(self, self.__loop_data)
+        return
 
 
 class TAMFrame:
