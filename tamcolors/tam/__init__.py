@@ -1,5 +1,4 @@
 from . import tam_loop
-from . import tam_loop_test
 
 
 """
@@ -12,4 +11,4 @@ tam supports
 """
 
 __all__ = ("tam_loop",
-           "tam_loop_test")
+           )
