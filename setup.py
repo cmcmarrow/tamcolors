@@ -21,7 +21,7 @@ with open(os.path.join("README.rst")) as readme:
 
 setup(
     name="tamcolors",
-    version="1.0.5",
+    version="1.1.0",
     author="Charles McMarrow",
     author_email="Charles.M.McMarrow@gmail.com",
     url="https://github.com/cmcmarrow/tamcolors",

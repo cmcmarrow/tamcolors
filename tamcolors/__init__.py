@@ -9,7 +9,7 @@ from . import tests
 
 
 __author__ = "Charles McMarrow"
-__version__ = "1.0.5"
+__version__ = "1.1.0"
 __email__ = "Charles.M.McMarrow@gmail.com"
 __license__ = "Apache Software License 2.0"
 

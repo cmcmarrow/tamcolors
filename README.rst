@@ -59,7 +59,7 @@ icon example
        def __init__(self):
            super().__init__(fps=10,
                             char=" ",
-                            foreground_color=tam_io.tam_colors.ALPHA,
+                            foreground_color=tam_io.tam_colors.GREEN,
                             background_color=tam_io.tam_colors.BLACK,
                             min_width=70, max_width=70, min_height=40, max_height=40)
 
@@ -101,7 +101,6 @@ versions of Python currently supported
 * 3.8
 * 3.7
 * 3.6
-* 3.5
 
 *******************
 platforms tested on
@@ -118,6 +117,7 @@ long term goals
 * make windows run more efficient
 * text editor
 * .ci testing
+* make and change fonts at run time
 
 
 *****
@@ -128,26 +128,41 @@ goals
 
 
 ***********
-1.1.0 goals
+1.1.1 goals
 ***********
 * save/rest Windows buffer size on exit
 * clean up Windows C/C++
-* add RGB color mode (more than 16 colors at a time!)
+* reset Windows Console buffer Size
 * add .wav support
 * add sound tools
+* make tam utils
 
 
-***********
-1.0.5 goals
-***********
-* fix macOS! (Colors don’t work!)
-* break up IO
-* add terminal identifier
-
+***********************
+what defines a release?
+***********************
+* x.?.? - tamcolors has matured to a new level of capability.
+* ?.x.? - Backwards compatibility was broken for most programs.
+* ?.?.x - Most programs should still run in this release.
+* All releases can have new features, bug fixes, depreciation and new tests.
+* Any release older than 1.0.2 does not fallow this release pattern.
 
 ********
 versions
 ********
+
+***********
+1.1.0
+***********
+* COMING SOON!
+* fixed macOS!
+* broke up IO into drivers
+* added terminal identifier
+* added 256 color mode
+* added rgb color mode
+* added RGBA
+* added Color
+* dropped support for Python 3.5
 
 =====
 1.0.4
