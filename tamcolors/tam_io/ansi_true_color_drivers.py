@@ -114,6 +114,12 @@ class ANSITrueFullColorDriver(tam_drivers.FullColorDriver, ABC):
         self._draw(tam_buffer, self._process_rgb_color)
 
     def _draw(self, tam_buffer, process_func):
+        """
+        info: Will draw TAMBuffer to console
+        :param tam_buffer: TAMBuffer
+        :param process_func: func
+        :return: None
+        """
         # checks if buffer needs to be updated
         if " " != self._buffer.get_defaults()[0] or self._buffer.get_defaults()[1:] != tam_buffer.get_defaults()[1:]:
             # buffer defaults changed
@@ -144,6 +150,12 @@ class ANSITrueFullColorDriver(tam_drivers.FullColorDriver, ABC):
         sys.stdout.flush()
 
     def _process_2_color(self, color, foreground=True):
+        """
+        info process color to ansi
+        :param color: COLOR
+        :param foreground: bool
+        :return: str
+        """
         if color.mode_2 not in (-2, -1):
             rgb = self.get_color_2(color.mode_2)
         elif foreground:
@@ -157,6 +169,12 @@ class ANSITrueFullColorDriver(tam_drivers.FullColorDriver, ABC):
             return "48;2;{};{};{}".format(rgb.r, rgb.g, rgb.b)
 
     def _process_16_color(self, color, foreground=True):
+        """
+        info process color to ansi
+        :param color: COLOR
+        :param foreground: bool
+        :return: str
+        """
         if color.mode_16 not in (-2, -1):
             rgb = self.get_color_16(color.mode_16)
         elif foreground:
@@ -170,6 +188,12 @@ class ANSITrueFullColorDriver(tam_drivers.FullColorDriver, ABC):
             return "48;2;{};{};{}".format(rgb.r, rgb.g, rgb.b)
 
     def _process_256_color(self, color, foreground=True):
+        """
+        info process color to ansi
+        :param color: COLOR
+        :param foreground: bool
+        :return: str
+        """
         if color.mode_256 not in (-2, -1):
             rgb = self.get_color_256(color.mode_256)
         elif foreground:
@@ -184,6 +208,12 @@ class ANSITrueFullColorDriver(tam_drivers.FullColorDriver, ABC):
 
     @staticmethod
     def _process_rgb_color(color, foreground=True):
+        """
+        info process color to ansi
+        :param color: COLOR
+        :param foreground: bool
+        :return: str
+        """
         rgb = color.mode_rgb
         if foreground:
             if rgb.is_default or rgb.a == 0:

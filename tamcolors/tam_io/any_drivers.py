@@ -41,7 +41,7 @@ class ANYColorDriver(tam_drivers.ColorDriver, ABC):
         :param flush: boolean
         :param stderr: boolean
         :return: None
-            """
+        """
         self._write_to_output_stream(output, flush, stderr)
 
     def inputc(self, value, color):
@@ -81,23 +81,6 @@ class ANYColorChangerDriver(tam_drivers.ColorChangerDriver, ABC):
     def __init__(self, *args, **kwargs):
         kwargs.setdefault("color_changer_driver_operational", False)
         super().__init__(*args, **kwargs)
-
-    def get_color(self, spot):
-        """
-        info: Will get color from color palette
-        :param spot: int
-        :return: RGBA
-        """
-        return super().get_color(spot)
-
-    def set_color(self, spot, color):
-        """
-        info: sets a color value
-        :param spot: int
-        :param color: RGBA
-        :return: None
-        """
-        super().set_color(spot, color)
 
     def _get_console_color(self, spot):
         """
@@ -141,7 +124,7 @@ class ANYUtilitiesDriver(tam_drivers.UtilitiesDriver, ABC):
         info: Will clear the console
         :return: None
         """
-        pass
+        super().clear()
 
     def show_console_cursor(self, show):
         """
@@ -149,4 +132,4 @@ class ANYUtilitiesDriver(tam_drivers.UtilitiesDriver, ABC):
         :param show: int
         :return: None
         """
-        pass
+        super().show_console_cursor(show)

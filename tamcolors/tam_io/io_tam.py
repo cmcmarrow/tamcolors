@@ -158,7 +158,7 @@ class RAWIO(ABC):
 
     def reset_colors_to_console_defaults(self):
         """
-        info: will reset colors to consoloe defaults
+        info: will reset colors to console defaults
         :return: None
         """
         raise NotImplementedError()
@@ -174,6 +174,93 @@ class RAWIO(ABC):
         """
         info: will get the identifier dict
         :return: dict
+        """
+        raise NotImplementedError()
+
+    def color_changer_driver_operational(self):
+        """
+        info: checks if the color changer driver is operational
+        :return: bool
+        """
+        raise NotImplementedError()
+
+    def enable_console_keys(self, enable):
+        """
+        info: will enable console keys
+        :param enable: boool
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def get_color_2(self, spot):
+        """
+        info: Will get color from color palette 2
+        :param spot: int
+        :return: RGBA
+        """
+        raise NotImplementedError()
+
+    def get_color_16(self, spot):
+        """
+        info: Will get color from color palette 16
+        :param spot: int
+        :return: RGBA
+        """
+        raise NotImplementedError()
+
+    def get_color_256(self, spot):
+        """
+        info: Will get color from color palette 256
+        :param spot: int
+        :return: RGBA
+        """
+        raise NotImplementedError()
+
+    def get_printc_mode(self):
+        """
+        Gets the modes used by printc and inputc
+        :return: str
+        """
+        raise NotImplementedError()
+
+    def is_console_cursor_enabled(self):
+        """
+        info: will check if console cursor is enabled
+        :return: bool
+        """
+        raise NotImplementedError()
+
+    def is_console_keys_enabled(self):
+        """
+        info: will check if console keys enabled
+        :return: bool
+        """
+        raise NotImplementedError()
+
+    def set_color_2(self, spot, color):
+        """
+        info: sets a color value
+        :param spot: int
+        :param color: RGBA
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def set_color_16(self, spot, color):
+        """
+        info: sets a color value
+        :param spot: int
+        :param color: RGBA
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def set_color_256(self, spot, color):
+        """
+        info: sets a color value
+        :param spot: int
+        :param color: RGBA
+        :return: None
         """
         raise NotImplementedError()
 
@@ -514,7 +601,7 @@ class IO(RAWIO, ABC):
 
     def reset_colors_to_console_defaults(self):
         """
-        info: will reset colors to consoloe defaults
+        info: will reset colors to console defaults
         :return: None
         """
         for spot, color in enumerate(self._default_console_colors):

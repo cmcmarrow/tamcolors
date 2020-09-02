@@ -81,3 +81,19 @@ def clear():
     :return: None
     """
     IO.clear()
+
+
+def reset_colors_to_console_defaults():
+    """
+    info: will reset colors to console defaults
+    :return: None
+    """
+    IO.reset_colors_to_console_defaults()
+
+
+def set_tam_color_defaults():
+    """
+    info: will set console colors to tam defaults
+    :return: None
+    """
+    IO.set_tam_color_defaults()

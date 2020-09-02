@@ -125,6 +125,7 @@ goals
 *****
 * support Solaris
 * support FreeBSD
+* TCP IO (dummy console)
 
 
 ***********
