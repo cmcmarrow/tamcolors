@@ -194,32 +194,6 @@ class UniIOTests(unittest.TestCase):
             io.clear()
             system.assert_called_once_with("tput reset")
 
-    def test_get_color(self):
-        io = tam_io.uni_tam.UniIO()
-        for spot in range(16):
-            color = io.get_color(spot)
-            self.assertIsInstance(color, (list, tuple))
-            self.assertEqual(len(color), 3)
-            for value in range(3):
-                self.assertIsInstance(color[value], int)
-
-    def test_set_color(self):
-        io = tam_io.uni_tam.UniIO()
-        io.set_color(5, (55, 66, 77))
-        color = io.get_color(5)
-
-        self.assertEqual(color, (55, 66, 77))
-        io.set_tam_color_defaults()
-
-    def test_set_color_2(self):
-        io = tam_io.uni_tam.UniIO()
-
-        io.set_color(1, (155, 166, 177))
-        color = io.get_color(1)
-
-        self.assertEqual(color, (155, 166, 177))
-        io.set_tam_color_defaults()
-
     def test_reset_colors_to_console_defaults(self):
         io = tam_io.uni_tam.UniIO()
         io.reset_colors_to_console_defaults()
