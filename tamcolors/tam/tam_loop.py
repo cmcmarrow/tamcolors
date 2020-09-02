@@ -292,9 +292,17 @@ class TAMLoop:
         self.__io.set_color_256(spot, color)
 
     def reset_colors_to_console_defaults(self):
+        """
+        info: will reset colors to console defaults
+        :return: None
+        """
         self.__io.reset_colors_to_console_defaults()
 
     def set_tam_color_defaults(self):
+        """
+        info: will set console colors to tam defaults
+        :return: None
+        """
         self.__io.set_tam_color_defaults()
 
     def step(self, keys=()):

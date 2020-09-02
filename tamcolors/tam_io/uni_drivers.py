@@ -97,6 +97,11 @@ class UNIKeyDriver(tam_drivers.KeyDriver, UNISharedData, ABC):
         return linux_keys
 
     def enable_console_keys(self, enable):
+        """
+        info: will enable console keys
+        :param enable: boool
+        :return: None
+        """
         if enable:
             io._enable_get_key()
         else:

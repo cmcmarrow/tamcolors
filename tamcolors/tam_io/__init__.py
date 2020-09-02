@@ -5,7 +5,6 @@ from . import tam_colors
 from . import tam_drivers
 from . import tam_identifier
 from . import tam_keys
-from . import tcp_tam
 from . import uni_drivers
 from . import win_drivers
 from . import ansi_256_drivers
@@ -18,7 +17,6 @@ __all__ = ("any_drivers",
            "tam_drivers",
            "tam_identifier",
            "tam_keys",
-           "tcp_tam",
            "uni_drivers",
            "win_drivers",
            "ansi_256_drivers",

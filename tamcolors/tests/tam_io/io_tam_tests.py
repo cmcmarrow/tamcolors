@@ -6,6 +6,22 @@ import unittest.mock
 from tamcolors import tam_io
 
 
+class RAWIOTest(unittest.TestCase):
+    def test_same_methods(self):
+        for method in dir(tam_io.io_tam.IO):
+            if method[0] != "_":
+                self.assertTrue(hasattr(tam_io.io_tam.RAWIO, method))
+
+        for method in dir(tam_io.io_tam.RAWIO):
+            if method[0] != "_":
+                self.assertTrue(hasattr(tam_io.io_tam.IO, method))
+
+    def test_same_doc_string(self):
+        for method in dir(tam_io.io_tam.IO):
+            if method[0] != "_":
+                self.assertTrue(getattr(tam_io.io_tam.IO, method), getattr(tam_io.io_tam.RAWIO, method).__doc__)
+
+
 class IOTAMTest(unittest.TestCase):
     def test__draw_onto(self):
         buffer = tam_io.tam_buffer.TAMBuffer(5, 6, "A", tam_io.tam_colors.RED, tam_io.tam_colors.GREEN)

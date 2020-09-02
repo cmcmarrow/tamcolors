@@ -8,6 +8,10 @@ terminal keys supported on all platforms
 
 
 def _get_keys():
+    """
+    info: Gets a set of all support keys
+    :return: set
+    """
     keys = set()
     for key in string.digits + string.ascii_letters + "`-=[]\\;',./~!@#$%^&*()_+{}|:\"<>?":
         keys.add((key, "NORMAL"))
