@@ -23,9 +23,12 @@ class TAMCOLORS(tam.tam_loop.TAMFrame):
         for x, colors in enumerate(mode_16_color):
             for y, color in enumerate(colors):
                 tam_buffer.set_spot(x, y, "A", color, color)
-                if y == 1:
+                if y == 0:
+                    tam_buffer.set_spot(x, y, str(x)[-1], tam_io.tam_colors.WHITE, color)
+                if y == 5:
                     tam_tools.tam_print.tam_print(tam_buffer, 18, x, color.mode_256, color, tam_io.tam_colors.BLACK)
                     tam_tools.tam_print.tam_print(tam_buffer, 23, x, color.mode_256, tam_io.tam_colors.WHITE, tam_io.tam_colors.BLACK)
+                    tam_tools.tam_print.tam_print(tam_buffer, 28, x, x, tam_io.tam_colors.WHITE, tam_io.tam_colors.BLACK)
 
 
 def run():
