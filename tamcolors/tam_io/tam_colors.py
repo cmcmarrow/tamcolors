@@ -27,10 +27,10 @@ class Color:
 
     def __str__(self):
         return "(2: {}, 16: {}, 256: {}, rgb: {}, has_alpha: {})".format(self.mode_2,
-                                                                        self.mode_16,
-                                                                        self.mode_256,
-                                                                        self.mode_rgb,
-                                                                        self.has_alpha)
+                                                                         self.mode_16,
+                                                                         self.mode_256,
+                                                                         self.mode_rgb,
+                                                                         self.has_alpha)
 
     def __repr__(self):
         return str(self)

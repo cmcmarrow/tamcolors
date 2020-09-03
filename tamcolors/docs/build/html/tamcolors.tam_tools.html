@@ -210,7 +210,7 @@
 <code class="sig-name descname">set_color</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_color_palette.TAMColorPalette.set_color" title="Permalink to this definition">¶</a></dt>
 <dd><p>info sets a color to the color palette
 :param key: object
-:param color: int
+:param color: Color
 :return:</p>
 </dd></dl>
 
@@ -226,7 +226,7 @@
 <dl class="py method">
 <dt id="tamcolors.tam_tools.tam_color_palette.TAMColorPalette.update">
 <code class="sig-name descname">update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_color_palette.TAMColorPalette.update" title="Permalink to this definition">¶</a></dt>
-<dd><p>info: upsdates color_palette rules
+<dd><p>info: updates color_palette rules
 :return:</p>
 </dd></dl>
 
@@ -272,7 +272,7 @@
 <dt id="tamcolors.tam_tools.tam_color_palette.TAMCycleColor.set_colors">
 <code class="sig-name descname">set_colors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">colors</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_color_palette.TAMCycleColor.set_colors" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: sets all the colors
-:param colors: tuple or int: [int, int, int, …]
+:param colors: tuple or int: [Color, Color, Color, …]
 :return:</p>
 </dd></dl>
 
@@ -295,14 +295,14 @@
 <dt id="tamcolors.tam_tools.tam_color_palette.TAMDefaultColor.get_color">
 <code class="sig-name descname">get_color</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_color_palette.TAMDefaultColor.get_color" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: gets the default color
-:return: int</p>
+:return: Color</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="tamcolors.tam_tools.tam_color_palette.TAMDefaultColor.set_color">
 <code class="sig-name descname">set_color</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_color_palette.TAMDefaultColor.set_color" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: sets the default color
-:param color: int
+:param color: Color
 :return:</p>
 </dd></dl>
 
@@ -326,8 +326,8 @@
 <dd><p>info: makes a fade in or fade out via TAMFilm
 :param buffer: TAMBuffer
 :param char: single block char
-:param foreground_color: 0 - inf
-:param background_color: 0 - inf
+:param foreground_color: Color
+:param background_color: Color
 :param rand: list: [True, bool, bool, bool, …]
 :param reverse: bool
 :return: TAMFilm</p>
