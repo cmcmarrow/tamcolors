@@ -133,7 +133,6 @@ goals
 ***********
 * save/rest Windows buffer size on exit
 * clean up Windows C/C++
-* reset Windows Console buffer Size
 * add .wav support
 * add sound tools
 * make tam utils
@@ -152,9 +151,9 @@ what defines a release?
 versions
 ********
 
-***********
+*****
 1.1.0
-***********
+*****
 * COMING SOON!
 * fixed macOS!
 * broke up IO into drivers
@@ -165,9 +164,9 @@ versions
 * added Color
 * dropped support for Python 3.5
 
-=====
+*****
 1.0.4
-=====
+*****
 * 8/13/2020
 * added more examples
 * bdist_wheel for Linux
@@ -175,9 +174,9 @@ versions
 * added alpha color for TAMBuffer
 * set and get rgb value of color (fixed PowerShell colors)
 
-=====
+*****
 1.0.3
-=====
+*****
 * 7/29/2020
 * tamcolors
 * bdist_wheel for macOS
@@ -190,9 +189,9 @@ versions
 * supports Python 3.6
 * supports Python 3.5
 
-=====
+*****
 1.0.2
-=====
+*****
 * 7/22/2020
 * tamcolors is now very usable
 * bdist_wheel for Windows
@@ -205,16 +204,23 @@ versions
 * supports Python 3.6
 * supports Python 3.5
 
-
-=====
+*****
 0.2.0
-=====
+*****
 * 2/1/2018
 * tamcolors proof of concept
 * added printc
 * added inputc
 * added textBuffer
 * supports Python 3.6
+
+
+**************************
+tamcolors developers guide
+**************************
+* install tamcolors: "pip install -e .[dev]" note you will need a compiler on your machine
+* run tests: "./run_tests.py"
+* build docs: "./tamcolors/docs/build_docs.bat"
 
 .. |Icon| image:: https://raw.githubusercontent.com/cmcmarrow/tamcolors/master/icon.png
 .. |TotalDownloads| image:: https://pepy.tech/badge/tamcolors
