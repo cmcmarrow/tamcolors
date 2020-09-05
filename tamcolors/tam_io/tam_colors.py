@@ -111,10 +111,16 @@ class Color:
             if mode_rgb.a == 0:
                 mode_rgb = old_color.mode_rgb
             else:
-                # TODO cal rgba value
-                mode_rgb = old_color.mode_rgb
+                mode_rgb = RGBA(self.transparent_value(mode_rgb.r, mode_rgb.a, old_color.mode_rgb.r),
+                                self.transparent_value(mode_rgb.g, mode_rgb.a, old_color.mode_rgb.g),
+                                self.transparent_value(mode_rgb.b, mode_rgb.a, old_color.mode_rgb.b),
+                                old_color.mode_rgb.a)
 
         return self.__class__(mode_16, mode_256, mode_rgb, mode_2)
+
+    @staticmethod
+    def transparent_value(target, alpha, background):
+        return min(255, max(0, round((target - (1 - alpha)*background)/alpha)))
 
 
 class RGBA:
