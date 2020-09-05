@@ -106,10 +106,13 @@ class Color:
         if mode_256 == -2:
             mode_256 = old_color.mode_256
 
-        # TODO make rgb work
         mode_rgb = self.mode_rgb
         if mode_rgb.a != 255 and not self.mode_rgb.is_default:
-            mode_rgb = old_color.mode_rgb
+            if mode_rgb.a == 0:
+                mode_rgb = old_color.mode_rgb
+            else:
+                # TODO cal rgba value
+                mode_rgb = old_color.mode_rgb
 
         return self.__class__(mode_16, mode_256, mode_rgb, mode_2)
 
