@@ -214,14 +214,6 @@ versions
 * added textBuffer
 * supports Python 3.6
 
-
-**************************
-tamcolors developers guide
-**************************
-* install tamcolors: "pip install -e .[dev]" note you will need a compiler on your machine
-* run tests: "./run_tests.py"
-* build docs: "./tamcolors/docs/build_docs.bat"
-
 .. |Icon| image:: https://raw.githubusercontent.com/cmcmarrow/tamcolors/master/icon.png
 .. |TotalDownloads| image:: https://pepy.tech/badge/tamcolors
 .. |WeekDownloads| image:: https://pepy.tech/badge/tamcolors/week
