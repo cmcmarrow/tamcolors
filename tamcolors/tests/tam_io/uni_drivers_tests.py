@@ -1,7 +1,6 @@
 # built in libraries
 import platform
 import os
-import sys
 import unittest
 import unittest.mock
 
@@ -36,113 +35,113 @@ class UniIOTests(unittest.TestCase):
     @staticmethod
     def test_start():
         io = get_uni_io()
-        with unittest.mock.patch.object(tam_io.uni_drivers.io, "_enable_get_key", return_value=None) as _enable_get_key:
+        with unittest.mock.patch.object(io, "enable_console_keys", return_value=None) as enable_console_keys:
             with unittest.mock.patch.object(io, "clear", return_value=None) as clear:
-                with unittest.mock.patch.object(io, "_show_console_cursor", return_value=None) as _show_console_cursor:
+                with unittest.mock.patch.object(io, "show_console_cursor", return_value=None) as show_console_cursor:
                     io.start()
 
-                    _enable_get_key.assert_called_once_with()
+                    enable_console_keys.assert_called_once_with(True)
                     clear.assert_called_once_with()
-                    _show_console_cursor.assert_called_once_with(False)
+                    show_console_cursor.assert_called_once_with(False)
 
     @staticmethod
     def test_done():
         io = get_uni_io()
         with unittest.mock.patch.object(os, "system", return_value=None) as system:
-            with unittest.mock.patch.object(tam_io.uni_drivers.io, "_disable_get_key", return_value=None) as _disable_get_key:
+            with unittest.mock.patch.object(io, "enable_console_keys", return_value=None) as enable_console_keys:
                 with unittest.mock.patch.object(io, "clear", return_value=None) as clear:
-                    with unittest.mock.patch.object(io, "_show_console_cursor", return_value=None) as _show_console_cursor:
+                    with unittest.mock.patch.object(io, "show_console_cursor", return_value=None) as show_console_cursor:
                         io.done()
 
-                        _disable_get_key.assert_called_once_with()
+                        enable_console_keys.assert_called_once_with(False)
                         clear.assert_called_once_with()
-                        _show_console_cursor.assert_called_once_with(True)
+                        show_console_cursor.assert_called_once_with(True)
                         system.assert_called_once_with("clear")
 
     def test_get_key(self):
-        with unittest.mock.patch.object(tam_io.uni_tam.io, "_get_key", side_effect=[65, -1]) as _get_key:
-            io = tam_io.uni_tam.UniIO()
-            self.assertEqual(io.get_key(), ("A", "NORMAL"))
+        io = get_uni_io()
+        try:
+            with unittest.mock.patch.object(tam_io.uni_drivers.io, "_get_key", side_effect=[65, -1]) as _get_key:
+                io.enable_console_keys(True)
+                self.assertEqual(io.get_key(), ("A", "NORMAL"))
 
-            self.assertEqual(_get_key.call_count, 2)
+                self.assertEqual(_get_key.call_count, 2)
+        finally:
+            io.enable_console_keys(False)
 
     def test_get_key_2(self):
-        with unittest.mock.patch.object(tam_io.uni_tam.io, "_get_key", side_effect=[27, 91, 65, -1]) as _get_key:
-            io = tam_io.uni_tam.UniIO()
-            self.assertEqual(io.get_key(), ("UP", "SPECIAL"))
+        io = get_uni_io()
+        try:
+            with unittest.mock.patch.object(tam_io.uni_drivers.io, "_get_key", side_effect=[27, 91, 65, -1]) as _get_key:
+                io.enable_console_keys(True)
+                self.assertEqual(io.get_key(), ("UP", "SPECIAL"))
 
-            self.assertEqual(_get_key.call_count, 4)
+                self.assertEqual(_get_key.call_count, 4)
+        finally:
+            io.enable_console_keys(False)
 
     def test_get_key_3(self):
-        with unittest.mock.patch.object(tam_io.uni_tam.io, "_get_key", side_effect=[27, 91, 50, 52, 126, -1]) as _get_key:
-            io = tam_io.uni_tam.UniIO()
-            self.assertEqual(io.get_key(), ("F12", "SPECIAL"))
+        io = get_uni_io()
+        try:
+            with unittest.mock.patch.object(tam_io.uni_drivers.io, "_get_key", side_effect=[27, 91, 50, 52, 126, -1]) as _get_key:
+                io.enable_console_keys(True)
+                self.assertEqual(io.get_key(), ("F12", "SPECIAL"))
 
-            self.assertEqual(_get_key.call_count, 6)
+                self.assertEqual(_get_key.call_count, 6)
+        finally:
+            io.enable_console_keys(False)
 
     def test_get_key_4(self):
-        with unittest.mock.patch.object(tam_io.uni_tam.io, "_get_key", side_effect=[155, 65, -1]) as _get_key:
-            io = tam_io.uni_tam.UniIO()
-            self.assertEqual(io.get_key(), False)
+        io = get_uni_io()
+        try:
+            with unittest.mock.patch.object(tam_io.uni_drivers.io, "_get_key", side_effect=[155, 65, -1]) as _get_key:
+                io.enable_console_keys(True)
+                self.assertEqual(io.get_key(), False)
 
-            self.assertEqual(_get_key.call_count, 3)
+                self.assertEqual(_get_key.call_count, 3)
+        finally:
+            io.enable_console_keys(False)
 
     def test_get_key_5(self):
-        with unittest.mock.patch.object(tam_io.uni_tam.io,
-                                        "_get_key", side_effect=[66, -1, 27, 91, 51, 126, -1]) as _get_key:
-            io = tam_io.uni_tam.UniIO()
-            self.assertEqual(io.get_key(), ("B", "NORMAL"))
-            self.assertEqual(io.get_key(), ("DELETE", "SPECIAL"))
+        io = get_uni_io()
+        try:
+            with unittest.mock.patch.object(tam_io.uni_drivers.io,
+                                            "_get_key", side_effect=[66, -1, 27, 91, 51, 126, -1]) as _get_key:
+                io.enable_console_keys(True)
+                self.assertEqual(io.get_key(), ("B", "NORMAL"))
+                self.assertEqual(io.get_key(), ("DELETE", "SPECIAL"))
 
-            self.assertEqual(_get_key.call_count, 7)
+                self.assertEqual(_get_key.call_count, 7)
+        finally:
+            io.enable_console_keys(False)
 
     def test_get_dimensions(self):
-        with unittest.mock.patch.object(tam_io.uni_tam.io, "_get_dimension", return_value=(20, 25)) as _get_dimension:
-            io = tam_io.uni_tam.UniIO()
+        with unittest.mock.patch.object(tam_io.uni_drivers.io, "_get_dimension", return_value=(20, 25)) as _get_dimension:
+            io = get_uni_io()
 
             self.assertEqual(io.get_dimensions(), (20, 25))
 
             _get_dimension.assert_called_once_with()
 
     def test_get_key_dict(self):
-        keys = tam_io.uni_tam.UniIO().get_key_dict()
+        keys = get_uni_io().get_key_dict()
         for key in keys:
             self.assertIsInstance(key, str)
             self.assertIsInstance(keys.get(key), tuple)
 
     @staticmethod
-    def test__show_console_cursor():
+    def test_show_console_cursor():
+        io = get_uni_io()
         with unittest.mock.patch.object(os, "system", return_value=0) as system:
-            io = tam_io.uni_tam.UniIO()
-            io._show_console_cursor(True)
+            io.show_console_cursor(True)
             if platform.system() != "Darwin":
                 system.assert_called_once_with("setterm -cursor on")
             else:
                 system.assert_not_called()
 
-    def test__get_lin_tam_color_1(self):
-        io = tam_io.uni_tam.UniIO()
-        self.assertEqual(io._get_lin_tam_color(2, 5), ("38;2;19;161;14", "48;2;136;23;152"))
-
-    def test__get_lin_tam_color_2(self):
-        io = tam_io.uni_tam.UniIO()
-        self.assertEqual(io._get_lin_tam_color(-1, -1), ("39", "49"))
-
-    def test__get_lin_tam_color_3(self):
-        io = tam_io.uni_tam.UniIO()
-        self.assertEqual(io._get_lin_tam_color(-2, -2), ("39", "49"))
-
-    @staticmethod
-    def test_clear():
+    def test_clear(self):
+        io = get_uni_io()
         with unittest.mock.patch.object(os, "system", return_value=0) as system:
-            io = tam_io.uni_tam.UniIO()
             io.clear()
-            system.assert_called_once_with("tput reset")
-
-    def test_reset_colors_to_console_defaults(self):
-        io = tam_io.uni_tam.UniIO()
-        io.reset_colors_to_console_defaults()
-
-    def test_set_tam_color_defaults(self):
-        io = tam_io.uni_tam.UniIO()
-        io.set_tam_color_defaults()
+            self.assertEqual(system.mock_calls, [unittest.mock.call("tput reset"),
+                                                 unittest.mock.call("setterm -cursor on")])
