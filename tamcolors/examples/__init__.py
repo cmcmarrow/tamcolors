@@ -8,6 +8,7 @@ from . import tam_print
 from . import tam_text_box
 from . import tam_list_buffer
 from . import tam_key_manager
+from . import colors
 
 
 __all__ = ("alpha",
@@ -19,4 +20,5 @@ __all__ = ("alpha",
            "tam_print",
            "tam_text_box",
            "tam_list_buffer",
-           "tam_key_manager")
+           "tam_key_manager",
+           "colors")
