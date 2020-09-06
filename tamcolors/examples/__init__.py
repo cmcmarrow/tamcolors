@@ -9,6 +9,7 @@ from . import tam_text_box
 from . import tam_list_buffer
 from . import tam_key_manager
 from . import colors
+from . import clouds
 
 
 __all__ = ("alpha",
@@ -21,4 +22,5 @@ __all__ = ("alpha",
            "tam_text_box",
            "tam_list_buffer",
            "tam_key_manager",
-           "colors")
+           "colors",
+           "clouds")

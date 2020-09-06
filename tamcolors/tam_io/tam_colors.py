@@ -119,8 +119,9 @@ class Color:
         return self.__class__(mode_16, mode_256, mode_rgb, mode_2)
 
     @staticmethod
-    def transparent_value(target, alpha, background):
-        return min(255, max(0, round((target - (1 - alpha)*background)/alpha)))
+    def transparent_value(new,  alpha, old):
+        alpha = alpha/255
+        return min(255, max(0, round(alpha * new + (1 - alpha) * old)))
 
 
 class RGBA:
