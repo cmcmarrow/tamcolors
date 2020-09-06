@@ -2,14 +2,23 @@ from abc import ABC
 from tamcolors.tam_io import tam_drivers
 from .tam_buffer import TAMBuffer
 from tamcolors.tam_io import io_tam
+from tamcolors.tam_io import tam_colors
 import sys
 
 
 class ANSITrueFullColorDriver(tam_drivers.FullColorDriver, ABC):
     def __init__(self, *args, **kwargs):
-        self._buffer = TAMBuffer(0, 0, " ", 1, 1)
+        self._buffer = TAMBuffer(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
         self._unix_keys = self.get_key_dict()
         super().__init__(*args, **kwargs)
+
+    def start(self):
+        """
+        info: operations for IO to start
+        :return: None
+        """
+        self._buffer = TAMBuffer(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
+        super().start()
 
     def printc(self, output, color, flush, stderr):
         """
