@@ -4,7 +4,7 @@
 * install tamcolors: "pip install -e .[dev]" note you will need a compiler on your machine
 
 ## run tests 
-run tests: "./run_tests.py"
+* run tests: "./run_tests.py"
 
 ## build docs
 * build docs: "./tamcolors/docs/build_docs.bat"
