@@ -109,7 +109,6 @@ platforms tested on
 * Ubuntu 20.04
 * macOS 10.15.5
 
-
 ***************
 long term goals
 ***************
@@ -119,24 +118,20 @@ long term goals
 * .ci testing
 * make and change fonts at run time
 
-
 *****
 goals
 *****
 * support Solaris
 * support FreeBSD
-* TCP IO (dummy console)
-
 
 ***********
 1.1.1 goals
 ***********
 * save/rest Windows buffer size on exit
 * clean up Windows C/C++
-* add .wav support
-* add sound tools
 * make tam utils
-
+* add TCP IO (dummy console)
+* add .wav support
 
 ***********************
 what defines a release?
