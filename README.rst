@@ -109,6 +109,11 @@ platforms tested on
 * Ubuntu 20.04
 * macOS 10.15.5
 
+*****************
+support tamcolors
+*****************
+* `paypal`_
+
 ***************
 long term goals
 ***************
@@ -132,6 +137,7 @@ goals
 * make tam utils
 * add TCP IO (dummy console)
 * add .wav support
+* add fix macOS terminal cursor
 
 ***********************
 what defines a release?
@@ -220,3 +226,4 @@ versions
 .. _pypi: https://pypi.org/project/tamcolors
 .. _read the docs: https://tamcolors.readthedocs.io/en/latest/
 .. _youtube: https://www.youtube.com/channel/UCgPjVibjJHFHuTZ0_xeq_HQ
+.. _paypal: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DUKDNFSAWDKFE&source=url
