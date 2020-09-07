@@ -1,0 +1,997 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>tamcolors.tam_tools package &mdash; tamcolors 1.0.3 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="tamcolors.tests package" href="tamcolors.tests.html" />
+    <link rel="prev" title="tamcolors.tam_io package" href="tamcolors.tam_io.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> tamcolors
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">tamcolors</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="tamcolors.html">tamcolors package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="tamcolors.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="tamcolors.examples.html">tamcolors.examples package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tamcolors.tam.html">tamcolors.tam package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tamcolors.tam_basic.html">tamcolors.tam_basic package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tamcolors.tam_c.html">tamcolors.tam_c package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tamcolors.tam_io.html">tamcolors.tam_io package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">tamcolors.tam_tools package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tamcolors.tests.html">tamcolors.tests package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tamcolors.html#module-tamcolors">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">tamcolors</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">tamcolors</a> &raquo;</li>
+        
+          <li><a href="tamcolors.html">tamcolors package</a> &raquo;</li>
+        
+      <li>tamcolors.tam_tools package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/tamcolors.tam_tools.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="tamcolors-tam-tools-package">
+<h1>tamcolors.tam_tools package<a class="headerlink" href="#tamcolors-tam-tools-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-tamcolors.tam_tools.tam_color_palette">
+<span id="tamcolors-tam-tools-tam-color-palette-module"></span><h2>tamcolors.tam_tools.tam_color_palette module<a class="headerlink" href="#module-tamcolors.tam_tools.tam_color_palette" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tamcolors.tam_tools.tam_color_palette.TAMColorPalette">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_tools.tam_color_palette.</code><code class="sig-name descname">TAMColorPalette</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">color_range</span><span class="o">=</span><span class="default_value">range(0, 16)</span></em>, <em class="sig-param"><span class="n">color_rules</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_color_palette.TAMColorPalette" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_color_palette.TAMColorPalette.get_color">
+<code class="sig-name descname">get_color</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_color_palette.TAMColorPalette.get_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: gets a color from the color palette
+:param key: object
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_color_palette.TAMColorPalette.get_rule">
+<code class="sig-name descname">get_rule</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_color_palette.TAMColorPalette.get_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: gets a instance of TAMColorPaletteRule or None
+:param key: object
+:return: instance of TAMColorPaletteRule or None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_color_palette.TAMColorPalette.key_present">
+<code class="sig-name descname">key_present</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_color_palette.TAMColorPalette.key_present" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: checks if key is in color palette
+:param key: object
+:return: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_color_palette.TAMColorPalette.set_color">
+<code class="sig-name descname">set_color</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_color_palette.TAMColorPalette.set_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>info sets a color to the color palette
+:param key: object
+:param color: Color
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_color_palette.TAMColorPalette.set_rule">
+<code class="sig-name descname">set_rule</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">rule</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_color_palette.TAMColorPalette.set_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: sets a color rule
+:param key: object
+:param rule: instance of TAMColorPaletteRule
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_color_palette.TAMColorPalette.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_color_palette.TAMColorPalette.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: updates color_palette rules
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="tamcolors.tam_tools.tam_color_palette.TAMColorPaletteError">
+<em class="property">exception </em><code class="sig-prename descclassname">tamcolors.tam_tools.tam_color_palette.</code><code class="sig-name descname">TAMColorPaletteError</code><a class="headerlink" href="#tamcolors.tam_tools.tam_color_palette.TAMColorPaletteError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.tam_tools.tam_color_palette.TAMColorPaletteRule">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_tools.tam_color_palette.</code><code class="sig-name descname">TAMColorPaletteRule</code><a class="headerlink" href="#tamcolors.tam_tools.tam_color_palette.TAMColorPaletteRule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_color_palette.TAMColorPaletteRule.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">color_palette</span></em>, <em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_color_palette.TAMColorPaletteRule.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.tam_tools.tam_color_palette.TAMCycleColor">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_tools.tam_color_palette.</code><code class="sig-name descname">TAMCycleColor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">colors</span></em>, <em class="sig-param"><span class="n">clock</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_color_palette.TAMCycleColor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_tools.tam_color_palette.TAMColorPaletteRule" title="tamcolors.tam_tools.tam_color_palette.TAMColorPaletteRule"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_tools.tam_color_palette.TAMColorPaletteRule</span></code></a></p>
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_color_palette.TAMCycleColor.get_clock">
+<code class="sig-name descname">get_clock</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_color_palette.TAMCycleColor.get_clock" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: gets the clock rate
+:return: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_color_palette.TAMCycleColor.set_clock">
+<code class="sig-name descname">set_clock</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">clock</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_color_palette.TAMCycleColor.set_clock" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: sets the clock
+:param clock: int
+:return: int: 1 - inf</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_color_palette.TAMCycleColor.set_colors">
+<code class="sig-name descname">set_colors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">colors</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_color_palette.TAMCycleColor.set_colors" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: sets all the colors
+:param colors: tuple or int: [Color, Color, Color, …]
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_color_palette.TAMCycleColor.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">color_palette</span></em>, <em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_color_palette.TAMCycleColor.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will update the color_palette color
+:param color_palette: TAMColorPalette
+:param key: object
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.tam_tools.tam_color_palette.TAMDefaultColor">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_tools.tam_color_palette.</code><code class="sig-name descname">TAMDefaultColor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_color_palette.TAMDefaultColor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_tools.tam_color_palette.TAMColorPaletteRule" title="tamcolors.tam_tools.tam_color_palette.TAMColorPaletteRule"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_tools.tam_color_palette.TAMColorPaletteRule</span></code></a></p>
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_color_palette.TAMDefaultColor.get_color">
+<code class="sig-name descname">get_color</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_color_palette.TAMDefaultColor.get_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: gets the default color
+:return: Color</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_color_palette.TAMDefaultColor.set_color">
+<code class="sig-name descname">set_color</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_color_palette.TAMDefaultColor.set_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: sets the default color
+:param color: Color
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_color_palette.TAMDefaultColor.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">color_palette</span></em>, <em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_color_palette.TAMDefaultColor.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will update the color_palette color
+:param color_palette: TAMColorPalette
+:param key: object
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.tam_tools.tam_fade">
+<span id="tamcolors-tam-tools-tam-fade-module"></span><h2>tamcolors.tam_tools.tam_fade module<a class="headerlink" href="#module-tamcolors.tam_tools.tam_fade" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="tamcolors.tam_tools.tam_fade.tam_fade_in">
+<code class="sig-prename descclassname">tamcolors.tam_tools.tam_fade.</code><code class="sig-name descname">tam_fade_in</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">buffer</span></em>, <em class="sig-param"><span class="n">char</span></em>, <em class="sig-param"><span class="n">foreground_color</span></em>, <em class="sig-param"><span class="n">background_color</span></em>, <em class="sig-param"><span class="n">rand</span><span class="o">=</span><span class="default_value">True, False, False, False, False</span></em>, <em class="sig-param"><span class="n">reverse</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_fade.tam_fade_in" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: makes a fade in or fade out via TAMFilm
+:param buffer: TAMBuffer
+:param char: single block char
+:param foreground_color: Color
+:param background_color: Color
+:param rand: list: [True, bool, bool, bool, …]
+:param reverse: bool
+:return: TAMFilm</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.tam_tools.tam_film">
+<span id="tamcolors-tam-tools-tam-film-module"></span><h2>tamcolors.tam_tools.tam_film module<a class="headerlink" href="#module-tamcolors.tam_tools.tam_film" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tamcolors.tam_tools.tam_film.TAMFilm">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_tools.tam_film.</code><code class="sig-name descname">TAMFilm</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_buffers</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">circular</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_film.TAMFilm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_film.TAMFilm.append">
+<code class="sig-name descname">append</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_buffer</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_film.TAMFilm.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>info
+:param tam_buffer:
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_film.TAMFilm.done">
+<code class="sig-name descname">done</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_film.TAMFilm.done" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: returns true if film is done
+:return: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_film.TAMFilm.get">
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_film.TAMFilm.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>info will get a TAMBuffer
+:param spot: int: 0 - len(self.__buffer_list)
+:return: TAMBuffer</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_film.TAMFilm.get_circular">
+<code class="sig-name descname">get_circular</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_film.TAMFilm.get_circular" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: gets the circular value
+:return: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_film.TAMFilm.peak">
+<code class="sig-name descname">peak</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_film.TAMFilm.peak" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: gets the current frame
+:return: TAMBuffer or None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_film.TAMFilm.pop">
+<code class="sig-name descname">pop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_film.TAMFilm.pop" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will pop the last TAMBuffer
+:return: TAMBuffer or None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_film.TAMFilm.set">
+<code class="sig-name descname">set</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em>, <em class="sig-param"><span class="n">tam_buffer</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_film.TAMFilm.set" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: sets a frame
+:param spot: int: 0 - len(self.__buffer_list)
+:param tam_buffer: TAMBuffer
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_film.TAMFilm.set_circular">
+<code class="sig-name descname">set_circular</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">circular</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_film.TAMFilm.set_circular" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: can set circular value
+:param circular: True
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_film.TAMFilm.slide">
+<code class="sig-name descname">slide</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_film.TAMFilm.slide" title="Permalink to this definition">¶</a></dt>
+<dd><p>info will get the next TAMBuffer
+:return: TAMBuffer or None</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="tamcolors.tam_tools.tam_film.TAMFilmError">
+<em class="property">exception </em><code class="sig-prename descclassname">tamcolors.tam_tools.tam_film.</code><code class="sig-name descname">TAMFilmError</code><a class="headerlink" href="#tamcolors.tam_tools.tam_film.TAMFilmError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.tam_tools.tam_icon">
+<span id="tamcolors-tam-tools-tam-icon-module"></span><h2>tamcolors.tam_tools.tam_icon module<a class="headerlink" href="#module-tamcolors.tam_tools.tam_icon" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="tamcolors.tam_tools.tam_icon.get_icon">
+<code class="sig-prename descclassname">tamcolors.tam_tools.tam_icon.</code><code class="sig-name descname">get_icon</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_icon.get_icon" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.tam_tools.tam_key_manager">
+<span id="tamcolors-tam-tools-tam-key-manager-module"></span><h2>tamcolors.tam_tools.tam_key_manager module<a class="headerlink" href="#module-tamcolors.tam_tools.tam_key_manager" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tamcolors.tam_tools.tam_key_manager.TAMKeyManager">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_tools.tam_key_manager.</code><code class="sig-name descname">TAMKeyManager</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">all_keys</span><span class="o">=</span><span class="default_value">{'\t', 'WHITESPACE', '\n', 'WHITESPACE', ' ', 'WHITESPACE', '!', 'NORMAL', '&quot;', 'NORMAL', '#', 'NORMAL', '$', 'NORMAL', '%', 'NORMAL', '&amp;', 'NORMAL', &quot;'&quot;, 'NORMAL', '(', 'NORMAL', ')', 'NORMAL', '*', 'NORMAL', '+', 'NORMAL', ',', 'NORMAL', '-', 'NORMAL', '.', 'NORMAL', '/', 'NORMAL', '0', 'NORMAL', '1', 'NORMAL', '2', 'NORMAL', '3', 'NORMAL', '4', 'NORMAL', '5', 'NORMAL', '6', 'NORMAL', '7', 'NORMAL', '8', 'NORMAL', '9', 'NORMAL', ':', 'NORMAL', ';', 'NORMAL', '&lt;', 'NORMAL', '=', 'NORMAL', '&gt;', 'NORMAL', '?', 'NORMAL', '&#64;', 'NORMAL', 'A', 'NORMAL', 'B', 'NORMAL', 'BACKSPACE', 'SPECIAL', 'C', 'NORMAL', 'D', 'NORMAL', 'DELETE', 'SPECIAL', 'DOWN', 'SPECIAL', 'E', 'NORMAL', 'ESCAPE', 'SPECIAL', 'F', 'NORMAL', 'F1', 'SPECIAL', 'F12', 'SPECIAL', 'F12_SHIFT', 'SPECIAL', 'F1_SHIFT', 'SPECIAL', 'F2', 'SPECIAL', 'F2_SHIFT', 'SPECIAL', 'F3', 'SPECIAL', 'F3_SHIFT', 'SPECIAL', 'F4', 'SPECIAL', 'F4_SHIFT', 'SPECIAL', 'F5', 'SPECIAL', 'F5_SHIFT', 'SPECIAL', 'F6', 'SPECIAL', 'F6_SHIFT', 'SPECIAL', 'F7', 'SPECIAL', 'F7_SHIFT', 'SPECIAL', 'F8', 'SPECIAL', 'F8_SHIFT', 'SPECIAL', 'F9', 'SPECIAL', 'F9_SHIFT', 'SPECIAL', 'G', 'NORMAL', 'H', 'NORMAL', 'I', 'NORMAL', 'J', 'NORMAL', 'K', 'NORMAL', 'L', 'NORMAL', 'LEFT', 'SPECIAL', 'M', 'NORMAL', 'N', 'NORMAL', 'O', 'NORMAL', 'P', 'NORMAL', 'Q', 'NORMAL', 'R', 'NORMAL', 'RIGHT', 'SPECIAL', 'S', 'NORMAL', 'T', 'NORMAL', 'U', 'NORMAL', 'UP', 'SPECIAL', 'V', 'NORMAL', 'W', 'NORMAL', 'X', 'NORMAL', 'Y', 'NORMAL', 'Z', 'NORMAL', '[', 'NORMAL', '\\', 'NORMAL', ']', 'NORMAL', '^', 'NORMAL', '_', 'NORMAL', '`', 'NORMAL', 'a', 'NORMAL', 'b', 'NORMAL', 'c', 'NORMAL', 'd', 'NORMAL', 'e', 'NORMAL', 'f', 'NORMAL', 'g', 'NORMAL', 'h', 'NORMAL', 'i', 'NORMAL', 'j', 'NORMAL', 'k', 'NORMAL', 'l', 'NORMAL', 'm', 'NORMAL', 'n', 'NORMAL', 'o', 'NORMAL', 'p', 'NORMAL', 'q', 'NORMAL', 'r', 'NORMAL', 's', 'NORMAL', 't', 'NORMAL', 'u', 'NORMAL', 'v', 'NORMAL', 'w', 'NORMAL', 'x', 'NORMAL', 'y', 'NORMAL', 'z', 'NORMAL', '{', 'NORMAL', '|', 'NORMAL', '}', 'NORMAL', '~', 'NORMAL'}</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_key_manager.TAMKeyManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_key_manager.TAMKeyManager.get_key_state">
+<code class="sig-name descname">get_key_state</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_key_manager.TAMKeyManager.get_key_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will get a state of a key
+:param key: str
+:return: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_key_manager.TAMKeyManager.get_raw_user_input">
+<code class="sig-name descname">get_raw_user_input</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_key_manager.TAMKeyManager.get_raw_user_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will get the raw user input
+:return: list or tuple: [(str, str), …]</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_key_manager.TAMKeyManager.get_user_input">
+<code class="sig-name descname">get_user_input</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_key_manager.TAMKeyManager.get_user_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will the next key the user enters
+:return: tuple, list or None: (str, str)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_key_manager.TAMKeyManager.get_user_input_generator">
+<code class="sig-name descname">get_user_input_generator</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_key_manager.TAMKeyManager.get_user_input_generator" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: yields a key at a time
+:return: list or tuple: (str, str)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_key_manager.TAMKeyManager.silent_key_state">
+<code class="sig-name descname">silent_key_state</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_key_manager.TAMKeyManager.silent_key_state" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will get a key state and make it 0
+:param key: str
+:return: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_key_manager.TAMKeyManager.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">keys</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_key_manager.TAMKeyManager.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will update key manager with next set of keys
+:param keys: tuple or list: [(str, str), …]
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.tam_tools.tam_list_buffer">
+<span id="tamcolors-tam-tools-tam-list-buffer-module"></span><h2>tamcolors.tam_tools.tam_list_buffer module<a class="headerlink" href="#module-tamcolors.tam_tools.tam_list_buffer" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="tamcolors.tam_tools.tam_list_buffer.tam_list_buffer">
+<code class="sig-prename descclassname">tamcolors.tam_tools.tam_list_buffer.</code><code class="sig-name descname">tam_list_buffer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">chars</span></em>, <em class="sig-param"><span class="n">foreground_colors</span></em>, <em class="sig-param"><span class="n">background_colors</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_list_buffer.tam_list_buffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: makes a list into a TAMBuffer
+:param chars: list, tuple
+:param foreground_colors: list, tuple, int
+:param background_colors: list, tuple, int
+:return: TAMBuffer</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.tam_tools.tam_menu">
+<span id="tamcolors-tam-tools-tam-menu-module"></span><h2>tamcolors.tam_tools.tam_menu module<a class="headerlink" href="#module-tamcolors.tam_tools.tam_menu" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tamcolors.tam_tools.tam_menu.TAMButtonRule">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_tools.tam_menu.</code><code class="sig-name descname">TAMButtonRule</code><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMButtonRule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMButtonRule.draw">
+<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">buffer</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMButtonRule.draw" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMButtonRule.get_action">
+<code class="sig-name descname">get_action</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMButtonRule.get_action" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMButtonRule.get_position">
+<code class="sig-name descname">get_position</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMButtonRule.get_position" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMButtonRule.off">
+<code class="sig-name descname">off</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMButtonRule.off" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMButtonRule.on">
+<code class="sig-name descname">on</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMButtonRule.on" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMButtonRule.run_action">
+<code class="sig-name descname">run_action</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMButtonRule.run_action" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMButtonRule.set_action">
+<code class="sig-name descname">set_action</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMButtonRule.set_action" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMButtonRule.set_position">
+<code class="sig-name descname">set_position</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMButtonRule.set_position" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMButtonRule.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMButtonRule.update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.tam_tools.tam_menu.TAMMenu">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_tools.tam_menu.</code><code class="sig-name descname">TAMMenu</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">buttons</span></em>, <em class="sig-param"><span class="n">call_key</span></em>, <em class="sig-param"><span class="n">goto_map</span></em>, <em class="sig-param"><span class="n">on</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMMenu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMMenu.draw">
+<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">buffer</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMMenu.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: draw all the buttons of the menu
+:param buffer: TAMBuffer
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMMenu.get_buttons">
+<code class="sig-name descname">get_buttons</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMMenu.get_buttons" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: gets the buttons
+:return: list</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMMenu.get_call_key">
+<code class="sig-name descname">get_call_key</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMMenu.get_call_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: gets the call key
+:return: str</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMMenu.get_goto_map">
+<code class="sig-name descname">get_goto_map</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMMenu.get_goto_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: gets the goto map
+:return: dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMMenu.get_on">
+<code class="sig-name descname">get_on</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMMenu.get_on" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: gets the on value
+:return: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMMenu.simple_menu_builder">
+<em class="property">static </em><code class="sig-name descname">simple_menu_builder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">buttons</span></em>, <em class="sig-param"><span class="n">call_on</span></em>, <em class="sig-param"><span class="n">up_keys</span><span class="o">=</span><span class="default_value">'UP'</span></em>, <em class="sig-param"><span class="n">down_keys</span><span class="o">=</span><span class="default_value">'DOWN'</span></em>, <em class="sig-param"><span class="n">on</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMMenu.simple_menu_builder" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: a simple way of making a TAMMenu
+:param buttons: TAMButtonRule
+:param call_on: str
+:param up_keys: list or tuple: (str, …)
+:param down_keys: list or tuple: (str, …)
+:param on: int
+:return: TAMMenu</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMMenu.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">keys</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMMenu.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: update the menu
+:param keys: list or tuple: [(str, str), (str, str, …), …]
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.tam_tools.tam_menu.TAMTextBoxButton">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_tools.tam_menu.</code><code class="sig-name descname">TAMTextBoxButton</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em>, <em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">width</span></em>, <em class="sig-param"><span class="n">height</span></em>, <em class="sig-param"><span class="n">char</span></em>, <em class="sig-param"><span class="n">foreground_color</span></em>, <em class="sig-param"><span class="n">background_color</span></em>, <em class="sig-param"><span class="n">action_func</span></em>, <em class="sig-param"><span class="n">on_foreground_color</span></em>, <em class="sig-param"><span class="n">on_background_color</span></em>, <em class="sig-param"><span class="n">on_char</span><span class="o">=</span><span class="default_value">'/'</span></em>, <em class="sig-param"><span class="n">clock</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">center_vertical</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">center_horizontal</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">vertical_space</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">vertical_start</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">char_background</span><span class="o">=</span><span class="default_value">' '</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMTextBoxButton" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_tools.tam_menu.TAMButtonRule" title="tamcolors.tam_tools.tam_menu.TAMButtonRule"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_tools.tam_menu.TAMButtonRule</span></code></a></p>
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMTextBoxButton.draw">
+<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">buffer</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMTextBoxButton.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: draws button onto buffer
+:param buffer:
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMTextBoxButton.get_action">
+<code class="sig-name descname">get_action</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMTextBoxButton.get_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: gets action function
+:return: fuction</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMTextBoxButton.get_position">
+<code class="sig-name descname">get_position</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMTextBoxButton.get_position" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: gets the position
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMTextBoxButton.off">
+<code class="sig-name descname">off</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMTextBoxButton.off" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: puts the button onto the off state
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMTextBoxButton.on">
+<code class="sig-name descname">on</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMTextBoxButton.on" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: puts the button onto the on state
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMTextBoxButton.run_action">
+<code class="sig-name descname">run_action</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMTextBoxButton.run_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>”
+info: calls the action function
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMTextBoxButton.set_action">
+<code class="sig-name descname">set_action</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMTextBoxButton.set_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: sets the actions
+:param func: function
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMTextBoxButton.set_position">
+<code class="sig-name descname">set_position</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMTextBoxButton.set_position" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: sets the position
+:param x: int
+:param y: int
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMTextBoxButton.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMTextBoxButton.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: updates the button
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.tam_tools.tam_menu.TAMTextButton">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_tools.tam_menu.</code><code class="sig-name descname">TAMTextButton</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em>, <em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">foreground_color</span></em>, <em class="sig-param"><span class="n">background_color</span></em>, <em class="sig-param"><span class="n">action_func</span></em>, <em class="sig-param"><span class="n">on_foreground_color</span></em>, <em class="sig-param"><span class="n">on_background_color</span></em>, <em class="sig-param"><span class="n">on_chars</span><span class="o">=</span><span class="default_value">'* '</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMTextButton" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_tools.tam_menu.TAMButtonRule" title="tamcolors.tam_tools.tam_menu.TAMButtonRule"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_tools.tam_menu.TAMButtonRule</span></code></a></p>
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMTextButton.draw">
+<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">buffer</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMTextButton.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: draws button onto buffer
+:param buffer:
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMTextButton.get_action">
+<code class="sig-name descname">get_action</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMTextButton.get_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: gets action function
+:return: fuction</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMTextButton.get_position">
+<code class="sig-name descname">get_position</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMTextButton.get_position" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: gets the position
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMTextButton.off">
+<code class="sig-name descname">off</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMTextButton.off" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: puts the button onto the off state
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMTextButton.on">
+<code class="sig-name descname">on</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMTextButton.on" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: puts the button onto the on state
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMTextButton.run_action">
+<code class="sig-name descname">run_action</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMTextButton.run_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>”
+info: calls the action function
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMTextButton.set_action">
+<code class="sig-name descname">set_action</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">func</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMTextButton.set_action" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: sets the actions
+:param func: function
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMTextButton.set_position">
+<code class="sig-name descname">set_position</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMTextButton.set_position" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: sets the position
+:param x: int
+:param y: int
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_menu.TAMTextButton.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_menu.TAMTextButton.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: updates the button
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.tam_tools.tam_placing">
+<span id="tamcolors-tam-tools-tam-placing-module"></span><h2>tamcolors.tam_tools.tam_placing module<a class="headerlink" href="#module-tamcolors.tam_tools.tam_placing" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="tamcolors.tam_tools.tam_placing.bottom_left">
+<code class="sig-prename descclassname">tamcolors.tam_tools.tam_placing.</code><code class="sig-name descname">bottom_left</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">width</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">height</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">buffer</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_placing.bottom_left" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will put dimensions as width, height
+:param x: int
+:param y: int
+:param width: int or None
+:param height: int or None
+:param buffer: TAMBuffer
+:return: x, y</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="tamcolors.tam_tools.tam_placing.bottom_right">
+<code class="sig-prename descclassname">tamcolors.tam_tools.tam_placing.</code><code class="sig-name descname">bottom_right</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">width</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">height</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">buffer</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_placing.bottom_right" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will put dimensions as width, height
+:param x: int
+:param y: int
+:param width: int or None
+:param height: int or None
+:param buffer: TAMBuffer
+:return: x, y</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="tamcolors.tam_tools.tam_placing.center">
+<code class="sig-prename descclassname">tamcolors.tam_tools.tam_placing.</code><code class="sig-name descname">center</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">width</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">height</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">buffer</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_placing.center" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will put dimensions as width, height
+:param x: int
+:param y: int
+:param width: int or None
+:param height: int or None
+:param buffer: TAMBuffer
+:return: x, y</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="tamcolors.tam_tools.tam_placing.top_left">
+<code class="sig-prename descclassname">tamcolors.tam_tools.tam_placing.</code><code class="sig-name descname">top_left</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">width</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">height</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">buffer</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_placing.top_left" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will put dimensions as width, height
+:param x: int
+:param y: int
+:param width: int or None
+:param height: int or None
+:param buffer: TAMBuffer
+:return: x, y</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="tamcolors.tam_tools.tam_placing.top_right">
+<code class="sig-prename descclassname">tamcolors.tam_tools.tam_placing.</code><code class="sig-name descname">top_right</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">width</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">height</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">buffer</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_placing.top_right" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will put dimensions as width, height
+:param x: int
+:param y: int
+:param width: int or None
+:param height: int or None
+:param buffer: TAMBuffer
+:return: x, y</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.tam_tools.tam_print">
+<span id="tamcolors-tam-tools-tam-print-module"></span><h2>tamcolors.tam_tools.tam_print module<a class="headerlink" href="#module-tamcolors.tam_tools.tam_print" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="tamcolors.tam_tools.tam_print.tam_print">
+<code class="sig-prename descclassname">tamcolors.tam_tools.tam_print.</code><code class="sig-name descname">tam_print</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_buffer</span></em>, <em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">text</span></em>, <em class="sig-param"><span class="n">foreground_color</span></em>, <em class="sig-param"><span class="n">background_color</span></em>, <em class="sig-param"><span class="n">error_bad_char</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">bad_char</span><span class="o">=</span><span class="default_value">''</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_print.tam_print" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: tam_print will draw string on a tam_buffer
+:param tam_buffer: TAMBuffer
+:param x: int
+:param y: int
+:param text: object with __str__
+:param foreground_color: int: -1 - inf: use current foreground_color
+:param background_color: int: -1 - inf: use current background_color
+:param error_bad_char: bool
+:param bad_char: str
+:return:</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.tam_tools.tam_str">
+<span id="tamcolors-tam-tools-tam-str-module"></span><h2>tamcolors.tam_tools.tam_str module<a class="headerlink" href="#module-tamcolors.tam_tools.tam_str" title="Permalink to this headline">¶</a></h2>
+<dl class="py exception">
+<dt id="tamcolors.tam_tools.tam_str.TAMStrError">
+<em class="property">exception </em><code class="sig-prename descclassname">tamcolors.tam_tools.tam_str.</code><code class="sig-name descname">TAMStrError</code><a class="headerlink" href="#tamcolors.tam_tools.tam_str.TAMStrError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="tamcolors.tam_tools.tam_str.make_tam_str">
+<code class="sig-prename descclassname">tamcolors.tam_tools.tam_str.</code><code class="sig-name descname">make_tam_str</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em>, <em class="sig-param"><span class="n">end_line</span><span class="o">=</span><span class="default_value">'\n'</span></em>, <em class="sig-param"><span class="n">bad_char</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_str.make_tam_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: formats str into a tam str
+:param text: str
+:param end_line: str
+:param bad_char: str
+:return: str</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.tam_tools.tam_text_box">
+<span id="tamcolors-tam-tools-tam-text-box-module"></span><h2>tamcolors.tam_tools.tam_text_box module<a class="headerlink" href="#module-tamcolors.tam_tools.tam_text_box" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tamcolors.tam_tools.tam_text_box.TAMTextBox">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_tools.tam_text_box.</code><code class="sig-name descname">TAMTextBox</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text</span></em>, <em class="sig-param"><span class="n">width</span></em>, <em class="sig-param"><span class="n">height</span></em>, <em class="sig-param"><span class="n">char</span></em>, <em class="sig-param"><span class="n">foreground_color</span></em>, <em class="sig-param"><span class="n">background_color</span></em>, <em class="sig-param"><span class="n">clock</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">center_vertical</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">center_horizontal</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">vertical_space</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">vertical_start</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">char_background</span><span class="o">=</span><span class="default_value">' '</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_text_box.TAMTextBox" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_text_box.TAMTextBox.done">
+<code class="sig-name descname">done</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_text_box.TAMTextBox.done" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: True if text box has placed all chars onto to its self
+:return: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_text_box.TAMTextBox.draw">
+<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_buffer</span></em>, <em class="sig-param"><span class="n">start_x</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">start_y</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_text_box.TAMTextBox.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: draws the text box on to another buffer
+:param tam_buffer: TAMBuffer
+:param start_x: int
+:param start_y: int
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_text_box.TAMTextBox.get_char">
+<code class="sig-name descname">get_char</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_text_box.TAMTextBox.get_char" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: gets char
+:return: str</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_text_box.TAMTextBox.get_colors">
+<code class="sig-name descname">get_colors</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_text_box.TAMTextBox.get_colors" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: gets textbox color
+:return: (int, int)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_text_box.TAMTextBox.get_dimensions">
+<code class="sig-name descname">get_dimensions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_text_box.TAMTextBox.get_dimensions" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: gets buffer dimensions
+:return: (int, int)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_text_box.TAMTextBox.get_text">
+<code class="sig-name descname">get_text</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_text_box.TAMTextBox.get_text" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: gets text
+:return: str</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_text_box.TAMTextBox.set_char">
+<code class="sig-name descname">set_char</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">char</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_text_box.TAMTextBox.set_char" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: sets char
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_text_box.TAMTextBox.set_colors">
+<code class="sig-name descname">set_colors</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">foreground_color</span></em>, <em class="sig-param"><span class="n">background_color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_text_box.TAMTextBox.set_colors" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: sets textbox colors
+:param foreground_color: 0 - inf
+:param background_color: 0 - inf
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_tools.tam_text_box.TAMTextBox.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_text_box.TAMTextBox.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>info updates the text box
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.tam_tools">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-tamcolors.tam_tools" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tamcolors.tests.html" class="btn btn-neutral float-right" title="tamcolors.tests package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tamcolors.tam_io.html" class="btn btn-neutral float-left" title="tamcolors.tam_io package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Charles McMarrow
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

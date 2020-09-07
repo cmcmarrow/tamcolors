@@ -149,7 +149,7 @@ versions
 *****
 1.1.0
 *****
-* COMING SOON!
+* 9/7/2020
 * fixed macOS!
 * broke up IO into drivers
 * added terminal identifier

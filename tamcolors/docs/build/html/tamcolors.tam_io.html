@@ -1,0 +1,1659 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>tamcolors.tam_io package &mdash; tamcolors 1.0.3 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="tamcolors.tam_tools package" href="tamcolors.tam_tools.html" />
+    <link rel="prev" title="tamcolors.tam_c package" href="tamcolors.tam_c.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> tamcolors
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">tamcolors</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="tamcolors.html">tamcolors package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="tamcolors.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="tamcolors.examples.html">tamcolors.examples package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tamcolors.tam.html">tamcolors.tam package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tamcolors.tam_basic.html">tamcolors.tam_basic package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tamcolors.tam_c.html">tamcolors.tam_c package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">tamcolors.tam_io package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tamcolors.tam_tools.html">tamcolors.tam_tools package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tamcolors.tests.html">tamcolors.tests package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tamcolors.html#module-tamcolors">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">tamcolors</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">tamcolors</a> &raquo;</li>
+        
+          <li><a href="tamcolors.html">tamcolors package</a> &raquo;</li>
+        
+      <li>tamcolors.tam_io package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/tamcolors.tam_io.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="tamcolors-tam-io-package">
+<h1>tamcolors.tam_io package<a class="headerlink" href="#tamcolors-tam-io-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-tamcolors.tam_io.ansi_256_drivers">
+<span id="tamcolors-tam-io-ansi-256-drivers-module"></span><h2>tamcolors.tam_io.ansi_256_drivers module<a class="headerlink" href="#module-tamcolors.tam_io.ansi_256_drivers" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tamcolors.tam_io.ansi_256_drivers.ANSI256ChangerDriver">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.ansi_256_drivers.</code><code class="sig-name descname">ANSI256ChangerDriver</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.ansi_256_drivers.ANSI256ChangerDriver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_io.tam_drivers.ColorChangerDriver" title="tamcolors.tam_io.tam_drivers.ColorChangerDriver"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.tam_drivers.ColorChangerDriver</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.tam_io.ansi_256_drivers.ANSI256ColorDriver">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.ansi_256_drivers.</code><code class="sig-name descname">ANSI256ColorDriver</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.ansi_256_drivers.ANSI256ColorDriver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_io.tam_drivers.FullColorDriver" title="tamcolors.tam_io.tam_drivers.FullColorDriver"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.tam_drivers.FullColorDriver</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tam_io.ansi_256_drivers.ANSI256ColorDriver.draw">
+<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_buffer</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.ansi_256_drivers.ANSI256ColorDriver.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will draw TAMBuffer to console
+:param tam_buffer: TAMBuffer
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.ansi_256_drivers.ANSI256ColorDriver.get_printc_mode">
+<code class="sig-name descname">get_printc_mode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.ansi_256_drivers.ANSI256ColorDriver.get_printc_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the modes used by printc and inputc
+:return: str</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.ansi_256_drivers.ANSI256ColorDriver.inputc">
+<code class="sig-name descname">inputc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.ansi_256_drivers.ANSI256ColorDriver.inputc" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will get input from the console in color
+:param output: str
+:param color: COLOR
+:return: str</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.ansi_256_drivers.ANSI256ColorDriver.printc">
+<code class="sig-name descname">printc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output</span></em>, <em class="sig-param"><span class="n">color</span></em>, <em class="sig-param"><span class="n">flush</span></em>, <em class="sig-param"><span class="n">stderr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.ansi_256_drivers.ANSI256ColorDriver.printc" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will print to the console in color
+:param output: str
+:param color: COLOR
+:param flush: bool
+:param stderr: std
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.ansi_256_drivers.ANSI256ColorDriver.set_mode">
+<code class="sig-name descname">set_mode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mode</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.ansi_256_drivers.ANSI256ColorDriver.set_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will set the color mode
+:param mode: int: key to color mode
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.ansi_256_drivers.ANSI256ColorDriver.start">
+<code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.ansi_256_drivers.ANSI256ColorDriver.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: operations for IO to start
+:return: None</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.tam_io.ansi_true_color_drivers">
+<span id="tamcolors-tam-io-ansi-true-color-drivers-module"></span><h2>tamcolors.tam_io.ansi_true_color_drivers module<a class="headerlink" href="#module-tamcolors.tam_io.ansi_true_color_drivers" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tamcolors.tam_io.ansi_true_color_drivers.ANSITrueFullColorDriver">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.ansi_true_color_drivers.</code><code class="sig-name descname">ANSITrueFullColorDriver</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.ansi_true_color_drivers.ANSITrueFullColorDriver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_io.tam_drivers.FullColorDriver" title="tamcolors.tam_io.tam_drivers.FullColorDriver"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.tam_drivers.FullColorDriver</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tam_io.ansi_true_color_drivers.ANSITrueFullColorDriver.draw">
+<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_buffer</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.ansi_true_color_drivers.ANSITrueFullColorDriver.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will draw TAMBuffer to console
+:param tam_buffer: TAMBuffer
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.ansi_true_color_drivers.ANSITrueFullColorDriver.get_printc_mode">
+<code class="sig-name descname">get_printc_mode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.ansi_true_color_drivers.ANSITrueFullColorDriver.get_printc_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the modes used by printc and inputc
+:return: str</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.ansi_true_color_drivers.ANSITrueFullColorDriver.inputc">
+<code class="sig-name descname">inputc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.ansi_true_color_drivers.ANSITrueFullColorDriver.inputc" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will get input from the console in color
+:param output: str
+:param color: COLOR
+:return: str</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.ansi_true_color_drivers.ANSITrueFullColorDriver.printc">
+<code class="sig-name descname">printc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output</span></em>, <em class="sig-param"><span class="n">color</span></em>, <em class="sig-param"><span class="n">flush</span></em>, <em class="sig-param"><span class="n">stderr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.ansi_true_color_drivers.ANSITrueFullColorDriver.printc" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will print to the console in color
+:param output: str
+:param color: COLOR
+:param flush: bool
+:param stderr: std
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.ansi_true_color_drivers.ANSITrueFullColorDriver.set_mode">
+<code class="sig-name descname">set_mode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mode</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.ansi_true_color_drivers.ANSITrueFullColorDriver.set_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will set the color mode
+:param mode: int: key to color mode
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.ansi_true_color_drivers.ANSITrueFullColorDriver.start">
+<code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.ansi_true_color_drivers.ANSITrueFullColorDriver.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: operations for IO to start
+:return: None</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.tam_io.any_drivers">
+<span id="tamcolors-tam-io-any-drivers-module"></span><h2>tamcolors.tam_io.any_drivers module<a class="headerlink" href="#module-tamcolors.tam_io.any_drivers" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tamcolors.tam_io.any_drivers.ANYColorChangerDriver">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.any_drivers.</code><code class="sig-name descname">ANYColorChangerDriver</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.any_drivers.ANYColorChangerDriver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_io.tam_drivers.ColorChangerDriver" title="tamcolors.tam_io.tam_drivers.ColorChangerDriver"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.tam_drivers.ColorChangerDriver</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.tam_io.any_drivers.ANYColorDriver">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.any_drivers.</code><code class="sig-name descname">ANYColorDriver</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.any_drivers.ANYColorDriver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_io.tam_drivers.ColorDriver" title="tamcolors.tam_io.tam_drivers.ColorDriver"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.tam_drivers.ColorDriver</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tam_io.any_drivers.ANYColorDriver.draw">
+<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_buffer</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.any_drivers.ANYColorDriver.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will draw TAMBuffer to console
+:param tam_buffer: TAMBuffer
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.any_drivers.ANYColorDriver.get_printc_mode">
+<code class="sig-name descname">get_printc_mode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.any_drivers.ANYColorDriver.get_printc_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the modes used by printc and inputc
+:return: str</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.any_drivers.ANYColorDriver.inputc">
+<code class="sig-name descname">inputc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.any_drivers.ANYColorDriver.inputc" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will get user input with color
+:param value: str
+:param color: tuple: (int, int)
+:return: str</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.any_drivers.ANYColorDriver.printc">
+<code class="sig-name descname">printc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output</span></em>, <em class="sig-param"><span class="n">color</span></em>, <em class="sig-param"><span class="n">flush</span></em>, <em class="sig-param"><span class="n">stderr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.any_drivers.ANYColorDriver.printc" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will print out user output with color
+:param output: str
+:param color: tuple: (int, int)
+:param flush: boolean
+:param stderr: boolean
+:return: None</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.tam_io.any_drivers.ANYKeyDriver">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.any_drivers.</code><code class="sig-name descname">ANYKeyDriver</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.any_drivers.ANYKeyDriver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_io.tam_drivers.KeyDriver" title="tamcolors.tam_io.tam_drivers.KeyDriver"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.tam_drivers.KeyDriver</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tam_io.any_drivers.ANYKeyDriver.get_key">
+<code class="sig-name descname">get_key</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.any_drivers.ANYKeyDriver.get_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Gets an input from the terminal
+:return: tuple or false</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.any_drivers.ANYKeyDriver.get_key_dict">
+<em class="property">static </em><code class="sig-name descname">get_key_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.any_drivers.ANYKeyDriver.get_key_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Gets a dict of all the keys
+:return: {str: (str, str), …}</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.tam_io.any_drivers.ANYUtilitiesDriver">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.any_drivers.</code><code class="sig-name descname">ANYUtilitiesDriver</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.any_drivers.ANYUtilitiesDriver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_io.tam_drivers.UtilitiesDriver" title="tamcolors.tam_io.tam_drivers.UtilitiesDriver"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.tam_drivers.UtilitiesDriver</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tam_io.any_drivers.ANYUtilitiesDriver.clear">
+<code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.any_drivers.ANYUtilitiesDriver.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will clear the console
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.any_drivers.ANYUtilitiesDriver.get_dimensions">
+<code class="sig-name descname">get_dimensions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.any_drivers.ANYUtilitiesDriver.get_dimensions" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Gets the dimensions of console
+:return: (int, int): (row, column)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.any_drivers.ANYUtilitiesDriver.show_console_cursor">
+<code class="sig-name descname">show_console_cursor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">show</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.any_drivers.ANYUtilitiesDriver.show_console_cursor" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will show or hide console cursor
+:param show: int
+:return: None</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.tam_io.io_tam">
+<span id="tamcolors-tam-io-io-tam-module"></span><h2>tamcolors.tam_io.io_tam module<a class="headerlink" href="#module-tamcolors.tam_io.io_tam" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tamcolors.tam_io.io_tam.IO">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.io_tam.</code><code class="sig-name descname">IO</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_io.io_tam.RAWIO" title="tamcolors.tam_io.io_tam.RAWIO"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.io_tam.RAWIO</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.able_to_execute">
+<em class="property">classmethod </em><code class="sig-name descname">able_to_execute</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.able_to_execute" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: checks that io is stable in current environment
+:return: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.clear">
+<code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will clear the console
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.color_changer_driver_operational">
+<code class="sig-name descname">color_changer_driver_operational</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.color_changer_driver_operational" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: checks if the color changer driver is operational
+:return: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.color_driver_operational">
+<code class="sig-name descname">color_driver_operational</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.color_driver_operational" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: checks if the color driver is operational
+:return: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.done">
+<code class="sig-name descname">done</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.done" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: operations for IO to stop
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.draw">
+<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_buffer</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will draw TAMBuffer to console
+:param tam_buffer: TAMBuffer
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.enable_console_keys">
+<code class="sig-name descname">enable_console_keys</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">enable</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.enable_console_keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will enable console keys
+:param enable: boool
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.get_color_16">
+<code class="sig-name descname">get_color_16</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.get_color_16" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will get color from color palette 16
+:param spot: int
+:return: RGBA</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.get_color_2">
+<code class="sig-name descname">get_color_2</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.get_color_2" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will get color from color palette 2
+:param spot: int
+:return: RGBA</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.get_color_256">
+<code class="sig-name descname">get_color_256</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.get_color_256" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will get color from color palette 256
+:param spot: int
+:return: RGBA</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.get_dimensions">
+<code class="sig-name descname">get_dimensions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.get_dimensions" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Gets the dimensions of console
+:return: (int, int): (row, column)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.get_info_dict">
+<code class="sig-name descname">get_info_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.get_info_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will get the identifier dict
+:return: dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.get_key">
+<code class="sig-name descname">get_key</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.get_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Gets an input from the terminal
+:return: tuple or false</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.get_key_dict">
+<em class="property">static </em><code class="sig-name descname">get_key_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.get_key_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Gets a dict of all the keys
+:return: {str: (str, str), …}</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.get_mode">
+<code class="sig-name descname">get_mode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.get_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will return the current color mode
+:return: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.get_modes">
+<code class="sig-name descname">get_modes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.get_modes" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will return a tuple of all color modes
+:return: (int, int, …)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.get_printc_mode">
+<code class="sig-name descname">get_printc_mode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.get_printc_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the modes used by printc and inputc
+:return: str</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.inputc">
+<code class="sig-name descname">inputc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.inputc" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will get input from the console in color
+:param output: str
+:param color: COLOR
+:return: str</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.is_console_cursor_enabled">
+<code class="sig-name descname">is_console_cursor_enabled</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.is_console_cursor_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will check if console cursor is enabled
+:return: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.is_console_keys_enabled">
+<code class="sig-name descname">is_console_keys_enabled</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.is_console_keys_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will check if console keys enabled
+:return: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.key_driver_operational">
+<code class="sig-name descname">key_driver_operational</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.key_driver_operational" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: checks if the key driver is operational
+:return: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.printc">
+<code class="sig-name descname">printc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output</span></em>, <em class="sig-param"><span class="n">color</span></em>, <em class="sig-param"><span class="n">flush</span></em>, <em class="sig-param"><span class="n">stderr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.printc" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will print to the console in color
+:param output: str
+:param color: COLOR
+:param flush: bool
+:param stderr: std
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.reset_colors_to_console_defaults">
+<code class="sig-name descname">reset_colors_to_console_defaults</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.reset_colors_to_console_defaults" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will reset colors to console defaults
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.set_color_16">
+<code class="sig-name descname">set_color_16</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.set_color_16" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: sets a color value
+:param spot: int
+:param color: RGBA
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.set_color_2">
+<code class="sig-name descname">set_color_2</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.set_color_2" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: sets a color value
+:param spot: int
+:param color: RGBA
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.set_color_256">
+<code class="sig-name descname">set_color_256</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.set_color_256" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: sets a color value
+:param spot: int
+:param color: RGBA
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.set_mode">
+<code class="sig-name descname">set_mode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mode</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.set_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will set the color mode
+:param mode: int: key to color mode
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.set_tam_color_defaults">
+<code class="sig-name descname">set_tam_color_defaults</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.set_tam_color_defaults" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will set console colors to tam defaults
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.show_console_cursor">
+<code class="sig-name descname">show_console_cursor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">show</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.show_console_cursor" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will show or hide console cursor
+:param show: bool
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.start">
+<code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: operations for IO to start
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.IO.utilities_driver_operational">
+<code class="sig-name descname">utilities_driver_operational</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.IO.utilities_driver_operational" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: checks if the utilities driver is operational
+:return: bool</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.tam_io.io_tam.RAWIO">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.io_tam.</code><code class="sig-name descname">RAWIO</code><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.able_to_execute">
+<em class="property">classmethod </em><code class="sig-name descname">able_to_execute</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.able_to_execute" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: checks that io is stable in current environment
+:return: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.clear">
+<code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will clear the console
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.color_change_driver_operational">
+<code class="sig-name descname">color_change_driver_operational</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.color_change_driver_operational" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: checks if the color changer driver is operational
+:return: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.color_changer_driver_operational">
+<code class="sig-name descname">color_changer_driver_operational</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.color_changer_driver_operational" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: checks if the color changer driver is operational
+:return: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.color_driver_operational">
+<code class="sig-name descname">color_driver_operational</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.color_driver_operational" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: checks if the color driver is operational
+:return: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.done">
+<code class="sig-name descname">done</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.done" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: operations for IO to stop
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.draw">
+<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_buffer</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will draw TAMBuffer to console
+:param tam_buffer: TAMBuffer
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.enable_console_keys">
+<code class="sig-name descname">enable_console_keys</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">enable</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.enable_console_keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will enable console keys
+:param enable: boool
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.get_color_16">
+<code class="sig-name descname">get_color_16</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.get_color_16" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will get color from color palette 16
+:param spot: int
+:return: RGBA</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.get_color_2">
+<code class="sig-name descname">get_color_2</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.get_color_2" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will get color from color palette 2
+:param spot: int
+:return: RGBA</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.get_color_256">
+<code class="sig-name descname">get_color_256</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.get_color_256" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will get color from color palette 256
+:param spot: int
+:return: RGBA</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.get_dimensions">
+<code class="sig-name descname">get_dimensions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.get_dimensions" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Gets the dimensions of console
+:return: (int, int): (row, column)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.get_info_dict">
+<code class="sig-name descname">get_info_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.get_info_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will get the identifier dict
+:return: dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.get_key">
+<code class="sig-name descname">get_key</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.get_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Gets an input from the terminal
+:return: tuple or false</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.get_key_dict">
+<em class="property">static </em><code class="sig-name descname">get_key_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.get_key_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Gets a dict of all the keys
+:return: {str: (str, str), …}</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.get_mode">
+<code class="sig-name descname">get_mode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.get_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will return the current color mode
+:return: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.get_modes">
+<code class="sig-name descname">get_modes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.get_modes" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will return a tuple of all color modes
+:return: (int, int, …)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.get_printc_mode">
+<code class="sig-name descname">get_printc_mode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.get_printc_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the modes used by printc and inputc
+:return: str</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.inputc">
+<code class="sig-name descname">inputc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.inputc" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will get input from the console in color
+:param output: str
+:param color: COLOR
+:return: str</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.is_console_cursor_enabled">
+<code class="sig-name descname">is_console_cursor_enabled</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.is_console_cursor_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will check if console cursor is enabled
+:return: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.is_console_keys_enabled">
+<code class="sig-name descname">is_console_keys_enabled</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.is_console_keys_enabled" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will check if console keys enabled
+:return: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.key_driver_operational">
+<code class="sig-name descname">key_driver_operational</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.key_driver_operational" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: checks if the key driver is operational
+:return: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.printc">
+<code class="sig-name descname">printc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output</span></em>, <em class="sig-param"><span class="n">color</span></em>, <em class="sig-param"><span class="n">flush</span></em>, <em class="sig-param"><span class="n">stderr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.printc" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will print to the console in color
+:param output: str
+:param color: COLOR
+:param flush: bool
+:param stderr: std
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.reset_colors_to_console_defaults">
+<code class="sig-name descname">reset_colors_to_console_defaults</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.reset_colors_to_console_defaults" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will reset colors to console defaults
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.set_color_16">
+<code class="sig-name descname">set_color_16</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.set_color_16" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: sets a color value
+:param spot: int
+:param color: RGBA
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.set_color_2">
+<code class="sig-name descname">set_color_2</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.set_color_2" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: sets a color value
+:param spot: int
+:param color: RGBA
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.set_color_256">
+<code class="sig-name descname">set_color_256</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.set_color_256" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: sets a color value
+:param spot: int
+:param color: RGBA
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.set_mode">
+<code class="sig-name descname">set_mode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mode</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.set_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will set the color mode
+:param mode: int: key to color mode
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.set_tam_color_defaults">
+<code class="sig-name descname">set_tam_color_defaults</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.set_tam_color_defaults" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will set console colors to tam defaults
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.show_console_cursor">
+<code class="sig-name descname">show_console_cursor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">show</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.show_console_cursor" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will show or hide console cursor
+:param show: int
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.start">
+<code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: operations for IO to start
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.io_tam.RAWIO.utilities_driver_operational">
+<code class="sig-name descname">utilities_driver_operational</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.io_tam.RAWIO.utilities_driver_operational" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: checks if the utilities driver is operational
+:return: bool</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.tam_io.tam_buffer">
+<span id="tamcolors-tam-io-tam-buffer-module"></span><h2>tamcolors.tam_io.tam_buffer module<a class="headerlink" href="#module-tamcolors.tam_io.tam_buffer" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tamcolors.tam_io.tam_buffer.TAMBuffer">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.tam_buffer.</code><code class="sig-name descname">TAMBuffer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">width</span></em>, <em class="sig-param"><span class="n">height</span></em>, <em class="sig-param"><span class="n">char</span></em>, <em class="sig-param"><span class="n">foreground_color</span></em>, <em class="sig-param"><span class="n">background_color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_buffer.TAMBuffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_buffer.TAMBuffer.clear">
+<code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_buffer.TAMBuffer.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: clears TAMBuffer
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_buffer.TAMBuffer.copy">
+<code class="sig-name descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_buffer.TAMBuffer.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: copy’s TAMBuffer
+:return: TAMBuffer</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_buffer.TAMBuffer.draw_onto">
+<code class="sig-name descname">draw_onto</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_buffer</span></em>, <em class="sig-param"><span class="n">start_x</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">start_y</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">buffer_start_x</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">buffer_start_y</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">buffer_size_x</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">buffer_size_y</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">override_alpha</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_buffer.TAMBuffer.draw_onto" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will draw tam_buffer or part of a TAMBuffer onto another TAMBuffer
+:param tam_buffer: TAMBuffer
+:param start_x: int
+:param start_y: int
+:param buffer_start_x: int
+:param buffer_start_y: int
+:param buffer_size_x: int: 0 - inf
+:param buffer_size_y: int: 0 - inf
+:param override_alpha: bool
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_buffer.TAMBuffer.get_cross_rect">
+<code class="sig-name descname">get_cross_rect</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_buffer</span></em>, <em class="sig-param"><span class="n">start_x</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">start_y</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">buffer_start_x</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">buffer_start_y</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">buffer_size_x</span><span class="o">=</span><span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">buffer_size_y</span><span class="o">=</span><span class="default_value">- 1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_buffer.TAMBuffer.get_cross_rect" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will draw tam_buffer or part of a TAMBuffer onto another TAMBuffer
+:param tam_buffer: TAMBuffer
+:param start_x: int
+:param start_y: int
+:param buffer_start_x: int
+:param buffer_start_y: int
+:param buffer_size_x: int: 0 - inf
+:param buffer_size_y: int: 0 - inf
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_buffer.TAMBuffer.get_defaults">
+<code class="sig-name descname">get_defaults</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_buffer.TAMBuffer.get_defaults" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: gets defaults
+:return: (str, int, int)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_buffer.TAMBuffer.get_dimensions">
+<code class="sig-name descname">get_dimensions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_buffer.TAMBuffer.get_dimensions" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: gets buffer dimensions
+:return: (int, int)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_buffer.TAMBuffer.get_from_raw_spot">
+<code class="sig-name descname">get_from_raw_spot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_buffer.TAMBuffer.get_from_raw_spot" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: gets spot info
+:param spot: x: int: 0 - (len(tam_buffer) - 1)
+:return: (int, int, int) or None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_buffer.TAMBuffer.get_raw_buffers">
+<code class="sig-name descname">get_raw_buffers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_buffer.TAMBuffer.get_raw_buffers" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: gets raw buffers
+:return: (list, list, list)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_buffer.TAMBuffer.get_raw_spot">
+<code class="sig-name descname">get_raw_spot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_buffer.TAMBuffer.get_raw_spot" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: return -1 if not a spot
+:param x: int
+:param y: int
+:return: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_buffer.TAMBuffer.get_spot">
+<code class="sig-name descname">get_spot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_buffer.TAMBuffer.get_spot" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: gets spot info
+:param x: int
+:param y: int
+:return: (int, int, int) or None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_buffer.TAMBuffer.replace_alpha_chars">
+<code class="sig-name descname">replace_alpha_chars</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">alpha_replacement</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_buffer.TAMBuffer.replace_alpha_chars" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>alpha_replacement</strong> – None or str</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_buffer.TAMBuffer.set_defaults_and_clear">
+<code class="sig-name descname">set_defaults_and_clear</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">char</span></em>, <em class="sig-param"><span class="n">foreground_color</span></em>, <em class="sig-param"><span class="n">background_color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_buffer.TAMBuffer.set_defaults_and_clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: clears buffer and resets defaults
+:param char: str: len of 1
+:param foreground_color: int: 0 - inf
+:param background_color: int: 0 - inf
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_buffer.TAMBuffer.set_dimensions_and_clear">
+<code class="sig-name descname">set_dimensions_and_clear</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">width</span></em>, <em class="sig-param"><span class="n">height</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_buffer.TAMBuffer.set_dimensions_and_clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: clears and resizes TAMBuffer
+:param width: int: 0 - inf
+:param height: int: 0 - inf
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_buffer.TAMBuffer.set_spot">
+<code class="sig-name descname">set_spot</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">char</span></em>, <em class="sig-param"><span class="n">foreground_color</span></em>, <em class="sig-param"><span class="n">background_color</span></em>, <em class="sig-param"><span class="n">override_alpha</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_buffer.TAMBuffer.set_spot" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: sets a single spot on the buffer
+:param x: int
+:param y: int
+:param char: str: len of 1
+:param foreground_color: int
+:param background_color: int
+:param override_alpha: bool
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.tam_io.tam_colors">
+<span id="tamcolors-tam-io-tam-colors-module"></span><h2>tamcolors.tam_io.tam_colors module<a class="headerlink" href="#module-tamcolors.tam_io.tam_colors" title="Permalink to this headline">¶</a></h2>
+<p>terminal colors supported on all platforms
+Color holds all color values for all supported modes
+RGBA holds the values for mode rgb</p>
+<dl class="py class">
+<dt id="tamcolors.tam_io.tam_colors.Color">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.tam_colors.</code><code class="sig-name descname">Color</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mode_16</span></em>, <em class="sig-param"><span class="n">mode_256</span></em>, <em class="sig-param"><span class="n">mode_rgb</span></em>, <em class="sig-param"><span class="n">mode_2</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_colors.Color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_colors.Color.has_alpha">
+<em class="property">property </em><code class="sig-name descname">has_alpha</code><a class="headerlink" href="#tamcolors.tam_io.tam_colors.Color.has_alpha" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Checks if color has any alpha
+:return: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_colors.Color.mode_16">
+<em class="property">property </em><code class="sig-name descname">mode_16</code><a class="headerlink" href="#tamcolors.tam_io.tam_colors.Color.mode_16" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Gets mode 16
+:return: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_colors.Color.mode_2">
+<em class="property">property </em><code class="sig-name descname">mode_2</code><a class="headerlink" href="#tamcolors.tam_io.tam_colors.Color.mode_2" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Gets mode 2
+:return: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_colors.Color.mode_256">
+<em class="property">property </em><code class="sig-name descname">mode_256</code><a class="headerlink" href="#tamcolors.tam_io.tam_colors.Color.mode_256" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Gets mode 256
+:return: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_colors.Color.mode_rgb">
+<em class="property">property </em><code class="sig-name descname">mode_rgb</code><a class="headerlink" href="#tamcolors.tam_io.tam_colors.Color.mode_rgb" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Gets mode rgb
+:return: RGBA</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_colors.Color.place_color_over">
+<code class="sig-name descname">place_color_over</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">old_color</span></em>, <em class="sig-param"><span class="n">override_alpha</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_colors.Color.place_color_over" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will calculate what the new color will be
+:param old_color: Color
+:param override_alpha: bool
+:return: color</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_colors.Color.transparent_value">
+<em class="property">static </em><code class="sig-name descname">transparent_value</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">new</span></em>, <em class="sig-param"><span class="n">alpha</span></em>, <em class="sig-param"><span class="n">old</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_colors.Color.transparent_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.tam_io.tam_colors.RGBA">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.tam_colors.</code><code class="sig-name descname">RGBA</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">r</span></em>, <em class="sig-param"><span class="n">g</span></em>, <em class="sig-param"><span class="n">b</span></em>, <em class="sig-param"><span class="n">a</span><span class="o">=</span><span class="default_value">255</span></em>, <em class="sig-param"><span class="n">is_default</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_colors.RGBA" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_colors.RGBA.a">
+<em class="property">property </em><code class="sig-name descname">a</code><a class="headerlink" href="#tamcolors.tam_io.tam_colors.RGBA.a" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will get the a value
+:return: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_colors.RGBA.b">
+<em class="property">property </em><code class="sig-name descname">b</code><a class="headerlink" href="#tamcolors.tam_io.tam_colors.RGBA.b" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will get the b value
+:return: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_colors.RGBA.g">
+<em class="property">property </em><code class="sig-name descname">g</code><a class="headerlink" href="#tamcolors.tam_io.tam_colors.RGBA.g" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will get the g value
+:return: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_colors.RGBA.is_default">
+<em class="property">property </em><code class="sig-name descname">is_default</code><a class="headerlink" href="#tamcolors.tam_io.tam_colors.RGBA.is_default" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: See if color is default
+:return: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_colors.RGBA.r">
+<em class="property">property </em><code class="sig-name descname">r</code><a class="headerlink" href="#tamcolors.tam_io.tam_colors.RGBA.r" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will get the r value
+:return: int</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.tam_io.tam_drivers">
+<span id="tamcolors-tam-io-tam-drivers-module"></span><h2>tamcolors.tam_io.tam_drivers module<a class="headerlink" href="#module-tamcolors.tam_io.tam_drivers" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tamcolors.tam_io.tam_drivers.ColorChangerDriver">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.tam_drivers.</code><code class="sig-name descname">ColorChangerDriver</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_drivers.ColorChangerDriver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_io.tam_drivers.TAMDriver" title="tamcolors.tam_io.tam_drivers.TAMDriver"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.tam_drivers.TAMDriver</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_drivers.ColorChangerDriver.get_color_16">
+<code class="sig-name descname">get_color_16</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_drivers.ColorChangerDriver.get_color_16" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will get color from color palette 16
+:param spot: int
+:return: RGBA</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_drivers.ColorChangerDriver.get_color_2">
+<code class="sig-name descname">get_color_2</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_drivers.ColorChangerDriver.get_color_2" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will get color from color palette 2
+:param spot: int
+:return: RGBA</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_drivers.ColorChangerDriver.get_color_256">
+<code class="sig-name descname">get_color_256</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_drivers.ColorChangerDriver.get_color_256" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will get color from color palette 256
+:param spot: int
+:return: RGBA</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_drivers.ColorChangerDriver.set_color_16">
+<code class="sig-name descname">set_color_16</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_drivers.ColorChangerDriver.set_color_16" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: sets a color value
+:param spot: int
+:param color: RGBA
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_drivers.ColorChangerDriver.set_color_2">
+<code class="sig-name descname">set_color_2</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_drivers.ColorChangerDriver.set_color_2" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: sets a color value
+:param spot: int
+:param color: RGBA
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_drivers.ColorChangerDriver.set_color_256">
+<code class="sig-name descname">set_color_256</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">spot</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_drivers.ColorChangerDriver.set_color_256" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: sets a color value
+:param spot: int
+:param color: RGBA
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_drivers.ColorChangerDriver.set_mode">
+<code class="sig-name descname">set_mode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mode</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_drivers.ColorChangerDriver.set_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will set the color mode
+:param mode: int: key to color mode
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.tam_io.tam_drivers.ColorDriver">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.tam_drivers.</code><code class="sig-name descname">ColorDriver</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_drivers.ColorDriver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_io.tam_drivers.TAMDriver" title="tamcolors.tam_io.tam_drivers.TAMDriver"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.tam_drivers.TAMDriver</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_drivers.ColorDriver.draw">
+<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_buffer</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_drivers.ColorDriver.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will draw TAMBuffer to console
+:param tam_buffer: TAMBuffer
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_drivers.ColorDriver.get_printc_mode">
+<code class="sig-name descname">get_printc_mode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_drivers.ColorDriver.get_printc_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the modes used by printc and inputc
+:return: str</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_drivers.ColorDriver.inputc">
+<code class="sig-name descname">inputc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_drivers.ColorDriver.inputc" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will get input from the console in color
+:param output: str
+:param color: COLOR
+:return: str</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_drivers.ColorDriver.printc">
+<code class="sig-name descname">printc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output</span></em>, <em class="sig-param"><span class="n">color</span></em>, <em class="sig-param"><span class="n">flush</span></em>, <em class="sig-param"><span class="n">stderr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_drivers.ColorDriver.printc" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will print to the console in color
+:param output: str
+:param color: COLOR
+:param flush: bool
+:param stderr: std
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_drivers.ColorDriver.set_mode">
+<code class="sig-name descname">set_mode</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mode</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_drivers.ColorDriver.set_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will set the color mode
+:param mode: int: key to color mode
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.tam_io.tam_drivers.FullColorDriver">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.tam_drivers.</code><code class="sig-name descname">FullColorDriver</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_drivers.FullColorDriver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_io.tam_drivers.ColorDriver" title="tamcolors.tam_io.tam_drivers.ColorDriver"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.tam_drivers.ColorDriver</span></code></a>, <a class="reference internal" href="#tamcolors.tam_io.tam_drivers.ColorChangerDriver" title="tamcolors.tam_io.tam_drivers.ColorChangerDriver"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.tam_drivers.ColorChangerDriver</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.tam_io.tam_drivers.KeyDriver">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.tam_drivers.</code><code class="sig-name descname">KeyDriver</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_drivers.KeyDriver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_io.tam_drivers.TAMDriver" title="tamcolors.tam_io.tam_drivers.TAMDriver"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.tam_drivers.TAMDriver</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_drivers.KeyDriver.enable_console_keys">
+<code class="sig-name descname">enable_console_keys</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">enable</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_drivers.KeyDriver.enable_console_keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will enable console keys
+:param enable: boool
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_drivers.KeyDriver.get_key">
+<code class="sig-name descname">get_key</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_drivers.KeyDriver.get_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Gets an input from the terminal
+:return: tuple or false</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_drivers.KeyDriver.get_key_dict">
+<em class="property">static </em><code class="sig-name descname">get_key_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_drivers.KeyDriver.get_key_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Gets a dict of all the keys
+:return: {str: (str, str), …}</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.tam_io.tam_drivers.TAMDriver">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.tam_drivers.</code><code class="sig-name descname">TAMDriver</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_drivers.TAMDriver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_io.io_tam.IO" title="tamcolors.tam_io.io_tam.IO"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.io_tam.IO</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_drivers.TAMDriver.able_to_execute">
+<em class="property">classmethod </em><code class="sig-name descname">able_to_execute</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_drivers.TAMDriver.able_to_execute" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: checks that io is stable in current environment
+:return: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_drivers.TAMDriver.done">
+<code class="sig-name descname">done</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_drivers.TAMDriver.done" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: operations for IO to stop
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_drivers.TAMDriver.start">
+<code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_drivers.TAMDriver.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: operations for IO to start
+:return: None</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.tam_io.tam_drivers.UtilitiesDriver">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.tam_drivers.</code><code class="sig-name descname">UtilitiesDriver</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_drivers.UtilitiesDriver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_io.tam_drivers.TAMDriver" title="tamcolors.tam_io.tam_drivers.TAMDriver"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.tam_drivers.TAMDriver</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_drivers.UtilitiesDriver.clear">
+<code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_drivers.UtilitiesDriver.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will clear the console
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_drivers.UtilitiesDriver.get_dimensions">
+<code class="sig-name descname">get_dimensions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_drivers.UtilitiesDriver.get_dimensions" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Gets the dimensions of console
+:return: (int, int): (row, column)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_drivers.UtilitiesDriver.show_console_cursor">
+<code class="sig-name descname">show_console_cursor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">show</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_drivers.UtilitiesDriver.show_console_cursor" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will show or hide console cursor
+:param show: int
+:return: None</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.tam_io.tam_identifier">
+<span id="tamcolors-tam-io-tam-identifier-module"></span><h2>tamcolors.tam_io.tam_identifier module<a class="headerlink" href="#module-tamcolors.tam_io.tam_identifier" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tamcolors.tam_io.tam_identifier.TAMIdentifier">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.tam_identifier.</code><code class="sig-name descname">TAMIdentifier</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">drivers</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_identifier.TAMIdentifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_identifier.TAMIdentifier.get_all_drivers">
+<code class="sig-name descname">get_all_drivers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_identifier.TAMIdentifier.get_all_drivers" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Get a list of all the tam drivers being used
+:return: list</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_identifier.TAMIdentifier.get_info_dict">
+<code class="sig-name descname">get_info_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_identifier.TAMIdentifier.get_info_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Get raw info about this identifier
+:return: dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_identifier.TAMIdentifier.get_io">
+<code class="sig-name descname">get_io</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_identifier.TAMIdentifier.get_io" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Gets the IO that the selected drivers made
+:return: IO</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_identifier.TAMIdentifier.get_name">
+<code class="sig-name descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_identifier.TAMIdentifier.get_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Get the general name of the drivers
+:return: str</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_identifier.TAMIdentifier.get_system">
+<code class="sig-name descname">get_system</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_identifier.TAMIdentifier.get_system" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Get the system
+:return: str</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_identifier.TAMIdentifier.identify">
+<em class="property">classmethod </em><code class="sig-name descname">identify</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_identifier.TAMIdentifier.identify" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will find the best drivers for current environment
+:return: TAMIdentifier</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.tam_identifier.TAMIdentifier.stable">
+<code class="sig-name descname">stable</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.tam_identifier.TAMIdentifier.stable" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Sees if this IO is able to execute
+:return: bool</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.tam_io.tam_keys">
+<span id="tamcolors-tam-io-tam-keys-module"></span><h2>tamcolors.tam_io.tam_keys module<a class="headerlink" href="#module-tamcolors.tam_io.tam_keys" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-tamcolors.tam_io.uni_drivers">
+<span id="tamcolors-tam-io-uni-drivers-module"></span><h2>tamcolors.tam_io.uni_drivers module<a class="headerlink" href="#module-tamcolors.tam_io.uni_drivers" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tamcolors.tam_io.uni_drivers.UNIKeyDriver">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.uni_drivers.</code><code class="sig-name descname">UNIKeyDriver</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.uni_drivers.UNIKeyDriver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_io.tam_drivers.KeyDriver" title="tamcolors.tam_io.tam_drivers.KeyDriver"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.tam_drivers.KeyDriver</span></code></a>, <a class="reference internal" href="#tamcolors.tam_io.uni_drivers.UNISharedData" title="tamcolors.tam_io.uni_drivers.UNISharedData"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.uni_drivers.UNISharedData</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tam_io.uni_drivers.UNIKeyDriver.enable_console_keys">
+<code class="sig-name descname">enable_console_keys</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">enable</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.uni_drivers.UNIKeyDriver.enable_console_keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will enable console keys
+:param enable: boool
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.uni_drivers.UNIKeyDriver.get_key">
+<code class="sig-name descname">get_key</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.uni_drivers.UNIKeyDriver.get_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Gets an input from the terminal
+:return: tuple or false</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.uni_drivers.UNIKeyDriver.get_key_dict">
+<em class="property">static </em><code class="sig-name descname">get_key_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.uni_drivers.UNIKeyDriver.get_key_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Gets a dict of all the keys
+:return: {str: (str, str), …}</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.tam_io.uni_drivers.UNISharedData">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.uni_drivers.</code><code class="sig-name descname">UNISharedData</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.uni_drivers.UNISharedData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_io.tam_drivers.TAMDriver" title="tamcolors.tam_io.tam_drivers.TAMDriver"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.tam_drivers.TAMDriver</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tam_io.uni_drivers.UNISharedData.able_to_execute">
+<em class="property">classmethod </em><code class="sig-name descname">able_to_execute</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.uni_drivers.UNISharedData.able_to_execute" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: checks that io is stable in current environment
+:return: bool</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.tam_io.uni_drivers.UNIUtilitiesDriver">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.uni_drivers.</code><code class="sig-name descname">UNIUtilitiesDriver</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.uni_drivers.UNIUtilitiesDriver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_io.tam_drivers.UtilitiesDriver" title="tamcolors.tam_io.tam_drivers.UtilitiesDriver"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.tam_drivers.UtilitiesDriver</span></code></a>, <a class="reference internal" href="#tamcolors.tam_io.uni_drivers.UNISharedData" title="tamcolors.tam_io.uni_drivers.UNISharedData"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.uni_drivers.UNISharedData</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tam_io.uni_drivers.UNIUtilitiesDriver.clear">
+<code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.uni_drivers.UNIUtilitiesDriver.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will clear the console
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.uni_drivers.UNIUtilitiesDriver.done">
+<code class="sig-name descname">done</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.uni_drivers.UNIUtilitiesDriver.done" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: operations for IO to stop
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.uni_drivers.UNIUtilitiesDriver.get_dimensions">
+<code class="sig-name descname">get_dimensions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.uni_drivers.UNIUtilitiesDriver.get_dimensions" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Gets the dimensions of console
+:return: (int, int): (row, column)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.uni_drivers.UNIUtilitiesDriver.show_console_cursor">
+<code class="sig-name descname">show_console_cursor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">show</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.uni_drivers.UNIUtilitiesDriver.show_console_cursor" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will show or hide console cursor
+:param show: int
+:return: None</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.tam_io.win_drivers">
+<span id="tamcolors-tam-io-win-drivers-module"></span><h2>tamcolors.tam_io.win_drivers module<a class="headerlink" href="#module-tamcolors.tam_io.win_drivers" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tamcolors.tam_io.win_drivers.WINFullColorDriver">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.win_drivers.</code><code class="sig-name descname">WINFullColorDriver</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.win_drivers.WINFullColorDriver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_io.tam_drivers.FullColorDriver" title="tamcolors.tam_io.tam_drivers.FullColorDriver"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.tam_drivers.FullColorDriver</span></code></a>, <a class="reference internal" href="#tamcolors.tam_io.win_drivers.WinSharedData" title="tamcolors.tam_io.win_drivers.WinSharedData"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.win_drivers.WinSharedData</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tam_io.win_drivers.WINFullColorDriver.done">
+<code class="sig-name descname">done</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.win_drivers.WINFullColorDriver.done" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: operations for IO to stop
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.win_drivers.WINFullColorDriver.draw">
+<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_buffer</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.win_drivers.WINFullColorDriver.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will draw tam buffer to terminal
+:param tam_buffer: TAMBuffer
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.win_drivers.WINFullColorDriver.get_printc_mode">
+<code class="sig-name descname">get_printc_mode</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.win_drivers.WINFullColorDriver.get_printc_mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the modes used by printc and inputc
+:return: str</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.win_drivers.WINFullColorDriver.inputc">
+<code class="sig-name descname">inputc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output</span></em>, <em class="sig-param"><span class="n">color</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.win_drivers.WINFullColorDriver.inputc" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will get user input with color
+:param output: str
+:param color: tuple: (int, int)
+:return: str</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.win_drivers.WINFullColorDriver.printc">
+<code class="sig-name descname">printc</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">output</span></em>, <em class="sig-param"><span class="n">color</span></em>, <em class="sig-param"><span class="n">flush</span></em>, <em class="sig-param"><span class="n">stderr</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.win_drivers.WINFullColorDriver.printc" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will print out user output with color
+:param output: str
+:param color: tuple: (int, int)
+:param flush: boolean
+:param stderr: boolean
+:return: None</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.tam_io.win_drivers.WINKeyDriver">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.win_drivers.</code><code class="sig-name descname">WINKeyDriver</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.win_drivers.WINKeyDriver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_io.tam_drivers.KeyDriver" title="tamcolors.tam_io.tam_drivers.KeyDriver"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.tam_drivers.KeyDriver</span></code></a>, <a class="reference internal" href="#tamcolors.tam_io.win_drivers.WinSharedData" title="tamcolors.tam_io.win_drivers.WinSharedData"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.win_drivers.WinSharedData</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tam_io.win_drivers.WINKeyDriver.get_key">
+<code class="sig-name descname">get_key</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.win_drivers.WINKeyDriver.get_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will get single key input or return False
+:return: str or False</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.win_drivers.WINKeyDriver.get_key_dict">
+<em class="property">static </em><code class="sig-name descname">get_key_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.win_drivers.WINKeyDriver.get_key_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: makes a dict mapping key codes to key
+:return: dict</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.tam_io.win_drivers.WINUtilitiesDriver">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.win_drivers.</code><code class="sig-name descname">WINUtilitiesDriver</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.win_drivers.WINUtilitiesDriver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_io.tam_drivers.UtilitiesDriver" title="tamcolors.tam_io.tam_drivers.UtilitiesDriver"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.tam_drivers.UtilitiesDriver</span></code></a>, <a class="reference internal" href="#tamcolors.tam_io.win_drivers.WinSharedData" title="tamcolors.tam_io.win_drivers.WinSharedData"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.win_drivers.WinSharedData</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tam_io.win_drivers.WINUtilitiesDriver.clear">
+<code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.win_drivers.WINUtilitiesDriver.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will clear the screen
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.win_drivers.WINUtilitiesDriver.get_dimensions">
+<code class="sig-name descname">get_dimensions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.win_drivers.WINUtilitiesDriver.get_dimensions" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will get teh terminal dimensions
+:return: (int, int)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tam_io.win_drivers.WINUtilitiesDriver.show_console_cursor">
+<code class="sig-name descname">show_console_cursor</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">show</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.win_drivers.WINUtilitiesDriver.show_console_cursor" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Will show or hide console cursor
+:param show: bool
+:return: None</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.tam_io.win_drivers.WinSharedData">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tam_io.win_drivers.</code><code class="sig-name descname">WinSharedData</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.win_drivers.WinSharedData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tamcolors.tam_io.tam_drivers.TAMDriver" title="tamcolors.tam_io.tam_drivers.TAMDriver"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam_io.tam_drivers.TAMDriver</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tam_io.win_drivers.WinSharedData.able_to_execute">
+<em class="property">classmethod </em><code class="sig-name descname">able_to_execute</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_io.win_drivers.WinSharedData.able_to_execute" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: checks that io is stable in current environment
+:return: bool</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.tam_io">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-tamcolors.tam_io" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tamcolors.tam_tools.html" class="btn btn-neutral float-right" title="tamcolors.tam_tools package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tamcolors.tam_c.html" class="btn btn-neutral float-left" title="tamcolors.tam_c package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Charles McMarrow
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
