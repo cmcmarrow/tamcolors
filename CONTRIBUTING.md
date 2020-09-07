@@ -12,5 +12,5 @@ run tests: "./run_tests.py"
 ## create/push pypi packages
 * python setup.py sdist bdist_wheel
 * twine upload dist/*
-* twin user name: CharlesMcMarrow
-* twin password: ****
+* twine username: CharlesMcMarrow
+* twine password: XXXXXXXXX
