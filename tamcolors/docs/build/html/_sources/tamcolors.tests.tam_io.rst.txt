@@ -4,10 +4,10 @@ tamcolors.tests.tam\_io package
 Submodules
 ----------
 
-tamcolors.tests.tam\_io.any\_tam\_tests module
-----------------------------------------------
+tamcolors.tests.tam\_io.any\_drivers\_tests module
+--------------------------------------------------
 
-.. automodule:: tamcolors.tests.tam_io.any_tam_tests
+.. automodule:: tamcolors.tests.tam_io.any_drivers_tests
    :members:
    :undoc-members:
    :show-inheritance:
@@ -52,18 +52,18 @@ tamcolors.tests.tam\_io.tam\_standard\_tests module
    :undoc-members:
    :show-inheritance:
 
-tamcolors.tests.tam\_io.uni\_tam\_tests module
-----------------------------------------------
+tamcolors.tests.tam\_io.uni\_drivers\_tests module
+--------------------------------------------------
 
-.. automodule:: tamcolors.tests.tam_io.uni_tam_tests
+.. automodule:: tamcolors.tests.tam_io.uni_drivers_tests
    :members:
    :undoc-members:
    :show-inheritance:
 
-tamcolors.tests.tam\_io.win\_tam\_tests module
-----------------------------------------------
+tamcolors.tests.tam\_io.win\_drivers\_tests module
+--------------------------------------------------
 
-.. automodule:: tamcolors.tests.tam_io.win_tam_tests
+.. automodule:: tamcolors.tests.tam_io.win_drivers_tests
    :members:
    :undoc-members:
    :show-inheritance:

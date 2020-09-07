@@ -76,10 +76,10 @@ tamcolors.tests.tam\_tools.tam\_str\_tests module
    :undoc-members:
    :show-inheritance:
 
-tamcolors.tests.tam\_tools.tam\_test\_box\_tests module
+tamcolors.tests.tam\_tools.tam\_text\_box\_tests module
 -------------------------------------------------------
 
-.. automodule:: tamcolors.tests.tam_tools.tam_test_box_tests
+.. automodule:: tamcolors.tests.tam_tools.tam_text_box_tests
    :members:
    :undoc-members:
    :show-inheritance:

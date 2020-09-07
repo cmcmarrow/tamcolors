@@ -20,6 +20,22 @@ tamcolors.examples.basic module
    :undoc-members:
    :show-inheritance:
 
+tamcolors.examples.clouds module
+--------------------------------
+
+.. automodule:: tamcolors.examples.clouds
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+tamcolors.examples.colors module
+--------------------------------
+
+.. automodule:: tamcolors.examples.colors
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 tamcolors.examples.icon module
 ------------------------------
 

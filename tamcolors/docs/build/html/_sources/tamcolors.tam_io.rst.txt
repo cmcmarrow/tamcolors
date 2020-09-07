@@ -4,10 +4,26 @@ tamcolors.tam\_io package
 Submodules
 ----------
 
-tamcolors.tam\_io.any\_tam module
----------------------------------
+tamcolors.tam\_io.ansi\_256\_drivers module
+-------------------------------------------
 
-.. automodule:: tamcolors.tam_io.any_tam
+.. automodule:: tamcolors.tam_io.ansi_256_drivers
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+tamcolors.tam\_io.ansi\_true\_color\_drivers module
+---------------------------------------------------
+
+.. automodule:: tamcolors.tam_io.ansi_true_color_drivers
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+tamcolors.tam\_io.any\_drivers module
+-------------------------------------
+
+.. automodule:: tamcolors.tam_io.any_drivers
    :members:
    :undoc-members:
    :show-inheritance:
@@ -36,6 +52,22 @@ tamcolors.tam\_io.tam\_colors module
    :undoc-members:
    :show-inheritance:
 
+tamcolors.tam\_io.tam\_drivers module
+-------------------------------------
+
+.. automodule:: tamcolors.tam_io.tam_drivers
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+tamcolors.tam\_io.tam\_identifier module
+----------------------------------------
+
+.. automodule:: tamcolors.tam_io.tam_identifier
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 tamcolors.tam\_io.tam\_keys module
 ----------------------------------
 
@@ -44,18 +76,18 @@ tamcolors.tam\_io.tam\_keys module
    :undoc-members:
    :show-inheritance:
 
-tamcolors.tam\_io.uni\_tam module
----------------------------------
+tamcolors.tam\_io.uni\_drivers module
+-------------------------------------
 
-.. automodule:: tamcolors.tam_io.uni_tam
+.. automodule:: tamcolors.tam_io.uni_drivers
    :members:
    :undoc-members:
    :show-inheritance:
 
-tamcolors.tam\_io.win\_tam module
----------------------------------
+tamcolors.tam\_io.win\_drivers module
+-------------------------------------
 
-.. automodule:: tamcolors.tam_io.win_tam
+.. automodule:: tamcolors.tam_io.win_drivers
    :members:
    :undoc-members:
    :show-inheritance:
