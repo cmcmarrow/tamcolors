@@ -6,6 +6,7 @@ from . import tam_io
 from . import tam_c
 from . import examples
 from . import tests
+from . import utils
 
 
 __author__ = "Charles McMarrow"
@@ -27,4 +28,5 @@ __all__ = ("__author__",
            "clear",
            "tam_io",
            "examples",
-           "tests")
+           "tests",
+           "utils")

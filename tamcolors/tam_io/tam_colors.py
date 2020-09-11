@@ -1,3 +1,8 @@
+# built in libraries
+from functools import lru_cache
+from tamcolors.utils import cache
+
+
 """
 terminal colors supported on all platforms
 Color holds all color values for all supported modes
@@ -5,7 +10,7 @@ RGBA holds the values for mode rgb
 """
 
 
-class Color:
+class Color(cache.Cache):
     __slots__ = ("_mode_2", "_mode_16", "_mode_256", "_mode_rgb", "_has_alpha")
 
     def __init__(self, mode_16, mode_256, mode_rgb, mode_2=None):
@@ -31,6 +36,9 @@ class Color:
                                                                          self.mode_256,
                                                                          self.mode_rgb,
                                                                          self.has_alpha)
+
+    def __hash__(self):
+        return hash((self._mode_2, self._mode_16, self._mode_256, self._mode_rgb, self._has_alpha))
 
     def __repr__(self):
         return str(self)
@@ -119,12 +127,13 @@ class Color:
         return self.__class__(mode_16, mode_256, mode_rgb, mode_2)
 
     @staticmethod
+    @lru_cache(maxsize=5000)
     def transparent_value(new,  alpha, old):
         alpha = alpha/255
         return min(255, max(0, round(alpha * new + (1 - alpha) * old)))
 
 
-class RGBA:
+class RGBA(cache.Cache):
     __slots__ = ("_r", "_g", "_b", "_a", "_is_default")
 
     def __init__(self, r, g, b, a=255, is_default=False):
@@ -151,6 +160,9 @@ class RGBA:
 
     def __repr__(self):
         return str(self)
+
+    def __hash__(self):
+        return hash((self._r, self._g, self._b, self._a, self._is_default))
 
     def __eq__(self, other):
         if isinstance(other, self.__class__):

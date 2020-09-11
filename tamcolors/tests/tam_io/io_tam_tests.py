@@ -10,16 +10,16 @@ class RAWIOTest(unittest.TestCase):
     def test_same_methods(self):
         for method in dir(tam_io.io_tam.IO):
             if method[0] != "_":
-                self.assertTrue(hasattr(tam_io.io_tam.RAWIO, method))
+                self.assertTrue(hasattr(tam_io.io_tam.RawIO, method))
 
-        for method in dir(tam_io.io_tam.RAWIO):
+        for method in dir(tam_io.io_tam.RawIO):
             if method[0] != "_":
                 self.assertTrue(hasattr(tam_io.io_tam.IO, method))
 
     def test_same_doc_string(self):
         for method in dir(tam_io.io_tam.IO):
             if method[0] != "_":
-                self.assertTrue(getattr(tam_io.io_tam.IO, method), getattr(tam_io.io_tam.RAWIO, method).__doc__)
+                self.assertTrue(getattr(tam_io.io_tam.IO, method), getattr(tam_io.io_tam.RawIO, method).__doc__)
 
 
 class IOTAMTest(unittest.TestCase):
