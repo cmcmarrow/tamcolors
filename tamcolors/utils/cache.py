@@ -7,7 +7,7 @@ class Cache:
 
     def __new__(cls, *args, **kwargs):
         constructor_args = (cls, *args, *[(key, kwargs[key])for key in kwargs])
-        
+
         if constructor_args in cls.objects:
             made_object = cls.objects[constructor_args]()
             if made_object is not None:
@@ -20,9 +20,15 @@ class Cache:
         try:
             for _ in range(2):
                 key = next(cls.objects_keys)
-                if cls.objects[key]() is None:
+                if key in cls.objects_keys and cls.objects[key]() is None:
                     del cls.objects[key]
         except StopIteration:
             cls.objects_keys = iter(tuple(cls.objects))
 
         return new_object
+
+    def __copy__(self):
+        return self
+
+    def __deepcopy__(self, memo):
+        return self
