@@ -1,6 +1,6 @@
 # built in libraries
 from functools import lru_cache
-from tamcolors.utils import cache
+from tamcolors.utils.immutable_cache import ImmutableCache
 
 
 """
@@ -10,7 +10,7 @@ RGBA holds the values for mode rgb
 """
 
 
-class Color(cache.Cache):
+class Color(ImmutableCache):
     __slots__ = ("_mode_2", "_mode_16", "_mode_256", "_mode_rgb", "_has_alpha")
 
     def __init__(self, mode_16, mode_256, mode_rgb, mode_2=None):
@@ -133,7 +133,7 @@ class Color(cache.Cache):
         return min(255, max(0, round(alpha * new + (1 - alpha) * old)))
 
 
-class RGBA(cache.Cache):
+class RGBA(ImmutableCache):
     __slots__ = ("_r", "_g", "_b", "_a", "_is_default")
 
     def __init__(self, r, g, b, a=255, is_default=False):

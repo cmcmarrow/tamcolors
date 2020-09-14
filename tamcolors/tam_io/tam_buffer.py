@@ -45,7 +45,7 @@ class TAMBuffer:
 
     def __str__(self):
         """
-        info: formats TAMBuffer to string  to be printed
+        info: formats TAMBuffer to string to be printed
         :return: str: TAMBuffer as string
         """
         rows = []

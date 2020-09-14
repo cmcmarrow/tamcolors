@@ -1,5 +1,5 @@
 from . import timer
-from . import object_json
+from . import immutable_cache
 
 __all__ = ("timer",
-           "object_json")
+           "immutable_cache")

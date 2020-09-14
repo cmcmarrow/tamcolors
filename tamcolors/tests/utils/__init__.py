@@ -1,5 +1,5 @@
-from . import object_json_tests
 from . import timer_tests
+from . import immutable_cache
 
-__all__ = ("object_json_tests",
-           "timer_tests")
+__all__ = ("timer_tests",
+           "immutable_cache")
