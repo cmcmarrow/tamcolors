@@ -9,6 +9,7 @@ from . import uni_drivers
 from . import win_drivers
 from . import ansi_256_drivers
 from . import ansi_true_color_drivers
+from . import tcp_io
 
 __all__ = ("any_drivers",
            "io_tam",
@@ -20,4 +21,5 @@ __all__ = ("any_drivers",
            "uni_drivers",
            "win_drivers",
            "ansi_256_drivers",
-           "ansi_true_color_drivers")
+           "ansi_true_color_drivers",
+           "tcp_io")

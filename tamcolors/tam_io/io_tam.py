@@ -15,7 +15,7 @@ MODE_256 = "256"
 MODE_RGB = "rgb"
 
 
-class RAWIO(ABC):
+class RawIO(ABC):
     def __str__(self):
         raise NotImplementedError()
 
@@ -265,7 +265,7 @@ class RAWIO(ABC):
         raise NotImplementedError()
 
 
-class IO(RAWIO, ABC):
+class IO(RawIO, ABC):
     def __init__(self,
                  identifier,
                  mode_2=True,
