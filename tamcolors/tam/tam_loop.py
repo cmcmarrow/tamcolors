@@ -81,8 +81,6 @@ class TAMLoop:
         if highest_mode_lock:
             self.__color_modes = itertools.cycle(self.__io.get_modes()[0:1])
 
-        self.__timer = timer.Timer()
-
         self.__test_mode = test_mode
 
         if tam_color_defaults and not self.__test_mode:
@@ -192,10 +190,9 @@ class TAMLoop:
         info: will update frame and call draw
         :return:
         """
-
-        frame = None
         buffer = TAMBuffer(0, 0, " ", 0, 0)
         frame_skip = 0
+        clock = timer.Timer()
         try:
             while self.__running and self.__error is None and len(self.__frame_stack) != 0:
                 frame = self.__frame_stack[-1]
@@ -211,7 +208,7 @@ class TAMLoop:
                         frame.draw(buffer, self.__loop_data)
                         self.__io.draw(buffer)
 
-                    _, run_time = self.__timer.offset_sleep(max(frame_time - frame_skip, 0))
+                    _, run_time = clock.offset_sleep(max(frame_time - frame_skip, 0))
 
                     if run_time >= frame_time + frame_time/10 and frame_skip == 0:
                         frame_skip = run_time - frame_time

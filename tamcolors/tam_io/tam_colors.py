@@ -1,6 +1,7 @@
 # built in libraries
 from functools import lru_cache
 from tamcolors.utils.immutable_cache import ImmutableCache
+from tamcolors.utils.object_packer import ObjectPacker
 
 
 """
@@ -10,8 +11,8 @@ RGBA holds the values for mode rgb
 """
 
 
-class Color(ImmutableCache):
-    __slots__ = ("_mode_2", "_mode_16", "_mode_256", "_mode_rgb", "_has_alpha")
+class Color(ImmutableCache, ObjectPacker):
+    __slots__ = ("_mode_2", "_mode_16", "_mode_256", "_mode_rgb", "_has_alpha", "_byte_cache")
 
     def __init__(self, mode_16, mode_256, mode_rgb, mode_2=None):
         """
@@ -29,6 +30,10 @@ class Color(ImmutableCache):
         self._mode_256 = mode_256
         self._mode_rgb = mode_rgb
         self._has_alpha = -2 in (mode_2, mode_16, mode_256) or (mode_rgb.a != 255 and not mode_rgb.is_default)
+        self._byte_cache = bytes((*self._int_mode_to_binary(self._mode_2),
+                                  *self._int_mode_to_binary(self._mode_16),
+                                  *self._int_mode_to_binary(self._mode_256),
+                                  *self.mode_rgb.to_bytes()))
 
     def __str__(self):
         return "(2: {}, 16: {}, 256: {}, rgb: {}, has_alpha: {})".format(self.mode_2,
@@ -51,6 +56,16 @@ class Color(ImmutableCache):
 
     def __ne__(self, other):
         return not self.__eq__(other)
+
+    @staticmethod
+    def _int_mode_to_binary(mode):
+        return abs(min(0, mode)), abs(mode)
+
+    @staticmethod
+    def _int_mode_from_binary(binary):
+        if binary[0] == 0:
+            return binary[1]
+        return binary[0]*-1
 
     @property
     def mode_2(self):
@@ -132,9 +147,27 @@ class Color(ImmutableCache):
         alpha = alpha/255
         return min(255, max(0, round(alpha * new + (1 - alpha) * old)))
 
+    def to_bytes(self):
+        return self._byte_cache
 
-class RGBA(ImmutableCache):
-    __slots__ = ("_r", "_g", "_b", "_a", "_is_default")
+    @classmethod
+    @lru_cache(maxsize=5000)
+    def _from(cls, other_modes, mode_rgb):
+        mode_2 = cls._int_mode_from_binary(other_modes[:2])
+        mode_16 = cls._int_mode_from_binary(other_modes[2:4])
+        mode_256 = cls._int_mode_from_binary(other_modes[4:6])
+        return cls(mode_16, mode_256, mode_rgb, mode_2)
+
+    @classmethod
+    def from_bytes(cls, object_byte_array):
+        other_modes = bytes(object_byte_array[:6])
+        del object_byte_array[:6]
+        mode_rgb = RGBA.from_bytes(object_byte_array)
+        return cls._from(other_modes, mode_rgb)
+
+
+class RGBA(ImmutableCache, ObjectPacker):
+    __slots__ = ("_r", "_g", "_b", "_a", "_is_default", "_byte_cache")
 
     def __init__(self, r, g, b, a=255, is_default=False):
         """
@@ -150,6 +183,7 @@ class RGBA(ImmutableCache):
         self._b = b
         self._a = a
         self._is_default = is_default
+        self._byte_cache = bytes((self._r, self._g, self._b, self._a, int(self._is_default)))
 
     def __str__(self):
         return "(r: {}, g: {}, b: {}, a: {}, is_default: {})".format(self.r,
@@ -212,6 +246,20 @@ class RGBA(ImmutableCache):
         :return: bool
         """
         return self._is_default
+
+    def to_bytes(self):
+        return self._byte_cache
+
+    @classmethod
+    @lru_cache(maxsize=5000)
+    def _from(cls, r, g, b, a, is_default):
+        return cls(r, g, b, a, bool(is_default))
+
+    @classmethod
+    def from_bytes(cls, object_byte_array):
+        obj = cls._from(*object_byte_array[:5])
+        del object_byte_array[:5]
+        return obj
 
 
 ALPHA = Color(-2, -2, RGBA(0, 0, 0, 0))

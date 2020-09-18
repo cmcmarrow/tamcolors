@@ -1,6 +1,9 @@
 # built in library
 import copy
 
+from tamcolors.tam_io.tam_colors import Color
+from tamcolors.utils import object_packer
+
 
 """
 TAMBuffer
@@ -14,7 +17,7 @@ can format to be outputted
 ALPHA_CHAR = "\u0000"
 
 
-class TAMBuffer:
+class TAMBuffer(object_packer.ObjectPacker):
     def __init__(self,
                  width,
                  height,
@@ -31,17 +34,17 @@ class TAMBuffer:
         """
 
         # save data
-        self.__width = width
-        self.__height = height
-        self.__char = char
-        self.__foreground_color = foreground_color
-        self.__background_color = background_color
+        self._width = width
+        self._height = height
+        self._char = char
+        self._foreground_color = foreground_color
+        self._background_color = background_color
 
         # setup buffers
         length = width * height
-        self.__char_buffer = [char] * length
-        self.__foreground_buffer = [foreground_color] * length
-        self.__background_buffer = [background_color] * length
+        self._char_buffer = [char] * length
+        self._foreground_buffer = [foreground_color] * length
+        self._background_buffer = [background_color] * length
 
     def __str__(self):
         """
@@ -49,15 +52,15 @@ class TAMBuffer:
         :return: str: TAMBuffer as string
         """
         rows = []
-        for y in range(self.__height):
+        for y in range(self._height):
             row = []
-            for spot in range(y * self.__width, (y + 1) * self.__width):
-                spot_char = self.__char_buffer[spot]
+            for spot in range(y * self._width, (y + 1) * self._width):
+                spot_char = self._char_buffer[spot]
                 if spot_char == ALPHA_CHAR:
-                    if self.__char == ALPHA_CHAR:
+                    if self._char == ALPHA_CHAR:
                         row.append(" ")
                     else:
-                        row.append(self.__char)
+                        row.append(self._char)
                 else:
                     row.append(spot_char)
             rows.append("".join(row))
@@ -69,7 +72,7 @@ class TAMBuffer:
         info: gets the number of spot in the buffer
         :return:
         """
-        return len(self.__char_buffer)
+        return len(self._char_buffer)
 
     def __eq__(self, other):
         """
@@ -89,22 +92,52 @@ class TAMBuffer:
         """
         return not self.__eq__(other)
 
+    def to_bytes(self):
+        tam_buffer_bytes = bytearray()
+        tam_buffer_bytes.extend(object_packer.save_int(self._width))
+        tam_buffer_bytes.extend(object_packer.save_int(self._height))
+        tam_buffer_bytes.extend(object_packer.save_data(bytes(self._char, encoding="utf-8")))
+        tam_buffer_bytes.extend(self._foreground_color.to_bytes())
+        tam_buffer_bytes.extend(self._background_color.to_bytes())
+        tam_buffer_bytes.extend(object_packer.save_data(bytes("".join(self._char_buffer), encoding="utf-8")))
+
+        for color in self._foreground_buffer:
+            tam_buffer_bytes += color.to_bytes()
+
+        for color in self._background_buffer:
+            tam_buffer_bytes += color.to_bytes()
+
+        return bytes(tam_buffer_bytes)
+
+    @classmethod
+    def from_bytes(cls, object_byte_array):
+        buffer = cls.__new__(cls)
+        buffer._width = object_packer.load_int(object_byte_array)
+        buffer._height = object_packer.load_int(object_byte_array)
+        buffer._char = str(object_packer.load_data(object_byte_array), encoding="utf-8")
+        buffer._foreground_color = Color.from_bytes(object_byte_array)
+        buffer._background_color = Color.from_bytes(object_byte_array)
+        buffer._char_buffer = list(str(object_packer.load_data(object_byte_array), encoding="utf-8"))
+        buffer._foreground_buffer = [Color.from_bytes(object_byte_array) for _ in range(buffer._width*buffer._height)]
+        buffer._background_buffer = [Color.from_bytes(object_byte_array) for _ in range(buffer._width*buffer._height)]
+        return buffer
+
     def clear(self):
         """
         info: clears TAMBuffer
         :return:
         """
-        length = self.__width * self.__height
-        self.__char_buffer = [self.__char] * length
-        self.__foreground_buffer = [self.__foreground_color] * length
-        self.__background_buffer = [self.__background_color] * length
+        length = self._width * self._height
+        self._char_buffer = [self._char] * length
+        self._foreground_buffer = [self._foreground_color] * length
+        self._background_buffer = [self._background_color] * length
 
     def get_dimensions(self):
         """
         info: gets buffer dimensions
         :return: (int, int)
         """
-        return self.__width, self.__height
+        return self._width, self._height
 
     def set_dimensions_and_clear(self, width, height):
         """
@@ -113,20 +146,20 @@ class TAMBuffer:
         :param height: int: 0 - inf
         :return:
         """
-        self.__width = width
-        self.__height = height
+        self._width = width
+        self._height = height
 
         length = width * height
-        self.__char_buffer = [self.__char] * length
-        self.__foreground_buffer = [self.__foreground_color] * length
-        self.__background_buffer = [self.__background_color] * length
+        self._char_buffer = [self._char] * length
+        self._foreground_buffer = [self._foreground_color] * length
+        self._background_buffer = [self._background_color] * length
 
     def get_defaults(self):
         """
         info: gets defaults
         :return: (str, int, int)
         """
-        return self.__char, self.__foreground_color, self.__background_color
+        return self._char, self._foreground_color, self._background_color
 
     def set_defaults_and_clear(self, char, foreground_color, background_color):
         """
@@ -136,21 +169,21 @@ class TAMBuffer:
         :param background_color: int: 0 - inf
         :return:
         """
-        self.__char = char
-        self.__foreground_color = foreground_color
-        self.__background_color = background_color
+        self._char = char
+        self._foreground_color = foreground_color
+        self._background_color = background_color
 
-        length = self.__width * self.__height
-        self.__char_buffer = [self.__char] * length
-        self.__foreground_buffer = [self.__foreground_color] * length
-        self.__background_buffer = [self.__background_color] * length
+        length = self._width * self._height
+        self._char_buffer = [self._char] * length
+        self._foreground_buffer = [self._foreground_color] * length
+        self._background_buffer = [self._background_color] * length
 
     def get_raw_buffers(self):
         """
         info: gets raw buffers
         :return: (list, list, list)
         """
-        return self.__char_buffer, self.__foreground_buffer, self.__background_buffer
+        return self._char_buffer, self._foreground_buffer, self._background_buffer
 
     def copy(self):
         """
@@ -166,11 +199,11 @@ class TAMBuffer:
         :param y: int
         :return: int
         """
-        if x < 0 or x >= self.__width:
+        if x < 0 or x >= self._width:
             return -1
-        if y < 0 or y >= self.__height:
+        if y < 0 or y >= self._height:
             return -1
-        return x + y * self.__width
+        return x + y * self._width
 
     def set_spot(self, x, y, char, foreground_color, background_color, override_alpha=False):
         """
@@ -187,17 +220,17 @@ class TAMBuffer:
         spot = self.get_raw_spot(x, y)
         if spot != -1:
             if override_alpha or not char == ALPHA_CHAR:
-                self.__char_buffer[spot] = char
+                self._char_buffer[spot] = char
             if foreground_color.has_alpha:
-                self.__foreground_buffer[spot] = foreground_color.place_color_over(self.__foreground_buffer[spot],
-                                                                                   override_alpha)
+                self._foreground_buffer[spot] = foreground_color.place_color_over(self._foreground_buffer[spot],
+                                                                                  override_alpha)
             else:
-                self.__foreground_buffer[spot] = foreground_color
+                self._foreground_buffer[spot] = foreground_color
             if background_color.has_alpha:
-                self.__background_buffer[spot] = background_color.place_color_over(self.__background_buffer[spot],
-                                                                                   override_alpha)
+                self._background_buffer[spot] = background_color.place_color_over(self._background_buffer[spot],
+                                                                                  override_alpha)
             else:
-                self.__background_buffer[spot] = background_color
+                self._background_buffer[spot] = background_color
 
     def get_spot(self, x, y):
         """
@@ -209,7 +242,7 @@ class TAMBuffer:
 
         spot = self.get_raw_spot(x, y)
         if spot != -1:
-            return self.__char_buffer[spot], self.__foreground_buffer[spot], self.__background_buffer[spot]
+            return self._char_buffer[spot], self._foreground_buffer[spot], self._background_buffer[spot]
         return None
 
     def get_from_raw_spot(self, spot):
@@ -218,8 +251,8 @@ class TAMBuffer:
         :param spot: x: int: 0 - (len(tam_buffer) - 1)
         :return: (int, int, int) or None
         """
-        if 0 <= spot < len(self.__char_buffer):
-            return self.__char_buffer[spot], self.__foreground_buffer[spot], self.__background_buffer[spot]
+        if 0 <= spot < len(self._char_buffer):
+            return self._char_buffer[spot], self._foreground_buffer[spot], self._background_buffer[spot]
         return None
 
     def draw_onto(self,
@@ -321,8 +354,8 @@ class TAMBuffer:
             buffer_size_y = max(buffer_size_y + buffer_start_y, 0)
             buffer_start_y = 0
 
-        buffer_size_x = max(min(buffer_size_x, width - buffer_start_x, self.__width - start_x), 0)
-        buffer_size_y = max(min(buffer_size_y, height - buffer_start_y, self.__height - start_y), 0)
+        buffer_size_x = max(min(buffer_size_x, width - buffer_start_x, self._width - start_x), 0)
+        buffer_size_y = max(min(buffer_size_y, height - buffer_start_y, self._height - start_y), 0)
 
         return start_x, start_y, buffer_start_x, buffer_start_y, buffer_size_x, buffer_size_y
 
@@ -332,11 +365,11 @@ class TAMBuffer:
         :return:
         """
         if alpha_replacement is None:
-            alpha_replacement = self.__char
+            alpha_replacement = self._char
 
         if alpha_replacement == ALPHA_CHAR:
             alpha_replacement = " "
 
-        for spot, char in enumerate(self.__char_buffer):
+        for spot, char in enumerate(self._char_buffer):
             if char == ALPHA_CHAR:
-                self.__char_buffer[spot] = alpha_replacement
+                self._char_buffer[spot] = alpha_replacement
