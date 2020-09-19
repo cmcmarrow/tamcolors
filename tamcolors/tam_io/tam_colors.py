@@ -1,7 +1,7 @@
 # built in libraries
 from functools import lru_cache
 from tamcolors.utils.immutable_cache import ImmutableCache
-from tamcolors.utils.object_packer import ObjectPacker
+from tamcolors.utils.object_packer import FastHandObjectPacker
 
 
 """
@@ -11,7 +11,7 @@ RGBA holds the values for mode rgb
 """
 
 
-class Color(ImmutableCache, ObjectPacker):
+class Color(ImmutableCache, FastHandObjectPacker):
     __slots__ = ("_mode_2", "_mode_16", "_mode_256", "_mode_rgb", "_has_alpha", "_byte_cache")
 
     def __init__(self, mode_16, mode_256, mode_rgb, mode_2=None):
@@ -166,7 +166,7 @@ class Color(ImmutableCache, ObjectPacker):
         return cls._from(other_modes, mode_rgb)
 
 
-class RGBA(ImmutableCache, ObjectPacker):
+class RGBA(ImmutableCache, FastHandObjectPacker):
     __slots__ = ("_r", "_g", "_b", "_a", "_is_default", "_byte_cache")
 
     def __init__(self, r, g, b, a=255, is_default=False):
