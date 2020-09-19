@@ -17,7 +17,7 @@ can format to be outputted
 ALPHA_CHAR = "\u0000"
 
 
-class TAMBuffer(object_packer.ObjectPacker):
+class TAMBuffer(object_packer.FastHandObjectPacker):
     def __init__(self,
                  width,
                  height,
