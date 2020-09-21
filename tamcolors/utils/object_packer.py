@@ -1,6 +1,5 @@
 # built in libraries
 from functools import lru_cache
-import zlib
 import json
 
 
@@ -65,28 +64,13 @@ class FastHandObjectPacker:
         """
         raise NotImplementedError()
 
-    def start_to_bytes(self, compress=True, compress_level=6):
-        """
-        info: from object to bytes
-        :param compress: bool
-        :param compress_level: int
-        :return: bytes
-        """
-        data = self.to_bytes()
-        if compress:
-            return zlib.compress(data, level=compress_level)
-        return data
-
     @classmethod
-    def start_from_bytes(cls, object_bytes, decompress=True):
+    def start_from_bytes(cls, object_bytes):
         """
         info: from bytes to object
         :param object_bytes: bytearray, bytes, list, tuple
-        :param decompress: bool
         :return: object
         """
-        if decompress:
-            object_bytes = zlib.decompress(object_bytes)
         if isinstance(object_bytes, (bytes, list, tuple)):
             return cls.from_bytes(bytearray(object_bytes))
         return cls.from_bytes(object_bytes)
@@ -101,21 +85,21 @@ class FastHandObjectPacker:
         raise NotImplementedError()
 
 
+class ObjectPackerJsonError(Exception):
+    pass
+
+
 class ObjectPackerJson:
-    def __init__(self, fast_hand_object_packer_objects=None, compress=True, compress_level=6):
+    def __init__(self, fast_hand_object_packer_objects=None):
         """
         info: Makes a ObjectPackerJson
         :param fast_hand_object_packer_objects: None, tuple, list
-        :param compress: bool
-        :param compress_level: int
         """
         if fast_hand_object_packer_objects is None:
             fast_hand_object_packer_objects = ()
 
         self._fast_hand_object_packer = fast_hand_object_packer_objects
         self._fast_hand_object_packer_dict = {fhopc.__name__: fhopc for fhopc in fast_hand_object_packer_objects}
-        self._compress = compress
-        self._compress_level = compress_level
 
     def dumps(self, data):
         """
@@ -127,8 +111,6 @@ class ObjectPackerJson:
         json_data = bytes(json.dumps(self._dumps(data, fast_object_data)), encoding="utf-8")
 
         byte_data = save_data(json_data) + fast_object_data
-        if self._compress:
-            byte_data = zlib.compress(byte_data, level=self._compress_level)
         return byte_data
 
     def loads(self, data):
@@ -137,9 +119,6 @@ class ObjectPackerJson:
         :param data: bytearray, bytes, list, tuple
         :return: object
         """
-        if self._compress:
-            data = zlib.decompress(data)
-
         if isinstance(data, (bytes, list, tuple)):
             data = bytearray(data)
 
@@ -172,8 +151,9 @@ class ObjectPackerJson:
         elif isinstance(data, dict):
             return ["dict", [[self._dumps(key, fast_object_data), self._dumps(data[key], fast_object_data)] for key in data]]
         elif isinstance(data, FastHandObjectPacker):
-            fast_object_data.extend(save_data(data.start_to_bytes(compress=False)))
+            fast_object_data.extend(save_data(data.to_bytes()))
             return ["fast_hand_object_packer", data.__class__.__name__]
+        return ObjectPackerJsonError("Can't dump type: {}".format(type(data)))
 
     def _loads(self, data, fast_object_data):
         """
@@ -193,4 +173,4 @@ class ObjectPackerJson:
         elif data[0] == "dict":
             return dict([[self._loads(key, fast_object_data), self._loads(obj, fast_object_data)] for key, obj in data[1]])
         elif data[0] == "fast_hand_object_packer":
-            return self._fast_hand_object_packer_dict[data[1]].start_from_bytes(load_data(fast_object_data), decompress=False)
+            return self._fast_hand_object_packer_dict[data[1]].start_from_bytes(load_data(fast_object_data))
