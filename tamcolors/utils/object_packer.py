@@ -1,3 +1,4 @@
+# built in libraries
 from functools import lru_cache
 import zlib
 import json
@@ -5,15 +6,30 @@ import json
 
 @lru_cache(maxsize=5000)
 def save_int(number):
+    """
+    info: Saves an unsigned int
+    :param number: int
+    :return: bytes
+    """
     return save_data(number.to_bytes(number.bit_length() // 8 + min(number.bit_length() % 8, 1), byteorder="big"))
 
 
 def load_int(object_byte_array):
+    """
+    info: Loads an unsigned int
+    :param object_byte_array: bytearray
+    :return: int
+    """
     return int.from_bytes(load_data(object_byte_array), byteorder="big")
 
 
 @lru_cache(maxsize=5000)
 def save_data(data):
+    """
+    info: Saves bytes
+    :param data: bytes
+    :return: bytes
+    """
     data_size = len(data)
     data_size_in_bytes = data_size.to_bytes(data_size.bit_length() // 8 + min(data_size.bit_length() % 8, 1),
                                             byteorder="big")
@@ -22,6 +38,11 @@ def save_data(data):
 
 
 def load_data(object_byte_array):
+    """
+    info: Loads bytes
+    :param object_byte_array: bytearray
+    :return: bytes
+    """
     number_size = object_byte_array[0]
     data_size = int.from_bytes(object_byte_array[1:number_size+1], byteorder="big")
     data = object_byte_array[number_size+1: number_size+1+data_size]
@@ -31,12 +52,26 @@ def load_data(object_byte_array):
 
 class FastHandObjectPacker:
     def __bytes__(self):
+        """
+        info: object to bytes
+        :return: bytes
+        """
         return self.to_bytes()
 
     def to_bytes(self):
+        """
+        info: object to bytes
+        :return: bytes
+        """
         raise NotImplementedError()
 
     def start_to_bytes(self, compress=True, compress_level=6):
+        """
+        info: from object to bytes
+        :param compress: bool
+        :param compress_level: int
+        :return: bytes
+        """
         data = self.to_bytes()
         if compress:
             return zlib.compress(data, level=compress_level)
@@ -44,6 +79,12 @@ class FastHandObjectPacker:
 
     @classmethod
     def start_from_bytes(cls, object_bytes, decompress=True):
+        """
+        info: from bytes to object
+        :param object_bytes: bytearray, bytes, list, tuple
+        :param decompress: bool
+        :return: object
+        """
         if decompress:
             object_bytes = zlib.decompress(object_bytes)
         if isinstance(object_bytes, (bytes, list, tuple)):
@@ -52,11 +93,22 @@ class FastHandObjectPacker:
 
     @classmethod
     def from_bytes(cls, object_byte_array):
+        """
+        info: from bytes to object
+        :param object_byte_array: bytearray
+        :return: object
+        """
         raise NotImplementedError()
 
 
 class ObjectPackerJson:
     def __init__(self, fast_hand_object_packer_objects=None, compress=True, compress_level=6):
+        """
+        info: Makes a ObjectPackerJson
+        :param fast_hand_object_packer_objects: None, tuple, list
+        :param compress: bool
+        :param compress_level: int
+        """
         if fast_hand_object_packer_objects is None:
             fast_hand_object_packer_objects = ()
 
@@ -66,6 +118,11 @@ class ObjectPackerJson:
         self._compress_level = compress_level
 
     def dumps(self, data):
+        """
+        info: object to bytes
+        :param data: object
+        :return: bytes
+        """
         fast_object_data = bytearray()
         json_data = bytes(json.dumps(self._dumps(data, fast_object_data)), encoding="utf-8")
 
@@ -75,6 +132,11 @@ class ObjectPackerJson:
         return byte_data
 
     def loads(self, data):
+        """
+        info: bytes to object
+        :param data: bytearray, bytes, list, tuple
+        :return: object
+        """
         if self._compress:
             data = zlib.decompress(data)
 
@@ -85,6 +147,12 @@ class ObjectPackerJson:
         return self._loads(json_data, data)
 
     def _dumps(self, data, fast_object_data):
+        """
+        info: object to json
+        :param data: object
+        :param fast_object_data: bytearray
+        :return: list
+        """
         if data is None:
             return ["none", data]
         elif isinstance(data, bool):
@@ -108,6 +176,12 @@ class ObjectPackerJson:
             return ["fast_hand_object_packer", data.__class__.__name__]
 
     def _loads(self, data, fast_object_data):
+        """
+        info: json to object
+        :param data: list
+        :param fast_object_data: bytearray
+        :return: object
+        """
         if data[0] in ("none", "bool", "str", "int", "float"):
             return data[1]
         elif data[0] == "tuple":
