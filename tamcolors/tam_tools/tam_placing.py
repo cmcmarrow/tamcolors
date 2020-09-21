@@ -1,3 +1,6 @@
+# built in libraries
+from functools import wraps
+
 # tamcolors libraries
 from tamcolors import tam_io
 
@@ -33,6 +36,7 @@ def _get_dimensions(func):
     :param func: function(x, y , width, height)
     :return: function
     """
+    @wraps(func)
     def _get_dimensions_wrapper(x, y, width=None, height=None, buffer=None):
         """
         info: will put dimensions as width, height
