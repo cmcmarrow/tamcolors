@@ -174,3 +174,6 @@ class ObjectPackerJson:
             return dict([[self._loads(key, fast_object_data), self._loads(obj, fast_object_data)] for key, obj in data[1]])
         elif data[0] == "fast_hand_object_packer":
             return self._fast_hand_object_packer_dict[data[1]].start_from_bytes(load_data(fast_object_data))
+
+
+DEFAULT_OBJECT_PACKER_JSON = ObjectPackerJson()
