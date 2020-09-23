@@ -133,11 +133,10 @@ goals
 1.1.1 goals
 ***********
 * save/rest Windows buffer size on exit
-* clean up Windows C/C++
-* make tam utils
-* add TCP IO (dummy console)
+* make tam utils - Done!
+* add TCP IO (dummy console) - Coming along!
 * add .wav support
-* add fix macOS terminal cursor
+* fix macOS terminal cursor
 
 ***********************
 what defines a release?
