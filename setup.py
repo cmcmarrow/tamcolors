@@ -21,7 +21,7 @@ with open(os.path.join("README.rst")) as readme:
 
 setup(
     name="tamcolors",
-    version="1.1.0",
+    version="1.1.1",
     author="Charles McMarrow",
     author_email="Charles.M.McMarrow@gmail.com",
     url="https://github.com/cmcmarrow/tamcolors",
@@ -48,7 +48,8 @@ setup(
     package_data={"tamcolors.tam_c._win_tam_c": ["*.cpp", "*.h"],
                   "tamcolors.tam_c._uni_tam_c": ["*.cpp", "*.h"]},
 
-    extras_require={"dev": ["wheel", "check-manifest", "twine", "sphinx", "sphinx-rtd-theme"]},
+    extras_require={"dev": ["wheel", "check-manifest", "twine", "sphinx", "sphinx-rtd-theme", "cryptography"],
+                    "encryption": ["cryptography"]},
 
     ext_modules=ext_modules,
 
