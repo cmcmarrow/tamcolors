@@ -130,12 +130,23 @@ goals
 * support FreeBSD
 
 ***********
+1.1.2 goals
+***********
+* add .wav support
+* clean up c/c++
+
+***********
 1.1.1 goals
 ***********
 * save/rest Windows buffer size on exit
 * make tam utils - Done!
+* add compress utils module - Done!
+* add encryption utils module - Done!
+* add tcp utils utils module - Still needs some work!
+* add transport optimizer utils module - Done!
+* add immutable cache utils module - Done!
+* add slow tests - Done!
 * add TCP IO (dummy console) - Coming along!
-* add .wav support
 * fix macOS terminal cursor
 
 ***********************

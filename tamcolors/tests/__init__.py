@@ -4,6 +4,7 @@ from . import tam_io
 from . import tam_basic
 from . import utils
 from . import all_tests
+from . import test_utils
 
 
 __all__ = ("tam",
@@ -11,4 +12,5 @@ __all__ = ("tam",
            "tam_io",
            "all_tests",
            "tam_basic",
-           "utils")
+           "utils",
+           "test_utils")
