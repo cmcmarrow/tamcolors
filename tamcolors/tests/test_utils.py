@@ -8,7 +8,7 @@ SLOW_TESTS = True
 def enable_slow_tests(enable=True):
     """
     info: will enable slow tests
-    :param: enable: bool
+    :param enable: bool
     :return:
     """
     global SLOW_TESTS

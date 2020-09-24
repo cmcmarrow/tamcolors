@@ -49,7 +49,7 @@ def load_tests(loader, other_tests=None, pattern=None):
 def tests_main(run_slow=False):
     """
     info: the main way tamcolors run tests
-    :param: tests_main: bool: will run slow tests
+    :param run_slow: bool: will run slow tests
     :return:
     """
 
@@ -66,8 +66,8 @@ def tests_main(run_slow=False):
 def stability_check(ret_bool=True, run_slow=False):
     """
     info: run all TAM tests
-    :param: ret_bool: bool
-    :param: run_slow: bool
+    :param ret_bool: bool
+    :param run_slow: bool
     :return: (int, int) or bool: (test_pasted, test_ran) or True if all test pasted
     """
 
