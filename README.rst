@@ -134,6 +134,10 @@ goals
 ***********
 * add .wav support
 * clean up c/c++
+* supports Python 3.9
+* supports Python 3.8
+* supports Python 3.7
+* supports Python 3.6
 
 ***********
 1.1.1 goals
@@ -148,6 +152,9 @@ goals
 * add slow tests - Done!
 * add TCP IO (dummy console) - Coming along!
 * fix macOS terminal cursor
+* supports Python 3.8
+* supports Python 3.7
+* supports Python 3.6
 
 ***********************
 what defines a release?
@@ -173,7 +180,9 @@ versions
 * added rgb color mode
 * added RGBA
 * added Color
-* dropped support for Python 3.5
+* supports Python 3.8
+* supports Python 3.7
+* supports Python 3.6
 
 *****
 1.0.4
@@ -184,6 +193,10 @@ versions
 * cleaned up win_tam, uni_tam and any_tam
 * added alpha color for TAMBuffer
 * set and get rgb value of color (fixed PowerShell colors)
+* supports Python 3.8
+* supports Python 3.7
+* supports Python 3.6
+* dropped support for Python 3.5
 
 *****
 1.0.3
