@@ -46,26 +46,39 @@ def load_tests(loader, other_tests=None, pattern=None):
     return suite
 
 
-def tests_main():
+def tests_main(run_slow=False):
     """
     info: the main way tamcolors run tests
+    :param run_slow: bool: will run slow tests
     :return:
     """
-    unittest.main(module=__name__)
 
-
-def stability_check(ret_bool=True):
-    """
-    info: run all TAM tests
-    :return: (int, int) or bool: (test_pasted, test_ran) or True if all test pasted
-    """
+    all_tests.test_utils.enable_slow_tests(run_slow)
 
     suite = unittest.TestSuite()
 
     for test in ALL_TESTS:
         suite.addTest(unittest.defaultTestLoader.loadTestsFromTestCase(test))
 
-    test_results = unittest.TextTestRunner(stream=unittest.mock.Mock()).run(suite)
+    unittest.TextTestRunner(verbosity=2).run(suite)
+
+
+def stability_check(ret_bool=True, run_slow=False):
+    """
+    info: run all TAM tests
+    :param ret_bool: bool
+    :param run_slow: bool
+    :return: (int, int) or bool: (test_pasted, test_ran) or True if all test pasted
+    """
+
+    all_tests.test_utils.enable_slow_tests(run_slow)
+
+    suite = unittest.TestSuite()
+
+    for test in ALL_TESTS:
+        suite.addTest(unittest.defaultTestLoader.loadTestsFromTestCase(test))
+
+    test_results = unittest.TextTestRunner(stream=unittest.mock.Mock(), verbosity=2).run(suite)
     tests_out_come = (test_results.testsRun - (len(test_results.errors) + len(test_results.failures)),
                       test_results.testsRun)
 

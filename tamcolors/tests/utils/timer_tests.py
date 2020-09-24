@@ -4,6 +4,7 @@ from time import sleep
 
 # tamcolors libraries
 from tamcolors.utils.timer import Timer
+from tamcolors.tests.test_utils import slow_test
 
 
 class TimerTests(unittest.TestCase):
@@ -15,6 +16,7 @@ class TimerTests(unittest.TestCase):
         timer = Timer()
         self.assertIsInstance(timer.lap(), float)
 
+    @slow_test
     def test_offset_sleep(self):
         timer = Timer()
         sleep(0.5)

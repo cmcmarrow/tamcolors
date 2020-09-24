@@ -3,6 +3,7 @@ import unittest.mock
 
 # tamcolors libraries
 from tamcolors.utils import encryption
+from tamcolors.tests.test_utils import slow_test
 
 
 @unittest.skipIf(encryption.CRYPTOGRAPHY_PRESENT, "Has encryption modules")
@@ -13,9 +14,11 @@ class NoEncryptionTests(unittest.TestCase):
 
 @unittest.skipIf(not encryption.CRYPTOGRAPHY_PRESENT, "Missing encryption modules!")
 class EncryptionTests(unittest.TestCase):
+    @slow_test
     def test_init(self):
         self.assertIsInstance(encryption.Encryption(), encryption.Encryption)
 
+    @slow_test
     def test_simple_encrypt_decrypt(self):
         msg = b"This is a test"
         e = encryption.Encryption()
@@ -23,6 +26,7 @@ class EncryptionTests(unittest.TestCase):
         self.assertNotEqual(msg, e_msg)
         self.assertEqual(e.decrypt(e_msg), msg)
 
+    @slow_test
     def test_encrypt_decrypt(self):
         msgs = (b"This is a test",
                 b"more random data",
@@ -43,6 +47,7 @@ class EncryptionTests(unittest.TestCase):
             msg = e1.decrypt(e_msg)
             self.assertEqual(msg, right_msg)
 
+    @slow_test
     def test_build_setting(self):
         for rsa_key_size in (4098, 5000):
             for aes_key_size in (128, 192):
