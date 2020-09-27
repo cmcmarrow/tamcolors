@@ -100,6 +100,14 @@ class ObjectPackerJsonTests(unittest.TestCase):
         op = object_packer.ObjectPackerJson()
         self._dump_and_check(op, {-44: -44, 44.0: "lol", "cats": "dogs", None: "None", True: False, False: True})
 
+    def test_bytes(self):
+        op = object_packer.ObjectPackerJson()
+        self._dump_and_check(op, bytes((1, 200, 3, 44, 5)))
+
+    def test_bytearray(self):
+        op = object_packer.ObjectPackerJson()
+        self._dump_and_check(op, bytearray((100, 2, 3, 4, 55)))
+
     def test_fast_hand_object(self):
         op = object_packer.ObjectPackerJson((tam_buffer.TAMBuffer, tam_colors.Color, tam_colors.RGBA))
         self._dump_and_check(op, tam_buffer.TAMBuffer(55, 67, "!", tam_colors.RED, tam_colors.GREEN))
@@ -108,6 +116,7 @@ class ObjectPackerJsonTests(unittest.TestCase):
     def test_large_data(self):
         op = object_packer.ObjectPackerJson((tam_buffer.TAMBuffer, tam_colors.Color, tam_colors.RGBA))
         data = [{"dict": {"buffer 1": tam_buffer.TAMBuffer(55, 67, "!", tam_colors.RED, tam_colors.GREEN),
+                          "data": (bytearray((4, 5, 6, 7, 90)), bytes(), bytearray()),
                           "buffer 2": tam_buffer.TAMBuffer(53, 1, ")", tam_colors.LIGHT_YELLOW, tam_colors.GRAY)}},
                 {1, 2, 3, 4, "1", "4.4", None, (True, False)},
                 [tam_colors.COLOR_145, tam_colors.COLOR_142, tam_colors.COLOR_149, "cats and dogs"],
@@ -117,7 +126,8 @@ class ObjectPackerJsonTests(unittest.TestCase):
                 True,
                 "this is a test",
                 0.00001,
-                tam_colors.COLOR_142]
+                tam_colors.COLOR_142,
+                bytes((1, 2, 3, 4, 5, 6, 66, 55, 88, 12))]
 
         self._dump_and_check(op, data)
 

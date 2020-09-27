@@ -5,6 +5,7 @@ from . import transport_optimizer
 from . import compress
 from . import encryption
 from . import tcp
+from . import identifier
 
 
 __all__ = ("timer",
@@ -13,4 +14,5 @@ __all__ = ("timer",
            "transport_optimizer",
            "compress",
            "encryption",
-           "tcp")
+           "tcp",
+           "identifier")

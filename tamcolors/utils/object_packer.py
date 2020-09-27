@@ -150,6 +150,12 @@ class ObjectPackerJson:
             return ["set", [self._dumps(obj, fast_object_data) for obj in data]]
         elif isinstance(data, dict):
             return ["dict", [[self._dumps(key, fast_object_data), self._dumps(data[key], fast_object_data)] for key in data]]
+        elif isinstance(data, bytes):
+            fast_object_data.extend(save_data(data))
+            return ["bytes"]
+        elif isinstance(data, bytearray):
+            fast_object_data.extend(save_data(bytes(data)))
+            return ["bytearray"]
         elif isinstance(data, FastHandObjectPacker):
             fast_object_data.extend(save_data(data.to_bytes()))
             return ["fast_hand_object_packer", data.__class__.__name__]
@@ -172,6 +178,10 @@ class ObjectPackerJson:
             return set([self._loads(obj, fast_object_data) for obj in data[1]])
         elif data[0] == "dict":
             return dict([[self._loads(key, fast_object_data), self._loads(obj, fast_object_data)] for key, obj in data[1]])
+        elif data[0] == "bytes":
+            return bytes(load_data(fast_object_data))
+        elif data[0] == "bytearray":
+            return bytearray(load_data(fast_object_data))
         elif data[0] == "fast_hand_object_packer":
             return self._fast_hand_object_packer_dict[data[1]].start_from_bytes(load_data(fast_object_data))
 
