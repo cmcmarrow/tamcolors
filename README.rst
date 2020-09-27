@@ -142,16 +142,18 @@ goals
 ***********
 1.1.1 goals
 ***********
-* save/rest Windows buffer size on exit
+* save/rest Windows buffer size on exit - Not started
 * make tam utils - Done!
 * add compress utils module - Done!
 * add encryption utils module - Done!
+* add identifier utils module - Done!
+* add log utils module - Not started
 * add tcp utils utils module - Still needs some work!
 * add transport optimizer utils module - Done!
 * add immutable cache utils module - Done!
 * add slow tests - Done!
 * add TCP IO (dummy console) - Coming along!
-* fix macOS terminal cursor
+* fix macOS terminal cursor - Not started
 * supports Python 3.8
 * supports Python 3.7
 * supports Python 3.6
