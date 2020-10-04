@@ -6,6 +6,7 @@ from . import compress
 from . import encryption
 from . import tcp
 from . import identifier
+from . import log
 
 
 __all__ = ("timer",
@@ -15,4 +16,5 @@ __all__ = ("timer",
            "compress",
            "encryption",
            "tcp",
-           "identifier")
+           "identifier",
+           "log")
