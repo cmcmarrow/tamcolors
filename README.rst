@@ -122,6 +122,7 @@ long term goals
 * text editor
 * .ci testing
 * make and change fonts at run time
+* add .wav support
 
 *****
 goals
@@ -132,7 +133,8 @@ goals
 ***********
 1.1.2 goals
 ***********
-* add .wav support
+* add TCP IO (dummy console)
+* save/rest Windows buffer size on exit
 * clean up c/c++
 * supports Python 3.9
 * supports Python 3.8
@@ -142,18 +144,20 @@ goals
 ***********
 1.1.1 goals
 ***********
-* save/rest Windows buffer size on exit - Not started
+* 10/*/2020
 * make tam utils - Done!
 * add compress utils module - Done!
 * add encryption utils module - Done!
 * add identifier utils module - Done!
-* add log utils module - Not started
-* add tcp utils utils module - Still needs some work!
+* add log utils module - Done!
 * add transport optimizer utils module - Done!
 * add immutable cache utils module - Done!
 * add slow tests - Done!
-* add TCP IO (dummy console) - Coming along!
+* add tcp utils utils module - Still needs some work!
 * fix macOS terminal cursor - Not started
+* fix windows missing dll - Not started
+* update licence - Not started
+* supports Python 3.9
 * supports Python 3.8
 * supports Python 3.7
 * supports Python 3.6
