@@ -156,7 +156,7 @@ goals
 * add tcp utils utils module - Still needs some work!
 * fix macOS terminal cursor - Not started
 * fix windows missing dll - Not started
-* update licence - Not started
+* add dependencies licences - Done!
 * supports Python 3.9
 * supports Python 3.8
 * supports Python 3.7
