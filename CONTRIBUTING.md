@@ -5,9 +5,13 @@
 
 ## run tests 
 * run tests: "./run_tests.py"
+* run slow tests: "./run_slow_tests.py"
 
 ## build docs
 * build docs: "./tamcolors/docs/build_docs.bat"
+
+## check manifest
+* make/check manifest "check-manifest"
 
 ## create/push pypi packages
 * python setup.py sdist bdist_wheel
