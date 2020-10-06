@@ -153,7 +153,7 @@ goals
 * add transport optimizer utils module - Done!
 * add immutable cache utils module - Done!
 * add slow tests - Done!
-* add tcp utils utils module - Still needs some work!
+* add tcp utils utils module - Done!
 * fix macOS terminal cursor - Not started
 * fix windows missing dll - Not started
 * add dependencies licences - Done!
