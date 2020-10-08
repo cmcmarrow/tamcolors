@@ -9,3 +9,5 @@ __pycache__/
 /build
 /dist
 /tamcolors.egg-info
+
+/tamcolors/tam_c/*.dll
