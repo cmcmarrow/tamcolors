@@ -1,0 +1,593 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>tamcolors.tests.utils_tests package &mdash; tamcolors 1.0.3 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="tamcolors.utils package" href="tamcolors.utils.html" />
+    <link rel="prev" title="tamcolors.tests.tam_tools_tests package" href="tamcolors.tests.tam_tools_tests.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> tamcolors
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">tamcolors</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="tamcolors.html">tamcolors package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="tamcolors.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="tamcolors.examples.html">tamcolors.examples package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tamcolors.tam.html">tamcolors.tam package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tamcolors.tam_basic.html">tamcolors.tam_basic package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tamcolors.tam_c.html">tamcolors.tam_c package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tamcolors.tam_io.html">tamcolors.tam_io package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tamcolors.tam_tools.html">tamcolors.tam_tools package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="tamcolors.tests.html">tamcolors.tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tamcolors.utils.html">tamcolors.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tamcolors.html#module-tamcolors">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">tamcolors</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">tamcolors</a> &raquo;</li>
+        
+          <li><a href="tamcolors.html">tamcolors package</a> &raquo;</li>
+        
+          <li><a href="tamcolors.tests.html">tamcolors.tests package</a> &raquo;</li>
+        
+      <li>tamcolors.tests.utils_tests package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/tamcolors.tests.utils_tests.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="tamcolors-tests-utils-tests-package">
+<h1>tamcolors.tests.utils_tests package<a class="headerlink" href="#tamcolors-tests-utils-tests-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-tamcolors.tests.utils_tests.compress_tests">
+<span id="tamcolors-tests-utils-tests-compress-tests-module"></span><h2>tamcolors.tests.utils_tests.compress_tests module<a class="headerlink" href="#module-tamcolors.tests.utils_tests.compress_tests" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tamcolors.tests.utils_tests.compress_tests.CompressTests">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tests.utils_tests.compress_tests.</code><code class="sig-name descname">CompressTests</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">methodName</span><span class="o">=</span><span class="default_value">'runTest'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.compress_tests.CompressTests" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">unittest.case.TestCase</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.compress_tests.CompressTests.test_1">
+<code class="sig-name descname">test_1</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.compress_tests.CompressTests.test_1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.compress_tests.CompressTests.test_2">
+<code class="sig-name descname">test_2</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.compress_tests.CompressTests.test_2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.compress_tests.CompressTests.test_3">
+<code class="sig-name descname">test_3</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.compress_tests.CompressTests.test_3" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.compress_tests.CompressTests.test_4">
+<code class="sig-name descname">test_4</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.compress_tests.CompressTests.test_4" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.tests.utils_tests.encryption_tests">
+<span id="tamcolors-tests-utils-tests-encryption-tests-module"></span><h2>tamcolors.tests.utils_tests.encryption_tests module<a class="headerlink" href="#module-tamcolors.tests.utils_tests.encryption_tests" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tamcolors.tests.utils_tests.encryption_tests.EncryptionTests">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tests.utils_tests.encryption_tests.</code><code class="sig-name descname">EncryptionTests</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">methodName</span><span class="o">=</span><span class="default_value">'runTest'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.encryption_tests.EncryptionTests" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">unittest.case.TestCase</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.encryption_tests.EncryptionTests.test_build_setting">
+<code class="sig-name descname">test_build_setting</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.encryption_tests.EncryptionTests.test_build_setting" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.encryption_tests.EncryptionTests.test_encrypt_decrypt">
+<code class="sig-name descname">test_encrypt_decrypt</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.encryption_tests.EncryptionTests.test_encrypt_decrypt" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.encryption_tests.EncryptionTests.test_init">
+<code class="sig-name descname">test_init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.encryption_tests.EncryptionTests.test_init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.encryption_tests.EncryptionTests.test_simple_encrypt_decrypt">
+<code class="sig-name descname">test_simple_encrypt_decrypt</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.encryption_tests.EncryptionTests.test_simple_encrypt_decrypt" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.tests.utils_tests.encryption_tests.NoEncryptionTests">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tests.utils_tests.encryption_tests.</code><code class="sig-name descname">NoEncryptionTests</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">methodName</span><span class="o">=</span><span class="default_value">'runTest'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.encryption_tests.NoEncryptionTests" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">unittest.case.TestCase</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.encryption_tests.NoEncryptionTests.test_init">
+<code class="sig-name descname">test_init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.encryption_tests.NoEncryptionTests.test_init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.tests.utils_tests.identifier_tests">
+<span id="tamcolors-tests-utils-tests-identifier-tests-module"></span><h2>tamcolors.tests.utils_tests.identifier_tests module<a class="headerlink" href="#module-tamcolors.tests.utils_tests.identifier_tests" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tamcolors.tests.utils_tests.identifier_tests.IdentifierTests">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tests.utils_tests.identifier_tests.</code><code class="sig-name descname">IdentifierTests</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">methodName</span><span class="o">=</span><span class="default_value">'runTest'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.identifier_tests.IdentifierTests" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">unittest.case.TestCase</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.identifier_tests.IdentifierTests.test_generate_identifier">
+<code class="sig-name descname">test_generate_identifier</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.identifier_tests.IdentifierTests.test_generate_identifier" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.identifier_tests.IdentifierTests.test_get_identifier_bytes">
+<code class="sig-name descname">test_get_identifier_bytes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.identifier_tests.IdentifierTests.test_get_identifier_bytes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.identifier_tests.IdentifierTests.test_globals">
+<code class="sig-name descname">test_globals</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.identifier_tests.IdentifierTests.test_globals" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.tests.utils_tests.immutable_cache_tests">
+<span id="tamcolors-tests-utils-tests-immutable-cache-tests-module"></span><h2>tamcolors.tests.utils_tests.immutable_cache_tests module<a class="headerlink" href="#module-tamcolors.tests.utils_tests.immutable_cache_tests" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tamcolors.tests.utils_tests.immutable_cache_tests.DummyCache">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tests.utils_tests.immutable_cache_tests.</code><code class="sig-name descname">DummyCache</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.immutable_cache_tests.DummyCache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="tamcolors.utils.html#tamcolors.utils.immutable_cache.ImmutableCache" title="tamcolors.utils.immutable_cache.ImmutableCache"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.utils.immutable_cache.ImmutableCache</span></code></a></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.tests.utils_tests.immutable_cache_tests.ImmutableCacheTests">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tests.utils_tests.immutable_cache_tests.</code><code class="sig-name descname">ImmutableCacheTests</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">methodName</span><span class="o">=</span><span class="default_value">'runTest'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.immutable_cache_tests.ImmutableCacheTests" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">unittest.case.TestCase</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.immutable_cache_tests.ImmutableCacheTests.test_cache">
+<code class="sig-name descname">test_cache</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.immutable_cache_tests.ImmutableCacheTests.test_cache" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.immutable_cache_tests.ImmutableCacheTests.test_init">
+<code class="sig-name descname">test_init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.immutable_cache_tests.ImmutableCacheTests.test_init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.immutable_cache_tests.ImmutableCacheTests.test_new">
+<code class="sig-name descname">test_new</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.immutable_cache_tests.ImmutableCacheTests.test_new" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.tests.utils_tests.log_tests">
+<span id="tamcolors-tests-utils-tests-log-tests-module"></span><h2>tamcolors.tests.utils_tests.log_tests module<a class="headerlink" href="#module-tamcolors.tests.utils_tests.log_tests" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tamcolors.tests.utils_tests.log_tests.LogTests">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tests.utils_tests.log_tests.</code><code class="sig-name descname">LogTests</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">methodName</span><span class="o">=</span><span class="default_value">'runTest'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.log_tests.LogTests" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">unittest.case.TestCase</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.log_tests.LogTests.test_critical">
+<code class="sig-name descname">test_critical</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.log_tests.LogTests.test_critical" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.log_tests.LogTests.test_debug">
+<code class="sig-name descname">test_debug</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.log_tests.LogTests.test_debug" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.log_tests.LogTests.test_enable_and_disable_logging">
+<em class="property">static </em><code class="sig-name descname">test_enable_and_disable_logging</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.log_tests.LogTests.test_enable_and_disable_logging" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.tests.utils_tests.object_packer_tests">
+<span id="tamcolors-tests-utils-tests-object-packer-tests-module"></span><h2>tamcolors.tests.utils_tests.object_packer_tests module<a class="headerlink" href="#module-tamcolors.tests.utils_tests.object_packer_tests" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tamcolors.tests.utils_tests.object_packer_tests.FastHandObjectPackerTests">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tests.utils_tests.object_packer_tests.</code><code class="sig-name descname">FastHandObjectPackerTests</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">methodName</span><span class="o">=</span><span class="default_value">'runTest'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.object_packer_tests.FastHandObjectPackerTests" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">unittest.case.TestCase</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.object_packer_tests.FastHandObjectPackerTests.test_dunder_bytes">
+<code class="sig-name descname">test_dunder_bytes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.object_packer_tests.FastHandObjectPackerTests.test_dunder_bytes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.object_packer_tests.FastHandObjectPackerTests.test_tam_buffer_1">
+<code class="sig-name descname">test_tam_buffer_1</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.object_packer_tests.FastHandObjectPackerTests.test_tam_buffer_1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.object_packer_tests.FastHandObjectPackerTests.test_tam_buffer_2">
+<code class="sig-name descname">test_tam_buffer_2</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.object_packer_tests.FastHandObjectPackerTests.test_tam_buffer_2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.object_packer_tests.FastHandObjectPackerTests.test_tam_color_1">
+<code class="sig-name descname">test_tam_color_1</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.object_packer_tests.FastHandObjectPackerTests.test_tam_color_1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.object_packer_tests.FastHandObjectPackerTests.test_tam_color_2">
+<code class="sig-name descname">test_tam_color_2</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.object_packer_tests.FastHandObjectPackerTests.test_tam_color_2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerFunctionsTests">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tests.utils_tests.object_packer_tests.</code><code class="sig-name descname">ObjectPackerFunctionsTests</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">methodName</span><span class="o">=</span><span class="default_value">'runTest'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerFunctionsTests" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">unittest.case.TestCase</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerFunctionsTests.test_save_and_load_data_1">
+<code class="sig-name descname">test_save_and_load_data_1</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerFunctionsTests.test_save_and_load_data_1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerFunctionsTests.test_save_and_load_data_2">
+<code class="sig-name descname">test_save_and_load_data_2</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerFunctionsTests.test_save_and_load_data_2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerFunctionsTests.test_save_and_load_data_3">
+<code class="sig-name descname">test_save_and_load_data_3</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerFunctionsTests.test_save_and_load_data_3" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerFunctionsTests.test_save_and_load_data_4">
+<code class="sig-name descname">test_save_and_load_data_4</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerFunctionsTests.test_save_and_load_data_4" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerFunctionsTests.test_save_and_load_int_1">
+<code class="sig-name descname">test_save_and_load_int_1</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerFunctionsTests.test_save_and_load_int_1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerFunctionsTests.test_save_and_load_int_2">
+<code class="sig-name descname">test_save_and_load_int_2</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerFunctionsTests.test_save_and_load_int_2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerFunctionsTests.test_save_and_load_int_3">
+<code class="sig-name descname">test_save_and_load_int_3</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerFunctionsTests.test_save_and_load_int_3" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerFunctionsTests.test_save_and_load_int_4">
+<code class="sig-name descname">test_save_and_load_int_4</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerFunctionsTests.test_save_and_load_int_4" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerJsonTests">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tests.utils_tests.object_packer_tests.</code><code class="sig-name descname">ObjectPackerJsonTests</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">methodName</span><span class="o">=</span><span class="default_value">'runTest'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerJsonTests" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">unittest.case.TestCase</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerJsonTests.test_bool">
+<code class="sig-name descname">test_bool</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerJsonTests.test_bool" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerJsonTests.test_bytearray">
+<code class="sig-name descname">test_bytearray</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerJsonTests.test_bytearray" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerJsonTests.test_bytes">
+<code class="sig-name descname">test_bytes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerJsonTests.test_bytes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerJsonTests.test_dict">
+<code class="sig-name descname">test_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerJsonTests.test_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerJsonTests.test_fast_hand_object">
+<code class="sig-name descname">test_fast_hand_object</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerJsonTests.test_fast_hand_object" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerJsonTests.test_float">
+<code class="sig-name descname">test_float</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerJsonTests.test_float" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerJsonTests.test_int">
+<code class="sig-name descname">test_int</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerJsonTests.test_int" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerJsonTests.test_large_data">
+<code class="sig-name descname">test_large_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerJsonTests.test_large_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerJsonTests.test_list">
+<code class="sig-name descname">test_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerJsonTests.test_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerJsonTests.test_none">
+<code class="sig-name descname">test_none</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerJsonTests.test_none" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerJsonTests.test_set">
+<code class="sig-name descname">test_set</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerJsonTests.test_set" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerJsonTests.test_str">
+<code class="sig-name descname">test_str</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerJsonTests.test_str" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerJsonTests.test_tuple">
+<code class="sig-name descname">test_tuple</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.object_packer_tests.ObjectPackerJsonTests.test_tuple" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.tests.utils_tests.timer_tests">
+<span id="tamcolors-tests-utils-tests-timer-tests-module"></span><h2>tamcolors.tests.utils_tests.timer_tests module<a class="headerlink" href="#module-tamcolors.tests.utils_tests.timer_tests" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tamcolors.tests.utils_tests.timer_tests.TimerTests">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tests.utils_tests.timer_tests.</code><code class="sig-name descname">TimerTests</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">methodName</span><span class="o">=</span><span class="default_value">'runTest'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.timer_tests.TimerTests" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">unittest.case.TestCase</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.timer_tests.TimerTests.test_lap">
+<code class="sig-name descname">test_lap</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.timer_tests.TimerTests.test_lap" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.timer_tests.TimerTests.test_offset_sleep">
+<code class="sig-name descname">test_offset_sleep</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.timer_tests.TimerTests.test_offset_sleep" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.timer_tests.TimerTests.test_timer">
+<code class="sig-name descname">test_timer</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.timer_tests.TimerTests.test_timer" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.tests.utils_tests.transport_optimizer_tests">
+<span id="tamcolors-tests-utils-tests-transport-optimizer-tests-module"></span><h2>tamcolors.tests.utils_tests.transport_optimizer_tests module<a class="headerlink" href="#module-tamcolors.tests.utils_tests.transport_optimizer_tests" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tamcolors.tests.utils_tests.transport_optimizer_tests.TransportOptimizerTests">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.tests.utils_tests.transport_optimizer_tests.</code><code class="sig-name descname">TransportOptimizerTests</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">methodName</span><span class="o">=</span><span class="default_value">'runTest'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.transport_optimizer_tests.TransportOptimizerTests" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">unittest.case.TestCase</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.transport_optimizer_tests.TransportOptimizerTests.test_large_data">
+<code class="sig-name descname">test_large_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.transport_optimizer_tests.TransportOptimizerTests.test_large_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.transport_optimizer_tests.TransportOptimizerTests.test_large_tam_buffer_data">
+<code class="sig-name descname">test_large_tam_buffer_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.transport_optimizer_tests.TransportOptimizerTests.test_large_tam_buffer_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.transport_optimizer_tests.TransportOptimizerTests.test_same_data">
+<code class="sig-name descname">test_same_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.transport_optimizer_tests.TransportOptimizerTests.test_same_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.tests.utils_tests.transport_optimizer_tests.TransportOptimizerTests.test_simple_data">
+<code class="sig-name descname">test_simple_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tests.utils_tests.transport_optimizer_tests.TransportOptimizerTests.test_simple_data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.tests.utils_tests">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-tamcolors.tests.utils_tests" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tamcolors.utils.html" class="btn btn-neutral float-right" title="tamcolors.utils package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tamcolors.tests.tam_tools_tests.html" class="btn btn-neutral float-left" title="tamcolors.tests.tam_tools_tests package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Charles McMarrow
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

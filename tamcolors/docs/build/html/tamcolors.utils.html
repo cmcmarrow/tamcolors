@@ -1,0 +1,655 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>tamcolors.utils package &mdash; tamcolors 1.0.3 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="tamcolors.tests.utils_tests package" href="tamcolors.tests.utils_tests.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> tamcolors
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">tamcolors</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="tamcolors.html">tamcolors package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="tamcolors.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="tamcolors.examples.html">tamcolors.examples package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tamcolors.tam.html">tamcolors.tam package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tamcolors.tam_basic.html">tamcolors.tam_basic package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tamcolors.tam_c.html">tamcolors.tam_c package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tamcolors.tam_io.html">tamcolors.tam_io package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tamcolors.tam_tools.html">tamcolors.tam_tools package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tamcolors.tests.html">tamcolors.tests package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">tamcolors.utils package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tamcolors.html#module-tamcolors">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">tamcolors</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">tamcolors</a> &raquo;</li>
+        
+          <li><a href="tamcolors.html">tamcolors package</a> &raquo;</li>
+        
+      <li>tamcolors.utils package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/tamcolors.utils.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="tamcolors-utils-package">
+<h1>tamcolors.utils package<a class="headerlink" href="#tamcolors-utils-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-tamcolors.utils.compress">
+<span id="tamcolors-utils-compress-module"></span><h2>tamcolors.utils.compress module<a class="headerlink" href="#module-tamcolors.utils.compress" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="tamcolors.utils.compress.compress">
+<code class="sig-prename descclassname">tamcolors.utils.compress.</code><code class="sig-name descname">compress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.compress.compress" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will compress data
+:param data: bytes
+:return: bytes</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="tamcolors.utils.compress.decompress">
+<code class="sig-prename descclassname">tamcolors.utils.compress.</code><code class="sig-name descname">decompress</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.compress.decompress" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will defcompress data
+:param data: bytes
+:return: bytes</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.utils.encryption">
+<span id="tamcolors-utils-encryption-module"></span><h2>tamcolors.utils.encryption module<a class="headerlink" href="#module-tamcolors.utils.encryption" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tamcolors.utils.encryption.Encryption">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.utils.encryption.</code><code class="sig-name descname">Encryption</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">rsa_key_size</span><span class="o">=</span><span class="default_value">4096</span></em>, <em class="sig-param"><span class="n">aes_key_size</span><span class="o">=</span><span class="default_value">256</span></em>, <em class="sig-param"><span class="n">nonce_key_size</span><span class="o">=</span><span class="default_value">64</span></em>, <em class="sig-param"><span class="n">authenticator</span><span class="o">=</span><span class="default_value">b''</span></em>, <em class="sig-param"><span class="n">max_random</span><span class="o">=</span><span class="default_value">20</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.encryption.Encryption" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.utils.encryption.Encryption.check_sandy_check_key">
+<em class="property">static </em><code class="sig-name descname">check_sandy_check_key</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sandy_key</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.encryption.Encryption.check_sandy_check_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Checks if the sandy key is equal to the data key.
+:param sandy_key: bytes: sha hash key
+:param data: bytes:
+:return: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.utils.encryption.Encryption.decrypt">
+<code class="sig-name descname">decrypt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.encryption.Encryption.decrypt" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Decrypt message. The data will also be checked for corruption.
+:param data: bytes
+:return: bytes: Unencrypted data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.utils.encryption.Encryption.encrypt">
+<code class="sig-name descname">encrypt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.encryption.Encryption.encrypt" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Encrypts data.
+:param data: bytes
+:return: bytes: Encrypted data.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.utils.encryption.Encryption.encrypt_with_public_key">
+<code class="sig-name descname">encrypt_with_public_key</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.encryption.Encryption.encrypt_with_public_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Encrypts data with public key.
+:param key: bytes or ras key object
+:param data: bytes
+:return: bytes: encrypted data</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.utils.encryption.Encryption.get_raw_private_key">
+<code class="sig-name descname">get_raw_private_key</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.encryption.Encryption.get_raw_private_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Gets the raw private key.
+:return: bytes: PEM encoding</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.utils.encryption.Encryption.get_raw_public_key">
+<code class="sig-name descname">get_raw_public_key</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.encryption.Encryption.get_raw_public_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: gets the raw public key.
+:return: bytes: PEM encoding</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.utils.encryption.Encryption.make_sandy_check_key">
+<em class="property">static </em><code class="sig-name descname">make_sandy_check_key</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.encryption.Encryption.make_sandy_check_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Hashes data.
+:param data: bytes
+:return: bytes: Hash key.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="tamcolors.utils.encryption.EncryptionError">
+<em class="property">exception </em><code class="sig-prename descclassname">tamcolors.utils.encryption.</code><code class="sig-name descname">EncryptionError</code><a class="headerlink" href="#tamcolors.utils.encryption.EncryptionError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.utils.identifier">
+<span id="tamcolors-utils-identifier-module"></span><h2>tamcolors.utils.identifier module<a class="headerlink" href="#module-tamcolors.utils.identifier" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="tamcolors.utils.identifier.generate_identifier_bytes">
+<code class="sig-prename descclassname">tamcolors.utils.identifier.</code><code class="sig-name descname">generate_identifier_bytes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identifier_file</span><span class="o">=</span><span class="default_value">'C:\\Users\\Yoshi\\Desktop\\tamcolors\\tamcolors\\utils\\identifier.id'</span></em>, <em class="sig-param"><span class="n">identifier_size</span><span class="o">=</span><span class="default_value">500</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.identifier.generate_identifier_bytes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="tamcolors.utils.identifier.get_identifier_bytes">
+<code class="sig-prename descclassname">tamcolors.utils.identifier.</code><code class="sig-name descname">get_identifier_bytes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identifier_file</span><span class="o">=</span><span class="default_value">'C:\\Users\\Yoshi\\Desktop\\tamcolors\\tamcolors\\utils\\identifier.id'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.identifier.get_identifier_bytes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.utils.immutable_cache">
+<span id="tamcolors-utils-immutable-cache-module"></span><h2>tamcolors.utils.immutable_cache module<a class="headerlink" href="#module-tamcolors.utils.immutable_cache" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tamcolors.utils.immutable_cache.ImmutableCache">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.utils.immutable_cache.</code><code class="sig-name descname">ImmutableCache</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.immutable_cache.ImmutableCache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.utils.log">
+<span id="tamcolors-utils-log-module"></span><h2>tamcolors.utils.log module<a class="headerlink" href="#module-tamcolors.utils.log" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="tamcolors.utils.log.critical">
+<code class="sig-prename descclassname">tamcolors.utils.log.</code><code class="sig-name descname">critical</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.log.critical" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: log at debug level
+:param args: tuple
+:param kwargs: dict
+:return:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="tamcolors.utils.log.debug">
+<code class="sig-prename descclassname">tamcolors.utils.log.</code><code class="sig-name descname">debug</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.log.debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: log at debug level
+:param args: tuple
+:param kwargs: dict
+:return:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="tamcolors.utils.log.disable_logging">
+<code class="sig-prename descclassname">tamcolors.utils.log.</code><code class="sig-name descname">disable_logging</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.log.disable_logging" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will disable logging
+:return:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="tamcolors.utils.log.enable_logging">
+<code class="sig-prename descclassname">tamcolors.utils.log.</code><code class="sig-name descname">enable_logging</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">level</span><span class="o">=</span><span class="default_value">10</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.log.enable_logging" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will enable logging at a level
+:param level: log level
+:return:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="tamcolors.utils.log.error">
+<code class="sig-prename descclassname">tamcolors.utils.log.</code><code class="sig-name descname">error</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.log.error" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: log at debug level
+:param args: tuple
+:param kwargs: dict
+:return:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="tamcolors.utils.log.info">
+<code class="sig-prename descclassname">tamcolors.utils.log.</code><code class="sig-name descname">info</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.log.info" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: log at info level
+:param args: tuple
+:param kwargs: dict
+:return:</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="tamcolors.utils.log.warning">
+<code class="sig-prename descclassname">tamcolors.utils.log.</code><code class="sig-name descname">warning</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.log.warning" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: log at warning level
+:param args: tuple
+:param kwargs: dict
+:return:</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.utils.object_packer">
+<span id="tamcolors-utils-object-packer-module"></span><h2>tamcolors.utils.object_packer module<a class="headerlink" href="#module-tamcolors.utils.object_packer" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tamcolors.utils.object_packer.FastHandObjectPacker">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.utils.object_packer.</code><code class="sig-name descname">FastHandObjectPacker</code><a class="headerlink" href="#tamcolors.utils.object_packer.FastHandObjectPacker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.utils.object_packer.FastHandObjectPacker.from_bytes">
+<em class="property">classmethod </em><code class="sig-name descname">from_bytes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">object_byte_array</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.object_packer.FastHandObjectPacker.from_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: from bytes to object
+:param object_byte_array: bytearray
+:return: object</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.utils.object_packer.FastHandObjectPacker.start_from_bytes">
+<em class="property">classmethod </em><code class="sig-name descname">start_from_bytes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">object_bytes</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.object_packer.FastHandObjectPacker.start_from_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: from bytes to object
+:param object_bytes: bytearray, bytes, list, tuple
+:return: object</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.utils.object_packer.FastHandObjectPacker.to_bytes">
+<code class="sig-name descname">to_bytes</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.object_packer.FastHandObjectPacker.to_bytes" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: object to bytes
+:return: bytes</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.utils.object_packer.ObjectPackerJson">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.utils.object_packer.</code><code class="sig-name descname">ObjectPackerJson</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fast_hand_object_packer_objects</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.object_packer.ObjectPackerJson" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.utils.object_packer.ObjectPackerJson.dumps">
+<code class="sig-name descname">dumps</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.object_packer.ObjectPackerJson.dumps" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: object to bytes
+:param data: object
+:return: bytes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.utils.object_packer.ObjectPackerJson.loads">
+<code class="sig-name descname">loads</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.object_packer.ObjectPackerJson.loads" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: bytes to object
+:param data: bytearray, bytes, list, tuple
+:return: object</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="tamcolors.utils.object_packer.ObjectPackerJsonError">
+<em class="property">exception </em><code class="sig-prename descclassname">tamcolors.utils.object_packer.</code><code class="sig-name descname">ObjectPackerJsonError</code><a class="headerlink" href="#tamcolors.utils.object_packer.ObjectPackerJsonError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="tamcolors.utils.object_packer.load_data">
+<code class="sig-prename descclassname">tamcolors.utils.object_packer.</code><code class="sig-name descname">load_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">object_byte_array</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.object_packer.load_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Loads bytes
+:param object_byte_array: bytearray
+:return: bytes</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="tamcolors.utils.object_packer.load_int">
+<code class="sig-prename descclassname">tamcolors.utils.object_packer.</code><code class="sig-name descname">load_int</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">object_byte_array</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.object_packer.load_int" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Loads an unsigned int
+:param object_byte_array: bytearray
+:return: int</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="tamcolors.utils.object_packer.save_data">
+<code class="sig-prename descclassname">tamcolors.utils.object_packer.</code><code class="sig-name descname">save_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.object_packer.save_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Saves bytes
+:param data: bytes
+:return: bytes</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="tamcolors.utils.object_packer.save_int">
+<code class="sig-prename descclassname">tamcolors.utils.object_packer.</code><code class="sig-name descname">save_int</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">number</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.object_packer.save_int" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: Saves an unsigned int
+:param number: int
+:return: bytes</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.utils.tcp">
+<span id="tamcolors-utils-tcp-module"></span><h2>tamcolors.utils.tcp module<a class="headerlink" href="#module-tamcolors.utils.tcp" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tamcolors.utils.tcp.TCPBase">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.utils.tcp.</code><code class="sig-name descname">TCPBase</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">connection</span></em>, <em class="sig-param"><span class="n">address</span></em>, <em class="sig-param"><span class="n">port</span></em>, <em class="sig-param"><span class="n">connection_password</span></em>, <em class="sig-param"><span class="n">encryption</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">object_packer</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">our_information</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.tcp.TCPBase" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.utils.tcp.TCPBase.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.tcp.TCPBase.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will close the connection
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.utils.tcp.TCPBase.get_address">
+<code class="sig-name descname">get_address</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.tcp.TCPBase.get_address" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will get the address
+:return: str</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.utils.tcp.TCPBase.get_data">
+<code class="sig-name descname">get_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.tcp.TCPBase.get_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will compress and encrypt data if encryption is enabled
+:return: bytes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.utils.tcp.TCPBase.is_open">
+<code class="sig-name descname">is_open</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.tcp.TCPBase.is_open" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will check if connection is open
+:return: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.utils.tcp.TCPBase.send_data">
+<code class="sig-name descname">send_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.tcp.TCPBase.send_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will compress and decrypt if encryption is enabled
+:param data: bytes
+:return: None</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.utils.tcp.TCPConnection">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.utils.tcp.</code><code class="sig-name descname">TCPConnection</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">host</span><span class="o">=</span><span class="default_value">'127.0.0.1'</span></em>, <em class="sig-param"><span class="n">port</span><span class="o">=</span><span class="default_value">4444</span></em>, <em class="sig-param"><span class="n">ipv6</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">connection_password</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">user_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">user_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">encryption</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">object_packer</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">our_information</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.tcp.TCPConnection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tamcolors.utils.tcp.TCPBase" title="tamcolors.utils.tcp.TCPBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.utils.tcp.TCPBase</span></code></a></p>
+<dl class="py method">
+<dt id="tamcolors.utils.tcp.TCPConnection.get_other_data">
+<code class="sig-name descname">get_other_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.tcp.TCPConnection.get_other_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will get other data
+:return: object</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt id="tamcolors.utils.tcp.TCPError">
+<em class="property">exception </em><code class="sig-prename descclassname">tamcolors.utils.tcp.</code><code class="sig-name descname">TCPError</code><a class="headerlink" href="#tamcolors.utils.tcp.TCPError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.utils.tcp.TCPHost">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.utils.tcp.</code><code class="sig-name descname">TCPHost</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.tcp.TCPHost" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#tamcolors.utils.tcp.TCPBase" title="tamcolors.utils.tcp.TCPBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.utils.tcp.TCPBase</span></code></a></p>
+<dl class="py method">
+<dt id="tamcolors.utils.tcp.TCPHost.get_other_data">
+<code class="sig-name descname">get_other_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.tcp.TCPHost.get_other_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will get other data
+:return: object</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.utils.tcp.TCPHost.get_user_id">
+<code class="sig-name descname">get_user_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.tcp.TCPHost.get_user_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: get connection id
+:return: bytes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.utils.tcp.TCPHost.get_user_name">
+<code class="sig-name descname">get_user_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.tcp.TCPHost.get_user_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: get connection name
+:return: str</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.utils.tcp.TCPReceiver">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.utils.tcp.</code><code class="sig-name descname">TCPReceiver</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">host</span><span class="o">=</span><span class="default_value">'127.0.0.1'</span></em>, <em class="sig-param"><span class="n">port</span><span class="o">=</span><span class="default_value">4444</span></em>, <em class="sig-param"><span class="n">ipv6</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">listen_count</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">connection_password</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">address_white_list</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">address_black_list</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">encryption</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">object_packer</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">our_information</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.tcp.TCPReceiver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.utils.tcp.TCPReceiver.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.tcp.TCPReceiver.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will close tcp receiver connection
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.utils.tcp.TCPReceiver.get_host_connection">
+<code class="sig-name descname">get_host_connection</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">wait</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.tcp.TCPReceiver.get_host_connection" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will get a new host connection
+:param wait: bool: if true will wait for a connection
+:return: None or TCPHost</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.utils.timer">
+<span id="tamcolors-utils-timer-module"></span><h2>tamcolors.utils.timer module<a class="headerlink" href="#module-tamcolors.utils.timer" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tamcolors.utils.timer.Timer">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.utils.timer.</code><code class="sig-name descname">Timer</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">time_corruption</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.timer.Timer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.utils.timer.Timer.lap">
+<code class="sig-name descname">lap</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.timer.Timer.lap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets time difference from last lap.
+:return: float</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.utils.timer.Timer.offset_sleep">
+<code class="sig-name descname">offset_sleep</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sleep_time</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.timer.Timer.offset_sleep" title="Permalink to this definition">¶</a></dt>
+<dd><p>Will sleep the thread for a length of time based of the lap time.
+:param sleep_time: float
+:return: float</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.utils.transport_optimizer">
+<span id="tamcolors-utils-transport-optimizer-module"></span><h2>tamcolors.utils.transport_optimizer module<a class="headerlink" href="#module-tamcolors.utils.transport_optimizer" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tamcolors.utils.transport_optimizer.LastReceivedCache">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.utils.transport_optimizer.</code><code class="sig-name descname">LastReceivedCache</code><a class="headerlink" href="#tamcolors.utils.transport_optimizer.LastReceivedCache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.utils.transport_optimizer.LastSentCache">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.utils.transport_optimizer.</code><code class="sig-name descname">LastSentCache</code><a class="headerlink" href="#tamcolors.utils.transport_optimizer.LastSentCache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.utils">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-tamcolors.utils" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="tamcolors.tests.utils_tests.html" class="btn btn-neutral float-left" title="tamcolors.tests.utils_tests package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Charles McMarrow
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

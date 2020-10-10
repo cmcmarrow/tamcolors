@@ -14,6 +14,7 @@ Subpackages
    tamcolors.tam_io
    tamcolors.tam_tools
    tamcolors.tests
+   tamcolors.utils
 
 Module contents
 ---------------
