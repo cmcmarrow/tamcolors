@@ -98,6 +98,7 @@ icon example
 **************************************
 versions of Python currently supported
 **************************************
+* 3.9
 * 3.8
 * 3.7
 * 3.6
@@ -118,7 +119,6 @@ support tamcolors
 long term goals
 ***************
 * build a community that builds fun terminal games
-* make windows run more efficient
 * text editor
 * .ci testing
 * make and change fonts at run time
@@ -133,30 +133,10 @@ goals
 ***********
 1.1.2 goals
 ***********
+* add more io driver tests
 * add TCP IO (dummy console)
 * save/rest Windows buffer size on exit
 * clean up c/c++
-* supports Python 3.9
-* supports Python 3.8
-* supports Python 3.7
-* supports Python 3.6
-
-***********
-1.1.1 goals
-***********
-* 10/*/2020
-* make tam utils - Done!
-* add compress utils module - Done!
-* add encryption utils module - Done!
-* add identifier utils module - Done!
-* add log utils module - Done!
-* add transport optimizer utils module - Done!
-* add immutable cache utils module - Done!
-* add slow tests - Done!
-* add tcp utils utils module - Done!
-* fix macOS terminal cursor - Not started
-* fix windows missing dll - Done!
-* add dependencies licences - Done!
 * supports Python 3.9
 * supports Python 3.8
 * supports Python 3.7
@@ -174,6 +154,27 @@ what defines a release?
 ********
 versions
 ********
+
+*****
+1.1.1
+*****
+* 10/10/2020
+* added tam utils
+* added compress utils module
+* added encryption utils module
+* added identifier utils module
+* added log utils module
+* added transport optimizer utils module
+* added immutable cache utils module
+* added slow tests
+* added tcp utils utils module
+* fixed macOS terminal cursor
+* fixed windows missing dll
+* added dependencies licences
+* supports Python 3.9
+* supports Python 3.8
+* supports Python 3.7
+* supports Python 3.6
 
 *****
 1.1.0
