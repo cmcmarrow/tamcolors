@@ -137,6 +137,7 @@ goals
 * add TCP IO (dummy console)
 * save/rest Windows buffer size on exit
 * clean up c/c++
+* add new color mode "MODE_16_PAL_256"
 * supports Python 3.9
 * supports Python 3.8
 * supports Python 3.7
