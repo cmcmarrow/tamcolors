@@ -76,6 +76,14 @@ tamcolors.tam\_io.tam\_keys module
    :undoc-members:
    :show-inheritance:
 
+tamcolors.tam\_io.tcp\_io module
+--------------------------------
+
+.. automodule:: tamcolors.tam_io.tcp_io
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 tamcolors.tam\_io.uni\_drivers module
 -------------------------------------
 

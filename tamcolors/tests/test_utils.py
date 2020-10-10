@@ -35,8 +35,8 @@ def slow_test(function):
         """
         info: will skip slow test if not enable
         :param self
-        :param args: *args
-        :param kwargs: **kwargs
+        :param args: tuple
+        :param kwargs: dict
         :return: object
         """
         if not is_slow_tests_enabled():

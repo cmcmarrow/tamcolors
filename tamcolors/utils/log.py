@@ -21,9 +21,9 @@ LOG_ENABLED = False
 
 def enable_logging(level=DEBUG):
     """
-    info: enable logging
-    :level: log level
-    :return: None
+    info: will enable logging at a level
+    :param level: log level
+    :return:
     """
     global LOG_ENABLED
     if LOG_ENABLED:
@@ -37,8 +37,8 @@ def enable_logging(level=DEBUG):
 
 def disable_logging():
     """
-    info: disable logging
-    :return: None
+    info: will disable logging
+    :return:
     """
     global LOG_ENABLED
     if LOG_ENABLED:
@@ -48,10 +48,10 @@ def disable_logging():
 
 def debug(*args, **kwargs):
     """
-    info: logs as debug
-    :param args: *args
-    :param kwargs: **kwargs
-    :return: None
+    info: log at debug level
+    :param args: tuple
+    :param kwargs: dict
+    :return:
     """
     if LOG_ENABLED:
         logging.debug(*args, **kwargs)
@@ -59,10 +59,10 @@ def debug(*args, **kwargs):
 
 def info(*args, **kwargs):
     """
-    info: logs as info
-    :param args: *args
-    :param kwargs: **kwargs
-    :return: None
+    info: log at info level
+    :param args: tuple
+    :param kwargs: dict
+    :return:
     """
     if LOG_ENABLED:
         logging.info(*args, **kwargs)
@@ -70,10 +70,10 @@ def info(*args, **kwargs):
 
 def warning(*args, **kwargs):
     """
-    info: logs as warning
-    :param args: *args
-    :param kwargs: **kwargs
-    :return: None
+    info: log at warning level
+    :param args: tuple
+    :param kwargs: dict
+    :return:
     """
     if LOG_ENABLED:
         logging.warning(*args, **kwargs)
@@ -81,10 +81,10 @@ def warning(*args, **kwargs):
 
 def error(*args, **kwargs):
     """
-    info: logs as error
-    :param args: *args
-    :param kwargs: **kwargs
-    :return: None
+    info: log at debug level
+    :param args: tuple
+    :param kwargs: dict
+    :return:
     """
     if LOG_ENABLED:
         logging.error(*args, **kwargs)
@@ -92,10 +92,10 @@ def error(*args, **kwargs):
 
 def critical(*args, **kwargs):
     """
-    info: logs as critical
-    :param args: *args
-    :param kwargs: **kwargs
-    :return: None
+    info: log at debug level
+    :param args: tuple
+    :param kwargs: dict
+    :return:
     """
     if LOG_ENABLED:
         logging.critical(*args, **kwargs)

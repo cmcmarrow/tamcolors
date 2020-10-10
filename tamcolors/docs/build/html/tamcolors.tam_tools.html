@@ -94,6 +94,7 @@
 <li class="toctree-l4"><a class="reference internal" href="tamcolors.tam_io.html">tamcolors.tam_io package</a></li>
 <li class="toctree-l4 current"><a class="current reference internal" href="#">tamcolors.tam_tools package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tamcolors.tests.html">tamcolors.tests package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tamcolors.utils.html">tamcolors.utils package</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="tamcolors.html#module-tamcolors">Module contents</a></li>
@@ -760,62 +761,57 @@ info: calls the action function
 <span id="tamcolors-tam-tools-tam-placing-module"></span><h2>tamcolors.tam_tools.tam_placing module<a class="headerlink" href="#module-tamcolors.tam_tools.tam_placing" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt id="tamcolors.tam_tools.tam_placing.bottom_left">
-<code class="sig-prename descclassname">tamcolors.tam_tools.tam_placing.</code><code class="sig-name descname">bottom_left</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">width</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">height</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">buffer</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_placing.bottom_left" title="Permalink to this definition">¶</a></dt>
-<dd><p>info: will put dimensions as width, height
+<code class="sig-prename descclassname">tamcolors.tam_tools.tam_placing.</code><code class="sig-name descname">bottom_left</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">width</span></em>, <em class="sig-param"><span class="n">height</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_placing.bottom_left" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: gets the bottom left x, y
 :param x: int
 :param y: int
-:param width: int or None
-:param height: int or None
-:param buffer: TAMBuffer
-:return: x, y</p>
+:param width: int: 0 - inf
+:param height: int: 0 - inf
+:return: (int, int)</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="tamcolors.tam_tools.tam_placing.bottom_right">
-<code class="sig-prename descclassname">tamcolors.tam_tools.tam_placing.</code><code class="sig-name descname">bottom_right</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">width</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">height</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">buffer</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_placing.bottom_right" title="Permalink to this definition">¶</a></dt>
-<dd><p>info: will put dimensions as width, height
+<code class="sig-prename descclassname">tamcolors.tam_tools.tam_placing.</code><code class="sig-name descname">bottom_right</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">width</span></em>, <em class="sig-param"><span class="n">height</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_placing.bottom_right" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: gets the bottom right x, y
 :param x: int
 :param y: int
-:param width: int or None
-:param height: int or None
-:param buffer: TAMBuffer
-:return: x, y</p>
+:param width: int: 0 - inf
+:param height: int: 0 - inf
+:return: (int, int)</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="tamcolors.tam_tools.tam_placing.center">
-<code class="sig-prename descclassname">tamcolors.tam_tools.tam_placing.</code><code class="sig-name descname">center</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">width</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">height</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">buffer</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_placing.center" title="Permalink to this definition">¶</a></dt>
-<dd><p>info: will put dimensions as width, height
+<code class="sig-prename descclassname">tamcolors.tam_tools.tam_placing.</code><code class="sig-name descname">center</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">width</span></em>, <em class="sig-param"><span class="n">height</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_placing.center" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: gets the center x, y
 :param x: int
 :param y: int
-:param width: int or None
-:param height: int or None
-:param buffer: TAMBuffer
-:return: x, y</p>
+:param width: int: 0 - inf
+:param height: int: 0 - inf
+:return: (int, int)</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="tamcolors.tam_tools.tam_placing.top_left">
-<code class="sig-prename descclassname">tamcolors.tam_tools.tam_placing.</code><code class="sig-name descname">top_left</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">width</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">height</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">buffer</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_placing.top_left" title="Permalink to this definition">¶</a></dt>
-<dd><p>info: will put dimensions as width, height
+<code class="sig-prename descclassname">tamcolors.tam_tools.tam_placing.</code><code class="sig-name descname">top_left</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">width</span></em>, <em class="sig-param"><span class="n">height</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_placing.top_left" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: gets the top left x, y
 :param x: int
 :param y: int
-:param width: int or None
-:param height: int or None
-:param buffer: TAMBuffer
-:return: x, y</p>
+:param width: int: 0 - inf
+:param height: int: 0 - inf
+:return: (int, int)</p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="tamcolors.tam_tools.tam_placing.top_right">
-<code class="sig-prename descclassname">tamcolors.tam_tools.tam_placing.</code><code class="sig-name descname">top_right</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">width</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">height</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">buffer</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_placing.top_right" title="Permalink to this definition">¶</a></dt>
-<dd><p>info: will put dimensions as width, height
+<code class="sig-prename descclassname">tamcolors.tam_tools.tam_placing.</code><code class="sig-name descname">top_right</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">width</span></em>, <em class="sig-param"><span class="n">height</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.tam_tools.tam_placing.top_right" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: gets the top right x, y
 :param x: int
 :param y: int
-:param width: int or None
-:param height: int or None
-:param buffer: TAMBuffer
-:return: x, y</p>
+:param width: int: 0 - inf
+:param height: int: 0 - inf
+:return: (int, int)</p>
 </dd></dl>
 
 </div>
