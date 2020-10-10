@@ -29,3 +29,7 @@
 * Licence: MIT
 * PyPI: https://pypi.org/project/sphinx-rtd-theme
 * GitHub: https://github.com/readthedocs/sphinx_rtd_theme
+
+## msvcp140.dll "Windows"
+* Author: Microsoft
+* link: https://docs.microsoft.com/en-us/cpp/windows/choosing-a-deployment-method?view=vs-2019
