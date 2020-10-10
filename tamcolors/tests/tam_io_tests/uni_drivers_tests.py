@@ -143,5 +143,8 @@ class UniIOTests(unittest.TestCase):
         io = get_uni_io()
         with unittest.mock.patch.object(os, "system", return_value=0) as system:
             io.clear()
-            self.assertEqual(system.mock_calls, [unittest.mock.call("tput reset"),
-                                                 unittest.mock.call("setterm -cursor on")])
+            if platform.system() == "Darwin":
+                self.assertEqual(system.mock_calls, [unittest.mock.call("tput reset")])
+            else:
+                self.assertEqual(system.mock_calls, [unittest.mock.call("tput reset"),
+                                                     unittest.mock.call("setterm -cursor on")])
