@@ -24,7 +24,7 @@ try:
                     to_path = os.path.join(__path__[0], file)
                     if not os.path.exists(to_path):
                         shutil.copy2(from_path, to_path)
-            from . import _win_tam
+        from . import _win_tam
 except ImportError:
     _win_tam = None
 
