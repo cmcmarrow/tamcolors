@@ -3,6 +3,7 @@ import platform
 import os
 import unittest
 import unittest.mock
+import sys
 
 # tamcolors libraries
 from tamcolors import tam_io
@@ -132,12 +133,16 @@ class UniIOTests(unittest.TestCase):
     @staticmethod
     def test_show_console_cursor():
         io = get_uni_io()
-        with unittest.mock.patch.object(os, "system", return_value=0) as system:
+        with unittest.mock.patch.object(sys.stdout, "write") as write:
             io.show_console_cursor(True)
-            if platform.system() != "Darwin":
-                system.assert_called_once_with("setterm -cursor on")
-            else:
-                system.assert_not_called()
+            write.assert_called_once_with("\u001b[?25h")
+
+    @staticmethod
+    def test_hide_console_cursor():
+        io = get_uni_io()
+        with unittest.mock.patch.object(sys.stdout, "write") as write:
+            io.show_console_cursor(False)
+            write.assert_called_once_with("\u001b[?25l")
 
     def test_clear(self):
         io = get_uni_io()

@@ -1,7 +1,7 @@
 # built in libraries
-import platform
 import string
 import os
+import sys
 from abc import ABC
 
 # tamcolors libraries
@@ -139,10 +139,9 @@ class UNIUtilitiesDriver(tam_drivers.UtilitiesDriver, UNISharedData, ABC):
         :param show: int
         :return: None
         """
-        if platform.system() != "Darwin":
-            if show:
-                os.system("setterm -cursor on")
-            else:
-                os.system("setterm -cursor off")
+        if show:
+            sys.stdout.write("\u001b[?25h")
+        else:
+            sys.stdout.write("\u001b[?25l")
         super().show_console_cursor(show)
 
