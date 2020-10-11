@@ -159,7 +159,7 @@ versions
 *****
 1.1.1
 *****
-* 10/11/2020
+* 10/10/2020
 * added tam utils
 * added compress utils module
 * added encryption utils module
