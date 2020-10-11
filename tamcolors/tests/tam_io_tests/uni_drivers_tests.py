@@ -1,5 +1,4 @@
 # built in libraries
-import platform
 import os
 import unittest
 import unittest.mock
@@ -146,10 +145,8 @@ class UniIOTests(unittest.TestCase):
 
     def test_clear(self):
         io = get_uni_io()
-        with unittest.mock.patch.object(os, "system", return_value=0) as system:
-            io.clear()
-            if platform.system() == "Darwin":
+        with unittest.mock.patch.object(sys.stdout, "write") as write:
+            with unittest.mock.patch.object(os, "system", return_value=0) as system:
+                io.clear()
                 self.assertEqual(system.mock_calls, [unittest.mock.call("tput reset")])
-            else:
-                self.assertEqual(system.mock_calls, [unittest.mock.call("tput reset"),
-                                                     unittest.mock.call("setterm -cursor on")])
+                write.assert_called_once_with("\u001b[?25h")
