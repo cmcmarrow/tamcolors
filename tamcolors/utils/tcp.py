@@ -4,7 +4,7 @@ from tamcolors.utils.encryption import Encryption
 from tamcolors.utils import compress
 from tamcolors.utils.object_packer import DEFAULT_OBJECT_PACKER_JSON
 from tamcolors.utils import log
-from hashlib import sha3_512
+from hashlib import sha512
 
 
 class TCPError(Exception):
@@ -48,7 +48,7 @@ class TCPReceiver:
         self._socket.bind((self._host, self._port))
         self._socket.listen(listen_count)
 
-        self._connection_password = sha3_512(bytes(connection_password, encoding="utf-8")).hexdigest()
+        self._connection_password = sha512(bytes(connection_password, encoding="utf-8")).hexdigest()
         self._address_white_list = address_white_list
 
         if isinstance(self._address_white_list, (tuple, list)):
@@ -400,7 +400,7 @@ class TCPConnection(TCPBase):
         connection = socket.socket(af_mode, socket.SOCK_STREAM)
         connection.connect((host, port))
 
-        connection_password = sha3_512(bytes(connection_password, encoding="utf-8")).hexdigest()
+        connection_password = sha512(bytes(connection_password, encoding="utf-8")).hexdigest()
 
         our_information = {"name": user_name,
                            "id": user_id,
