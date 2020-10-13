@@ -120,7 +120,6 @@ long term goals
 ***************
 * build a community that builds fun terminal games
 * text editor
-* .ci testing
 * make and change fonts at run time
 * add .wav support
 * support German, French and Japanese Keyboards
@@ -140,7 +139,8 @@ goals
 * clean up c/c++
 * add new color mode "MODE_16_PAL_256"
 * add "preferred_mode"argument to TAMLoop
-* clean up win dll selection process 
+* clean up win dll selection process
+* .ci testing
 * supports Python 3.9
 * supports Python 3.8
 * supports Python 3.7
