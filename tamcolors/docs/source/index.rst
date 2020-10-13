@@ -9,6 +9,12 @@ Welcome to tamcolors's documentation!
 |Icon|
 |TotalDownloads| |WeekDownloads| |Python3| |License| |Docs|
 
+*****
+about
+*****
+This library standardizes console color output across multiple platforms.
+It also can get keyboard inputs without interrupting the console output and can run a console application at ~25 FPS.
+
 *********************
 pip install tamcolors
 *********************
@@ -24,6 +30,8 @@ links
 ********************
 table tennis example
 ********************
+|TableTennis|
+
 .. code-block:: python
 
    import tamcolors
@@ -32,6 +40,8 @@ table tennis example
 *************
 basic example
 *************
+|BasicExample|
+
 .. code-block:: python
 
    import tamcolors
@@ -69,7 +79,9 @@ Indices and tables
 * :ref:`search`
 
 
-.. |Icon| image:: https://raw.githubusercontent.com/cmcmarrow/tamcolors/master/icon.png
+.. |Icon| image:: https://raw.githubusercontent.com/cmcmarrow/tamcolors/master/photos/icon.png
+.. |TableTennis| image:: https://raw.githubusercontent.com/cmcmarrow/tamcolors/master/photos/table_tennis.png
+.. |BasicExample| image:: https://raw.githubusercontent.com/cmcmarrow/tamcolors/master/photos/basic_example.png
 .. |TotalDownloads| image:: https://pepy.tech/badge/tamcolors
 .. |WeekDownloads| image:: https://pepy.tech/badge/tamcolors/week
 .. |Python3| image:: https://img.shields.io/badge/python-3-blue
