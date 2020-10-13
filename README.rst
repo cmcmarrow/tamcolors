@@ -132,7 +132,7 @@ goals
 * support FreeBSD
 
 ***********
-1.1.2 goals
+1.1.3 goals
 ***********
 * add more io driver tests
 * add TCP IO (dummy console)
