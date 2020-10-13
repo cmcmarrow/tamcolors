@@ -193,7 +193,7 @@ class Encryption:
         :return: bytes: Hash key.
         """
 
-        return hashlib.sha3_512(data).digest()
+        return hashlib.sha512(data).digest()
 
     @staticmethod
     def check_sandy_check_key(sandy_key, data):
