@@ -5,6 +5,12 @@ tamcolors
 |Icon|
 |TotalDownloads| |WeekDownloads| |Python3| |License| |Docs|
 
+*****
+about
+*****
+This library standardizes console color output across multiple platforms.
+It also can get keyboard inputs without interrupting the console output and can run a console application at ~25 FPS.
+
 *********************
 pip install tamcolors
 *********************
@@ -20,6 +26,8 @@ links
 ********************
 table tennis example
 ********************
+|TableTennis|
+
 .. code-block:: python
 
    import tamcolors
@@ -28,6 +36,8 @@ table tennis example
 *************
 basic example
 *************
+|BasicExample|
+
 .. code-block:: python
 
    import tamcolors
@@ -110,11 +120,6 @@ platforms tested on
 * Ubuntu 20.04
 * macOS 10.15.5
 
-*****************
-support tamcolors
-*****************
-* `paypal`_
-
 ***************
 long term goals
 ***************
@@ -153,7 +158,6 @@ what defines a release?
 * ?.x.? - Backwards compatibility was broken for most programs.
 * ?.?.x - Most programs should still run in this release.
 * All releases can have new features, bug fixes, depreciation and new tests.
-* Any release older than 1.0.2 does not fallow this release pattern.
 
 ********
 versions
@@ -171,7 +175,7 @@ versions
 * added transport optimizer utils module
 * added immutable cache utils module
 * added slow tests
-* added tcp utils utils module
+* added tcp utils module
 * fixed macOS terminal cursor
 * fixed windows missing dll
 * added dependencies licences
@@ -249,7 +253,9 @@ versions
 * added textBuffer
 * supports Python 3.6
 
-.. |Icon| image:: https://raw.githubusercontent.com/cmcmarrow/tamcolors/master/icon.png
+.. |Icon| image:: https://raw.githubusercontent.com/cmcmarrow/tamcolors/master/photos/icon.png
+.. |TableTennis| image:: https://raw.githubusercontent.com/cmcmarrow/tamcolors/master/photos/table_tennis.png
+.. |BasicExample| image:: https://raw.githubusercontent.com/cmcmarrow/tamcolors/master/photos/basic_example.png
 .. |TotalDownloads| image:: https://pepy.tech/badge/tamcolors
 .. |WeekDownloads| image:: https://pepy.tech/badge/tamcolors/week
 .. |Python3| image:: https://img.shields.io/badge/python-3-blue
