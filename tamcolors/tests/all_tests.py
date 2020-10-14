@@ -50,7 +50,7 @@ def tests_main(run_slow=False):
     """
     info: the main way tamcolors run tests
     :param run_slow: bool: will run slow tests
-    :return:
+    :return: bool
     """
 
     all_tests.test_utils.enable_slow_tests(run_slow)
@@ -60,7 +60,10 @@ def tests_main(run_slow=False):
     for test in ALL_TESTS:
         suite.addTest(unittest.defaultTestLoader.loadTestsFromTestCase(test))
 
-    unittest.TextTestRunner(verbosity=2).run(suite)
+    test_results = unittest.TextTestRunner(verbosity=2).run(suite)
+    tests_out_come = (test_results.testsRun - (len(test_results.errors) + len(test_results.failures)),
+                      test_results.testsRun)
+    return tests_out_come[0] == tests_out_come[1]
 
 
 def stability_check(ret_bool=True, run_slow=False):

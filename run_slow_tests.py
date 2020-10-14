@@ -1,4 +1,9 @@
-from tamcolors.tests.all_tests import tests_main
+from tamcolors.tests import all_tests
+
+
+def main():
+    exit(int(not all_tests.tests_main(True)))
+
 
 if __name__ == "__main__":
-    tests_main(True)
+    main()
