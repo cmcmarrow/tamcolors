@@ -10,6 +10,9 @@ from tamcolors.tam_io.tam_colors import *
 
 
 class TAMLoopTests(unittest.TestCase):
+    def test_l(self):
+        assert False
+
     def test_loop_init(self):
         frame = self._get_dummy_frame(5, "A", YELLOW, BLUE, 25, 35, 26, 36)
         tam.tam_loop.TAMLoop(frame, only_any_os=True)
