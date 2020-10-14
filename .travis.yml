@@ -13,4 +13,4 @@ jobs:
 install:
  - pip install -e .[dev]
 script:
- - python -m unittest run_slow_tests
+ - python run_slow_tests.py
