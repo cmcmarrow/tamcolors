@@ -1,0 +1,19 @@
+language: python
+jobs:
+  include:
+    - os: linux
+      arch: amd64
+      python: 3.6
+    - os: linux
+      arch: amd64
+      python: 3.7
+    - os: linux
+      arch: amd64
+      python: 3.8
+    - os: linux
+      arch: amd64
+      python: 3.9
+install:
+ - pip install -e .[dev]
+script:
+ - python -m unittest run_slow_tests

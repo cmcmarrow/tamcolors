@@ -3,7 +3,7 @@ tamcolors
 #########
 
 |Icon|
-|TotalDownloads| |WeekDownloads| |Python3| |License| |Docs|
+|TotalDownloads| |WeekDownloads| |Python3| |License| |Docs| |Tests|
 
 *****
 about
@@ -261,6 +261,7 @@ versions
 .. |Python3| image:: https://img.shields.io/badge/python-3-blue
 .. |License| image:: https://img.shields.io/pypi/l/tamcolors
 .. |Docs| image:: https://readthedocs.org/projects/tamcolors/badge/?version=latest
+.. |Tests| image:: https://travis-ci.com/cmcmarrow/tamcolors.svg?branch=master
 
 .. _github: https://github.com/cmcmarrow/tamcolors
 .. _pypi: https://pypi.org/project/tamcolors
