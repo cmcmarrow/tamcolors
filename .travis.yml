@@ -10,9 +10,6 @@ jobs:
     - os: linux
       arch: amd64
       python: 3.8
-    - os: linux
-      arch: amd64
-      python: 3.9
 install:
  - pip install -e .[dev]
 script:
