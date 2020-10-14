@@ -10,12 +10,6 @@ jobs:
     - os: linux
       arch: amd64
       python: 3.8
-    - name: "Python 3.7 on Windows"
-      os: windows
-      language: shell
-      before_install:
-        - choco install python --version 3.7.4
-        - python -m pip install --upgrade pip
 install:
  - pip install -e .[dev]
 script:
