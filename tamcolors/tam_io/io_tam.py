@@ -45,7 +45,7 @@ class RawIO(ABC):
     def get_modes(self):
         """
         info: will return a tuple of all color modes
-        :return: (int, int, ...)
+        :return: (str, str, ...)
         """
         raise NotImplementedError()
 
@@ -288,14 +288,14 @@ class IO(RawIO, ABC):
         """
 
         self._modes = []
-        if mode_2:
-            self._modes.append(MODE_2)
-        if mode_16:
-            self._modes.append(MODE_16)
-        if mode_256:
-            self._modes.append(MODE_256)
         if mode_rgb:
             self._modes.append(MODE_RGB)
+        if mode_256:
+            self._modes.append(MODE_256)
+        if mode_16:
+            self._modes.append(MODE_16)
+        if mode_2:
+            self._modes.append(MODE_2)
 
         self._key_driver_operational = key_driver_operational
         self._color_driver_operational = color_driver_operational

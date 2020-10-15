@@ -8,6 +8,7 @@ import itertools
 # tamcolors libraries
 from tamcolors.tests import all_tests
 from tamcolors.tam_io.tam_buffer import TAMBuffer
+from tamcolors.tam_io.io_tam import MODE_2
 from tamcolors.tam_io import tam_identifier
 from tamcolors.utils import timer
 
@@ -36,6 +37,7 @@ class TAMLoop:
                  stability_check=False,
                  tam_color_defaults=True,
                  highest_mode_lock=False,
+                 preferred_mode=None,
                  test_mode=False):
         """
         info: makes a TAMLoop object
@@ -47,6 +49,7 @@ class TAMLoop:
         :param stability_check: bool: raises and error if a test did not pass
         :param tam_color_defaults: bool
         :param highest_mode_lock: bool: will disable change key and put IO in its highest color mode
+        :param preferred_mode: tuple or None: will take the first mode that is supported. fallback is mode 2
         :param test_mode: bool: Will enable the method step and only any os
         """
 
@@ -81,6 +84,15 @@ class TAMLoop:
         if highest_mode_lock:
             self.__color_modes = itertools.cycle(self.__io.get_modes()[0:1])
 
+        if preferred_mode is not None:
+            preferred_mode = list(preferred_mode)
+            preferred_mode.append(MODE_2)
+            for mode in preferred_mode:
+                if mode in self.__io.get_modes():
+                    self.__color_modes = itertools.cycle((mode,))
+                    self.__io.set_mode(mode)
+                    break
+
         self.__test_mode = test_mode
 
         if tam_color_defaults and not self.__test_mode:
@@ -98,6 +110,9 @@ class TAMLoop:
         if not self.__test_mode:
             self.__io.start()
 
+        self.__io.set_mode(next(self.__color_modes))
+
+        if not self.__test_mode:
             self.__key_loop_thread = threading.Thread(target=self._key_loop, daemon=True)
             self.__key_loop_thread.start()
 

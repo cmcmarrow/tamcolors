@@ -7,6 +7,8 @@ import unittest.mock
 from tamcolors import tam_io
 from tamcolors import tam
 from tamcolors.tam_io.tam_colors import *
+from tamcolors.tam_io import tam_identifier
+from tamcolors.tam_io import io_tam
 
 
 class TAMLoopTests(unittest.TestCase):
@@ -66,6 +68,28 @@ class TAMLoopTests(unittest.TestCase):
         loop = tam.tam_loop.TAMLoop(frame_1, only_any_os=True)
         loop()
         loop.set_tam_color_defaults()
+
+    def test_preferred_mode(self):
+        frame_1 = self._get_dummy_frame(5, "A", YELLOW, BLUE, 25, 35, 26, 36)
+        io = tam_io.tam_identifier.ANY_IO
+        loop = tam.tam_loop.TAMLoop(frame_1, io, preferred_mode=(io_tam.MODE_256, io_tam.MODE_16))
+        loop()
+        self.assertEqual(io.get_mode(), io_tam.MODE_2)
+
+    def test_preferred_mode_2(self):
+        frame_1 = self._get_dummy_frame(5, "A", YELLOW, BLUE, 25, 35, 26, 36)
+        io = tam_io.tam_identifier.ANY_IO
+        loop = tam.tam_loop.TAMLoop(frame_1, io, preferred_mode=(()))
+        loop()
+        self.assertEqual(io.get_mode(), io_tam.MODE_2)
+
+    def test_preferred_mode_3(self):
+        frame_1 = self._get_dummy_frame(5, "A", YELLOW, BLUE, 25, 35, 26, 36)
+        io = tam_io.tam_identifier.ANY_IO
+        with unittest.mock.patch.object(io, "get_modes", return_value=(io_tam.MODE_256, io_tam.MODE_16)):
+            loop = tam.tam_loop.TAMLoop(frame_1, io, preferred_mode=(io_tam.MODE_RGB, io_tam.MODE_16))
+            loop()
+            self.assertEqual(io.get_mode(), io_tam.MODE_16)
 
     def test_step(self):
         class Dummy(tam.tam_loop.TAMFrame):
