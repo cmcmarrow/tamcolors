@@ -36,7 +36,7 @@ class WinDriversTests(unittest.TestCase):
         io = get_win_io()
         modes = io.get_modes()
         self.assertIsInstance(modes, tuple)
-        self.assertEqual(modes, (tam_io.io_tam.MODE_2, tam_io.io_tam.MODE_16))
+        self.assertEqual(modes, (tam_io.io_tam.MODE_16, tam_io.io_tam.MODE_2))
 
     @staticmethod
     def test__draw_2():
