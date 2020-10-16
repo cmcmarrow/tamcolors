@@ -1,16 +1,22 @@
 import platform
 import os
 import shutil
+import sys
 
 WIN_VS_DLL_PATH = None
+VS_VERSION = None
+
+if (sys.version_info[0], sys.version_info[1]) >= (3, 6):
+    VS_VERSION = "140"
+
 # get VS dlls path
-if platform.system() == "Windows":
+if platform.system() == "Windows" and VS_VERSION is not None:
     if platform.architecture()[0] == "32bit":
-        WIN_VS_DLL_PATH = os.path.join(__path__[0], "_win_tam_c", "vs_dlls", "x86")
+        WIN_VS_DLL_PATH = os.path.join(__path__[0], "_win_tam_c", "vs{}_dlls".format(VS_VERSION), "x86")
     elif platform.architecture()[0] == "64bit":
-        WIN_VS_DLL_PATH = os.path.join(__path__[0], "_win_tam_c", "vs_dlls", "x64")
+        WIN_VS_DLL_PATH = os.path.join(__path__[0], "_win_tam_c", "vs{}_dlls".format(VS_VERSION), "x64")
     else:
-        WIN_VS_DLL_PATH = os.path.join(__path__[0], "_win_tam_c", "vs_dlls", "arm")
+        WIN_VS_DLL_PATH = os.path.join(__path__[0], "_win_tam_c", "vs{}_dlls".format(VS_VERSION), "arm")
 
 try:
     try:
