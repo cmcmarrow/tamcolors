@@ -136,16 +136,18 @@ goals
 * support FreeBSD
 
 ***********
-1.1.3 goals
+1.2.0 goals
 ***********
 * add more io driver tests
 * add TCP IO (dummy console)
 * save/rest Windows buffer size on exit
 * clean up c/c++
+* add shandy check examples
+* add dungeon example
 * add new color mode "MODE_16_PAL_256"
-* add "preferred_mode"argument to TAMLoop
-* clean up win dll selection process
-* .ci testing
+* add "preferred_mode"argument to TAMLoop - Done
+* clean up win dll selection process - DONE
+* .ci testing - Done
 * supports Python 3.9
 * supports Python 3.8
 * supports Python 3.7
