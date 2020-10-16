@@ -142,11 +142,11 @@ goals
 * add TCP IO (dummy console)
 * save/rest Windows buffer size on exit
 * clean up c/c++
-* add shandy check examples
+* add sandy check examples
 * add dungeon example
 * add new color mode "MODE_16_PAL_256"
 * add "preferred_mode"argument to TAMLoop - Done
-* clean up win dll selection process - DONE
+* clean up win dll selection process - Done
 * .ci testing - Done
 * supports Python 3.9
 * supports Python 3.8
