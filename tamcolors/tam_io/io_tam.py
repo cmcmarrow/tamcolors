@@ -10,6 +10,7 @@ defines standards for all terminal IO
 
 
 MODE_2 = "2"
+MODE_16_PAL_256 = "16_pal_256"
 MODE_16 = "16"
 MODE_256 = "256"
 MODE_RGB = "rgb"
@@ -200,6 +201,14 @@ class RawIO(ABC):
         """
         raise NotImplementedError()
 
+    def get_color_16_pal_256(self, spot):
+        """
+        info: Will get color from color palette 2
+        :param spot: int
+        :return: int
+        """
+        raise NotImplementedError()
+
     def get_color_16(self, spot):
         """
         info: Will get color from color palette 16
@@ -246,6 +255,15 @@ class RawIO(ABC):
         """
         raise NotImplementedError()
 
+    def set_color_16_pal_256(self, spot, color):
+        """
+        info: sets a color value
+        :param spot: int
+        :param color: int
+        :return: None
+        """
+        raise NotImplementedError()
+
     def set_color_16(self, spot, color):
         """
         info: sets a color value
@@ -269,6 +287,7 @@ class IO(RawIO, ABC):
     def __init__(self,
                  identifier,
                  mode_2=True,
+                 mode_16_pal_256=True,
                  mode_16=True,
                  mode_256=True,
                  mode_rgb=True,
@@ -280,6 +299,7 @@ class IO(RawIO, ABC):
         Makes a IO object
         :param identifier: TAMIdentifier
         :param mode_2: bool
+        :param mode_16_pal_256: bool
         :param mode_16: bool
         :param mode_256: bool
         :param mode_rgb: bool
@@ -294,6 +314,8 @@ class IO(RawIO, ABC):
             self._modes.append(MODE_256)
         if mode_16:
             self._modes.append(MODE_16)
+        if mode_16_pal_256:
+            self._modes.append(MODE_16_PAL_256)
         if mode_2:
             self._modes.append(MODE_2)
 
@@ -309,6 +331,7 @@ class IO(RawIO, ABC):
         self._modes = tuple(self._modes)
 
         self._color_palette_2 = [tam_colors.COLORS[spot].mode_rgb for spot in range(16)]
+        self._color_palette_16_pal_256 = [spot for spot in range(16)]
         self._color_palette_16 = [tam_colors.COLORS[spot].mode_rgb for spot in range(16)]
         self._color_palette_256 = [tam_colors.COLORS[spot].mode_rgb for spot in range(256)]
 
@@ -344,6 +367,9 @@ class IO(RawIO, ABC):
         if mode == MODE_2:
             for spot, color in enumerate(self._color_palette_2):
                 self.set_color_2(spot, color)
+        if mode == MODE_16_PAL_256:
+            for spot, color in enumerate(self._color_palette_16_pal_256):
+                self.set_color_16_pal_256(spot, color)
         elif mode == MODE_16:
             for spot, color in enumerate(self._color_palette_16):
                 self.set_color_16(spot, color)
@@ -377,6 +403,14 @@ class IO(RawIO, ABC):
     def _draw_2(self, tam_buffer):
         """
         info: Will draw TAMBuffer to console in mode 2
+        :param tam_buffer: TAMBuffer
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def _draw_16_pal_256(self, tam_buffer):
+        """
+        info: Will draw TAMBuffer to console in mode 16_pal_256
         :param tam_buffer: TAMBuffer
         :return: None
         """
@@ -482,6 +516,14 @@ class IO(RawIO, ABC):
         """
         return self._color_palette_2[spot]
 
+    def get_color_16_pal_256(self, spot):
+        """
+        info: Will get color from color palette 2
+        :param spot: int
+        :return: int
+        """
+        return self._color_palette_16_pal_256[spot]
+
     def get_color_16(self, spot):
         """
         info: Will get color from color palette 16
@@ -577,6 +619,17 @@ class IO(RawIO, ABC):
             self._set_console_color(spot, color)
         self._color_palette_2[spot] = color
 
+    def set_color_16_pal_256(self, spot, color):
+        """
+        info: sets a color value
+        :param spot: int
+        :param color: int
+        :return: None
+        """
+        if self._console_color_count() > spot and self.get_mode() == MODE_16_PAL_256:
+            self._set_console_color(spot, tam_colors.COLORS[color].mode_rgb)
+        self._color_palette_16_pal_256[spot] = color
+
     def set_color_16(self, spot, color):
         """
         info: sets a color value
@@ -604,17 +657,21 @@ class IO(RawIO, ABC):
         info: will reset colors to console defaults
         :return: None
         """
+        # reset colors to console defaults
         for spot, color in enumerate(self._default_console_colors):
             if spot < 16:
+                self.set_color_16_pal_256(spot, spot)
                 self.set_color_2(spot, color)
                 self.set_color_16(spot, color)
             if spot < 256:
                 self.set_color_256(spot, color)
             self._set_console_color(spot, color)
 
+        # reset reset of the colors
         for spot in range(self._console_color_count(), 256):
             if spot < 16:
                 self.set_color_2(spot, tam_colors.COLORS[spot].mode_rgb)
+                self.set_color_16_pal_256(spot, spot)
                 self.set_color_16(spot, tam_colors.COLORS[spot].mode_rgb)
             if spot < 256:
                 self.set_color_256(spot, tam_colors.COLORS[spot].mode_rgb)
@@ -627,6 +684,7 @@ class IO(RawIO, ABC):
         for spot, color in enumerate(tam_colors.COLORS):
             if spot < 16:
                 self.set_color_2(spot, color.mode_rgb)
+                self.set_color_16_pal_256(spot, spot)
                 self.set_color_16(spot, color.mode_rgb)
             if spot < 256:
                 self.set_color_256(spot, color.mode_rgb)
