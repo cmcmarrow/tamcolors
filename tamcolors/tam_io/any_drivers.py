@@ -28,6 +28,7 @@ class ANYKeyDriver(tam_drivers.KeyDriver, ABC):
 class ANYColorDriver(tam_drivers.ColorDriver, ABC):
     def __init__(self, *args, **kwargs):
         kwargs.setdefault("color_driver_operational", False)
+        kwargs.setdefault("mode_16_pal_256", False)
         kwargs.setdefault("mode_16", False)
         kwargs.setdefault("mode_256", False)
         kwargs.setdefault("mode_rgb", False)

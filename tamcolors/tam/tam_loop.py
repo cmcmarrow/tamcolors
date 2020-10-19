@@ -261,6 +261,14 @@ class TAMLoop:
         """
         return self.__io.get_color_2(spot)
 
+    def get_color_16_pal_256(self, spot):
+        """
+        info: Will get color from color palette 2
+        :param spot: int
+        :return: RGBA
+        """
+        raise self.__io.get_color_16_pal_256(spot)
+
     def get_color_16(self, spot):
         """
         info: Will get color from color palette 16
@@ -285,6 +293,15 @@ class TAMLoop:
         :return: None
         """
         self.__io.set_color_2(spot, color)
+
+    def set_color_16_pal_256(self, spot, color):
+        """
+        info: sets a color value
+        :param spot: int
+        :param color: int
+        :return: None
+        """
+        self.__io.set_color_16_pal_256(spot, color)
 
     def set_color_16(self, spot, color):
         """

@@ -12,46 +12,62 @@ RGBA holds the values for mode rgb
 
 
 class Color(ImmutableCache, FastHandObjectPacker):
-    __slots__ = ("_mode_2", "_mode_16", "_mode_256", "_mode_rgb", "_has_alpha", "_byte_cache")
+    __slots__ = ("_mode_2", "_mode_16_pal_256", "_mode_16", "_mode_256", "_mode_rgb", "_has_alpha", "_byte_cache")
 
-    def __init__(self, mode_16, mode_256, mode_rgb, mode_2=None):
+    def __init__(self, mode_16, mode_256, mode_rgb, mode_16_pal_256=None, mode_2=None):
         """
         info: Makes a Color object
         :param mode_16: int
         :param mode_256: int
         :param mode_rgb: RGBA
+        :param mode_16_pal_256: int
         :param mode_2: int or None
         """
         if mode_2 is None:
             mode_2 = mode_16
 
+        if mode_16_pal_256 is None:
+            mode_16_pal_256 = mode_16
+
         self._mode_2 = mode_2
+        self._mode_16_pal_256 = mode_16_pal_256
         self._mode_16 = mode_16
         self._mode_256 = mode_256
         self._mode_rgb = mode_rgb
         self._has_alpha = -2 in (mode_2, mode_16, mode_256) or (mode_rgb.a != 255 and not mode_rgb.is_default)
         self._byte_cache = bytes((*self._int_mode_to_binary(self._mode_2),
+                                  *self._int_mode_to_binary(self._mode_16_pal_256),
                                   *self._int_mode_to_binary(self._mode_16),
                                   *self._int_mode_to_binary(self._mode_256),
                                   *self.mode_rgb.to_bytes()))
 
     def __str__(self):
-        return "(2: {}, 16: {}, 256: {}, rgb: {}, has_alpha: {})".format(self.mode_2,
-                                                                         self.mode_16,
-                                                                         self.mode_256,
-                                                                         self.mode_rgb,
-                                                                         self.has_alpha)
+        return "(2: {}, 16_pal_256: {}, 16: {}, 256: {}, rgb: {}, has_alpha: {})".format(self.mode_2,
+                                                                                         self.mode_16_pal_256,
+                                                                                         self.mode_16,
+                                                                                         self.mode_256,
+                                                                                         self.mode_rgb,
+                                                                                         self.has_alpha)
 
     def __hash__(self):
-        return hash((self._mode_2, self._mode_16, self._mode_256, self._mode_rgb, self._has_alpha))
+        return hash((self._mode_2,
+                     self._mode_16_pal_256,
+                     self._mode_16,
+                     self._mode_256,
+                     self._mode_rgb,
+                     self._has_alpha))
 
     def __repr__(self):
         return str(self)
 
     def __eq__(self, other):
         if isinstance(other, self.__class__):
-            return self.mode_2 == other.mode_2 and self.mode_16 == other.mode_16 and self.mode_256 == other.mode_256 \
-                   and self.mode_rgb == other.mode_rgb and self.has_alpha == other.has_alpha
+            return self.mode_2 == other.mode_2 and\
+                   self.mode_16_pal_256 == other.mode_16_pal_256 and\
+                   self.mode_16 == other.mode_16 and\
+                   self.mode_256 == other.mode_256 and\
+                   self.mode_rgb == other.mode_rgb and\
+                   self.has_alpha == other.has_alpha
         return False
 
     def __ne__(self, other):
@@ -74,6 +90,14 @@ class Color(ImmutableCache, FastHandObjectPacker):
         :return: int
         """
         return self._mode_2
+
+    @property
+    def mode_16_pal_256(self):
+        """
+        info: Gets mode 16 pal 256
+        :return: int
+        """
+        return self._mode_16_pal_256
 
     @property
     def mode_16(self):
@@ -121,6 +145,10 @@ class Color(ImmutableCache, FastHandObjectPacker):
         if mode_2 == -2:
             mode_2 = old_color.mode_2
 
+        mode_16_pal_256 = self.mode_16_pal_256
+        if mode_16_pal_256 == -2:
+            mode_16_pal_256 = old_color.mode_16_pal_256
+
         mode_16 = self.mode_16
         if mode_16 == -2:
             mode_16 = old_color.mode_16
@@ -139,7 +167,7 @@ class Color(ImmutableCache, FastHandObjectPacker):
                                 self.transparent_value(mode_rgb.b, mode_rgb.a, old_color.mode_rgb.b),
                                 old_color.mode_rgb.a)
 
-        return self.__class__(mode_16, mode_256, mode_rgb, mode_2)
+        return self.__class__(mode_16, mode_256, mode_rgb, mode_16_pal_256, mode_2)
 
     @staticmethod
     @lru_cache(maxsize=5000)
@@ -154,14 +182,15 @@ class Color(ImmutableCache, FastHandObjectPacker):
     @lru_cache(maxsize=5000)
     def _from(cls, other_modes, mode_rgb):
         mode_2 = cls._int_mode_from_binary(other_modes[:2])
-        mode_16 = cls._int_mode_from_binary(other_modes[2:4])
-        mode_256 = cls._int_mode_from_binary(other_modes[4:6])
-        return cls(mode_16, mode_256, mode_rgb, mode_2)
+        mode_16_pal_256 = cls._int_mode_from_binary(other_modes[2:4])
+        mode_16 = cls._int_mode_from_binary(other_modes[4:6])
+        mode_256 = cls._int_mode_from_binary(other_modes[6:8])
+        return cls(mode_16, mode_256, mode_rgb, mode_16_pal_256, mode_2)
 
     @classmethod
     def from_bytes(cls, object_byte_array):
-        other_modes = bytes(object_byte_array[:6])
-        del object_byte_array[:6]
+        other_modes = bytes(object_byte_array[:8])
+        del object_byte_array[:8]
         mode_rgb = RGBA.from_bytes(object_byte_array)
         return cls._from(other_modes, mode_rgb)
 

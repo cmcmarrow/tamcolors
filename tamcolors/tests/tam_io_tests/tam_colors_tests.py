@@ -47,8 +47,9 @@ class ColorTests(unittest.TestCase):
         self.assertEqual(color.mode_rgb, tam_colors.RGBA(255, 0, 0))
 
     def test_get_property_2(self):
-        color = tam_colors.Color(-2, 4, tam_colors.RGBA(255, 0, 0, 200), 5)
+        color = tam_colors.Color(-2, 4, tam_colors.RGBA(255, 0, 0, 200), 200, 5)
         self.assertEqual(color.mode_2, 5)
+        self.assertEqual(color.mode_16_pal_256, 200)
         self.assertEqual(color.mode_16, -2)
         self.assertEqual(color.mode_256, 4)
         self.assertEqual(color.mode_rgb, tam_colors.RGBA(255, 0, 0, 200))

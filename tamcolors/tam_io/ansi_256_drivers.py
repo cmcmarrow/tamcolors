@@ -99,6 +99,14 @@ class ANSI256ColorDriver(tam_drivers.FullColorDriver, ABC):
         sys.stdout.write("\u001b[1;1H\u001b[{0};{1}m{2}\u001b[0".format(foreground, background, output))
         sys.stdout.flush()
 
+    def _draw_16_pal_256(self, tam_buffer):
+        """
+        info: Will draw TAMBuffer to console in mode 16_pal_256
+        :param tam_buffer: TAMBuffer
+        :return: None
+        """
+        self._draw(tam_buffer, self._process_16_pal_256_color)
+
     def _draw_16(self, tam_buffer):
         """
         info: Will draw TAMBuffer to console in mode 16
@@ -160,6 +168,25 @@ class ANSI256ColorDriver(tam_drivers.FullColorDriver, ABC):
         """
         if color.mode_2 not in (-2, -1):
             spot = color.mode_2
+        elif foreground:
+            return "39"
+        else:
+            return "49"
+
+        if foreground:
+            return "38;5;{}".format(spot)
+        else:
+            return "48;5;{}".format(spot)
+
+    def _process_16_pal_256_color(self, color, foreground=True):
+        """
+        info process color to ansi
+        :param color: COLOR
+        :param foreground: bool
+        :return: str
+        """
+        if color.mode_16 not in (-2, -1):
+            spot = self.get_color_16_pal_256(color.mode_16_pal_256)
         elif foreground:
             return "39"
         else:

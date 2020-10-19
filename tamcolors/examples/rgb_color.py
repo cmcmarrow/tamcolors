@@ -50,9 +50,11 @@ class RGBCOLOR(tam.tam_loop.TAMFrame):
             self._timer = 0
             self._color = not self._color
             if self._color:
+                tam_loop.set_color_16_pal_256(1, 55)
                 tam_loop.set_color_16(1, tam_io.tam_colors.RGBA(55, 155, 155))
                 tam_loop.set_color_256(1, tam_io.tam_colors.RGBA(55, 155, 155))
             else:
+                tam_loop.set_color_16_pal_256(1, 255)
                 tam_loop.set_color_16(1, tam_io.tam_colors.RGBA(155, 155, 55))
                 tam_loop.set_color_256(1, tam_io.tam_colors.RGBA(155, 155, 55))
 
