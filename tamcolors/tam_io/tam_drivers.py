@@ -106,6 +106,14 @@ class ColorDriver(TAMDriver, ABC):
         """
         raise NotImplementedError()
 
+    def _draw_16_pal_256(self, tam_buffer):
+        """
+        info: Will draw TAMBuffer to console in mode 16_pal_256
+        :param tam_buffer: TAMBuffer
+        :return: None
+        """
+        raise NotImplementedError()
+
     def _draw_16(self, tam_buffer):
         """
         info: Will draw TAMBuffer to console in mode 16
@@ -140,6 +148,14 @@ class ColorChangerDriver(TAMDriver, ABC):
         """
         return super().get_color_2(spot)
 
+    def get_color_16_pal_256(self, spot):
+        """
+        info: Will get color from color palette 16
+        :param spot: int
+        :return: int
+        """
+        return super().get_color_16_pal_256(spot)
+
     def get_color_16(self, spot):
         """
         info: Will get color from color palette 16
@@ -164,6 +180,15 @@ class ColorChangerDriver(TAMDriver, ABC):
         :return: None
         """
         super().set_color_2(spot, color)
+
+    def set_color_16_pal_256(self, spot, color):
+        """
+        info: sets a color value
+        :param spot: int
+        :param color: int
+        :return: None
+        """
+        super().set_color_16_pal_256(spot, color)
 
     def set_color_16(self, spot, color):
         """
