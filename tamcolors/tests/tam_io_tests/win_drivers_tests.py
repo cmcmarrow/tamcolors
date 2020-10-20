@@ -91,14 +91,16 @@ class WinDriversTests(unittest.TestCase):
 
     def test_start(self):
         io = get_win_io()
-        with unittest.mock.patch.object(tam_io.win_drivers.io, "_clear", return_value=None) as _clear:
-            with unittest.mock.patch.object(tam_io.win_drivers.io,
-                                            "_show_console_cursor",
-                                            return_value=None) as _show_console_cursor:
-                io.start()
+        with unittest.mock.patch.object(tam_io.win_drivers.io, "_get_buffer_dimension", return_value=(120, 44)) as _get_buffer_dimension:
+            with unittest.mock.patch.object(tam_io.win_drivers.io, "_clear", return_value=None) as _clear:
+                with unittest.mock.patch.object(tam_io.win_drivers.io,
+                                                "_show_console_cursor",
+                                                return_value=None) as _show_console_cursor:
+                    io.start()
 
-                _clear.assert_called_once_with()
-                self.assertEqual(_show_console_cursor.call_count, 2)
+                    _clear.assert_called_once_with(True)
+                    _get_buffer_dimension.assert_called_once_with()
+                    self.assertEqual(_show_console_cursor.call_count, 2)
 
     def test_done(self):
         io = get_win_io()
@@ -109,10 +111,9 @@ class WinDriversTests(unittest.TestCase):
                                                     "_show_console_cursor",
                                                     return_value=None) as _show_console_cursor:
                         io.done()
-
                         _get_default_color.assert_called_once_with()
                         _set_cursor_info.assert_called_once_with(0, 0, 2)
-                        _clear.assert_called_once_with()
+                        _clear.assert_called_once_with(False)
                         self.assertEqual(_show_console_cursor.call_count, 2)
 
     def test_get_key(self):
@@ -265,3 +266,10 @@ class WinDriversTests(unittest.TestCase):
         io = get_win_io()
         for spot in range(1000):
             self.assertIsInstance(io._spot_swap(spot), int)
+
+    def test__get_buffer_dimension(self):
+        ret = tam_io.win_drivers.io._get_buffer_dimension()
+        self.assertIsInstance(ret, tuple)
+        for item in ret:
+            self.assertIsInstance(item, int)
+            self.assertEqual(item, abs(item))

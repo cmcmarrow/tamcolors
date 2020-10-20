@@ -20,7 +20,7 @@ class Color(ImmutableCache, FastHandObjectPacker):
         :param mode_16: int
         :param mode_256: int
         :param mode_rgb: RGBA
-        :param mode_16_pal_256: int
+        :param mode_16_pal_256: int or None
         :param mode_2: int or None
         """
         if mode_2 is None:
@@ -55,6 +55,7 @@ class Color(ImmutableCache, FastHandObjectPacker):
                      self._mode_16,
                      self._mode_256,
                      self._mode_rgb,
+                     self._mode_16_pal_256,
                      self._has_alpha))
 
     def __repr__(self):

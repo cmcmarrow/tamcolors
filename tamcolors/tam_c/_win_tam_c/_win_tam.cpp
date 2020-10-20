@@ -68,16 +68,39 @@ static PyObject* _get_dimension(PyObject *self, PyObject *args) {
 	return Py_BuildValue("(ii)", dimension.width, dimension.height);
 }
 
+static PyObject* _get_buffer_dimension(PyObject* self, PyObject* args) {
+	if (!PyArg_ParseTuple(args, "")) {
+		return NULL;
+	}
+
+	Dimension dimension = get_buffer_dimension();
+	return Py_BuildValue("(ii)", dimension.width, dimension.height);
+}
+
+static PyObject* _set_buffer_dimension(PyObject* self, PyObject* args) {
+	int width, height;
+	if (!PyArg_ParseTuple(args, "ii", &width, &height)) {
+		return NULL;
+	}
+
+	Dimension dimension;
+	dimension.width = width;
+	dimension.height = height;
+	set_buffer_dimension(dimension);
+	Py_RETURN_NONE;
+}
+
 static PyObject* _clear(PyObject *self, PyObject *args) {
 	/*
 	info: will clear the screen and reset console cursor position, color and show cursor
 	return: None
 	*/
-	if (!PyArg_ParseTuple(args, "")) {
+	int reset_buffer;
+	if (!PyArg_ParseTuple(args, "p", &reset_buffer)) {
 		return NULL;
 	}
 
-	clear();
+	clear(static_cast<bool>(reset_buffer));
 	Py_RETURN_NONE;
 }
 
@@ -165,6 +188,14 @@ static PyMethodDef _win_tam_methods[] = {
 	{
 		"_get_dimension", _get_dimension, METH_VARARGS,
 		"_get_dimension"
+	},
+	{
+		"_get_buffer_dimension", _get_buffer_dimension, METH_VARARGS,
+		"_get_buffer_dimension"
+	},
+	{
+		"_set_buffer_dimension", _set_buffer_dimension, METH_VARARGS,
+		"_set_buffer_dimension"
 	},
 	{
 		"_clear", _clear, METH_VARARGS,

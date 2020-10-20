@@ -80,9 +80,30 @@ Dimension get_dimension() {
 	return dimension;
 }
 
-void clear(){
+Dimension get_buffer_dimension(){
+	CONSOLE_SCREEN_BUFFER_INFOEX info;
+	info.cbSize = sizeof(info);
+	HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
+	GetConsoleScreenBufferInfoEx(out, &info);
+	Dimension dimension;
+	dimension.width = info.dwSize.X;
+	dimension.height = info.dwSize.Y;
+	return dimension;
+}
+
+void set_buffer_dimension(Dimension dimension) {
+	CONSOLE_SCREEN_BUFFER_INFOEX info;
+	info.cbSize = sizeof(info);
+	HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
+	GetConsoleScreenBufferInfoEx(out, &info);
+	COORD const size = { dimension.width, dimension.height};
+	SetConsoleScreenBufferSize(out, size);
+}
+
+void clear(bool reset_buffer){
 	/*
 	info: will clear the screen and reset console cursor position, color and show cursor
+	parameter: bool: reset_buffer: will shrink console buffer to windows size
 	return: void
 	*/
 	HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -90,19 +111,23 @@ void clear(){
 		abort();
 	}
 
-	Dimension dimension = get_dimension();
-	COORD const size = {dimension.width, dimension.height + 1};
-	SetConsoleScreenBufferSize(hOut, size);
+	// shrink buffer to be the same size as windows
+	// this will remove the scroll bar
+	if (reset_buffer) {
+		Dimension dimension = get_dimension();
+		COORD const size = { dimension.width, dimension.height + 1 };
+		SetConsoleScreenBufferSize(hOut, size);
+	}
 
 	COORD topLeft = {0, 0};
 	DWORD length = csbi.dwSize.X * csbi.dwSize.Y;
 	DWORD written;
 
-	//clear the console
+	// clear the console
 	FillConsoleOutputCharacter(hOut, TEXT(' '), length, topLeft, &written);
 	FillConsoleOutputAttribute(hOut, csbi.wAttributes, length, topLeft, &written);
 
-    //set the cursor position
+    // set the cursor position
 	SetConsoleCursorPosition(hOut, topLeft);
 }
 
