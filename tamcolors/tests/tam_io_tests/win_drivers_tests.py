@@ -266,3 +266,10 @@ class WinDriversTests(unittest.TestCase):
         io = get_win_io()
         for spot in range(1000):
             self.assertIsInstance(io._spot_swap(spot), int)
+
+    def test__get_buffer_dimension(self):
+        ret = tam_io.win_drivers.io._get_buffer_dimension()
+        self.assertIsInstance(ret, tuple)
+        for item in ret:
+            self.assertIsInstance(item, int)
+            self.assertEqual(item, abs(item))

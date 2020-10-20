@@ -69,9 +69,6 @@ static PyObject* _get_dimension(PyObject *self, PyObject *args) {
 }
 
 static PyObject* _get_buffer_dimension(PyObject* self, PyObject* args) {
-	/*
-	TODO
-	*/
 	if (!PyArg_ParseTuple(args, "")) {
 		return NULL;
 	}
@@ -81,9 +78,6 @@ static PyObject* _get_buffer_dimension(PyObject* self, PyObject* args) {
 }
 
 static PyObject* _set_buffer_dimension(PyObject* self, PyObject* args) {
-	/*
-	TODO
-	*/
 	int width, height;
 	if (!PyArg_ParseTuple(args, "ii", &width, &height)) {
 		return NULL;
