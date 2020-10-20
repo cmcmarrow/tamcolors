@@ -441,6 +441,30 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
 
 
 class WINUtilitiesDriver(tam_drivers.UtilitiesDriver, WinSharedData, ABC):
+    def __init__(self, *args, **kwargs):
+        self._reset_buffer = False
+        self._console_buffer = None
+        super().__init__(*args, **kwargs)
+
+    def start(self):
+        """
+        info: operations for IO to start
+        :return: None
+        """
+        self._console_buffer = io._get_buffer_dimension()
+        self._reset_buffer = True
+        super().start()
+
+    def done(self):
+        """
+        info: operations for IO to stop
+        :return: None
+        """
+        if self._console_buffer is not None:
+            io._set_buffer_dimension(self.get_dimensions()[0], self._console_buffer[1])
+        self._reset_buffer = False
+        super().done()
+
     def get_dimensions(self):
         """
         info: will get teh terminal dimensions
@@ -453,7 +477,7 @@ class WINUtilitiesDriver(tam_drivers.UtilitiesDriver, WinSharedData, ABC):
         info: will clear the screen
         :return:
         """
-        io._clear()
+        io._clear(self._reset_buffer)
         super().clear()
 
     def show_console_cursor(self, show):
