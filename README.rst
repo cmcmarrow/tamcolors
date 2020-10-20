@@ -144,7 +144,7 @@ goals
 * clean up c/c++
 * add sandy check examples
 * add dungeon example
-* add new color mode "MODE_16_PAL_256"
+* add new color mode "MODE_16_PAL_256" - Done
 * add "preferred_mode"argument to TAMLoop - Done
 * clean up win dll selection process - Done
 * .ci testing - Done
