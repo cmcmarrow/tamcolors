@@ -1,13 +1,13 @@
-#ifndef __LIN_TAM__H_
-#define __LIN_TAM__H_
+#ifndef __UNI_TAM__H_
+#define __UNI_TAM__H_
 
 
-typedef struct Dimension {
-	short width;
-	short height;
-} Dimension;
+typedef struct Dimensions {
+	short;
+	short;
+} Dimensions;
 
-Dimension get_dimension();
+Dimensions get_dimensions();
 void enable_get_key();
 void disable_get_key();
 int get_key();

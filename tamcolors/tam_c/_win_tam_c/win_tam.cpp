@@ -31,8 +31,8 @@ class Dimensions {
 		short width;
 		short height;
 	public:
-		Dimensions(short widht, short height) {
-			this->width = max(widht, 0);
+		Dimensions(short width, short height) {
+			this->width = max(width, 0);
 			this->height = max(height, 0);
 		}
 		short get_width() {
