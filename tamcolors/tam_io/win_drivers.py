@@ -277,6 +277,11 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
             else:
                 # draw tam_buffer onto last frame
                 self._draw_onto(self._last_frame, tam_buffer)
+            # set color back to default
+            background = tam_buffer.get_defaults()[2]
+            _, background = self._processes_special_color(background.mode_16_pal_256,
+                                                          background.mode_16_pal_256)
+            self._print(0, 0, "", background, background)
         finally:
             self._last_frame_lock.release()
 
@@ -365,6 +370,12 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
             else:
                 # draw tam_buffer onto last frame
                 self._draw_onto(self._last_frame, tam_buffer)
+
+            # set color back to default
+            background = tam_buffer.get_defaults()[2]
+            _, background = self._processes_special_color(background.mode_16,
+                                                          background.mode_16)
+            self._print(0, 0, "", background, background)
         finally:
             self._last_frame_lock.release()
 

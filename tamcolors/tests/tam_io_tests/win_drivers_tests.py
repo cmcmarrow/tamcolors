@@ -79,7 +79,7 @@ class WinDriversTests(unittest.TestCase):
                     _get_dimensions.assert_called()
                     clear.assert_called_once_with()
 
-                    self.assertEqual(_print.call_count, 16)
+                    self.assertEqual(_print.call_count, 17)
 
                     self.assertEqual(_print.mock_calls[0], unittest.mock.call(0, 0, "." * 35, 2, 2))
                     self.assertEqual(_print.mock_calls[1], unittest.mock.call(5, 2, "A" * 5, 1, 2))
@@ -88,6 +88,7 @@ class WinDriversTests(unittest.TestCase):
                     self.assertEqual(_print.mock_calls[4], unittest.mock.call(6, 3, "B", 5, 7))
                     self.assertEqual(_print.mock_calls[10], unittest.mock.call(10, 5, "." * 10, 2, 2))
                     self.assertEqual(_print.mock_calls[15], unittest.mock.call(10, 7, "." * 35, 2, 2))
+                    self.assertEqual(_print.mock_calls[16], unittest.mock.call(0, 0, "", 2, 2))
 
     def test_start(self):
         io = get_win_io()
