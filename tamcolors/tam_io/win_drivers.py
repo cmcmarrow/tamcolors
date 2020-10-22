@@ -14,7 +14,9 @@ from tamcolors.tam_io import io_tam
 
 WIN_STABLE = False
 if io is not None:
-    WIN_STABLE = bool(io._init_default_color())
+    WIN_STABLE = io._has_vaild_win_console()
+    if WIN_STABLE:
+        io._init_default_color()
 
 
 class WinSharedData(tam_drivers.TAMDriver, ABC):

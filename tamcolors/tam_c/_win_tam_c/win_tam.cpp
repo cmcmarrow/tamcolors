@@ -1,4 +1,5 @@
 //built in libraries
+#include <exception>
 #include <conio.h>
 #include <iostream>
 #include <windows.h>
@@ -12,92 +13,133 @@ can clear the console
 can print text to console with color and position
 */
 
-CONSOLE_SCREEN_BUFFER_INFO csbi;
-int defaultColor = 0;
 
-typedef struct Dimension{
-	short width;
-	short height;
-} Dimension;
+int DEFAULT_COLOR = 0;
 
-void show_console_cursor(bool showFlag){
+
+class ConsoleException : public std::exception {
+	private:
+		virtual const char* what() const throw() {
+			return "Failed to get console screen buffer!";
+		}
+} console_exception;
+
+
+class Dimension {
+	private:
+		short width;
+		short height;
+	public:
+		Dimension(short widht, short height) {
+			this->width = widht;
+			this->height = height;
+		}
+		short get_width() {
+			return this->width;
+		}
+		short get_height() {
+			return this->height;
+		}
+};
+
+
+void get_console_info(HANDLE &handle, CONSOLE_SCREEN_BUFFER_INFOEX &console_info) {
 	/*
-	info: will hide or reveal the cursor
-	parameter: bool: showFlag
-	True: cursor will show
-	False: cursor will not show
+	info: will populate console_info with data drom handle
+	parameter: HANDLE: handle
+	parameter: CONSOLE_SCREEN_BUFFER_INFOEX: console_info
 	return: void
+	throw: ConsoleException
 	*/
-    HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
-
-	CONSOLE_CURSOR_INFO cursorInfo;
-
-	GetConsoleCursorInfo(out, &cursorInfo);
-	cursorInfo.bVisible = showFlag;
-	SetConsoleCursorInfo(out, &cursorInfo);
+	console_info.cbSize = sizeof(console_info);
+	if (!GetConsoleScreenBufferInfoEx(handle, &console_info)) {
+		throw console_exception;
+	}
 }
 
-int init_default_color() {
+bool has_vaild_win_console() {
+	/*
+	info: will check if applation has a vaild win console
+	retrun: bool
+	*/
+	try {
+		HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+		CONSOLE_SCREEN_BUFFER_INFOEX console_info;
+		get_console_info(handle, console_info);
+	} catch (ConsoleException) {
+		return false;
+	}
+	return true;
+}
+
+void init_default_color() {
 	/*
 	info: will save current console color
-	return: int
-	0: init default color failed
-	1: init default color success
+	return: void
 	*/
-	if (!GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi)) {
-		return 0;
-	}
-	defaultColor = csbi.wAttributes;
-	return 1;
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_SCREEN_BUFFER_INFOEX console_info;
+	get_console_info(handle, console_info);
+	DEFAULT_COLOR = console_info.wAttributes;
 }
 
 int get_default_color() {
 	/*
 	info: will return console color
-	return: int: console color
+	return: int: console default color
 	*/
-	return defaultColor;
+	return DEFAULT_COLOR;
+}
+
+void show_console_cursor(bool showFlag){
+	/*
+	info: will hide or reveal the cursor
+	parameter: bool: showFlag: if true the cursor will be displayed
+	return: void
+	*/
+    HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_CURSOR_INFO cursorInfo;
+	GetConsoleCursorInfo(out, &cursorInfo);
+
+	cursorInfo.bVisible = showFlag;
+	SetConsoleCursorInfo(out, &cursorInfo);
 }
 
 Dimension get_dimension() {
 	/*
-	info: will return Dimension info width and height
+	info: will return Dimension console window
 	return: Dimension
 	*/
-	if (!GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi)) {
-		abort();
-	}
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_SCREEN_BUFFER_INFOEX console_info;
+	get_console_info(handle, console_info);
 
-	Dimension dimension;
-	dimension.width = csbi.srWindow.Right - csbi.srWindow.Left + 1;
-	dimension.height = csbi.srWindow.Bottom - csbi.srWindow.Top;
-	if (dimension.width < 0){
-	    dimension.width = 0;
-	}
-	if (dimension.height < 0){
-	    dimension.height = 0;
-	}
+	Dimension dimension(console_info.srWindow.Right - console_info.srWindow.Left + 1, console_info.srWindow.Bottom - console_info.srWindow.Top);
 	return dimension;
 }
 
 Dimension get_buffer_dimension(){
-	CONSOLE_SCREEN_BUFFER_INFOEX info;
-	info.cbSize = sizeof(info);
-	HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
-	GetConsoleScreenBufferInfoEx(out, &info);
-	Dimension dimension;
-	dimension.width = info.dwSize.X;
-	dimension.height = info.dwSize.Y;
+	/*
+	info: will return Dimension info of the console buffer
+	return: Dimension
+	*/
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_SCREEN_BUFFER_INFOEX console_info;
+	get_console_info(handle, console_info);
+
+	Dimension dimension(console_info.dwSize.X, console_info.dwSize.Y);
 	return dimension;
 }
 
 void set_buffer_dimension(Dimension dimension) {
-	CONSOLE_SCREEN_BUFFER_INFOEX info;
-	info.cbSize = sizeof(info);
-	HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
-	GetConsoleScreenBufferInfoEx(out, &info);
-	COORD const size = { dimension.width, dimension.height};
-	SetConsoleScreenBufferSize(out, size);
+	/*
+	info: will set the console buffer dimensions
+	parameter: Dimension
+	return: void
+	*/
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	COORD const buffer_dimension = {dimension.get_width(), dimension.get_height()};
+	SetConsoleScreenBufferSize(handle, buffer_dimension);
 }
 
 void clear(bool reset_buffer){
@@ -106,63 +148,93 @@ void clear(bool reset_buffer){
 	parameter: bool: reset_buffer: will shrink console buffer to windows size
 	return: void
 	*/
-	HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-	if (!GetConsoleScreenBufferInfo(hOut, &csbi)) {
-		abort();
-	}
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_SCREEN_BUFFER_INFOEX console_info;
+	get_console_info(handle, console_info);
 
 	// shrink buffer to be the same size as windows
 	// this will remove the scroll bar
 	if (reset_buffer) {
 		Dimension dimension = get_dimension();
-		COORD const size = { dimension.width, dimension.height + 1 };
-		SetConsoleScreenBufferSize(hOut, size);
+		COORD const buffer_dimension = { dimension.get_width(), dimension.get_height() + 1 };
+		SetConsoleScreenBufferSize(handle, buffer_dimension);
 	}
 
-	COORD topLeft = {0, 0};
-	DWORD length = csbi.dwSize.X * csbi.dwSize.Y;
+	COORD top_left = {0, 0};
+	DWORD length = console_info.dwSize.X * console_info.dwSize.Y;
 	DWORD written;
 
 	// clear the console
-	FillConsoleOutputCharacter(hOut, TEXT(' '), length, topLeft, &written);
-	FillConsoleOutputAttribute(hOut, csbi.wAttributes, length, topLeft, &written);
+	FillConsoleOutputCharacter(handle, TEXT(' '), length, top_left, &written);
+	FillConsoleOutputAttribute(handle, console_info.wAttributes, length, top_left, &written);
 
     // set the cursor position
-	SetConsoleCursorPosition(hOut, topLeft);
+	SetConsoleCursorPosition(handle, top_left);
 }
 
 void set_cursor_info(int x, int y, int color) {
 	/*
+	info: will set the curosor location and color
 	parameter: int: x: console x position
 	parameter: int: y: console y position
 	parameter: int: color: console color
 	return: void
 	*/
-	static const HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-	std::cout.flush();
+	static const HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 
 	//set the cursor position
-	COORD coord = { (SHORT)x, (SHORT)y };
-	SetConsoleCursorPosition(hOut, coord);
+	COORD coord = {(SHORT)x, (SHORT)y};
+	SetConsoleCursorPosition(handle, coord);
 
 	//set the console color
-	SetConsoleTextAttribute(hOut, color);
+	SetConsoleTextAttribute(handle, color);
 }
 
 void set_console_color(int color) {
 	/*
+	info: will set the console color
 	parameter: int: color: console color
 	return: void
 	*/
-	static const HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-	std::cout.flush();
+	static const HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 
 	//set the console color
-	SetConsoleTextAttribute(hOut, color);
+	SetConsoleTextAttribute(handle, color);
+}
+
+void set_rgb_color(int spot, COLORREF color) {
+	/*
+	info: will set the console color
+	parameter: int: spot: color
+	parameter: COLORREF: the new color for the spot
+	return: void
+	*/
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_SCREEN_BUFFER_INFOEX console_info;
+	get_console_info(handle, console_info);
+	GetConsoleScreenBufferInfoEx(handle, &console_info);
+	console_info.srWindow.Right += 1;
+	console_info.srWindow.Bottom += 1;
+	console_info.ColorTable[spot] = color;
+	SetConsoleScreenBufferInfoEx(handle, &console_info);
+}
+
+COLORREF get_rgb_color(int spot) {
+	/*
+	info: will set the console color
+	parameter: int: spot: color
+	return: COLORREF
+	*/
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	CONSOLE_SCREEN_BUFFER_INFOEX console_info;
+	get_console_info(handle, console_info);
+	GetConsoleScreenBufferInfoEx(handle, &console_info);
+	return console_info.ColorTable[spot];
 }
 
 int get_key() {
 	/*
+	info: will get part of a key input
 	return: int
 	-1: no key data to give
 	Not -1: value of key data
@@ -176,21 +248,3 @@ int get_key() {
 	return -1;
 }
 
-void set_rgb_color(int spot, COLORREF color) {
-	CONSOLE_SCREEN_BUFFER_INFOEX info;
-	info.cbSize = sizeof(info);
-	HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
-	GetConsoleScreenBufferInfoEx(out, &info);
-	info.srWindow.Right += 1;
-	info.srWindow.Bottom += 1;
-	info.ColorTable[spot] = color;
-	SetConsoleScreenBufferInfoEx(out, &info);
-}
-
-COLORREF get_rgb_color(int spot) {
-	CONSOLE_SCREEN_BUFFER_INFOEX info;
-	info.cbSize = sizeof(info);
-	HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
-	GetConsoleScreenBufferInfoEx(out, &info);
-	return info.ColorTable[spot];
-}
