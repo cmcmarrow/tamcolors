@@ -163,9 +163,9 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
         :param tam_buffer: TAMBuffer
         :return:
         """
-        if self.__buffer.get_dimensions() != io._get_dimension():
+        if self.__buffer.get_dimensions() != io._get_dimensions():
             self.clear()
-            self.__buffer.set_dimensions_and_clear(*io._get_dimension())
+            self.__buffer.set_dimensions_and_clear(*io._get_dimensions())
             self._last_frame = None
 
         super().draw(tam_buffer)
@@ -453,7 +453,7 @@ class WINUtilitiesDriver(tam_drivers.UtilitiesDriver, WinSharedData, ABC):
         info: operations for IO to start
         :return: None
         """
-        self._console_buffer = io._get_buffer_dimension()
+        self._console_buffer = io._get_buffer_dimensions()
         self._reset_buffer = True
         super().start()
 
@@ -463,7 +463,7 @@ class WINUtilitiesDriver(tam_drivers.UtilitiesDriver, WinSharedData, ABC):
         :return: None
         """
         if self._console_buffer is not None:
-            io._set_buffer_dimension(self.get_dimensions()[0], self._console_buffer[1])
+            io._set_buffer_dimensions(self.get_dimensions()[0], self._console_buffer[1])
         self._reset_buffer = False
         super().done()
 
@@ -472,7 +472,7 @@ class WINUtilitiesDriver(tam_drivers.UtilitiesDriver, WinSharedData, ABC):
         info: will get teh terminal dimensions
         :return: (int, int)
         """
-        return io._get_dimension()
+        return io._get_dimensions()
 
     def clear(self):
         """

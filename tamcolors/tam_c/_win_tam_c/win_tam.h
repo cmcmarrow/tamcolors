@@ -8,12 +8,12 @@ class ConsoleException : public std::exception {
 };
 
 
-class Dimension {
+class Dimensions {
 	private:
 		short width;
 		short height;
 	public:
-		Dimension(short, short);
+		Dimensions(short, short);
 		short get_width();
 		short get_height();
 };
@@ -23,9 +23,9 @@ bool has_vaild_win_console();
 void init_default_color();
 int get_default_color();
 void show_console_cursor(bool);
-Dimension get_dimension();
-Dimension get_buffer_dimension();
-void set_buffer_dimension(Dimension);
+Dimensions get_dimensions();
+Dimensions get_buffer_dimensions();
+void set_buffer_dimensions(Dimensions);
 void clear(bool);
 void set_cursor_info(int, int, int);
 void set_console_color(int);

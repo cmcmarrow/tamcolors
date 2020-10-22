@@ -1,5 +1,6 @@
 //built in libraries
 #include <exception>
+#include <algorithm>
 #include <conio.h>
 #include <iostream>
 #include <windows.h>
@@ -25,14 +26,14 @@ class ConsoleException : public std::exception {
 } console_exception;
 
 
-class Dimension {
+class Dimensions {
 	private:
 		short width;
 		short height;
 	public:
-		Dimension(short widht, short height) {
-			this->width = widht;
-			this->height = height;
+		Dimensions(short widht, short height) {
+			this->width = max(widht, 0);
+			this->height = max(height, 0);
 		}
 		short get_width() {
 			return this->width;
@@ -105,40 +106,40 @@ void show_console_cursor(bool showFlag){
 	SetConsoleCursorInfo(out, &cursorInfo);
 }
 
-Dimension get_dimension() {
+Dimensions get_dimensions() {
 	/*
-	info: will return Dimension console window
-	return: Dimension
+	info: will return Dimensions console window
+	return: Dimensions
 	*/
 	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFOEX console_info;
 	get_console_info(handle, console_info);
 
-	Dimension dimension(console_info.srWindow.Right - console_info.srWindow.Left + 1, console_info.srWindow.Bottom - console_info.srWindow.Top);
-	return dimension;
+	Dimensions dimensions(console_info.srWindow.Right - console_info.srWindow.Left + 1, console_info.srWindow.Bottom - console_info.srWindow.Top);
+	return dimensions;
 }
 
-Dimension get_buffer_dimension(){
+Dimensions get_buffer_dimensions(){
 	/*
-	info: will return Dimension info of the console buffer
-	return: Dimension
+	info: will return Dimensions info of the console buffer
+	return: Dimensions
 	*/
 	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_SCREEN_BUFFER_INFOEX console_info;
 	get_console_info(handle, console_info);
 
-	Dimension dimension(console_info.dwSize.X, console_info.dwSize.Y);
-	return dimension;
+	Dimensions dimensions(console_info.dwSize.X, console_info.dwSize.Y);
+	return dimensions;
 }
 
-void set_buffer_dimension(Dimension dimension) {
+void set_buffer_dimensions(Dimensions dimensions) {
 	/*
 	info: will set the console buffer dimensions
-	parameter: Dimension
+	parameter: Dimensions
 	return: void
 	*/
 	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
-	COORD const buffer_dimension = {dimension.get_width(), dimension.get_height()};
+	COORD const buffer_dimension = {dimensions.get_width(), dimensions.get_height()};
 	SetConsoleScreenBufferSize(handle, buffer_dimension);
 }
 
@@ -155,9 +156,9 @@ void clear(bool reset_buffer){
 	// shrink buffer to be the same size as windows
 	// this will remove the scroll bar
 	if (reset_buffer) {
-		Dimension dimension = get_dimension();
-		COORD const buffer_dimension = { dimension.get_width(), dimension.get_height() + 1 };
-		SetConsoleScreenBufferSize(handle, buffer_dimension);
+		Dimensions dimensions = get_dimensions();
+		COORD const buffer_dimensions = { dimensions.get_width(), dimensions.get_height() + 1 };
+		SetConsoleScreenBufferSize(handle, buffer_dimensions);
 	}
 
 	COORD top_left = {0, 0};
@@ -166,7 +167,7 @@ void clear(bool reset_buffer){
 
 	// clear the console
 	FillConsoleOutputCharacter(handle, TEXT(' '), length, top_left, &written);
-	FillConsoleOutputAttribute(handle, console_info.wAttributes, length, top_left, &written);
+	//FillConsoleOutputAttribute(handle, console_info.wAttributes, length, top_left, &written);
 
     // set the cursor position
 	SetConsoleCursorPosition(handle, top_left);
@@ -183,7 +184,7 @@ void set_cursor_info(int x, int y, int color) {
 	static const HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 
 	//set the cursor position
-	COORD coord = {(SHORT)x, (SHORT)y};
+	COORD coord = { static_cast<SHORT>(x), static_cast<SHORT>(y)};
 	SetConsoleCursorPosition(handle, coord);
 
 	//set the console color

@@ -108,18 +108,18 @@ static PyObject* _show_console_cursor(PyObject *self, PyObject *args) {
 }
 
 
-static PyObject* _get_dimension(PyObject *self, PyObject *args) {
+static PyObject* _get_dimensions(PyObject *self, PyObject *args) {
 	/*
-	info: will return Dimension console window
-	return: Dimension
+	info: will return Dimensions console window
+	return: Dimensions
 	*/
 	if (!PyArg_ParseTuple(args, "")) {
 		return NULL;
 	}
 
 	try {
-		Dimension dimension = get_dimension();
-		return Py_BuildValue("ii", dimension.get_width(), dimension.get_height());
+		Dimensions dimensions = get_dimensions();
+		return Py_BuildValue("ii", dimensions.get_width(), dimensions.get_height());
 	} catch (std::exception& e) {
 		PyErr_SetString(_WinTamError, e.what());
 		return NULL;
@@ -127,17 +127,17 @@ static PyObject* _get_dimension(PyObject *self, PyObject *args) {
 }
 
 
-static PyObject* _get_buffer_dimension(PyObject* self, PyObject* args) {
+static PyObject* _get_buffer_dimensions(PyObject* self, PyObject* args) {
 	/*
-	info: will return Dimension info of the console buffer
-	return: Dimension
+	info: will return Dimensions info of the console buffer
+	return: Dimensions
 	*/
 	if (!PyArg_ParseTuple(args, "")) {
 		return NULL;
 	}
 	try {
-		Dimension dimension = get_buffer_dimension();
-		return Py_BuildValue("ii", dimension.get_width(), dimension.get_height());
+		Dimensions dimensions = get_buffer_dimensions();
+		return Py_BuildValue("ii", dimensions.get_width(), dimensions.get_height());
 	} catch (std::exception& e) {
 		PyErr_SetString(_WinTamError, e.what());
 		return NULL;
@@ -145,10 +145,10 @@ static PyObject* _get_buffer_dimension(PyObject* self, PyObject* args) {
 }
 
 
-static PyObject* _set_buffer_dimension(PyObject* self, PyObject* args) {
+static PyObject* _set_buffer_dimensions(PyObject* self, PyObject* args) {
 	/*
 	info: will set the console buffer dimensions
-	parameter: Dimension
+	parameter: Dimensions
 	return: void
 	*/
 	int width, height;
@@ -157,8 +157,8 @@ static PyObject* _set_buffer_dimension(PyObject* self, PyObject* args) {
 	}
 
 	try {
-		Dimension dimension(width, height);
-		set_buffer_dimension(dimension);
+		Dimensions dimensions(width, height);
+		set_buffer_dimensions(dimensions);
 	} catch (std::exception& e) {
 		PyErr_SetString(_WinTamError, e.what());
 		return NULL;
@@ -314,16 +314,16 @@ static PyMethodDef _win_tam_methods[] = {
 		"_get_default_color"
 	},
 	{
-		"_get_dimension", _get_dimension, METH_VARARGS,
-		"_get_dimension"
+		"_get_dimensions", _get_dimensions, METH_VARARGS,
+		"_get_dimensions"
 	},
 	{
-		"_get_buffer_dimension", _get_buffer_dimension, METH_VARARGS,
-		"_get_buffer_dimension"
+		"_get_buffer_dimensions", _get_buffer_dimensions, METH_VARARGS,
+		"_get_buffer_dimensions"
 	},
 	{
-		"_set_buffer_dimension", _set_buffer_dimension, METH_VARARGS,
-		"_set_buffer_dimension"
+		"_set_buffer_dimensions", _set_buffer_dimensions, METH_VARARGS,
+		"_set_buffer_dimensions"
 	},
 	{
 		"_clear", _clear, METH_VARARGS,
