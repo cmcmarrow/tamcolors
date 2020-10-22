@@ -167,7 +167,7 @@ void clear(bool reset_buffer){
 
 	// clear the console
 	FillConsoleOutputCharacter(handle, TEXT(' '), length, top_left, &written);
-	//FillConsoleOutputAttribute(handle, console_info.wAttributes, length, top_left, &written);
+	FillConsoleOutputAttribute(handle, console_info.wAttributes, length, top_left, &written);
 
     // set the cursor position
 	SetConsoleCursorPosition(handle, top_left);

@@ -138,10 +138,11 @@ goals
 ***********
 1.2.0 goals
 ***********
+* add code coverage
 * add more io driver tests
 * add TCP IO (dummy console)
-* save/rest Windows buffer size on exit
-* clean up c/c++
+* save/rest Windows buffer size on exit - Done
+* clean up c/c++ - Done
 * add sandy check examples
 * add dungeon example
 * add new color mode "MODE_16_PAL_256" - Done
