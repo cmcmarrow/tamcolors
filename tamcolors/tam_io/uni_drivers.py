@@ -123,7 +123,7 @@ class UNIUtilitiesDriver(tam_drivers.UtilitiesDriver, UNISharedData, ABC):
         info: Gets the dimensions of console
         :return: (int, int): (row, column)
         """
-        return io._get_dimension()
+        return io._get_dimensions()
 
     def clear(self):
         """

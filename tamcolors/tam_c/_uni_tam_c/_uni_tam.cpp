@@ -1,4 +1,5 @@
 //python library
+#define PY_SSIZE_T_CLEAN
 #include <Python.h>
 
 //tamcolors library
@@ -12,16 +13,16 @@ get key input in the background
 */
 
 
-static PyObject* _get_dimension(PyObject *self, PyObject *args) {
+static PyObject* _get_dimensions(PyObject *self, PyObject *args) {
     /*
-	info: will return Dimension info width and height
-	return: Dimension
+	info: will return Dimensions info width and height
+	return: Dimensions
 	*/
 	if (!PyArg_ParseTuple(args, "")) {
 		return NULL;
 	}
-	Dimension dimension = get_dimension();
-	return Py_BuildValue("(i,i)", dimension.width, dimension.height);
+	Dimensions dimensions = get_dimensions();
+	return Py_BuildValue("ii", dimensions.width, dimensions.height);
 }
 
 static PyObject* _enable_get_key(PyObject *self, PyObject *args) {
@@ -62,8 +63,8 @@ static PyObject* _get_key(PyObject *self, PyObject *args) {
 
 static PyMethodDef _uni_tam_methods[] = {
 	{
-		"_get_dimension", _get_dimension, METH_VARARGS,
-		"_get_dimension"
+		"_get_dimensions", _get_dimensions, METH_VARARGS,
+		"_get_dimensions"
 	},
 	{
 		"_enable_get_key", _enable_get_key, METH_VARARGS,
@@ -89,6 +90,11 @@ static struct PyModuleDef _uni_tam_definition = {
 };
 
 PyMODINIT_FUNC PyInit__uni_tam(void) {
-	Py_Initialize();
-	return PyModule_Create(&_uni_tam_definition);
+    PyObject* py_module = PyModule_Create(&_uni_tam_definition);
+
+	if (py_module == NULL) {
+		return NULL;
+	}
+
+	return py_module;
 }

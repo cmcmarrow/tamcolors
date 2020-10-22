@@ -116,12 +116,12 @@ class UniIOTests(unittest.TestCase):
             io.enable_console_keys(False)
 
     def test_get_dimensions(self):
-        with unittest.mock.patch.object(tam_io.uni_drivers.io, "_get_dimension", return_value=(20, 25)) as _get_dimension:
+        with unittest.mock.patch.object(tam_io.uni_drivers.io, "_get_dimensions", return_value=(20, 25)) as _get_dimensions:
             io = get_uni_io()
 
             self.assertEqual(io.get_dimensions(), (20, 25))
 
-            _get_dimension.assert_called_once_with()
+            _get_dimensions.assert_called_once_with()
 
     def test_get_key_dict(self):
         keys = get_uni_io().get_key_dict()

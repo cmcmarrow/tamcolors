@@ -12,22 +12,22 @@ can get dimension of console
 get key input in the background
 */
 
-typedef struct Dimension{
+typedef struct Dimensions{
 	short width;
 	short height;
-} Dimension;
+} Dimensions;
 
-Dimension get_dimension() {
+Dimensions get_dimensions() {
     /*
-	info: will return Dimension info width and height
-	return: Dimension
+	info: will return Dimensions info width and height
+	return: Dimensions
 	*/
     struct winsize windowSize;
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &windowSize);
-    Dimension dimension;
-    dimension.width = windowSize.ws_col;
-    dimension.height = windowSize.ws_row;
-    return dimension;
+    Dimensions dimensions;
+    dimensions.width = windowSize.ws_col;
+    dimensions.height = windowSize.ws_row;
+    return dimensions;
 }
 
 void enable_get_key(){

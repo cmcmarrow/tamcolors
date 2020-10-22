@@ -41,7 +41,7 @@ class WinDriversTests(unittest.TestCase):
     @staticmethod
     def test__draw_2():
         io = get_win_io()
-        with unittest.mock.patch.object(tam_io.win_drivers.io, "_get_dimension", return_value=(15, 10)) as _get_dimension:
+        with unittest.mock.patch.object(tam_io.win_drivers.io, "_get_dimensions", return_value=(15, 10)) as _get_dimensions:
             with unittest.mock.patch.object(io, "clear", return_value=None) as clear:
                 with unittest.mock.patch.object(io, "_print", return_value=None) as _print:
                     io.set_mode(tam_io.io_tam.MODE_2)
@@ -55,13 +55,13 @@ class WinDriversTests(unittest.TestCase):
                     buffer2.draw_onto(buffer, 5, 2)
                     io.draw(buffer)
 
-                    _get_dimension.assert_called()
+                    _get_dimensions.assert_called()
                     clear.assert_called_once_with()
                     _print.assert_called_once_with(0, 0, "".join(c for c in str(buffer2) if c != "\n"), 1, 2)
 
     def test__draw_16(self):
         io = get_win_io()
-        with unittest.mock.patch.object(tam_io.win_drivers.io, "_get_dimension", return_value=(15, 10)) as _get_dimension:
+        with unittest.mock.patch.object(tam_io.win_drivers.io, "_get_dimensions", return_value=(15, 10)) as _get_dimensions:
             with unittest.mock.patch.object(io, "clear", return_value=None) as clear:
                 with unittest.mock.patch.object(io, "_print", return_value=None) as _print:
                     io.set_mode(tam_io.io_tam.MODE_16)
@@ -76,7 +76,7 @@ class WinDriversTests(unittest.TestCase):
                     buffer2.draw_onto(buffer, 5, 2)
                     io.draw(buffer)
 
-                    _get_dimension.assert_called()
+                    _get_dimensions.assert_called()
                     clear.assert_called_once_with()
 
                     self.assertEqual(_print.call_count, 16)
@@ -91,7 +91,7 @@ class WinDriversTests(unittest.TestCase):
 
     def test_start(self):
         io = get_win_io()
-        with unittest.mock.patch.object(tam_io.win_drivers.io, "_get_buffer_dimension", return_value=(120, 44)) as _get_buffer_dimension:
+        with unittest.mock.patch.object(tam_io.win_drivers.io, "_get_buffer_dimensions", return_value=(120, 44)) as _get_buffer_dimensions:
             with unittest.mock.patch.object(tam_io.win_drivers.io, "_clear", return_value=None) as _clear:
                 with unittest.mock.patch.object(tam_io.win_drivers.io,
                                                 "_show_console_cursor",
@@ -99,7 +99,7 @@ class WinDriversTests(unittest.TestCase):
                     io.start()
 
                     _clear.assert_called_once_with(True)
-                    _get_buffer_dimension.assert_called_once_with()
+                    _get_buffer_dimensions.assert_called_once_with()
                     self.assertEqual(_show_console_cursor.call_count, 2)
 
     def test_done(self):
@@ -159,10 +159,10 @@ class WinDriversTests(unittest.TestCase):
 
     def test_get_dimensions(self):
         io = get_win_io()
-        with unittest.mock.patch.object(tam_io.win_drivers.io, "_get_dimension", return_value=(20, 25)) as _get_dimension:
+        with unittest.mock.patch.object(tam_io.win_drivers.io, "_get_dimensions", return_value=(20, 25)) as _get_dimensions:
             self.assertEqual(io.get_dimensions(), (20, 25))
 
-            _get_dimension.assert_called_once_with()
+            _get_dimensions.assert_called_once_with()
 
     def test_get_key_dict(self):
         io = get_win_io()
@@ -268,7 +268,7 @@ class WinDriversTests(unittest.TestCase):
             self.assertIsInstance(io._spot_swap(spot), int)
 
     def test__get_buffer_dimension(self):
-        ret = tam_io.win_drivers.io._get_buffer_dimension()
+        ret = tam_io.win_drivers.io._get_buffer_dimensions()
         self.assertIsInstance(ret, tuple)
         for item in ret:
             self.assertIsInstance(item, int)
