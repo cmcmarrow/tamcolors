@@ -3,8 +3,8 @@
 
 
 typedef struct Dimensions {
-	short;
-	short;
+	short width;
+	short height;
 } Dimensions;
 
 Dimensions get_dimensions();
