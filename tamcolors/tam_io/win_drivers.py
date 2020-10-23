@@ -154,7 +154,11 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
         :param mode: int: key to color mode
         :return:
         """
-        self._last_frame = None
+        try:
+            self._last_frame_lock.acquire()
+            self._last_frame = None
+        finally:
+            self._last_frame_lock.release()
         super().set_mode(mode)
 
     def draw(self, tam_buffer):
