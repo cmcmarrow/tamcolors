@@ -143,7 +143,7 @@ goals
 * add TCP IO (dummy console)
 * save/rest Windows buffer size on exit - Done
 * clean up c/c++ - Done
-* add sandy check examples
+* add sandy check examples - Done
 * add dungeon example
 * add new color mode "MODE_16_PAL_256" - Done
 * add "preferred_mode"argument to TAMLoop - Done
