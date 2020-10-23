@@ -10,5 +10,6 @@ __pycache__/
 /dist
 /tamcolors.egg-info
 /venv
+/.vs
 
 /tamcolors/tam_c/*.dll
