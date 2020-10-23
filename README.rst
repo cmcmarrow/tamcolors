@@ -127,6 +127,7 @@ long term goals
 * text editor
 * make and change fonts at run time
 * add .wav support
+* add code coverage
 * support German, French and Japanese Keyboards
 
 *****
@@ -138,7 +139,6 @@ goals
 ***********
 1.2.0 goals
 ***********
-* add code coverage
 * add more io driver tests
 * add TCP IO (dummy console)
 * save/rest Windows buffer size on exit - Done
