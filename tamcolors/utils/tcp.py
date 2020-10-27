@@ -36,39 +36,42 @@ class TCPReceiver:
         :param object_packer: None, ObjectPacker
         :param our_information: object: that can be dumped by the passed object packer
         """
-        self._host = host
-        self._port = port
-        self._open = True
+        try:
+            self._host = host
+            self._port = port
+            self._open = True
 
-        af_type = socket.AF_INET
-        if ipv6:
-            af_type = socket.AF_INET6
+            af_type = socket.AF_INET
+            if ipv6:
+                af_type = socket.AF_INET6
 
-        self._socket = socket.socket(af_type, socket.SOCK_STREAM)
-        self._socket.bind((self._host, self._port))
-        self._socket.listen(listen_count)
+            self._socket = socket.socket(af_type, socket.SOCK_STREAM)
+            self._socket.bind((self._host, self._port))
+            self._socket.listen(listen_count)
 
-        self._connection_password = sha512(bytes(connection_password, encoding="utf-8")).hexdigest()
-        self._address_white_list = address_white_list
+            self._connection_password = sha512(bytes(connection_password, encoding="utf-8")).hexdigest()
+            self._address_white_list = address_white_list
 
-        if isinstance(self._address_white_list, (tuple, list)):
-            self._address_white_list = set(self._address_white_list)
+            if isinstance(self._address_white_list, (tuple, list)):
+                self._address_white_list = set(self._address_white_list)
 
-        self._address_black_list = address_black_list
-        if self._address_black_list is None:
-            self._address_black_list = set()
-        elif isinstance(self._address_black_list, (tuple, list)):
-            self._address_black_list = set(self._address_black_list)
+            self._address_black_list = address_black_list
+            if self._address_black_list is None:
+                self._address_black_list = set()
+            elif isinstance(self._address_black_list, (tuple, list)):
+                self._address_black_list = set(self._address_black_list)
 
-        self._encryption = encryption
-        self._object_packer = object_packer
-        self._our_information = our_information
+            self._encryption = encryption
+            self._object_packer = object_packer
+            self._our_information = our_information
 
-        self._new_connections = []
-        self._lock = Lock()
+            self._new_connections = []
+            self._lock = Lock()
 
-        # start connection finder daemon thread
-        Thread(target=self._connection_finder, daemon=True).start()
+            # start connection finder daemon thread
+            Thread(target=self._connection_finder, daemon=True).start()
+        except Exception as e:
+            raise TCPError(str(e))
 
     def __enter__(self):
         """
@@ -103,7 +106,7 @@ class TCPReceiver:
             self._open = False
             self._socket.close()
 
-    def get_host_connection(self, wait=False):
+    def get_host_connection(self, wait=True):
         """
         info: will get a new host connection
         :param wait: bool: if true will wait for a connection
@@ -258,6 +261,8 @@ class TCPBase:
             if self._encryption:
                 ret_data = self._encryption.decrypt(ret_data)
             return compress.decompress(ret_data)
+        except Exception as e:
+            raise TCPError(str(e))
         finally:
             self._get_lock.release()
 
@@ -273,6 +278,8 @@ class TCPBase:
             if self._encryption:
                 data = self._encryption.encrypt_with_public_key(self._connection_public_key, data)
             self._send_block(data)
+        except Exception as e:
+            raise TCPError(str(e))
         finally:
             self._send_lock.release()
 
@@ -312,11 +319,14 @@ class TCPHost(TCPBase):
         :param args: *args
         :param kwargs: **kwargs
         """
-        super().__init__(*args, **kwargs)
-        self._user_name = None
-        self._user_id = None
-        self._other_information = None
-        self._handshake()
+        try:
+            super().__init__(*args, **kwargs)
+            self._user_name = None
+            self._user_id = None
+            self._other_information = None
+            self._handshake()
+        except Exception as e:
+            raise TCPError(str(e))
 
     def _handshake(self):
         """
@@ -393,27 +403,30 @@ class TCPConnection(TCPBase):
         :param our_information: object
         """
 
-        af_mode = socket.AF_INET
-        if ipv6:
-            af_mode = socket.AF_INET6
+        try:
+            af_mode = socket.AF_INET
+            if ipv6:
+                af_mode = socket.AF_INET6
 
-        connection = socket.socket(af_mode, socket.SOCK_STREAM)
-        connection.connect((host, port))
+            connection = socket.socket(af_mode, socket.SOCK_STREAM)
+            connection.connect((host, port))
 
-        connection_password = sha512(bytes(connection_password, encoding="utf-8")).hexdigest()
+            connection_password = sha512(bytes(connection_password, encoding="utf-8")).hexdigest()
 
-        our_information = {"name": user_name,
-                           "id": user_id,
-                           "password": connection_password,
-                           "other": our_information}
-        super().__init__(connection=connection,
-                         address=host,
-                         port=port,
-                         connection_password=connection_password,
-                         encryption=encryption,
-                         object_packer=object_packer,
-                         our_information=our_information)
-        self._handshake()
+            our_information = {"name": user_name,
+                               "id": user_id,
+                               "password": connection_password,
+                               "other": our_information}
+            super().__init__(connection=connection,
+                             address=host,
+                             port=port,
+                             connection_password=connection_password,
+                             encryption=encryption,
+                             object_packer=object_packer,
+                             our_information=our_information)
+            self._handshake()
+        except Exception as e:
+            raise TCPError(str(e))
 
     def _handshake(self):
         """

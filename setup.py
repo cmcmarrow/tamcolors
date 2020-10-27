@@ -43,6 +43,7 @@ setup(
               "tamcolors.tests.tam_io_tests",
               "tamcolors.tests.tam_basic_tests",
               "tamcolors.tests.utils_tests",
+              "tamcolors.tests.tests_tests",
               "tamcolors.tam_c",
               "tamcolors.tam_c._win_tam_c",
               "tamcolors.tam_c._win_tam_c.vs140_dlls",
