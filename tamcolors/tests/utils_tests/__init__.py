@@ -6,6 +6,7 @@ from . import compress_tests
 from . import encryption_tests
 from . import identifier_tests
 from . import log_tests
+from . import tcp_tests
 
 __all__ = ("timer_tests",
            "immutable_cache_tests",
@@ -14,4 +15,5 @@ __all__ = ("timer_tests",
            "compress_tests",
            "encryption_tests",
            "identifier_tests",
-           "log_tests")
+           "log_tests",
+           "tcp_tests")
