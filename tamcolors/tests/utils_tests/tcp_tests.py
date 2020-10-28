@@ -1,6 +1,7 @@
 # built in libraries
 import unittest.mock
 import time
+import os
 
 # tamcolors libraries
 from tamcolors.utils import tcp
@@ -44,6 +45,7 @@ def _test_ping_connection_ipv6():
     connection.close()
 
 
+@unittest.skipIf(os.environ["TRAVIS"] == "true", "tests cant run in Travis CI.")
 class TCPTests(MultiTaskHelper, unittest.TestCase):
     @slow_test
     def test_ping(self):

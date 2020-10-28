@@ -17,7 +17,7 @@ class TCPError(Exception):
 class TCPReceiver:
     def __init__(self,
                  host="127.0.0.1",
-                 port=44444,
+                 port=4444,
                  ipv6=False,
                  listen_count=10,
                  connection_password="",
@@ -385,7 +385,7 @@ class TCPHost(TCPBase):
 class TCPConnection(TCPBase):
     def __init__(self,
                  host="127.0.0.1",
-                 port=44444,
+                 port=4444,
                  ipv6=False,
                  connection_password="",
                  user_name=None,
@@ -459,12 +459,3 @@ class TCPConnection(TCPBase):
         :return: object
         """
         return self._connection_information
-
-
-if __name__ == "__main__":
-    log.enable_logging()
-    r = TCPReceiver(host="::1", ipv6=True)
-    c = r.get_host_connection()
-    c.send_data(b"hello?")
-    c.close()
-    r.close()
