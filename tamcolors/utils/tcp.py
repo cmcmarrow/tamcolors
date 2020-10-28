@@ -7,6 +7,9 @@ from tamcolors.utils import log
 from hashlib import sha512
 
 
+TCP_TIMEOUT = 60
+
+
 class TCPError(Exception):
     pass
 
@@ -136,12 +139,11 @@ class TCPReceiver:
             try:
                 # get new raw tcp connection
                 connection, address = self._socket.accept()
-                address, port = address
+                address, port = address[0], address[1]
 
                 # check if new connection is in white list
                 if self._address_white_list is not None and address not in self._address_white_list:
                     raise TCPError("{} is not on white list".format(address))
-
                 # check if new connection is in not in black list
                 if address in self._address_black_list:
                     raise TCPError("{} is on black list".format(address))
@@ -163,6 +165,7 @@ class TCPReceiver:
         :return: None
         """
         try:
+            connection.settimeout(TCP_TIMEOUT)
             new_connection = TCPHost(connection,
                                      address,
                                      port,
@@ -409,6 +412,7 @@ class TCPConnection(TCPBase):
                 af_mode = socket.AF_INET6
 
             connection = socket.socket(af_mode, socket.SOCK_STREAM)
+            connection.settimeout(TCP_TIMEOUT)
             connection.connect((host, port))
 
             connection_password = sha512(bytes(connection_password, encoding="utf-8")).hexdigest()
@@ -455,3 +459,12 @@ class TCPConnection(TCPBase):
         :return: object
         """
         return self._connection_information
+
+
+if __name__ == "__main__":
+    log.enable_logging()
+    r = TCPReceiver(host="::1", ipv6=True)
+    c = r.get_host_connection()
+    c.send_data(b"hello?")
+    c.close()
+    r.close()
