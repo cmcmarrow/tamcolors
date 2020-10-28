@@ -17,7 +17,7 @@ class TCPError(Exception):
 class TCPReceiver:
     def __init__(self,
                  host="127.0.0.1",
-                 port=4444,
+                 port=44444,
                  ipv6=False,
                  listen_count=10,
                  connection_password="",
@@ -385,7 +385,7 @@ class TCPHost(TCPBase):
 class TCPConnection(TCPBase):
     def __init__(self,
                  host="127.0.0.1",
-                 port=4444,
+                 port=44444,
                  ipv6=False,
                  connection_password="",
                  user_name=None,
