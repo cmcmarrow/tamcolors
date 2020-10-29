@@ -459,3 +459,99 @@ class TCPConnection(TCPBase):
         :return: object
         """
         return self._connection_information
+
+
+class TCPObjectWrapper:
+    def __init__(self, tcp_connection, obj, object_packer=None):
+        self._tcp_connection = tcp_connection
+        self._obj = obj
+        if object_packer is None:
+            object_packer = DEFAULT_OBJECT_PACKER_JSON
+        self._object_packer = object_packer
+        self._open = True
+
+    def __call__(self):
+        while self.is_open():
+            action = self._tcp_connection.get_data()
+            Thread(target=self._action_thread, args=(action,), daemon=True).start()
+
+    def __del__(self):
+        self.close()
+
+    def is_open(self):
+        return self._open
+
+    def close(self):
+        if self._open:
+            self._open = False
+            self._tcp_connection.close()
+
+    def get_connection(self):
+        return self._tcp_connection
+
+    def _action_thread(self, action):
+        try:
+            action_dict = self._object_packer.loads(action)
+            action_id = action_dict.get("id")
+            try:
+                func = getattr(self._obj, action_dict["target"])
+                ret = func(*action_dict.get("args", ()), **action_dict.get("kwargs", {}))
+                if action_id is not None:
+                    self._tcp_connection.send_data(self._object_packer.dumps({"id": action_id, "return": ret}))
+            except Exception as e:
+                if action_id is not None:
+                    self._tcp_connection.send_data(self._object_packer.dumps({"id": action_id, "error": str(e)}))
+                raise e
+        except Exception as e:
+            log.critical("_action_thread error error: %s data: %s", e, action)
+
+
+class TCPObjectConnector:
+    def __init__(self, tcp_connection, object_packer=None, no_return=None):
+        self._tcp_connection = tcp_connection
+        if object_packer is None:
+            object_packer = DEFAULT_OBJECT_PACKER_JSON
+        self._object_packer = object_packer
+        if no_return is None:
+            no_return = set()
+        self._no_return = no_return
+        self._open = True
+
+    def __call__(self, func, *args, **kwargs):
+        if self._open:
+            action_id = None
+            if func not in self._no_return:
+                action_id = 0
+
+            action = {"id": action_id,
+                      "target": func,
+                      "args": args,
+                      "kwargs": kwargs}
+            self._tcp_connection.send_data(self._object_packer.dumps(action))
+
+            if action_id is not None:
+                ret = self._object_packer.loads(self._tcp_connection.get_data())
+                return ret["return"]
+
+    def __del__(self):
+        self.close()
+
+    def is_open(self):
+        return self._open
+
+    def close(self):
+        if self._open:
+            self._open = False
+            self._tcp_connection.close()
+
+    def get_connection(self):
+        return self._tcp_connection
+
+
+if __name__ == "__main__":
+    r = TCPReceiver()
+    h = r.get_host_connection()
+    w = TCPObjectConnector(h)
+    print(w("ping", 66))
+    print(w("ping", cats="cats"))
+    print(w("ping_2"))
