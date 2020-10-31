@@ -5,6 +5,7 @@ from tamcolors.utils.encryption import Encryption
 from tamcolors.utils import compress
 from tamcolors.utils.object_packer import DEFAULT_OBJECT_PACKER_JSON
 from tamcolors.utils import log
+from tamcolors.utils import transport_optimizer
 from hashlib import sha512
 
 
@@ -477,6 +478,7 @@ class TCPObjectWrapper:
         if object_packer is None:
             object_packer = DEFAULT_OBJECT_PACKER_JSON
         self._object_packer = object_packer
+        self._transport_optimizers = {}
 
         self._open = True
 
@@ -528,6 +530,15 @@ class TCPObjectWrapper:
         try:
             # unpack action
             action_dict = self._object_packer.loads(action)
+
+            # uncompress data
+            if "optimizer" in action_dict:
+                # init lase received cache if target does not have one
+                if action_dict["target"] not in self._transport_optimizers:
+                    self._transport_optimizers[action_dict["target"]] = transport_optimizer.LastReceivedCache()
+                action_dict = self._transport_optimizers[action_dict["target"]](action_dict["optimizer"])
+                action_dict = self._object_packer.loads(action_dict)
+
             # get action id
             action_id = action_dict.get("id")
             try:
@@ -547,14 +558,14 @@ class TCPObjectWrapper:
 
 
 class TCPObjectConnector:
-    def __init__(self, tcp_connection, object_packer=None, no_return=None):
+    def __init__(self, tcp_connection, object_packer=None, no_return=None, optimizer=None):
         """
         info: Makes a TCPObjectConnector
         :param tcp_connection: TCPBase
         :param object_packer: ObjectPacker or None
         :param no_return: set or None: {func: str, ...}
+        :param optimizer: set or None: {func: str, ...}
         """
-        # TODO add transport optimizer flag
         self._tcp_connection = tcp_connection
 
         # use default object packer if none is given
@@ -564,8 +575,12 @@ class TCPObjectConnector:
 
         if no_return is None:
             no_return = set()
-
         self._no_return = no_return
+
+        if optimizer is None:
+            optimizer = set()
+        self._transport_optimizers = {func: transport_optimizer.LastSentCache() for func in optimizer}
+
         self._open = True
 
         self._id_lock = Lock()
@@ -594,7 +609,12 @@ class TCPObjectConnector:
                       "kwargs": kwargs}
 
             # call object method
-            self._tcp_connection.send_data(self._object_packer.dumps(action))
+            if func not in self._transport_optimizers:
+                self._tcp_connection.send_data(self._object_packer.dumps(action))
+            else:   # compress data being sent with transport optimizers
+                compress_data = {"optimizer": self._transport_optimizers[func](self._object_packer.dumps(action)),
+                                 "target": func}
+                self._tcp_connection.send_data(self._object_packer.dumps(compress_data))
 
             # if action has an id wait for return data
             if action_id is not None:
@@ -678,3 +698,21 @@ class TCPObjectConnector:
                 self._free_ids.clear()
         finally:
             self._id_lock.release()
+
+
+if __name__ == "__main__":
+    with TCPReceiver() as r:
+        obj_con = TCPObjectConnector(r.get_host_connection(), no_return={"echo"}, optimizer={"ping"})
+        assert obj_con.add(3, 5) == 8
+        assert obj_con.add(3, -5) == -2
+
+        for i in range(1, 10):
+            assert obj_con.step() == i
+
+        assert obj_con.ping("cats", "dogs", sum=44) == "ping ('cats', 'dogs') {'sum': 44}"
+        assert obj_con.ping("cats", "dogs", sum=44) == "ping ('cats', 'dogs') {'sum': 44}"
+        assert obj_con.ping("cats", "dogs", sum=-234) == "ping ('cats', 'dogs') {'sum': -234}"
+
+        assert obj_con.ran_echo() is False
+        assert obj_con.echo() is None
+        assert obj_con.ran_echo() is True

@@ -60,7 +60,7 @@ class TCPTests(MultiTaskHelper, unittest.TestCase):
 
 def _test_object_host():
     with tcp.TCPReceiver() as r:
-        obj_con = tcp.TCPObjectConnector(r.get_host_connection(), no_return={"echo"})
+        obj_con = tcp.TCPObjectConnector(r.get_host_connection(), no_return={"echo"}, optimizer={"ping"})
         assert obj_con.add(3, 5) == 8
         assert obj_con.add(3, -5) == -2
 
@@ -68,6 +68,8 @@ def _test_object_host():
             assert obj_con.step() == i
 
         assert obj_con.ping("cats", "dogs", sum=44) == "ping ('cats', 'dogs') {'sum': 44}"
+        assert obj_con.ping("cats", "dogs", sum=44) == "ping ('cats', 'dogs') {'sum': 44}"
+        assert obj_con.ping("cats", "dogs", sum=-234) == "ping ('cats', 'dogs') {'sum': -234}"
 
         assert obj_con.ran_echo() is False
         assert obj_con.echo() is None
