@@ -1,9 +1,11 @@
 from threading import Thread, Lock
 import socket
+from functools import partial
 from tamcolors.utils.encryption import Encryption
 from tamcolors.utils import compress
 from tamcolors.utils.object_packer import DEFAULT_OBJECT_PACKER_JSON
 from tamcolors.utils import log
+from tamcolors.utils import transport_optimizer
 from hashlib import sha512
 
 
@@ -459,3 +461,240 @@ class TCPConnection(TCPBase):
         :return: object
         """
         return self._connection_information
+
+
+class TCPObjectWrapper:
+    def __init__(self, tcp_connection, obj, object_packer=None):
+        """
+        info: Makes a TCPObjectWrapper object
+        :param tcp_connection: TCPBase
+        :param obj: object
+        :param object_packer: ObjectPacker or None
+        """
+        self._tcp_connection = tcp_connection
+        self._obj = obj
+
+        # use default object packer if none is given
+        if object_packer is None:
+            object_packer = DEFAULT_OBJECT_PACKER_JSON
+        self._object_packer = object_packer
+        self._transport_optimizers = {}
+
+        self._open = True
+
+    def __call__(self):
+        """
+        info: let other program call object methods
+        :return:
+        """
+        while self.is_open():
+            action = self._tcp_connection.get_data()
+            Thread(target=self._action_thread, args=(action,), daemon=True).start()
+
+    def __del__(self):
+        """
+        info: last try to close object
+        :return:
+        """
+        self.close()
+
+    def is_open(self):
+        """
+        info: will check if object is still open
+        :return: bool
+        """
+        return self._open
+
+    def close(self):
+        """
+        info: will close the object
+        :return:
+        """
+        if self._open:
+            self._open = False
+            self._tcp_connection.close()
+
+    def get_connection(self):
+        """
+        info: will get connection
+        :return: TCPBase
+        """
+        return self._tcp_connection
+
+    def _action_thread(self, action):
+        """
+        info: will run an action
+        :param action: bytes
+        :return:
+        """
+        try:
+            # unpack action
+            action_dict = self._object_packer.loads(action)
+
+            # uncompress data
+            if "optimizer" in action_dict:
+                # init lase received cache if target does not have one
+                if action_dict["target"] not in self._transport_optimizers:
+                    self._transport_optimizers[action_dict["target"]] = transport_optimizer.LastReceivedCache()
+                action_dict = self._transport_optimizers[action_dict["target"]](action_dict["optimizer"])
+                action_dict = self._object_packer.loads(action_dict)
+
+            # get action id
+            action_id = action_dict.get("id")
+            try:
+                func = getattr(self._obj, action_dict["target"])
+                # call func
+                ret = func(*action_dict.get("args", ()), **action_dict.get("kwargs", {}))
+                # return data
+                if action_id is not None:
+                    self._tcp_connection.send_data(self._object_packer.dumps({"id": action_id, "return": ret}))
+            except Exception as e:
+                # return error
+                if action_id is not None:
+                    self._tcp_connection.send_data(self._object_packer.dumps({"id": action_id, "error": str(e)}))
+                raise e
+        except Exception as e:
+            log.critical("_action_thread error error: %s data: %s", e, action)
+
+
+class TCPObjectConnector:
+    def __init__(self, tcp_connection, object_packer=None, no_return=None, optimizer=None):
+        """
+        info: Makes a TCPObjectConnector
+        :param tcp_connection: TCPBase
+        :param object_packer: ObjectPacker or None
+        :param no_return: set or None: {func: str, ...}
+        :param optimizer: set or None: {func: str, ...}
+        """
+        self._tcp_connection = tcp_connection
+
+        # use default object packer if none is given
+        if object_packer is None:
+            object_packer = DEFAULT_OBJECT_PACKER_JSON
+        self._object_packer = object_packer
+
+        if no_return is None:
+            no_return = set()
+        self._no_return = no_return
+
+        if optimizer is None:
+            optimizer = set()
+        self._transport_optimizers = {func: transport_optimizer.LastSentCache() for func in optimizer}
+
+        self._open = True
+
+        self._id_lock = Lock()
+        self._allocated_ids = set()
+        self._free_ids = []
+
+    def __call__(self, func, *args, **kwargs):
+        """
+        info: will call an object method in the other program
+        :param func: str: name of method
+        :param args: *args
+        :param kwargs: **kwargs
+        :return: object
+        """
+        if self._open:
+            action_id = None
+            # don't give action an id if func is in no return
+            # this is so __call__ does not wait for a return
+            if func not in self._no_return:
+                action_id = self._get_id()
+
+            # make action dict
+            action = {"id": action_id,
+                      "target": func,
+                      "args": args,
+                      "kwargs": kwargs}
+
+            # call object method
+            if func not in self._transport_optimizers:
+                self._tcp_connection.send_data(self._object_packer.dumps(action))
+            else:   # compress data being sent with transport optimizers
+                compress_data = {"optimizer": self._transport_optimizers[func](self._object_packer.dumps(action)),
+                                 "target": func}
+                self._tcp_connection.send_data(self._object_packer.dumps(compress_data))
+
+            # if action has an id wait for return data
+            if action_id is not None:
+                ret = self._object_packer.loads(self._tcp_connection.get_data())
+                self._free_id(action_id)
+                # check for error
+                if "error" in ret:
+                    raise TCPError(ret["error"])
+                return ret["return"]
+
+    def __del__(self):
+        """
+        info: last try to close object
+        :return:
+        """
+        self.close()
+
+    def __getattribute__(self, item):
+        """
+        info: will get object attribute
+        :param item: str
+        :return: object
+        """
+        try:
+            return super().__getattribute__(item)
+        except AttributeError:
+            # if object is missing attribute assume programs wants to call that func
+            return partial(self.__call__, item)
+
+    def is_open(self):
+        """
+        info: will check if object is still open
+        :return: bool
+        """
+        return self._open
+
+    def close(self):
+        """
+        info: will close the object
+        :return:
+        """
+        if self._open:
+            self._open = False
+            self._tcp_connection.close()
+
+    def get_connection(self):
+        """
+        info: will get connection
+        :return: TCPBase
+        """
+        return self._tcp_connection
+
+    def _get_id(self):
+        """
+        info: will get a free id
+        :return: int
+        """
+        try:
+            self._id_lock.acquire()
+            action_id = len(self._allocated_ids)
+            if self._free_ids:
+                action_id = self._free_ids.pop()
+            self._allocated_ids.add(action_id)
+            return action_id
+        finally:
+            self._id_lock.release()
+
+    def _free_id(self, action_id):
+        """
+        info: will free an id
+        :param action_id: int
+        :return:
+        """
+        try:
+            self._id_lock.acquire()
+            self._allocated_ids.remove(action_id)
+            self._free_ids.append(action_id)
+            # no ids are being used
+            # it is safe to remove all free ids
+            if not len(self._allocated_ids):
+                self._free_ids.clear()
+        finally:
+            self._id_lock.release()
