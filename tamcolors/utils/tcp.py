@@ -698,21 +698,3 @@ class TCPObjectConnector:
                 self._free_ids.clear()
         finally:
             self._id_lock.release()
-
-
-if __name__ == "__main__":
-    with TCPReceiver() as r:
-        obj_con = TCPObjectConnector(r.get_host_connection(), no_return={"echo"}, optimizer={"ping"})
-        assert obj_con.add(3, 5) == 8
-        assert obj_con.add(3, -5) == -2
-
-        for i in range(1, 10):
-            assert obj_con.step() == i
-
-        assert obj_con.ping("cats", "dogs", sum=44) == "ping ('cats', 'dogs') {'sum': 44}"
-        assert obj_con.ping("cats", "dogs", sum=44) == "ping ('cats', 'dogs') {'sum': 44}"
-        assert obj_con.ping("cats", "dogs", sum=-234) == "ping ('cats', 'dogs') {'sum': -234}"
-
-        assert obj_con.ran_echo() is False
-        assert obj_con.echo() is None
-        assert obj_con.ran_echo() is True
