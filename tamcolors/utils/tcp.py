@@ -464,6 +464,12 @@ class TCPConnection(TCPBase):
 
 class TCPObjectWrapper:
     def __init__(self, tcp_connection, obj, object_packer=None):
+        """
+        info: Makes a TCPObjectWrapper object
+        :param tcp_connection: TCPBase
+        :param obj: object
+        :param object_packer: ObjectPacker or None
+        """
         self._tcp_connection = tcp_connection
         self._obj = obj
 
@@ -475,6 +481,10 @@ class TCPObjectWrapper:
         self._open = True
 
     def __call__(self):
+        """
+        info: let other program call object methods
+        :return:
+        """
         while self.is_open():
             action = self._tcp_connection.get_data()
             Thread(target=self._action_thread, args=(action,), daemon=True).start()
@@ -494,14 +504,27 @@ class TCPObjectWrapper:
         return self._open
 
     def close(self):
+        """
+        info: will close the object
+        :return:
+        """
         if self._open:
             self._open = False
             self._tcp_connection.close()
 
     def get_connection(self):
+        """
+        info: will get connection
+        :return: TCPBase
+        """
         return self._tcp_connection
 
     def _action_thread(self, action):
+        """
+        info: will run an action
+        :param action: bytes
+        :return:
+        """
         try:
             # unpack action
             action_dict = self._object_packer.loads(action)

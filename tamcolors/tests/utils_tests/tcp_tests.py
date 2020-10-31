@@ -56,3 +56,58 @@ class TCPTests(MultiTaskHelper, unittest.TestCase):
     def test_ping_ipv6(self):
         self.multiple_processes_helper([self.task(_test_ping_host_ipv6),
                                         self.task(_test_ping_connection_ipv6)])
+
+
+def _test_object_host():
+    with tcp.TCPReceiver() as r:
+        obj_con = tcp.TCPObjectConnector(r.get_host_connection(), no_return={"echo"})
+        assert obj_con.add(3, 5) == 8
+        assert obj_con.add(3, -5) == -2
+
+        for i in range(1, 10):
+            assert obj_con.step() == i
+
+        assert obj_con.ping("cats", "dogs", sum=44) == "ping ('cats', 'dogs') {'sum': 44}"
+
+        assert obj_con.ran_echo() is False
+        assert obj_con.echo() is None
+        assert obj_con.ran_echo() is True
+
+
+def _test_object_connection():
+    class Dummy:
+        def __init__(self):
+            self._i = 0
+            self._echo = False
+
+        @staticmethod
+        def ping(*args, **kwargs):
+            return "ping {} {}".format(args, kwargs)
+
+        @staticmethod
+        def add(a, b):
+            return a + b
+
+        def step(self):
+            self._i += 1
+            return self._i
+
+        def echo(self):
+            self._echo = True
+            return "echo"
+
+        def ran_echo(self):
+            return self._echo
+
+    try:
+        tcp.TCPObjectWrapper(tcp.TCPConnection(), Dummy())()
+    except tcp.TCPError:
+        pass
+
+
+@unittest.skipIf(os.environ.get("TRAVIS") == "true", "tests cant run in Travis CI.")
+class TCPObjectWrapper(MultiTaskHelper, unittest.TestCase):
+    @slow_test
+    def test_object_wrapper(self):
+        self.multiple_processes_helper([self.task(_test_object_host),
+                                        self.task(_test_object_connection)])
