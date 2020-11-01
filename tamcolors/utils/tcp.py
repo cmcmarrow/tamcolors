@@ -554,7 +554,7 @@ class TCPObjectWrapper:
                     self._tcp_connection.send_data(self._object_packer.dumps({"id": action_id, "error": str(e)}))
                 raise e
         except Exception as e:
-            log.critical("_action_thread error error: %s data: %s", e, action)
+            log.critical("_action_thread error: %s data: %s", e, action)
 
 
 class TCPObjectConnector:
@@ -587,6 +587,9 @@ class TCPObjectConnector:
         self._allocated_ids = set()
         self._free_ids = []
 
+        self._return_data = {}
+        Thread(target=self._return_collector, daemon=True).start()
+
     def __call__(self, func, *args, **kwargs):
         """
         info: will call an object method in the other program
@@ -618,7 +621,14 @@ class TCPObjectConnector:
 
             # if action has an id wait for return data
             if action_id is not None:
-                ret = self._object_packer.loads(self._tcp_connection.get_data())
+                #ret = self._object_packer.loads(self._tcp_connection.get_data())
+                while self._open:
+                    if action_id in self._return_data:
+                        ret = self._return_data[action_id]
+                        break
+                    elif "error" in self._return_data:
+                        raise self._return_data["error"]
+                del self._return_data[action_id]
                 self._free_id(action_id)
                 # check for error
                 if "error" in ret:
@@ -659,6 +669,17 @@ class TCPObjectConnector:
         if self._open:
             self._open = False
             self._tcp_connection.close()
+
+    def _return_collector(self):
+        try:
+            while self._open:
+                try:
+                    ret = self._object_packer.loads(self._tcp_connection.get_data())
+                    self._return_data[ret["id"]] = ret
+                except Exception as e:
+                    self._return_data["error"] = e
+        except Exception as e:
+            log.critical("_return_collector error: %s", str(e))
 
     def get_connection(self):
         """
