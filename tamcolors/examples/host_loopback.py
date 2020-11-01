@@ -5,7 +5,14 @@ from tamcolors.tam_io import tcp_io
 
 
 def run():
+    import cProfile
+    import pstats
+
+    profile = cProfile.Profile()
     with tcp.TCPReceiver() as r:
         io = tcp_io.get_tcp_io(r)
-        tam.tam_loop.TAMLoop(tabletennis.TableTennis(), io=io).run()
+        profile.runcall(tam.tam_loop.TAMLoop(tabletennis.TableTennis(), io=io))
         io.close()
+
+    ps = pstats.Stats(profile)
+    ps.print_stats()

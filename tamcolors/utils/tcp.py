@@ -7,6 +7,7 @@ from tamcolors.utils.object_packer import DEFAULT_OBJECT_PACKER_JSON
 from tamcolors.utils import log
 from tamcolors.utils import transport_optimizer
 from hashlib import sha512
+from time import sleep
 
 
 TCP_TIMEOUT = 60
@@ -587,6 +588,8 @@ class TCPObjectConnector:
         self._allocated_ids = set()
         self._free_ids = []
 
+        self._call_cache = {}
+
         self._return_data = {}
         Thread(target=self._return_collector, daemon=True).start()
 
@@ -627,6 +630,7 @@ class TCPObjectConnector:
                         break
                     elif "error" in self._return_data:
                         raise self._return_data["error"]
+                    sleep(0.0001)
                 del self._return_data[action_id]
                 self._free_id(action_id)
                 # check for error
@@ -651,7 +655,12 @@ class TCPObjectConnector:
             return super().__getattribute__(item)
         except AttributeError:
             # if object is missing attribute assume programs wants to call that func
-            return partial(self.__call__, item)
+            p = self._call_cache.get(item)
+            if p is not None:
+                return p
+            p = partial(self.__call__, item)
+            self._call_cache[item] = p
+            return p
 
     def is_open(self):
         """
