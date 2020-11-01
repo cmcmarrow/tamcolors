@@ -11,6 +11,8 @@ from . import tam_key_manager
 from . import colors
 from . import clouds
 from . import sandy_check
+from . import host_loopback
+from . import connection_loopback
 
 
 __all__ = ("alpha",

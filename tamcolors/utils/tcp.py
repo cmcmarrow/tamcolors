@@ -107,7 +107,7 @@ class TCPReceiver:
         info: will close tcp receiver connection
         :return: None
         """
-        if self._open:
+        if hasattr(self, "_open") and self._open:
             self._open = False
             self._socket.close()
 
@@ -621,7 +621,6 @@ class TCPObjectConnector:
 
             # if action has an id wait for return data
             if action_id is not None:
-                #ret = self._object_packer.loads(self._tcp_connection.get_data())
                 while self._open:
                     if action_id in self._return_data:
                         ret = self._return_data[action_id]
