@@ -360,7 +360,7 @@ class IO(RawIO, ABC):
         """
         info: will set the color mode
         :param mode: int: key to color mode
-        :return:
+        :return: None
         """
         self._mode = mode
 
