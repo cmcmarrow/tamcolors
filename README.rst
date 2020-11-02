@@ -127,7 +127,6 @@ long term goals
 * text editor
 * make and change fonts at run time
 * add .wav support
-* add code coverage
 * support German, French and Japanese Keyboards
 
 *****
@@ -137,8 +136,22 @@ goals
 * support FreeBSD
 
 ***********
+1.3.0 goals
+***********
+* add support for Solaris
+* add support for FreeBSD
+* add multi console example
+* make tam_loop multi console friendly
+* support German, French and Japanese Keyboards
+* supports Python 3.9
+* supports Python 3.8
+* supports Python 3.7
+* supports Python 3.6
+
+***********
 1.2.0 goals
 ***********
+* 11/?/2020
 * add tam_loop profiler - Done
 * add more io driver tests
 * add TCP IO (dummy console) - Done
