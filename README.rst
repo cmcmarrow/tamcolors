@@ -140,7 +140,7 @@ goals
 1.2.0 goals
 ***********
 * add more io driver tests
-* add TCP IO (dummy console)
+* add TCP IO (dummy console) - Done
 * save/rest Windows buffer size on exit - Done
 * clean up c/c++ - Done
 * add sandy check examples - Done
