@@ -139,7 +139,7 @@ goals
 ***********
 1.2.0 goals
 ***********
-* add tam_loop profiler
+* add tam_loop profiler - Done
 * add more io driver tests
 * add TCP IO (dummy console) - Done
 * save/rest Windows buffer size on exit - Done
