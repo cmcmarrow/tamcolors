@@ -142,7 +142,7 @@ goals
 * add support for FreeBSD
 * add multi console example
 * make tam_loop multi console friendly
-* support German, French and Japanese Keyboards
+* support German, French, Japanese, Chinese and Korean Keyboards
 * supports Python 3.9
 * supports Python 3.8
 * supports Python 3.7
