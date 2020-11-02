@@ -166,4 +166,4 @@ class TableTennis(tam.tam_loop.TAMFrame):
 
 
 def run():
-    tam.tam_loop.TAMLoop(TableTennis()).run()
+    tam.tam_loop.TAMLoop(TableTennis()).run_with_profiler()

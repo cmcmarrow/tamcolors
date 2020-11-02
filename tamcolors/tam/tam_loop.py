@@ -4,6 +4,8 @@ import threading
 import time
 import sys
 import itertools
+import cProfile
+import pstats
 
 # tamcolors libraries
 from tamcolors.tests import all_tests
@@ -101,7 +103,7 @@ class TAMLoop:
     def __call__(self):
         """
         info: will run tam loop
-        :return:
+        :return: None
         """
         if self.__running is not None:
             return
@@ -125,7 +127,7 @@ class TAMLoop:
         """
         info: will stop tam loop
         :param: reset_colors_to_console_defaults: bool
-        :return:
+        :return: None
         """
         if self.__running:
             self.__running = False
@@ -140,9 +142,20 @@ class TAMLoop:
     def run(self):
         """
         info: will call tam loop
-        :return:
+        :return: None
         """
         self()
+
+    def run_with_profiler(self):
+        """
+        info: will run with a profiler and print out data when done
+        :return: None
+        """
+        profile = cProfile.Profile()
+        profile.runcall(self)
+        ps = pstats.Stats(profile)
+        ps.sort_stats(pstats.SortKey.TIME)
+        ps.print_stats()
 
     @staticmethod
     def run_application(*args, **kwargs):
