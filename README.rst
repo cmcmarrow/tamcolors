@@ -161,9 +161,9 @@ what defines a release?
 versions
 ********
 
-***********
-1.2.0 goals
-***********
+*****
+1.2.0
+*****
 * 11/2/2020
 * added tam_loop profiler
 * added TCP IO (dummy console)
