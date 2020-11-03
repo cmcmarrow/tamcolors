@@ -45,14 +45,16 @@ class TCPReceiver:
         try:
             self._host = host
             self._port = port
-            self._open = True
+            self._open = False
 
             af_type = socket.AF_INET
             if ipv6:
                 af_type = socket.AF_INET6
 
             self._socket = socket.socket(af_type, socket.SOCK_STREAM)
+            self._socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             self._socket.bind((self._host, self._port))
+            self._open = True
             self._socket.listen(listen_count)
 
             self._connection_password = sha512(bytes(connection_password, encoding="utf-8")).hexdigest()
@@ -108,8 +110,9 @@ class TCPReceiver:
         info: will close tcp receiver connection
         :return: None
         """
-        if hasattr(self, "_open") and self._open:
+        if self._open:
             self._open = False
+            self._socket.shutdown(0)
             self._socket.close()
 
     def get_host_connection(self, wait=True):
@@ -251,7 +254,7 @@ class TCPBase:
         info: will close the connection
         :return: None
         """
-        if self._open:
+        if hasattr(self, "_open") and self._open:
             self._open = False
             self._connection.shutdown(0)
             self._connection.close()
