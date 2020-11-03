@@ -164,7 +164,7 @@ versions
 *****
 1.2.0
 *****
-* 11/2/2020
+* 11/3/2020
 * added tam_loop profiler
 * added TCP IO (dummy console)
 * save/rest Windows buffer size on exit
