@@ -138,30 +138,12 @@ goals
 ***********
 1.3.0 goals
 ***********
+* add more io driver tests
 * add support for Solaris
 * add support for FreeBSD
 * add multi console example
 * make tam_loop multi console friendly
 * support German, French, Japanese, Chinese and Korean Keyboards
-* supports Python 3.9
-* supports Python 3.8
-* supports Python 3.7
-* supports Python 3.6
-
-***********
-1.2.0 goals
-***********
-* 11/?/2020
-* add tam_loop profiler - Done
-* add more io driver tests
-* add TCP IO (dummy console) - Done
-* save/rest Windows buffer size on exit - Done
-* clean up c/c++ - Done
-* add sandy check examples - Done
-* add new color mode "MODE_16_PAL_256" - Done
-* add "preferred_mode"argument to TAMLoop - Done
-* clean up win dll selection process - Done
-* .ci testing - Done
 * supports Python 3.9
 * supports Python 3.8
 * supports Python 3.7
@@ -178,6 +160,24 @@ what defines a release?
 ********
 versions
 ********
+
+***********
+1.2.0 goals
+***********
+* 11/2/2020
+* added tam_loop profiler
+* added TCP IO (dummy console)
+* save/rest Windows buffer size on exit
+* cleaned up c/c++
+* added sandy check examples
+* added new color mode "MODE_16_PAL_256"
+* added "preferred_mode"argument to TAMLoop
+* cleaned up win dll selection process
+* added .ci testing
+* supports Python 3.9
+* supports Python 3.8
+* supports Python 3.7
+* supports Python 3.6
 
 *****
 1.1.1
