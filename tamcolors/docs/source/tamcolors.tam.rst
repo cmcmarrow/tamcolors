@@ -12,7 +12,6 @@ tamcolors.tam.tam\_loop module
    :undoc-members:
    :show-inheritance:
 
-
 Module contents
 ---------------
 

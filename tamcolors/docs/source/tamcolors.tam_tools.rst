@@ -92,7 +92,6 @@ tamcolors.tam\_tools.tam\_text\_box module
    :undoc-members:
    :show-inheritance:
 
-
 Module contents
 ---------------
 

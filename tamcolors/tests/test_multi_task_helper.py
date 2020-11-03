@@ -9,8 +9,8 @@ def process_runner(error_ret, func, *args, **kwargs):
     info: will run the task
     :param error_ret: list: away to return an error
     :param func: function
-    :param args: *args
-    :param kwargs: **kwargs
+    :param args: tuple
+    :param kwargs: dict
     :return:
     """
     try:
@@ -25,14 +25,14 @@ class MultiTaskHelper:
     def multiple_threads_helper(self, tasks, timeout=120):
         """
         info: will run tasks in a thread
-        :param tasks: list or tuple: [(func, *args, **kwargs), ...]
+        :param tasks: list or tuple: [(func, tuple, dict), ...]
         :param timeout: int
         :return:
         """
         def _not_main_task(task, time):
             """
             info: will run task in a thread and return an error
-            :param task: tuple or list: (func, *args, **kwargs)
+            :param task: tuple or list: (func, tuple, dict)
             :param time:
             :return: Exception or None
             """
@@ -43,8 +43,8 @@ class MultiTaskHelper:
                 info: will run the task
                 :param error_ret: list: away to return an error
                 :param func: function
-                :param args: *args
-                :param kwargs: **kwargs
+                :param args: tuple
+                :param kwargs: dict
                 :return:
                 """
                 try:
@@ -71,7 +71,7 @@ class MultiTaskHelper:
     def multiple_processes_helper(self, tasks, timeout=120):
         """
         info: will run tasks in a thread
-        :param tasks: list or tuple: [(func, *args, **kwargs), ...]
+        :param tasks: list or tuple: [(func, tuple, dict), ...]
         :param timeout: int
         :return:
         """
@@ -148,8 +148,8 @@ class MultiTaskHelper:
         """
         info: will make a Task
         :param func: Function
-        :param args: *args
-        :param kwargs: **kwargs
+        :param args: tuple
+        :param kwargs: dict
         :return: Task
         """
         return cls._Task(func, args, kwargs)

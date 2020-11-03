@@ -84,7 +84,6 @@ tamcolors.tests.tam\_tools\_tests.tam\_text\_box\_tests module
    :undoc-members:
    :show-inheritance:
 
-
 Module contents
 ---------------
 

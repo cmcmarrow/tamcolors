@@ -36,6 +36,22 @@ tamcolors.examples.colors module
    :undoc-members:
    :show-inheritance:
 
+tamcolors.examples.connection\_loopback module
+----------------------------------------------
+
+.. automodule:: tamcolors.examples.connection_loopback
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+tamcolors.examples.host\_loopback module
+----------------------------------------
+
+.. automodule:: tamcolors.examples.host_loopback
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 tamcolors.examples.icon module
 ------------------------------
 
@@ -48,6 +64,14 @@ tamcolors.examples.rgb\_color module
 ------------------------------------
 
 .. automodule:: tamcolors.examples.rgb_color
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+tamcolors.examples.sandy\_check module
+--------------------------------------
+
+.. automodule:: tamcolors.examples.sandy_check
    :members:
    :undoc-members:
    :show-inheritance:
@@ -99,7 +123,6 @@ tamcolors.examples.tam\_text\_box module
    :members:
    :undoc-members:
    :show-inheritance:
-
 
 Module contents
 ---------------

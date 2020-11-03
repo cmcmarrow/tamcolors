@@ -68,7 +68,6 @@ tamcolors.tests.tam\_io\_tests.win\_drivers\_tests module
    :undoc-members:
    :show-inheritance:
 
-
 Module contents
 ---------------
 

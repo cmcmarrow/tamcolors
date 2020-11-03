@@ -100,7 +100,6 @@ tamcolors.tam\_io.win\_drivers module
    :undoc-members:
    :show-inheritance:
 
-
 Module contents
 ---------------
 
