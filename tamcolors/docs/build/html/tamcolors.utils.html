@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>tamcolors.utils package &mdash; tamcolors 1.0.3 documentation</title>
+  <title>tamcolors.utils package &mdash; tamcolors 1.2.0 documentation</title>
   
 
   
@@ -269,12 +269,12 @@
 <span id="tamcolors-utils-identifier-module"></span><h2>tamcolors.utils.identifier module<a class="headerlink" href="#module-tamcolors.utils.identifier" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt id="tamcolors.utils.identifier.generate_identifier_bytes">
-<code class="sig-prename descclassname">tamcolors.utils.identifier.</code><code class="sig-name descname">generate_identifier_bytes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identifier_file</span><span class="o">=</span><span class="default_value">'C:\\Users\\Yoshi\\Desktop\\tamcolors\\tamcolors\\utils\\identifier.id'</span></em>, <em class="sig-param"><span class="n">identifier_size</span><span class="o">=</span><span class="default_value">500</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.identifier.generate_identifier_bytes" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">tamcolors.utils.identifier.</code><code class="sig-name descname">generate_identifier_bytes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identifier_file</span><span class="o">=</span><span class="default_value">'C:\\Users\\ch44d\\Desktop\\tamcolors\\tamcolors\\utils\\identifier.id'</span></em>, <em class="sig-param"><span class="n">identifier_size</span><span class="o">=</span><span class="default_value">500</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.identifier.generate_identifier_bytes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt id="tamcolors.utils.identifier.get_identifier_bytes">
-<code class="sig-prename descclassname">tamcolors.utils.identifier.</code><code class="sig-name descname">get_identifier_bytes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identifier_file</span><span class="o">=</span><span class="default_value">'C:\\Users\\Yoshi\\Desktop\\tamcolors\\tamcolors\\utils\\identifier.id'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.identifier.get_identifier_bytes" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">tamcolors.utils.identifier.</code><code class="sig-name descname">get_identifier_bytes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">identifier_file</span><span class="o">=</span><span class="default_value">'C:\\Users\\ch44d\\Desktop\\tamcolors\\tamcolors\\utils\\identifier.id'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.identifier.get_identifier_bytes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -533,6 +533,60 @@
 </dd></dl>
 
 <dl class="py class">
+<dt id="tamcolors.utils.tcp.TCPObjectConnector">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.utils.tcp.</code><code class="sig-name descname">TCPObjectConnector</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tcp_connection</span></em>, <em class="sig-param"><span class="n">object_packer</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">no_return</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">optimizer</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.tcp.TCPObjectConnector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.utils.tcp.TCPObjectConnector.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.tcp.TCPObjectConnector.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will close the object
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.utils.tcp.TCPObjectConnector.get_connection">
+<code class="sig-name descname">get_connection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.tcp.TCPObjectConnector.get_connection" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will get connection
+:return: TCPBase</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.utils.tcp.TCPObjectConnector.is_open">
+<code class="sig-name descname">is_open</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.tcp.TCPObjectConnector.is_open" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will check if object is still open
+:return: bool</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="tamcolors.utils.tcp.TCPObjectWrapper">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.utils.tcp.</code><code class="sig-name descname">TCPObjectWrapper</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tcp_connection</span></em>, <em class="sig-param"><span class="n">obj</span></em>, <em class="sig-param"><span class="n">object_packer</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.tcp.TCPObjectWrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="tamcolors.utils.tcp.TCPObjectWrapper.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.tcp.TCPObjectWrapper.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will close the object
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.utils.tcp.TCPObjectWrapper.get_connection">
+<code class="sig-name descname">get_connection</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.tcp.TCPObjectWrapper.get_connection" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will get connection
+:return: TCPBase</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.utils.tcp.TCPObjectWrapper.is_open">
+<code class="sig-name descname">is_open</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.tcp.TCPObjectWrapper.is_open" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will check if object is still open
+:return: bool</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt id="tamcolors.utils.tcp.TCPReceiver">
 <em class="property">class </em><code class="sig-prename descclassname">tamcolors.utils.tcp.</code><code class="sig-name descname">TCPReceiver</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">host</span><span class="o">=</span><span class="default_value">'127.0.0.1'</span></em>, <em class="sig-param"><span class="n">port</span><span class="o">=</span><span class="default_value">4444</span></em>, <em class="sig-param"><span class="n">ipv6</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">listen_count</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">connection_password</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">address_white_list</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">address_black_list</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">encryption</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">object_packer</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">our_information</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.tcp.TCPReceiver" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
@@ -545,7 +599,7 @@
 
 <dl class="py method">
 <dt id="tamcolors.utils.tcp.TCPReceiver.get_host_connection">
-<code class="sig-name descname">get_host_connection</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">wait</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.tcp.TCPReceiver.get_host_connection" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">get_host_connection</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">wait</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.utils.tcp.TCPReceiver.get_host_connection" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: will get a new host connection
 :param wait: bool: if true will wait for a connection
 :return: None or TCPHost</p>

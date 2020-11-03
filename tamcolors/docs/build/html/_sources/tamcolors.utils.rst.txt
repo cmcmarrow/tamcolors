@@ -76,7 +76,6 @@ tamcolors.utils.transport\_optimizer module
    :undoc-members:
    :show-inheritance:
 
-
 Module contents
 ---------------
 

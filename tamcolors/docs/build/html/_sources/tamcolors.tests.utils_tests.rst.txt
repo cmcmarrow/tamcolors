@@ -52,6 +52,14 @@ tamcolors.tests.utils\_tests.object\_packer\_tests module
    :undoc-members:
    :show-inheritance:
 
+tamcolors.tests.utils\_tests.tcp\_tests module
+----------------------------------------------
+
+.. automodule:: tamcolors.tests.utils_tests.tcp_tests
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 tamcolors.tests.utils\_tests.timer\_tests module
 ------------------------------------------------
 
@@ -67,7 +75,6 @@ tamcolors.tests.utils\_tests.transport\_optimizer\_tests module
    :members:
    :undoc-members:
    :show-inheritance:
-
 
 Module contents
 ---------------

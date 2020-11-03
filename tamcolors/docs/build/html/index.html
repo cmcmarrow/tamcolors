@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Welcome to tamcolors’s documentation! &mdash; tamcolors 1.0.3 documentation</title>
+  <title>Welcome to tamcolors’s documentation! &mdash; tamcolors 1.2.0 documentation</title>
   
 
   
@@ -151,8 +151,13 @@
             
   <div class="section" id="welcome-to-tamcolors-s-documentation">
 <h1>Welcome to tamcolors’s documentation!<a class="headerlink" href="#welcome-to-tamcolors-s-documentation" title="Permalink to this headline">¶</a></h1>
-<p><img alt="Icon" src="https://raw.githubusercontent.com/cmcmarrow/tamcolors/master/icon.png" />
-<img alt="TotalDownloads" src="https://pepy.tech/badge/tamcolors" /> <img alt="WeekDownloads" src="https://pepy.tech/badge/tamcolors/week" /> <img alt="Python3" src="https://img.shields.io/badge/python-3-blue" /> <img alt="License" src="https://img.shields.io/pypi/l/tamcolors" /> <img alt="Docs" src="https://readthedocs.org/projects/tamcolors/badge/?version=latest" /></p>
+<p><img alt="Icon" src="https://raw.githubusercontent.com/cmcmarrow/tamcolors/master/photos/icon.png" />
+<img alt="TotalDownloads" src="https://pepy.tech/badge/tamcolors" /> <img alt="WeekDownloads" src="https://pepy.tech/badge/tamcolors/week" /> <img alt="Python3" src="https://img.shields.io/badge/python-3-blue" /> <img alt="License" src="https://img.shields.io/pypi/l/tamcolors" /> <img alt="Docs" src="https://readthedocs.org/projects/tamcolors/badge/?version=latest" /> <img alt="Tests" src="https://travis-ci.com/cmcmarrow/tamcolors.svg?branch=master" /></p>
+<div class="section" id="about">
+<h2>about<a class="headerlink" href="#about" title="Permalink to this headline">¶</a></h2>
+<p>This library standardizes console color output across multiple platforms.
+It also can get keyboard inputs without interrupting the console output and can run a console application at ~25 FPS.</p>
+</div>
 <div class="section" id="pip-install-tamcolors">
 <h2>pip install tamcolors<a class="headerlink" href="#pip-install-tamcolors" title="Permalink to this headline">¶</a></h2>
 </div>
@@ -167,6 +172,7 @@
 </div>
 <div class="section" id="table-tennis-example">
 <h2>table tennis example<a class="headerlink" href="#table-tennis-example" title="Permalink to this headline">¶</a></h2>
+<p><img alt="TableTennis" src="https://raw.githubusercontent.com/cmcmarrow/tamcolors/master/photos/table_tennis.png" /></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tamcolors</span>
 <span class="n">tamcolors</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">tabletennis</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
@@ -174,6 +180,7 @@
 </div>
 <div class="section" id="basic-example">
 <h2>basic example<a class="headerlink" href="#basic-example" title="Permalink to this headline">¶</a></h2>
+<p><img alt="BasicExample" src="https://raw.githubusercontent.com/cmcmarrow/tamcolors/master/photos/basic_example.png" /></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">tamcolors</span>
 <span class="n">tamcolors</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="n">basic</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 </pre></div>
@@ -205,8 +212,11 @@
 <li class="toctree-l5"><a class="reference internal" href="tamcolors.examples.html#module-tamcolors.examples.basic">tamcolors.examples.basic module</a></li>
 <li class="toctree-l5"><a class="reference internal" href="tamcolors.examples.html#module-tamcolors.examples.clouds">tamcolors.examples.clouds module</a></li>
 <li class="toctree-l5"><a class="reference internal" href="tamcolors.examples.html#module-tamcolors.examples.colors">tamcolors.examples.colors module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="tamcolors.examples.html#module-tamcolors.examples.connection_loopback">tamcolors.examples.connection_loopback module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="tamcolors.examples.html#module-tamcolors.examples.host_loopback">tamcolors.examples.host_loopback module</a></li>
 <li class="toctree-l5"><a class="reference internal" href="tamcolors.examples.html#module-tamcolors.examples.icon">tamcolors.examples.icon module</a></li>
 <li class="toctree-l5"><a class="reference internal" href="tamcolors.examples.html#module-tamcolors.examples.rgb_color">tamcolors.examples.rgb_color module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="tamcolors.examples.html#module-tamcolors.examples.sandy_check">tamcolors.examples.sandy_check module</a></li>
 <li class="toctree-l5"><a class="reference internal" href="tamcolors.examples.html#module-tamcolors.examples.tabletennis">tamcolors.examples.tabletennis module</a></li>
 <li class="toctree-l5"><a class="reference internal" href="tamcolors.examples.html#module-tamcolors.examples.tam_key_manager">tamcolors.examples.tam_key_manager module</a></li>
 <li class="toctree-l5"><a class="reference internal" href="tamcolors.examples.html#module-tamcolors.examples.tam_list_buffer">tamcolors.examples.tam_list_buffer module</a></li>
@@ -307,6 +317,12 @@
 <li class="toctree-l7"><a class="reference internal" href="tamcolors.tests.tam_tools_tests.html#module-tamcolors.tests.tam_tools_tests">Module contents</a></li>
 </ul>
 </li>
+<li class="toctree-l6"><a class="reference internal" href="tamcolors.tests.tests_tests.html">tamcolors.tests.tests_tests package</a><ul>
+<li class="toctree-l7"><a class="reference internal" href="tamcolors.tests.tests_tests.html#submodules">Submodules</a></li>
+<li class="toctree-l7"><a class="reference internal" href="tamcolors.tests.tests_tests.html#module-tamcolors.tests.tests_tests.test_multi_task_helper_tests">tamcolors.tests.tests_tests.test_multi_task_helper_tests module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="tamcolors.tests.tests_tests.html#module-tamcolors.tests.tests_tests">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l6"><a class="reference internal" href="tamcolors.tests.utils_tests.html">tamcolors.tests.utils_tests package</a><ul>
 <li class="toctree-l7"><a class="reference internal" href="tamcolors.tests.utils_tests.html#submodules">Submodules</a></li>
 <li class="toctree-l7"><a class="reference internal" href="tamcolors.tests.utils_tests.html#module-tamcolors.tests.utils_tests.compress_tests">tamcolors.tests.utils_tests.compress_tests module</a></li>
@@ -315,6 +331,7 @@
 <li class="toctree-l7"><a class="reference internal" href="tamcolors.tests.utils_tests.html#module-tamcolors.tests.utils_tests.immutable_cache_tests">tamcolors.tests.utils_tests.immutable_cache_tests module</a></li>
 <li class="toctree-l7"><a class="reference internal" href="tamcolors.tests.utils_tests.html#module-tamcolors.tests.utils_tests.log_tests">tamcolors.tests.utils_tests.log_tests module</a></li>
 <li class="toctree-l7"><a class="reference internal" href="tamcolors.tests.utils_tests.html#module-tamcolors.tests.utils_tests.object_packer_tests">tamcolors.tests.utils_tests.object_packer_tests module</a></li>
+<li class="toctree-l7"><a class="reference internal" href="tamcolors.tests.utils_tests.html#module-tamcolors.tests.utils_tests.tcp_tests">tamcolors.tests.utils_tests.tcp_tests module</a></li>
 <li class="toctree-l7"><a class="reference internal" href="tamcolors.tests.utils_tests.html#module-tamcolors.tests.utils_tests.timer_tests">tamcolors.tests.utils_tests.timer_tests module</a></li>
 <li class="toctree-l7"><a class="reference internal" href="tamcolors.tests.utils_tests.html#module-tamcolors.tests.utils_tests.transport_optimizer_tests">tamcolors.tests.utils_tests.transport_optimizer_tests module</a></li>
 <li class="toctree-l7"><a class="reference internal" href="tamcolors.tests.utils_tests.html#module-tamcolors.tests.utils_tests">Module contents</a></li>
@@ -324,6 +341,7 @@
 </li>
 <li class="toctree-l5"><a class="reference internal" href="tamcolors.tests.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="tamcolors.tests.html#module-tamcolors.tests.all_tests">tamcolors.tests.all_tests module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="tamcolors.tests.html#module-tamcolors.tests.test_multi_task_helper">tamcolors.tests.test_multi_task_helper module</a></li>
 <li class="toctree-l5"><a class="reference internal" href="tamcolors.tests.html#module-tamcolors.tests.test_utils">tamcolors.tests.test_utils module</a></li>
 <li class="toctree-l5"><a class="reference internal" href="tamcolors.tests.html#module-tamcolors.tests">Module contents</a></li>
 </ul>

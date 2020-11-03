@@ -11,6 +11,7 @@ Subpackages
    tamcolors.tests.tam_io_tests
    tamcolors.tests.tam_tests
    tamcolors.tests.tam_tools_tests
+   tamcolors.tests.tests_tests
    tamcolors.tests.utils_tests
 
 Submodules
@@ -24,6 +25,14 @@ tamcolors.tests.all\_tests module
    :undoc-members:
    :show-inheritance:
 
+tamcolors.tests.test\_multi\_task\_helper module
+------------------------------------------------
+
+.. automodule:: tamcolors.tests.test_multi_task_helper
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 tamcolors.tests.test\_utils module
 ----------------------------------
 
@@ -31,7 +40,6 @@ tamcolors.tests.test\_utils module
    :members:
    :undoc-members:
    :show-inheritance:
-
 
 Module contents
 ---------------
