@@ -112,7 +112,10 @@ class TCPReceiver:
         """
         if self._open:
             self._open = False
-            self._socket.shutdown(0)
+            try:
+                self._socket.shutdown(0)
+            except OSError as e:
+                log.warning("tcp shutdown error: %s", str(e))
             self._socket.close()
 
     def get_host_connection(self, wait=True):
@@ -256,7 +259,10 @@ class TCPBase:
         """
         if hasattr(self, "_open") and self._open:
             self._open = False
-            self._connection.shutdown(0)
+            try:
+                self._connection.shutdown(0)
+            except OSError as e:
+                log.warning("tcp shutdown error: %s", str(e))
             self._connection.close()
 
     def get_data(self):
