@@ -15,7 +15,6 @@ def _test_ping_host():
         host.send_data(b"ping receiver")
         assert host.get_data() == b"ping host"
         host.close()
-        receiver.close()
 
 
 def _test_ping_connection():
@@ -33,7 +32,6 @@ def _test_ping_host_ipv6():
         host.send_data(b"ping receiver")
         assert host.get_data() == b"ping host"
         host.close()
-        receiver.close()
 
 
 def _test_ping_connection_ipv6():
@@ -60,7 +58,8 @@ class TCPTests(MultiTaskHelper, unittest.TestCase):
 
 def _test_object_host():
     with tcp.TCPReceiver() as r:
-        obj_con = tcp.TCPObjectConnector(r.get_host_connection(), no_return={"echo"}, optimizer={"ping"})
+        host = r.get_host_connection()
+        obj_con = tcp.TCPObjectConnector(host, no_return={"echo"}, optimizer={"ping"})
         assert obj_con.add(3, 5) == 8
         assert obj_con.add(3, -5) == -2
 
@@ -74,6 +73,7 @@ def _test_object_host():
         assert obj_con.ran_echo() is False
         assert obj_con.echo() is None
         assert obj_con.ran_echo() is True
+        host.close()
 
 
 def _test_object_connection():
@@ -101,8 +101,10 @@ def _test_object_connection():
         def ran_echo(self):
             return self._echo
 
+    time.sleep(5)
     try:
-        tcp.TCPObjectWrapper(tcp.TCPConnection(), Dummy())()
+        connection = tcp.TCPConnection()
+        tcp.TCPObjectWrapper(connection, Dummy())()
     except tcp.TCPError:
         pass
 

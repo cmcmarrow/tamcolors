@@ -21,5 +21,5 @@ class TimerTests(unittest.TestCase):
         timer = Timer()
         sleep(0.5)
         ran_time, total_time = timer.offset_sleep(1)
-        self.assertTrue(0.52 >= ran_time >= 0.48)
-        self.assertTrue(1.02 >= total_time >= 0.98)
+        self.assertTrue(0.55 >= ran_time >= 0.45)
+        self.assertTrue(1.05 >= total_time >= 0.95)
