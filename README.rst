@@ -128,6 +128,7 @@ long term goals
 * make and change fonts at run time
 * add .wav support
 * support German, French and Japanese Keyboards
+* add normal keyboard mode
 
 *****
 goals
@@ -138,6 +139,7 @@ goals
 ***********
 1.3.0 goals
 ***********
+* fix exit clear
 * add more io driver tests
 * add support for Solaris
 * add support for FreeBSD
