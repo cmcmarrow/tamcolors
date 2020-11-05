@@ -135,9 +135,9 @@ class TAMLoop:
                 frame._done(self, self.__loop_data)
             if not self.__test_mode:
                 self.__key_loop_thread.join()
-                self.__io.done()
                 if reset_colors_to_console_defaults:
                     self.__io.reset_colors_to_console_defaults()
+                self.__io.done()
 
     def run(self):
         """
