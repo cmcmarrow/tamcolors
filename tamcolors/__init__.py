@@ -10,7 +10,7 @@ from . import utils
 
 
 __author__ = "Charles McMarrow"
-__version__ = "1.2.0"
+__version__ = "1.3.0"
 __email__ = "Charles.M.McMarrow@gmail.com"
 __license__ = "Apache Software License 2.0"
 
