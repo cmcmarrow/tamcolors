@@ -139,7 +139,7 @@ goals
 ***********
 1.3.0 goals
 ***********
-* fix exit clear
+* fix exit clear - Done
 * add more io driver tests
 * add support for Solaris
 * add support for FreeBSD
