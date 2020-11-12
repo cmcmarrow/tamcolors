@@ -9,7 +9,7 @@ from .tam_buffer import TAMBuffer
 from tamcolors.tam_c import _win_tam as io
 from tamcolors.tam_io import tam_drivers
 from tamcolors.tam_io import tam_colors
-from tamcolors.tam_io import io_tam
+from tamcolors.tam_io import io_tam, tam_keys
 
 
 WIN_STABLE = False
@@ -79,6 +79,17 @@ class WINKeyDriver(tam_drivers.KeyDriver, WinSharedData, ABC):
         windows_keys["27"] = ("ESCAPE", "SPECIAL")
 
         return windows_keys
+
+    def get_keyboard_name(self, default_to_us_english=True):
+        """
+        info: Will get the keyboard language name
+        :param default_to_us_english: bool
+        :return: str
+        """
+        name = io._get_keyboard_name()
+        if default_to_us_english and name == tam_keys.UNKNOWN:
+            return tam_keys.US_ENGLISH
+        return name
 
 
 class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):

@@ -5,7 +5,9 @@
 #include <iostream>
 #include <windows.h>
 #include <wingdi.h>
+#include <winuser.h>
 
+#pragma comment (lib, "User32.lib")
 
 /*
 C++ API to windows console
@@ -241,11 +243,65 @@ int get_key() {
 	Not -1: value of key data
 	*/
 	//check if key data present
-	if (kbhit()) {
+	if (_kbhit()) {
 		//get key data
-		return getch();
+		return _getch();
 	}
 	//no key data
 	return -1;
 }
 
+char* get_keyboard_name() {
+	/*
+	info: will get a support keyboard name
+	will return UNKNOWN if keyboard is not supported
+	return: char*
+	*/
+	HKL key_board_layout = GetKeyboardLayout(GetCurrentThreadId());
+
+	// ENGLISH
+	if (PRIMARYLANGID(key_board_layout) == SUBLANG_ENGLISH_US) {
+		return "US_ENGLISH";
+	}
+	else if (PRIMARYLANGID(key_board_layout) == SUBLANG_ENGLISH_UK) {
+		return "UK_ENGLISH";
+	}
+	else if (PRIMARYLANGID(key_board_layout) == SUBLANG_ENGLISH_AUS) {
+		return "AUS_ENGLISH";
+	}
+	else if (PRIMARYLANGID(key_board_layout) == SUBLANG_ENGLISH_CAN) {
+		return "CAN_ENGLISH";
+	}
+	else if (PRIMARYLANGID(key_board_layout) == LANG_ENGLISH) {
+		return "US_ENGLISH";
+	}
+	
+	// SPANISH
+	if (PRIMARYLANGID(key_board_layout) == SUBLANG_SPANISH) {
+		return "CASTILIAN_SPANISH";
+	}
+	else if (PRIMARYLANGID(key_board_layout) == SUBLANG_SPANISH_MEXICAN) {
+		return "MEXICAN_SPANISH";
+	}
+	else if (PRIMARYLANGID(key_board_layout) == LANG_SPANISH) {
+		return "CASTILIAN_SPANISH";
+	}
+
+	// JAPANESE
+	if (PRIMARYLANGID(key_board_layout) == LANG_JAPANESE) {
+		return "JAPAN_JAPANESE";
+	}
+	
+	// GERMAN
+	if (PRIMARYLANGID(key_board_layout) == LANG_GERMAN) {
+		return "GERMAN";
+	}
+
+	// FRENCH
+	if (PRIMARYLANGID(key_board_layout) == LANG_FRENCH) {
+		return "FRENCH";
+	}
+
+	// UNKNOWN
+	return "UNKNOWN";
+}

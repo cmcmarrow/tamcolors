@@ -31,6 +31,10 @@ class AnyIOTests(unittest.TestCase):
         io = get_any_io()
         self.assertEqual(io.get_key(), False)
 
+    def test_get_keyboard_name(self):
+        io = get_any_io()
+        self.assertEqual(io.get_keyboard_name(), tam_io.tam_keys.US_ENGLISH)
+
     def test_get_dimensions(self):
         io = get_any_io()
         self.assertEqual(io.get_dimensions(), (85, 25))

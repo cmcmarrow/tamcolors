@@ -296,6 +296,24 @@ static PyObject* _get_key(PyObject* self, PyObject* args) {
 }
 
 
+static PyObject* _get_keyboard_name(PyObject* self, PyObject* args) {
+	/*
+	info: will get a support keyboard name
+	will return UNKNOWN if keyboard is not supported
+	return: char*
+	*/
+	if (!PyArg_ParseTuple(args, "")) {
+		return NULL;
+	}
+	try {
+		return Py_BuildValue("s", get_keyboard_name());
+	}
+	catch (std::exception& e) {
+		PyErr_SetString(_WinTamError, e.what());
+		return NULL;
+	}
+}
+
 static PyMethodDef _win_tam_methods[] = {
 	{
 		"_has_vaild_win_console", _has_vaild_win_console, METH_VARARGS,
@@ -338,16 +356,20 @@ static PyMethodDef _win_tam_methods[] = {
 		"_set_console_color"
 	},
 	{
-		"_get_key", _get_key, METH_VARARGS,
-		"_get_key"
-	},
-	{
 		"_set_rgb_color", _set_rgb_color, METH_VARARGS,
 		"_set_rgb_color"
 	},
 	{
 		"_get_rgb_color", _get_rgb_color, METH_VARARGS,
 		"_get_rgb_color"
+	},
+	{
+		"_get_key", _get_key, METH_VARARGS,
+		"_get_key"
+	},
+	{
+		"_get_keyboard_name", _get_keyboard_name, METH_VARARGS,
+		"_get_keyboard_name"
 	},
 { NULL, NULL, 0, NULL }
 };
