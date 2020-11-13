@@ -5,6 +5,7 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 
+
 /*
 C++ API to linux console
 can get dimension of console
