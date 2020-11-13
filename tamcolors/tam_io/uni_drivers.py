@@ -2,11 +2,12 @@
 import string
 import os
 import sys
+import subprocess
 from abc import ABC
 
 # tamcolors libraries
 from tamcolors.tam_c import _uni_tam as io
-from tamcolors.tam_io import tam_drivers
+from tamcolors.tam_io import tam_drivers, tam_keys
 
 
 UNI_STABLE = io is not None
@@ -95,6 +96,23 @@ class UNIKeyDriver(tam_drivers.KeyDriver, UNISharedData, ABC):
         linux_keys["27"] = ("ESCAPE", "SPECIAL")
 
         return linux_keys
+
+    def get_keyboard_name(self, default_to_us_english=True):
+        """
+        info: Will get the keyboard language name
+        :param default_to_us_english: bool
+        :return: str
+        """
+        name = tam_keys.UNKNOWN
+        process = subprocess.Popen(["setxkbmap", "-query"],
+                                   stdout=subprocess.PIPE,
+                                   stderr=subprocess.PIPE)
+        raw_out, _ = process.communicate(timeout=5)
+        raw_out = str(raw_out, encoding="utf-8")
+        
+        if default_to_us_english and name == tam_keys.UNKNOWN:
+            return tam_keys.US_ENGLISH
+        return name
 
     def enable_console_keys(self, enable):
         """
