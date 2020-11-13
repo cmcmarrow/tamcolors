@@ -266,6 +266,14 @@ class TAMLoop:
         except BaseException as error:
             self.__error = error
 
+    def get_keyboard_name(self, default_to_us_english=True):
+        """
+        info: Will get the keyboard language name
+        :param default_to_us_english: bool
+        :return: str
+        """
+        return self.__io.get_keyboard_name(default_to_us_english)
+
     def get_color_2(self, spot):
         """
         info: Will get color from color palette 2

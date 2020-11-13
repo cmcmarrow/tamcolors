@@ -79,6 +79,14 @@ class RawIO(ABC):
         """
         raise NotImplementedError()
 
+    def get_keyboard_name(self, default_to_us_english=True):
+        """
+        info: Will get the keyboard language name
+        :param default_to_us_english: bool
+        :return: str
+        """
+        raise NotImplementedError()
+
     def get_dimensions(self):
         """
         info: Gets the dimensions of console
@@ -462,6 +470,14 @@ class IO(RawIO, ABC):
         """
         info: Gets an input from the terminal
         :return: tuple or false
+        """
+        raise NotImplementedError()
+
+    def get_keyboard_name(self, default_to_us_english=True):
+        """
+        info: Will get the keyboard language name
+        :param default_to_us_english: bool
+        :return: str
         """
         raise NotImplementedError()
 

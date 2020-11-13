@@ -158,6 +158,28 @@ class WinDriversTests(unittest.TestCase):
 
             self.assertEqual(_get_key.call_count, 5)
 
+    def test_get_keyboard_name(self):
+        io = get_win_io()
+        self.assertIsInstance(io.get_keyboard_name(), str)
+
+    def test_get_keyboard_name_2(self):
+        io = get_win_io()
+        with unittest.mock.patch.object(tam_io.win_drivers.io, "_get_keyboard_name",
+                                        return_value=tam_io.tam_keys.UK_ENGLISH) as _get_keyboard_name:
+            self.assertEqual(io.get_keyboard_name(), tam_io.tam_keys.UK_ENGLISH)
+
+    def test_get_keyboard_name_3(self):
+        io = get_win_io()
+        with unittest.mock.patch.object(tam_io.win_drivers.io, "_get_keyboard_name",
+                                        return_value=tam_io.tam_keys.UNKNOWN) as _get_keyboard_name:
+            self.assertEqual(io.get_keyboard_name(), tam_io.tam_keys.US_ENGLISH)
+            
+    def test_get_keyboard_name_4(self):
+        io = get_win_io()
+        with unittest.mock.patch.object(tam_io.win_drivers.io, "_get_keyboard_name",
+                                        return_value=tam_io.tam_keys.UNKNOWN) as _get_keyboard_name:
+            self.assertEqual(io.get_keyboard_name(False), tam_io.tam_keys.UNKNOWN)
+
     def test_get_dimensions(self):
         io = get_win_io()
         with unittest.mock.patch.object(tam_io.win_drivers.io, "_get_dimensions", return_value=(20, 25)) as _get_dimensions:

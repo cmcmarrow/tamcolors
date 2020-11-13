@@ -6,6 +6,10 @@ import string
 terminal keys supported on all platforms
 """
 
+UNKNOWN = "UNKNOWN"
+US_ENGLISH = "US_ENGLISH"
+UK_ENGLISH = "US_ENGLISH"
+
 
 def _get_keys():
     """

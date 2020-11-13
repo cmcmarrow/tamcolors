@@ -53,6 +53,14 @@ class KeyDriver(TAMDriver, ABC):
     def enable_console_keys(self, enable):
         super().enable_console_keys(enable)
 
+    def get_keyboard_name(self, default_to_us_english=True):
+        """
+        info: Will get the keyboard language name
+        :param default_to_us_english: bool
+        :return: str
+        """
+        raise NotImplementedError()
+
 
 class ColorDriver(TAMDriver, ABC):
     def printc(self, output, color, flush, stderr):

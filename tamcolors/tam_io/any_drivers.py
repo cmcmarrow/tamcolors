@@ -2,6 +2,7 @@
 from abc import ABC
 from tamcolors.tam_io import tam_drivers
 from tamcolors.tam_io import io_tam
+from tamcolors.tam_io import tam_keys
 
 
 class ANYKeyDriver(tam_drivers.KeyDriver, ABC):
@@ -23,6 +24,14 @@ class ANYKeyDriver(tam_drivers.KeyDriver, ABC):
         :return: {str: (str, str), ...}
         """
         raise {}
+
+    def get_keyboard_name(self, default_to_us_english=True):
+        """
+        info: Will get the keyboard language name
+        :param default_to_us_english: bool
+        :return: str
+        """
+        return tam_keys.US_ENGLISH
 
 
 class ANYColorDriver(tam_drivers.ColorDriver, ABC):
