@@ -8,6 +8,7 @@ from abc import ABC
 # tamcolors libraries
 from tamcolors.tam_c import _uni_tam as io
 from tamcolors.tam_io import tam_drivers, tam_keys
+from tamcolors.utils import log
 
 
 UNI_STABLE = io is not None
@@ -104,12 +105,33 @@ class UNIKeyDriver(tam_drivers.KeyDriver, UNISharedData, ABC):
         :return: str
         """
         name = tam_keys.UNKNOWN
-        process = subprocess.Popen(["setxkbmap", "-query"],
-                                   stdout=subprocess.PIPE,
-                                   stderr=subprocess.PIPE)
-        raw_out, _ = process.communicate(timeout=5)
-        raw_out = str(raw_out, encoding="utf-8")
-        
+        try:
+            process = subprocess.Popen(["setxkbmap", "-query"],
+                                       stdout=subprocess.PIPE,
+                                       stderr=subprocess.PIPE)
+            raw_out, _ = process.communicate(timeout=5)
+            raw_out = str(raw_out, encoding="utf-8")
+            raw_name = raw_out.split("layout:", 1)[1].split("\n")[0].lstrip(" ").split(",")[0].lower()
+
+            if raw_name == "us":
+                name = tam_keys.US_ENGLISH
+            elif raw_name == "ca":
+                name = tam_keys.CAN_ENGLISH
+            elif raw_name == "au":
+                name = tam_keys.AUS_ENGLISH
+            elif raw_name == "gb":
+                name = tam_keys.UK_ENGLISH
+            elif raw_name == "de":
+                name = tam_keys.GER_GERMAN
+            elif raw_name == "fr":
+                name = tam_keys.FRE_FRENCH
+            elif raw_name == "es":
+                name = tam_keys.SPA_SPANISH
+            elif raw_name == "latam":
+                name = tam_keys.LAT_SPANISH
+        except Exception as e:
+            log.error("Failed to get unix keyboard name ERROR: %s", e)
+
         if default_to_us_english and name == tam_keys.UNKNOWN:
             return tam_keys.US_ENGLISH
         return name
