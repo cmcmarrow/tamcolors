@@ -278,28 +278,23 @@ char* get_keyboard_name() {
 	
 	// SPANISH
 	if (PRIMARYLANGID(key_board_layout) == SUBLANG_SPANISH) {
-		return "CASTILIAN_SPANISH";
+		return "SPA_SPANISH";
 	}
 	else if (PRIMARYLANGID(key_board_layout) == SUBLANG_SPANISH_MEXICAN) {
-		return "MEXICAN_SPANISH";
+		return "LAT_SPANISH";
 	}
 	else if (PRIMARYLANGID(key_board_layout) == LANG_SPANISH) {
-		return "CASTILIAN_SPANISH";
-	}
-
-	// JAPANESE
-	if (PRIMARYLANGID(key_board_layout) == LANG_JAPANESE) {
-		return "JAPAN_JAPANESE";
+		return "SPA_SPANISH";
 	}
 	
 	// GERMAN
 	if (PRIMARYLANGID(key_board_layout) == LANG_GERMAN) {
-		return "GERMAN";
+		return "GER_GERMAN";
 	}
 
 	// FRENCH
 	if (PRIMARYLANGID(key_board_layout) == LANG_FRENCH) {
-		return "FRENCH";
+		return "FRE_FRENCH";
 	}
 
 	// UNKNOWN

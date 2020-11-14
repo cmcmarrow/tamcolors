@@ -127,7 +127,7 @@ long term goals
 * text editor
 * make and change fonts at run time
 * add .wav support
-* support German, French and Japanese Keyboards
+* support GER_GERMAN, FRE_FRENCH, SPA_SPANISH, LAT_SPANISH, ...  Keyboards
 * add normal keyboard mode
 
 *****
@@ -145,7 +145,7 @@ goals
 * add support for FreeBSD
 * add multi console example
 * make tam_loop multi console friendly
-* support German, French, Japanese, Chinese and Korean Keyboards
+* support GER_GERMAN, FRE_FRENCH, SPA_SPANISH, LAT_SPANISH, ...  Keyboards
 * supports Python 3.9
 * supports Python 3.8
 * supports Python 3.7
