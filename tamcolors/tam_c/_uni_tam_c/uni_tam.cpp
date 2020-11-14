@@ -54,7 +54,6 @@ void disable_get_key(){
 	*/
     termios term;
     tcgetattr(0, &term);
-    term.c_lflag |= ICANON;
     term.c_lflag |= ICANON | ECHO;
     tcsetattr(0, TCSANOW, &term);
 }

@@ -11,6 +11,7 @@ class TAMKeyManager(tam.tam_loop.TAMFrame):
 
         self._key_manager = tam_tools.tam_key_manager.TAMKeyManager()
         self._output = ""
+        self._keyboard_name = ""
 
     def update(self, tam_loop, keys, loop_data):
         self._key_manager.update(keys)
@@ -30,6 +31,8 @@ class TAMKeyManager(tam.tam_loop.TAMFrame):
         if self._key_manager.get_key_state("BACKSPACE"):
             tam_loop.done()
 
+        self._keyboard_name = tam_loop.get_keyboard_name()
+
     def draw(self, tam_buffer, loop_data):
         tam_buffer.clear()
 
@@ -45,6 +48,13 @@ class TAMKeyManager(tam.tam_loop.TAMFrame):
                                       30,
                                       text="Try a, b and c.\nbackspace to quit.",
                                       foreground_color=tam_io.tam_colors.RED,
+                                      background_color=tam_io.tam_colors.ALPHA)
+
+        tam_tools.tam_print.tam_print(tam_buffer,
+                                      0,
+                                      32,
+                                      text=self._keyboard_name,
+                                      foreground_color=tam_io.tam_colors.LIGHT_BLUE,
                                       background_color=tam_io.tam_colors.ALPHA)
 
 

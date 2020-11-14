@@ -10,11 +10,13 @@ def get_c_file_path(directory, name):
 
 ext_modules = []
 if platform.system() == "Windows":
-    ext_modules.append(Extension("tamcolors.tam_c._win_tam", sources=[get_c_file_path("_win_tam_c", "_win_tam.cpp"),
-                                                                      get_c_file_path("_win_tam_c", "win_tam.cpp")]))
+    ext_modules.append(Extension("tamcolors.tam_c._win_tam",
+                                 sources=[get_c_file_path("_win_tam_c", "_win_tam.cpp"),
+                                          get_c_file_path("_win_tam_c", "win_tam.cpp")]))
 elif platform.system() in ("Darwin", "Linux"):
-    ext_modules.append(Extension("tamcolors.tam_c._uni_tam", sources=[get_c_file_path("_uni_tam_c", "_uni_tam.cpp"),
-                                                                      get_c_file_path("_uni_tam_c", "uni_tam.cpp")]))
+    ext_modules.append(Extension("tamcolors.tam_c._uni_tam",
+                                 sources=[get_c_file_path("_uni_tam_c", "_uni_tam.cpp"),
+                                          get_c_file_path("_uni_tam_c", "uni_tam.cpp")]))
 
 with open(os.path.join("README.rst")) as readme:
     long_description = readme.read()

@@ -6,6 +6,19 @@ import string
 terminal keys supported on all platforms
 """
 
+UNKNOWN = "UNKNOWN"
+
+US_ENGLISH = "US_ENGLISH"
+UK_ENGLISH = "UK_ENGLISH"
+CAN_ENGLISH = "CAN_ENGLISH"
+AUS_ENGLISH = "AUS_ENGLISH"
+
+SPA_SPANISH = "SPA_SPANISH"
+LAT_SPANISH = "LAT_SPANISH"
+
+GER_GERMAN = "GER_GERMAN"
+
+FRE_FRENCH = "FRE_FRENCH"
 
 def _get_keys():
     """

@@ -32,4 +32,5 @@ void set_console_color(int);
 void set_rgb_color(int, COLORREF);
 COLORREF get_rgb_color(int);
 int get_key();
+char* get_keyboard_name();
 #endif
