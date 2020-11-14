@@ -114,6 +114,10 @@ class UniIOTests(unittest.TestCase):
                 self.assertEqual(_get_key.call_count, 7)
         finally:
             io.enable_console_keys(False)
+            
+    def test_get_keyboard_name(self):
+        io = get_uni_io()
+        self.assertIsInstance(io.get_keyboard_name(), str)
 
     def test_get_dimensions(self):
         with unittest.mock.patch.object(tam_io.uni_drivers.io, "_get_dimensions", return_value=(20, 25)) as _get_dimensions:
