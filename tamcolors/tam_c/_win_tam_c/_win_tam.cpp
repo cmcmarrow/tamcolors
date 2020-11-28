@@ -314,6 +314,33 @@ static PyObject* _get_keyboard_name(PyObject* self, PyObject* args) {
 	}
 }
 
+static PyObject* _get_key_state(PyObject* self, PyObject* args) {
+	/*
+	info: will get key state
+	parameter: int: key_code
+	return: int
+	*/
+	int key_code;
+	if (!PyArg_ParseTuple(args, "i", &key_code)) {
+		return NULL;
+	}
+	try {
+		get_key(); // throw away key
+		if (get_key_state(key_code)) {
+			Py_INCREF(Py_True);
+			return Py_BuildValue("O", Py_True);
+		}
+		else {
+			Py_INCREF(Py_False);
+			return Py_BuildValue("O", Py_False);
+		}
+	}
+	catch (std::exception& e) {
+		PyErr_SetString(_WinTamError, e.what());
+		return NULL;
+	}
+}
+
 static PyMethodDef _win_tam_methods[] = {
 	{
 		"_has_vaild_win_console", _has_vaild_win_console, METH_VARARGS,
@@ -370,6 +397,10 @@ static PyMethodDef _win_tam_methods[] = {
 	{
 		"_get_keyboard_name", _get_keyboard_name, METH_VARARGS,
 		"_get_keyboard_name"
+	},
+	{
+		"_get_key_state", _get_key_state, METH_VARARGS,
+		"_get_key_state"
 	},
 { NULL, NULL, 0, NULL }
 };

@@ -300,3 +300,12 @@ char* get_keyboard_name() {
 	// UNKNOWN
 	return "UNKNOWN";
 }
+
+int get_key_state(int key_code) {
+	/*
+	info: will get key state
+	parameter: int: key_code
+	return: int
+	*/
+	return GetAsyncKeyState(key_code);
+}
