@@ -1,6 +1,7 @@
 from abc import ABC
 import sys
 from tamcolors.tam_io import tam_colors
+from time import sleep
 
 
 """
@@ -75,6 +76,14 @@ class RawIO(ABC):
     def get_key(self):
         """
         info: Gets an input from the terminal
+        :return: tuple or false
+        """
+        raise NotImplementedError()
+
+    def wait_key(self, rest_time=0.0001):
+        """
+        info: Get an input from the terminal
+        :param: rest_time: float: rest time from checking if a key is down
         :return: tuple or false
         """
         raise NotImplementedError()
@@ -472,6 +481,19 @@ class IO(RawIO, ABC):
         :return: tuple or false
         """
         raise NotImplementedError()
+
+    def wait_key(self, rest_time=0.0001):
+        """
+        info: Get an input from the terminal
+        :param: rest_time: float: rest time from checking if a key is down
+        :return: tuple or false
+        """
+        while self.is_console_keys_enabled():
+            key = self.get_key()
+            if key is not False:
+                return key
+            sleep(rest_time)
+        return False
 
     def get_keyboard_name(self, default_to_us_english=True):
         """
