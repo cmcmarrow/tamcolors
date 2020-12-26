@@ -257,7 +257,9 @@ class TCPBase:
         info: will close the connection
         :return: None
         """
-        if hasattr(self, "_open") and self._open:
+        if not hasattr(self, "_open"):
+            self._open = False
+        elif self._open:
             self._open = False
             try:
                 self._connection.shutdown(0)
@@ -277,6 +279,7 @@ class TCPBase:
                 ret_data = self._encryption.decrypt(ret_data)
             return compress.decompress(ret_data)
         except Exception as e:
+            self.close()
             raise TCPError(str(e))
         finally:
             self._get_lock.release()
@@ -294,6 +297,7 @@ class TCPBase:
                 data = self._encryption.encrypt_with_public_key(self._connection_public_key, data)
             self._send_block(data)
         except Exception as e:
+            self.close()
             raise TCPError(str(e))
         finally:
             self._send_lock.release()
@@ -490,8 +494,6 @@ class TCPObjectWrapper:
         self._object_packer = object_packer
         self._transport_optimizers = {}
 
-        self._open = True
-
     def __call__(self):
         """
         info: let other program call object methods
@@ -513,15 +515,14 @@ class TCPObjectWrapper:
         info: will check if object is still open
         :return: bool
         """
-        return self._open
+        return self._tcp_connection.is_open()
 
     def close(self):
         """
         info: will close the object
         :return:
         """
-        if self._open:
-            self._open = False
+        if self.is_open():
             self._tcp_connection.close()
 
     def get_connection(self):
@@ -591,8 +592,6 @@ class TCPObjectConnector:
             optimizer = set()
         self._transport_optimizers = {func: transport_optimizer.LastSentCache() for func in optimizer}
 
-        self._open = True
-
         self._id_lock = Lock()
         self._allocated_ids = set()
         self._free_ids = []
@@ -610,7 +609,7 @@ class TCPObjectConnector:
         :param kwargs: **kwargs
         :return: object
         """
-        if self._open:
+        if self.is_open():
             action_id = None
             # don't give action an id if func is in no return
             # this is so __call__ does not wait for a return
@@ -676,20 +675,19 @@ class TCPObjectConnector:
         info: will check if object is still open
         :return: bool
         """
-        return self._open
+        return self._tcp_connection.is_open()
 
     def close(self):
         """
         info: will close the object
         :return:
         """
-        if self._open:
-            self._open = False
+        if self._tcp_connection.is_open():
             self._tcp_connection.close()
 
     def _return_collector(self):
         try:
-            while self._open:
+            while self.is_open():
                 try:
                     ret = self._object_packer.loads(self._tcp_connection.get_data())
                     self._return_data[ret["id"]] = ret
