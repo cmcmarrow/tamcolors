@@ -134,10 +134,10 @@ class TAMLoop:
             for frame in self.__frame_stack[::-1]:
                 frame._done(self, self.__loop_data)
             if not self.__test_mode:
-                self.__key_loop_thread.join()
                 if reset_colors_to_console_defaults:
                     self.__io.reset_colors_to_console_defaults()
                 self.__io.done()
+                self.__key_loop_thread.join(timeout=5)
 
     def run(self):
         """
@@ -256,13 +256,12 @@ class TAMLoop:
 
         try:
             while self.__running:
-                key = self.__io.get_key()
+                key = self.__io.wait_key()
                 if key is not False:
                     if key[0] == self.__color_change_key:
                         self.__io.set_mode(next(self.__color_modes))
                     else:
                         self.__input_keys.append(key)
-                time.sleep(0.0001)
         except BaseException as error:
             self.__error = error
 

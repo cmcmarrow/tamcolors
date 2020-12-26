@@ -28,7 +28,7 @@ class TAMLoopTests(unittest.TestCase):
                     self.assertEqual(start.mock_calls[0], unittest.mock.call())
 
                     self.assertEqual(join.call_count, 1)
-                    self.assertEqual(join.mock_calls[0], unittest.mock.call())
+                    self.assertEqual(join.mock_calls[0], unittest.mock.call(timeout=5))
 
                     done.assert_called_once_with(loop, {})
 
