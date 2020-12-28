@@ -3,6 +3,7 @@ tamcolors
 #########
 
 |Icon|
+
 |TotalDownloads| |WeekDownloads| |Python3| |License| |Docs| |Tests|
 
 *****
