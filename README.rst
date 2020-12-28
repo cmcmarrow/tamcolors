@@ -274,7 +274,7 @@ versions
 * added textBuffer
 * supports Python 3.6
 
-.. |Icon| image:: https://raw.githubusercontent.com/cmcmarrow/tamcolors/master/photos/icon.png
+.. |Icon| image:: https://raw.githubusercontent.com/cmcmarrow/tamcolors/master/photos/small_icon.png
 .. |TableTennis| image:: https://raw.githubusercontent.com/cmcmarrow/tamcolors/master/photos/table_tennis.png
 .. |BasicExample| image:: https://raw.githubusercontent.com/cmcmarrow/tamcolors/master/photos/basic_example.png
 .. |TotalDownloads| image:: https://pepy.tech/badge/tamcolors
