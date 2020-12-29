@@ -139,10 +139,10 @@ goals
 * add support for Solaris
 * add support for FreeBSD
 * add multi console example
-* make tam_loop multi console friendly
-* rename items with buffer to surface - Done
+* make tam_loop multi console friendly - In Progress
+* rename items from buffer to surface - Done
 * update tamcolors icon - Done
-* support GER_GERMAN, FRE_FRENCH, SPA_SPANISH, LAT_SPANISH, ...  Keyboards
+* support GER_GERMAN, FRE_FRENCH, SPA_SPANISH, LAT_SPANISH, ...  Keyboards - In Progress
 * supports Python 3.9
 * supports Python 3.8
 * supports Python 3.7
