@@ -24,47 +24,47 @@ class RAWIOTest(unittest.TestCase):
 
 class IOTAMTest(unittest.TestCase):
     def test__draw_onto(self):
-        buffer = tam_io.tam_buffer.TAMBuffer(5, 6, "A", tam_io.tam_colors.RED, tam_io.tam_colors.GREEN)
-        buffer2 = tam_io.tam_buffer.TAMBuffer(3, 4, "B", tam_io.tam_colors.RED, tam_io.tam_colors.GREEN)
-        buffer3 = tam_io.tam_buffer.TAMBuffer(5, 6, "A", tam_io.tam_colors.RED, tam_io.tam_colors.GREEN)
+        surface = tam_io.tam_surface.TAMSurface(5, 6, "A", tam_io.tam_colors.RED, tam_io.tam_colors.GREEN)
+        surface2 = tam_io.tam_surface.TAMSurface(3, 4, "B", tam_io.tam_colors.RED, tam_io.tam_colors.GREEN)
+        surface3 = tam_io.tam_surface.TAMSurface(5, 6, "A", tam_io.tam_colors.RED, tam_io.tam_colors.GREEN)
 
-        tam_io.io_tam.IO._draw_onto(buffer, buffer2)
-        buffer3.draw_onto(buffer2, 1, 1)
+        tam_io.io_tam.IO._draw_onto(surface, surface2)
+        surface3.draw_onto(surface2, 1, 1)
 
-        self.assertEqual(str(buffer), str(buffer3))
+        self.assertEqual(str(surface), str(surface3))
 
     def test__draw_onto_2(self):
-        buffer = tam_io.tam_buffer.TAMBuffer(5, 6, "A", tam_io.tam_colors.RED, tam_io.tam_colors.GREEN)
-        buffer2 = tam_io.tam_buffer.TAMBuffer(3, 4, "B", tam_io.tam_colors.RED, tam_io.tam_colors.GREEN)
-        buffer3 = tam_io.tam_buffer.TAMBuffer(5, 6, "A", tam_io.tam_colors.RED, tam_io.tam_colors.GREEN)
+        surface = tam_io.tam_surface.TAMSurface(5, 6, "A", tam_io.tam_colors.RED, tam_io.tam_colors.GREEN)
+        surface2 = tam_io.tam_surface.TAMSurface(3, 4, "B", tam_io.tam_colors.RED, tam_io.tam_colors.GREEN)
+        surface3 = tam_io.tam_surface.TAMSurface(5, 6, "A", tam_io.tam_colors.RED, tam_io.tam_colors.GREEN)
 
-        buffer2.set_spot(0, 0, "C", tam_io.tam_colors.BLUE, tam_io.tam_colors.PURPLE)
-        buffer2.set_spot(1, 0, "D", tam_io.tam_colors.BLUE, tam_io.tam_colors.PURPLE)
-        buffer2.set_spot(2, 1, "E", tam_io.tam_colors.BLUE, tam_io.tam_colors.PURPLE)
-        buffer2.set_spot(2, 3, "F", tam_io.tam_colors.BLUE, tam_io.tam_colors.PURPLE)
-        buffer2.set_spot(1, 1, "G", tam_io.tam_colors.BLUE, tam_io.tam_colors.PURPLE)
+        surface2.set_spot(0, 0, "C", tam_io.tam_colors.BLUE, tam_io.tam_colors.PURPLE)
+        surface2.set_spot(1, 0, "D", tam_io.tam_colors.BLUE, tam_io.tam_colors.PURPLE)
+        surface2.set_spot(2, 1, "E", tam_io.tam_colors.BLUE, tam_io.tam_colors.PURPLE)
+        surface2.set_spot(2, 3, "F", tam_io.tam_colors.BLUE, tam_io.tam_colors.PURPLE)
+        surface2.set_spot(1, 1, "G", tam_io.tam_colors.BLUE, tam_io.tam_colors.PURPLE)
 
-        tam_io.io_tam.IO._draw_onto(buffer, buffer2)
-        buffer3.draw_onto(buffer2, 1, 1)
+        tam_io.io_tam.IO._draw_onto(surface, surface2)
+        surface3.draw_onto(surface2, 1, 1)
 
-        self.assertEqual(str(buffer), str(buffer3))
+        self.assertEqual(str(surface), str(surface3))
 
     def test__draw_onto_3(self):
-        buffer = tam_io.tam_buffer.TAMBuffer(50, 60, "A", tam_io.tam_colors.RED, tam_io.tam_colors.GREEN)
-        buffer2 = tam_io.tam_buffer.TAMBuffer(30, 40, "B", tam_io.tam_colors.RED, tam_io.tam_colors.GREEN)
-        buffer3 = tam_io.tam_buffer.TAMBuffer(50, 60, "A", tam_io.tam_colors.RED, tam_io.tam_colors.GREEN)
+        surface = tam_io.tam_surface.TAMSurface(50, 60, "A", tam_io.tam_colors.RED, tam_io.tam_colors.GREEN)
+        surface2 = tam_io.tam_surface.TAMSurface(30, 40, "B", tam_io.tam_colors.RED, tam_io.tam_colors.GREEN)
+        surface3 = tam_io.tam_surface.TAMSurface(50, 60, "A", tam_io.tam_colors.RED, tam_io.tam_colors.GREEN)
 
-        buffer2.set_spot(0, 0, "C", tam_io.tam_colors.BLUE, tam_io.tam_colors.PURPLE)
-        buffer2.set_spot(1, 0, "D", tam_io.tam_colors.BLUE, tam_io.tam_colors.PURPLE)
-        buffer2.set_spot(2, 1, "E", tam_io.tam_colors.BLUE, tam_io.tam_colors.PURPLE)
-        buffer2.set_spot(2, 3, "F", tam_io.tam_colors.BLUE, tam_io.tam_colors.PURPLE)
-        buffer2.set_spot(1, 1, "G", tam_io.tam_colors.BLUE, tam_io.tam_colors.PURPLE)
+        surface2.set_spot(0, 0, "C", tam_io.tam_colors.BLUE, tam_io.tam_colors.PURPLE)
+        surface2.set_spot(1, 0, "D", tam_io.tam_colors.BLUE, tam_io.tam_colors.PURPLE)
+        surface2.set_spot(2, 1, "E", tam_io.tam_colors.BLUE, tam_io.tam_colors.PURPLE)
+        surface2.set_spot(2, 3, "F", tam_io.tam_colors.BLUE, tam_io.tam_colors.PURPLE)
+        surface2.set_spot(1, 1, "G", tam_io.tam_colors.BLUE, tam_io.tam_colors.PURPLE)
 
-        tam_io.io_tam.IO._draw_onto(buffer, buffer2)
+        tam_io.io_tam.IO._draw_onto(surface, surface2)
 
-        buffer3.draw_onto(buffer2, 10, 10)
+        surface3.draw_onto(surface2, 10, 10)
 
-        self.assertEqual(str(buffer), str(buffer3))
+        self.assertEqual(str(surface), str(surface3))
 
     @staticmethod
     def test__write_to_output_stream():

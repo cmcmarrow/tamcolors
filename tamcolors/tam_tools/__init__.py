@@ -2,7 +2,7 @@ from . import tam_color_palette
 from . import tam_fade
 from . import tam_film
 from . import tam_key_manager
-from . import tam_list_buffer
+from . import tam_list_surface
 from . import tam_menu
 from . import tam_placing
 from . import tam_print
@@ -19,7 +19,7 @@ __all__ = ("tam_color_palette",
            "tam_fade",
            "tam_film",
            "tam_key_manager",
-           "tam_list_buffer",
+           "tam_list_surface",
            "tam_menu",
            "tam_placing",
            "tam_print",

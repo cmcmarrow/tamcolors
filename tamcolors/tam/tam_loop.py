@@ -9,7 +9,7 @@ import pstats
 
 # tamcolors libraries
 from tamcolors.tests import all_tests
-from tamcolors.tam_io.tam_buffer import TAMBuffer
+from tamcolors.tam_io.tam_surface import TAMSurface
 from tamcolors.tam_io.io_tam import MODE_2
 from tamcolors.tam_io import tam_identifier
 from tamcolors.utils import timer
@@ -218,7 +218,7 @@ class TAMLoop:
         info: will update frame and call draw
         :return:
         """
-        buffer = TAMBuffer(0, 0, " ", 0, 0)
+        surface = TAMSurface(0, 0, " ", 0, 0)
         frame_skip = 0
         clock = timer.Timer()
         try:
@@ -232,9 +232,9 @@ class TAMLoop:
 
                 if self.__running and self.__error is None:
                     if frame_skip == 0:
-                        frame.make_buffer_ready(buffer, *self.__io.get_dimensions())
-                        frame.draw(buffer, self.__loop_data)
-                        self.__io.draw(buffer)
+                        frame.make_surface_ready(surface, *self.__io.get_dimensions())
+                        frame.draw(surface, self.__loop_data)
+                        self.__io.draw(surface)
 
                     _, run_time = clock.offset_sleep(max(frame_time - frame_skip, 0))
 
@@ -359,16 +359,16 @@ class TAMLoop:
         """
         info: only works in test mode but lets you update and draw in tests
         :param keys: tuple: ((str, str), ...)
-        :return: TAMBuffer or None
+        :return: TAMSurface or None
         """
         if self.__test_mode and self.__running:
-            buffer = TAMBuffer(0, 0, " ", 0, 0)
+            surface = TAMSurface(0, 0, " ", 0, 0)
             frame = self.__frame_stack[-1]
             try:
                 frame.update(self, keys, self.__loop_data)
-                frame.make_buffer_ready(buffer, *self.__io.get_dimensions())
-                frame.draw(buffer, self.__loop_data)
-                return buffer
+                frame.make_surface_ready(surface, *self.__io.get_dimensions())
+                frame.draw(surface, self.__loop_data)
+                return surface
             except BaseException:
                 frame._done(self, self.__loop_data)
         return
@@ -437,23 +437,23 @@ class TAMFrame:
         """
         return self.__min_height, self.__max_height
 
-    def make_buffer_ready(self, tam_buffer, screen_width, screen_height):
+    def make_surface_ready(self, tam_surface, screen_width, screen_height):
         """
-        info: will make buffer ready for frame
-        :param tam_buffer: TAMBuffer
+        info: will make surface ready for frame
+        :param tam_surface: TAMSurface
         :param screen_width: int: 0 - inf
         :param screen_height: int: 0 - inf
         :return:
         """
-        if (self.__char, self.__foreground_color, self.__background_color) != tam_buffer.get_defaults():
-            tam_buffer.set_defaults_and_clear(self.__char, self.__foreground_color, self.__background_color)
+        if (self.__char, self.__foreground_color, self.__background_color) != tam_surface.get_defaults():
+            tam_surface.set_defaults_and_clear(self.__char, self.__foreground_color, self.__background_color)
 
         width = min(max(self.__min_width, screen_width), self.__max_width)
         height = min(max(self.__min_height, screen_height), self.__max_height)
-        if (width, height) != tam_buffer.get_dimensions():
-            tam_buffer.set_dimensions_and_clear(width, height)
+        if (width, height) != tam_surface.get_dimensions():
+            tam_surface.set_dimensions_and_clear(width, height)
 
-        return tam_buffer
+        return tam_surface
 
     def update(self, tam_loop, keys, loop_data):
         """
@@ -465,10 +465,10 @@ class TAMFrame:
         """
         raise NotImplementedError()
 
-    def draw(self, tam_buffer, loop_data):
+    def draw(self, tam_surface, loop_data):
         """
         info: will draw frame onto terminal
-        :param tam_buffer: TAMBuffer
+        :param tam_surface: TAMSurface
         :param loop_data: dict
         :return:
         """

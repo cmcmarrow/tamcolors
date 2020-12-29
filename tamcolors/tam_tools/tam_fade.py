@@ -4,12 +4,12 @@ from . import tam_film
 
 
 """
-tam fade in fades in a buffer
+tam fade in fades in a surface
 can be reversed 
 """
 
 
-def tam_fade_in(buffer,
+def tam_fade_in(surface,
                 char,
                 foreground_color,
                 background_color,
@@ -18,7 +18,7 @@ def tam_fade_in(buffer,
 
     """
     info: makes a fade in or fade out via TAMFilm
-    :param buffer: TAMBuffer
+    :param surface: TAMSurface
     :param char: single block char
     :param foreground_color: Color
     :param background_color: Color
@@ -29,9 +29,9 @@ def tam_fade_in(buffer,
     frames = []
 
     start_pool = []
-    for y in range(buffer.get_dimensions()[1]):
-        for x in range(buffer.get_dimensions()[0]):
-            start_pool.append((x, y, *buffer.get_spot(x, y)))
+    for y in range(surface.get_dimensions()[1]):
+        for x in range(surface.get_dimensions()[0]):
+            start_pool.append((x, y, *surface.get_spot(x, y)))
 
     char_pool = []
     foreground_pool = []
@@ -39,7 +39,7 @@ def tam_fade_in(buffer,
     done_pool = []
 
     while any((len(start_pool), len(char_pool), len(foreground_pool), len(background_pool))):
-        new_frame = tam_io.tam_buffer.TAMBuffer(*buffer.get_dimensions(), char, foreground_color, background_color)
+        new_frame = tam_io.tam_surface.TAMSurface(*surface.get_dimensions(), char, foreground_color, background_color)
 
         for pixel in done_pool:
             new_frame.set_spot(*pixel)
@@ -75,9 +75,9 @@ def tam_fade_in(buffer,
         frames.append(new_frame)
 
     if len(frames) == 0:
-        frames.append(buffer.copy())
-    elif frames[-1] != buffer:
-        frames.append(buffer.copy())
+        frames.append(surface.copy())
+    elif frames[-1] != surface:
+        frames.append(surface.copy())
 
     if reverse:
         frames.reverse()

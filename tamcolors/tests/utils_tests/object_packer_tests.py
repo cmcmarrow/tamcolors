@@ -2,7 +2,7 @@
 import unittest
 
 # tamcolors libraries
-from tamcolors.tam_io import tam_buffer, tam_colors
+from tamcolors.tam_io import tam_surface, tam_colors
 from tamcolors.utils import object_packer
 
 
@@ -45,19 +45,19 @@ class FastHandObjectPackerTests(unittest.TestCase):
     def test_tam_color_2(self):
         self.assertEqual(tam_colors.Color.start_from_bytes(tam_colors.BLUE.to_bytes()), tam_colors.BLUE)
 
-    def test_tam_buffer_1(self):
-        buffer = tam_buffer.TAMBuffer(98, 591, "A", tam_colors.COLOR_142, tam_colors.COLOR_149)
-        buffer.set_spot(10, 9, "C", tam_colors.RED, tam_colors.AQUA)
-        buffer.set_spot(55, 300, "V", tam_colors.AQUA, tam_colors.COLOR_68)
+    def test_tam_surface_1(self):
+        surface = tam_surface.TAMSurface(98, 591, "A", tam_colors.COLOR_142, tam_colors.COLOR_149)
+        surface.set_spot(10, 9, "C", tam_colors.RED, tam_colors.AQUA)
+        surface.set_spot(55, 300, "V", tam_colors.AQUA, tam_colors.COLOR_68)
 
-        self.assertEqual(tam_buffer.TAMBuffer.start_from_bytes(buffer.to_bytes()), buffer)
+        self.assertEqual(tam_surface.TAMSurface.start_from_bytes(surface.to_bytes()), surface)
 
-    def test_tam_buffer_2(self):
-        buffer = tam_buffer.TAMBuffer(70, 91, "B", tam_colors.COLOR_145, tam_colors.COLOR_100)
-        buffer.set_spot(15, 9, "C", tam_colors.RED, tam_colors.AQUA)
-        buffer.set_spot(55, 0, "V", tam_colors.AQUA, tam_colors.COLOR_68)
+    def test_tam_surface_2(self):
+        surface = tam_surface.TAMSurface(70, 91, "B", tam_colors.COLOR_145, tam_colors.COLOR_100)
+        surface.set_spot(15, 9, "C", tam_colors.RED, tam_colors.AQUA)
+        surface.set_spot(55, 0, "V", tam_colors.AQUA, tam_colors.COLOR_68)
 
-        self.assertEqual(tam_buffer.TAMBuffer.start_from_bytes(buffer.to_bytes()), buffer)
+        self.assertEqual(tam_surface.TAMSurface.start_from_bytes(surface.to_bytes()), surface)
 
     def test_dunder_bytes(self):
         self.assertEqual(tam_colors.GREEN.to_bytes(), bytes(tam_colors.GREEN))
@@ -109,15 +109,15 @@ class ObjectPackerJsonTests(unittest.TestCase):
         self._dump_and_check(op, bytearray((100, 2, 3, 4, 55)))
 
     def test_fast_hand_object(self):
-        op = object_packer.ObjectPackerJson((tam_buffer.TAMBuffer, tam_colors.Color, tam_colors.RGBA))
-        self._dump_and_check(op, tam_buffer.TAMBuffer(55, 67, "!", tam_colors.RED, tam_colors.GREEN))
-        self._dump_and_check(op, tam_buffer.TAMBuffer(21, 53, "C", tam_colors.BLUE, tam_colors.YELLOW))
+        op = object_packer.ObjectPackerJson((tam_surface.TAMSurface, tam_colors.Color, tam_colors.RGBA))
+        self._dump_and_check(op, tam_surface.TAMSurface(55, 67, "!", tam_colors.RED, tam_colors.GREEN))
+        self._dump_and_check(op, tam_surface.TAMSurface(21, 53, "C", tam_colors.BLUE, tam_colors.YELLOW))
 
     def test_large_data(self):
-        op = object_packer.ObjectPackerJson((tam_buffer.TAMBuffer, tam_colors.Color, tam_colors.RGBA))
-        data = [{"dict": {"buffer 1": tam_buffer.TAMBuffer(55, 67, "!", tam_colors.RED, tam_colors.GREEN),
+        op = object_packer.ObjectPackerJson((tam_surface.TAMSurface, tam_colors.Color, tam_colors.RGBA))
+        data = [{"dict": {"surface 1": tam_surface.TAMSurface(55, 67, "!", tam_colors.RED, tam_colors.GREEN),
                           "data": (bytearray((4, 5, 6, 7, 90)), bytes(), bytearray()),
-                          "buffer 2": tam_buffer.TAMBuffer(53, 1, ")", tam_colors.LIGHT_YELLOW, tam_colors.GRAY)}},
+                          "surface 2": tam_surface.TAMSurface(53, 1, ")", tam_colors.LIGHT_YELLOW, tam_colors.GRAY)}},
                 {1, 2, 3, 4, "1", "4.4", None, (True, False)},
                 [tam_colors.COLOR_145, tam_colors.COLOR_142, tam_colors.COLOR_149, "cats and dogs"],
                 (4, 5, (90, -3, "3", [])),

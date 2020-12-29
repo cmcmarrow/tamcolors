@@ -7,7 +7,7 @@ from . import tam_text_box_tests
 from . import tam_placing_tests
 from . import tam_fade_tests
 from . import tam_menu_tests
-from . import tam_list_buffer_tests
+from . import tam_list_surface_tests
 
 
 __all__ = ("tam_print_tests",
@@ -19,4 +19,4 @@ __all__ = ("tam_print_tests",
            "tam_placing_tests",
            "tam_fade_tests",
            "tam_menu_tests",
-           "tam_list_buffer_tests")
+           "tam_list_surface_tests")

@@ -45,19 +45,19 @@ class WinDriversTests(unittest.TestCase):
             with unittest.mock.patch.object(io, "clear", return_value=None) as clear:
                 with unittest.mock.patch.object(io, "_print", return_value=None) as _print:
                     io.set_mode(tam_io.io_tam.MODE_2)
-                    buffer = tam_io.tam_buffer.TAMBuffer(5, 6, "A", RED, GREEN)
-                    buffer2 = tam_io.tam_buffer.TAMBuffer(15, 10, " ", RED, GREEN)
+                    surface = tam_io.tam_surface.TAMSurface(5, 6, "A", RED, GREEN)
+                    surface2 = tam_io.tam_surface.TAMSurface(15, 10, " ", RED, GREEN)
 
-                    buffer.set_spot(1, 1, "B", PURPLE, WHITE)
-                    buffer.set_spot(4, 4, "C", PURPLE, WHITE)
-                    buffer.set_spot(4, 5, "D", PURPLE, WHITE)
+                    surface.set_spot(1, 1, "B", PURPLE, WHITE)
+                    surface.set_spot(4, 4, "C", PURPLE, WHITE)
+                    surface.set_spot(4, 5, "D", PURPLE, WHITE)
 
-                    buffer2.draw_onto(buffer, 5, 2)
-                    io.draw(buffer)
+                    surface2.draw_onto(surface, 5, 2)
+                    io.draw(surface)
 
                     _get_dimensions.assert_called()
                     clear.assert_called_once_with()
-                    _print.assert_called_once_with(0, 0, "".join(c for c in str(buffer2) if c != "\n"), 1, 2)
+                    _print.assert_called_once_with(0, 0, "".join(c for c in str(surface2) if c != "\n"), 1, 2)
 
     def test__draw_16(self):
         io = get_win_io()
@@ -65,16 +65,16 @@ class WinDriversTests(unittest.TestCase):
             with unittest.mock.patch.object(io, "clear", return_value=None) as clear:
                 with unittest.mock.patch.object(io, "_print", return_value=None) as _print:
                     io.set_mode(tam_io.io_tam.MODE_16)
-                    buffer = tam_io.tam_buffer.TAMBuffer(5, 6, "A", RED, GREEN)
-                    buffer2 = tam_io.tam_buffer.TAMBuffer(15, 10, " ", RED, GREEN)
+                    surface = tam_io.tam_surface.TAMSurface(5, 6, "A", RED, GREEN)
+                    surface2 = tam_io.tam_surface.TAMSurface(15, 10, " ", RED, GREEN)
 
-                    buffer.set_spot(1, 1, "B", PURPLE, WHITE)
-                    buffer.set_spot(3, 5, "C", PURPLE, WHITE)
-                    buffer.set_spot(4, 5, "D", PURPLE, WHITE)
-                    buffer.set_spot(1, 2, " ", PURPLE, GREEN)
+                    surface.set_spot(1, 1, "B", PURPLE, WHITE)
+                    surface.set_spot(3, 5, "C", PURPLE, WHITE)
+                    surface.set_spot(4, 5, "D", PURPLE, WHITE)
+                    surface.set_spot(1, 2, " ", PURPLE, GREEN)
 
-                    buffer2.draw_onto(buffer, 5, 2)
-                    io.draw(buffer)
+                    surface2.draw_onto(surface, 5, 2)
+                    io.draw(surface)
 
                     _get_dimensions.assert_called()
                     clear.assert_called_once_with()

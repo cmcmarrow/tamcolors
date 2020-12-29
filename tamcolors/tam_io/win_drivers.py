@@ -5,7 +5,7 @@ from threading import Lock
 
 
 # tamcolors libraries
-from .tam_buffer import TAMBuffer
+from .tam_surface import TAMSurface
 from tamcolors.tam_c import _win_tam as io
 from tamcolors.tam_io import tam_drivers
 from tamcolors.tam_io import tam_colors
@@ -94,8 +94,8 @@ class WINKeyDriver(tam_drivers.KeyDriver, WinSharedData, ABC):
 
 class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
     def __init__(self, *args, **kwargs):
-        self.__buffer = TAMBuffer(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
-        self._last_frame = TAMBuffer(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
+        self._surface = TAMSurface(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
+        self._last_frame = TAMSurface(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
         self._last_frame_lock = Lock()
         self._spot_swap_dict = {1: 4,
                                 3: 6,
@@ -116,8 +116,8 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
         info: operations for IO to stop
         :return: None
         """
-        self.__buffer = TAMBuffer(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
-        self._last_frame = TAMBuffer(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
+        self._surface = TAMSurface(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
+        self._last_frame = TAMSurface(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
         io._set_cursor_info(0, 0, io._get_default_color())
         super().done()
 
@@ -172,56 +172,56 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
             self._last_frame_lock.release()
         super().set_mode(mode)
 
-    def draw(self, tam_buffer):
+    def draw(self, tam_surface):
         """
-        info: will draw tam buffer to terminal
-        :param tam_buffer: TAMBuffer
+        info: will draw tam surface to terminal
+        :param tam_surface: TAMSurface
         :return:
         """
-        if self.__buffer.get_dimensions() != io._get_dimensions():
+        if self._surface.get_dimensions() != io._get_dimensions():
             self.clear()
-            self.__buffer.set_dimensions_and_clear(*io._get_dimensions())
+            self._surface.set_dimensions_and_clear(*io._get_dimensions())
             self._last_frame = None
 
-        super().draw(tam_buffer)
+        super().draw(tam_surface)
 
-    def _draw_2(self, tam_buffer):
+    def _draw_2(self, tam_surface):
         """
-        info: will draw tam buffer to terminal in mode 2
-        :param tam_buffer: TAMBuffer
+        info: will draw tam surface to terminal in mode 2
+        :param tam_surface: TAMSurface
         :return:
         """
-        foreground, background = tam_buffer.get_defaults()[1:]
+        foreground, background = tam_surface.get_defaults()[1:]
         foreground, background = foreground.mode_2, background.mode_2
 
-        # checks if buffer needs to be updated
-        if " " != self.__buffer.get_defaults()[0] or self.__buffer.get_defaults()[1:] != tam_buffer.get_defaults()[1:]:
-            # buffer defaults changed
-            self.__buffer.set_defaults_and_clear(" ", *tam_buffer.get_defaults()[1:])
+        # checks if surface needs to be updated
+        if " " != self._surface.get_defaults()[0] or self._surface.get_defaults()[1:] != tam_surface.get_defaults()[1:]:
+            # surface defaults changed
+            self._surface.set_defaults_and_clear(" ", *tam_surface.get_defaults()[1:])
 
-        # draw onto WinIO buffer
-        self._draw_onto(self.__buffer, tam_buffer)
+        # draw onto WinIO surface
+        self._draw_onto(self._surface, tam_surface)
 
-        # draw WinIO buffer to terminal
-        self._print(0, 0, "".join(self.__buffer.get_raw_buffers()[0]),
+        # draw WinIO surface to terminal
+        self._print(0, 0, "".join(self._surface.get_raw_surface()[0]),
                     *self._processes_special_color(foreground, background))
 
-    def _draw_16_pal_256(self, tam_buffer):
+    def _draw_16_pal_256(self, tam_surface):
         """
-        info: will draw tam buffer to terminal in mode 16_pal_256
-        :param tam_buffer: TAMBuffer
+        info: will draw tam surface to terminal in mode 16_pal_256
+        :param tam_surface: TAMSurface
         :return:
         """
-        # checks if buffer needs to be updated
-        if "." != self.__buffer.get_defaults()[0] or\
-                self.__buffer.get_defaults()[2].mode_16_pal_256 != tam_buffer.get_defaults()[2].mode_16_pal_256:
-            # buffer defaults changed
-            background = tam_buffer.get_defaults()[2]
-            self.__buffer.set_defaults_and_clear(".", background, background)
+        # checks if surface needs to be updated
+        if "." != self._surface.get_defaults()[0] or\
+                self._surface.get_defaults()[2].mode_16_pal_256 != tam_surface.get_defaults()[2].mode_16_pal_256:
+            # surface defaults changed
+            background = tam_surface.get_defaults()[2]
+            self._surface.set_defaults_and_clear(".", background, background)
             self._last_frame = None
 
-        # draw onto WinIO buffer
-        self._draw_onto(self.__buffer, tam_buffer)
+        # draw onto WinIO surface
+        self._draw_onto(self._surface, tam_surface)
 
         """
         A block is a string or spots that 
@@ -231,18 +231,18 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
             self._last_frame_lock.acquire()
 
             start = None
-            width = self.__buffer.get_dimensions()[0]
+            width = self._surface.get_dimensions()[0]
             length = 0
             this_foreground, this_background = None, None
-            char_buffer, foreground_buffer, background_buffer = self.__buffer.get_raw_buffers()
-            for spot, char, foreground, background in zip(range(len(self.__buffer)),
+            char_buffer, foreground_buffer, background_buffer = self._surface.get_raw_surface()
+            for spot, char, foreground, background in zip(range(len(self._surface)),
                                                           char_buffer,
                                                           foreground_buffer,
                                                           background_buffer):
                 foreground, background = self._processes_special_color(foreground.mode_16_pal_256, background.mode_16_pal_256)
                 # no block has benn made
                 if start is None:
-                    # last frame buffer is not None
+                    # last frame surface is not None
                     if self._last_frame is not None:
                         # spot has not change
                         last_char, last_foreground, last_background = self._last_frame.get_from_raw_spot(spot)
@@ -269,7 +269,7 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
                     this_foreground, this_background = foreground, background
                     start = spot
                     length = 1
-                    # last frame buffer is not None
+                    # last frame surface is not None
                     if self._last_frame is not None:
                         # spot has not change
                         last_char, last_foreground, last_background = self._last_frame.get_from_raw_spot(spot)
@@ -288,33 +288,33 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
             # update last frame
             if self._last_frame is None:
                 # last frame is not made
-                self._last_frame = self.__buffer.copy()
+                self._last_frame = self._surface.copy()
             else:
-                # draw tam_buffer onto last frame
-                self._draw_onto(self._last_frame, tam_buffer)
+                # draw tam_surface onto last frame
+                self._draw_onto(self._last_frame, tam_surface)
             # set color back to default
-            background = tam_buffer.get_defaults()[2]
+            background = tam_surface.get_defaults()[2]
             _, background = self._processes_special_color(background.mode_16_pal_256,
                                                           background.mode_16_pal_256)
             self._print(0, 0, "", background, background)
         finally:
             self._last_frame_lock.release()
 
-    def _draw_16(self, tam_buffer):
+    def _draw_16(self, tam_surface):
         """
-        info: will draw tam buffer to terminal in mode 16
-        :param tam_buffer: TAMBuffer
+        info: will draw tam surface to terminal in mode 16
+        :param tam_surface: TAMSurface
         :return:
         """
-        # checks if buffer needs to be updated
-        if "." != self.__buffer.get_defaults()[0] or self.__buffer.get_defaults()[2].mode_16 != tam_buffer.get_defaults()[2].mode_16:
-            # buffer defaults changed
-            background = tam_buffer.get_defaults()[2]
-            self.__buffer.set_defaults_and_clear(".", background, background)
+        # checks if surface needs to be updated
+        if "." != self._surface.get_defaults()[0] or self._surface.get_defaults()[2].mode_16 != tam_surface.get_defaults()[2].mode_16:
+            # surface defaults changed
+            background = tam_surface.get_defaults()[2]
+            self._surface.set_defaults_and_clear(".", background, background)
             self._last_frame = None
 
-        # draw onto WinIO buffer
-        self._draw_onto(self.__buffer, tam_buffer)
+        # draw onto WinIO surface
+        self._draw_onto(self._surface, tam_surface)
 
         """
         A block is a string or spots that 
@@ -324,18 +324,18 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
             self._last_frame_lock.acquire()
 
             start = None
-            width = self.__buffer.get_dimensions()[0]
+            width = self._surface.get_dimensions()[0]
             length = 0
             this_foreground, this_background = None, None
-            char_buffer, foreground_buffer, background_buffer = self.__buffer.get_raw_buffers()
-            for spot, char, foreground, background in zip(range(len(self.__buffer)),
+            char_buffer, foreground_buffer, background_buffer = self._surface.get_raw_surface()
+            for spot, char, foreground, background in zip(range(len(self._surface)),
                                                           char_buffer,
                                                           foreground_buffer,
                                                           background_buffer):
                 foreground, background = self._processes_special_color(foreground.mode_16, background.mode_16)
                 # no block has benn made
                 if start is None:
-                    # last frame buffer is not None
+                    # last frame surface is not None
                     if self._last_frame is not None:
                         # spot has not change
                         last_char, last_foreground, last_background = self._last_frame.get_from_raw_spot(spot)
@@ -362,7 +362,7 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
                     this_foreground, this_background = foreground, background
                     start = spot
                     length = 1
-                    # last frame buffer is not None
+                    # last frame surface is not None
                     if self._last_frame is not None:
                         # spot has not change
                         last_char, last_foreground, last_background = self._last_frame.get_from_raw_spot(spot)
@@ -381,13 +381,13 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
             # update last frame
             if self._last_frame is None:
                 # last frame is not made
-                self._last_frame = self.__buffer.copy()
+                self._last_frame = self._surface.copy()
             else:
-                # draw tam_buffer onto last frame
-                self._draw_onto(self._last_frame, tam_buffer)
+                # draw tam_surface onto last frame
+                self._draw_onto(self._last_frame, tam_surface)
 
             # set color back to default
-            background = tam_buffer.get_defaults()[2]
+            background = tam_surface.get_defaults()[2]
             _, background = self._processes_special_color(background.mode_16,
                                                           background.mode_16)
             self._print(0, 0, "", background, background)

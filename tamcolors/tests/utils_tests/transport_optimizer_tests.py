@@ -2,7 +2,7 @@
 import unittest
 
 # tamcolors libraries
-from tamcolors.tam_io import tam_buffer, tam_colors
+from tamcolors.tam_io import tam_surface, tam_colors
 from tamcolors.utils import transport_optimizer
 
 
@@ -61,31 +61,31 @@ class TransportOptimizerTests(unittest.TestCase):
         for _ in range(5):
             self._pack_and_check(last_sent_cache, last_received_cache, data_3)
 
-    def test_large_tam_buffer_data(self):
+    def test_large_tam_surface_data(self):
         last_sent_cache = transport_optimizer.LastSentCache()
         last_received_cache = transport_optimizer.LastReceivedCache()
 
-        buffer_1 = tam_buffer.TAMBuffer(100, 90, "C", tam_colors.RED, tam_colors.ALPHA)
-        buffer_1.set_spot(33, 44, "D", tam_colors.BLACK, tam_colors.GREEN)
+        surface_1 = tam_surface.TAMSurface(100, 90, "C", tam_colors.RED, tam_colors.ALPHA)
+        surface_1.set_spot(33, 44, "D", tam_colors.BLACK, tam_colors.GREEN)
 
-        buffer_1_ret = tam_buffer.TAMBuffer.start_from_bytes(last_received_cache(last_sent_cache(bytes(buffer_1))))
-        self.assertEqual(buffer_1, buffer_1_ret)
+        surface_1_ret = tam_surface.TAMSurface.start_from_bytes(last_received_cache(last_sent_cache(bytes(surface_1))))
+        self.assertEqual(surface_1, surface_1_ret)
 
-        buffer_2_ret = tam_buffer.TAMBuffer.start_from_bytes(last_received_cache(last_sent_cache(bytes(buffer_1))))
-        self.assertEqual(buffer_1, buffer_2_ret)
+        surface_2_ret = tam_surface.TAMSurface.start_from_bytes(last_received_cache(last_sent_cache(bytes(surface_1))))
+        self.assertEqual(surface_1, surface_2_ret)
 
-        buffer_3_ret = tam_buffer.TAMBuffer.start_from_bytes(last_received_cache(last_sent_cache(bytes(buffer_1))))
-        self.assertEqual(buffer_1, buffer_3_ret)
+        surface_3_ret = tam_surface.TAMSurface.start_from_bytes(last_received_cache(last_sent_cache(bytes(surface_1))))
+        self.assertEqual(surface_1, surface_3_ret)
 
-        buffer_2 = tam_buffer.TAMBuffer(100, 90, "Q", tam_colors.LIGHT_WHITE, tam_colors.PURPLE)
-        buffer_2.set_spot(44, 45, "D", tam_colors.BLACK, tam_colors.GREEN)
-        buffer_2.set_spot(44, 45, "U", tam_colors.DEFAULT, tam_colors.RED)
+        surface_2 = tam_surface.TAMSurface(100, 90, "Q", tam_colors.LIGHT_WHITE, tam_colors.PURPLE)
+        surface_2.set_spot(44, 45, "D", tam_colors.BLACK, tam_colors.GREEN)
+        surface_2.set_spot(44, 45, "U", tam_colors.DEFAULT, tam_colors.RED)
 
-        buffer_4_ret = tam_buffer.TAMBuffer.start_from_bytes(last_received_cache(last_sent_cache(bytes(buffer_2))))
-        self.assertEqual(buffer_2, buffer_4_ret)
+        surface_4_ret = tam_surface.TAMSurface.start_from_bytes(last_received_cache(last_sent_cache(bytes(surface_2))))
+        self.assertEqual(surface_2, surface_4_ret)
 
-        buffer_5_ret = tam_buffer.TAMBuffer.start_from_bytes(last_received_cache(last_sent_cache(bytes(buffer_2))))
-        self.assertEqual(buffer_2, buffer_5_ret)
+        surface_5_ret = tam_surface.TAMSurface.start_from_bytes(last_received_cache(last_sent_cache(bytes(surface_2))))
+        self.assertEqual(surface_2, surface_5_ret)
 
     def _pack_and_check(self, sent, received, data):
         self.assertEqual(received(sent(data)), data)

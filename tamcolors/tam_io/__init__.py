@@ -1,6 +1,6 @@
 from . import any_drivers
 from . import io_tam
-from . import tam_buffer
+from . import tam_surface
 from . import tam_colors
 from . import tam_drivers
 from . import tam_identifier
@@ -13,7 +13,7 @@ from . import tcp_io
 
 __all__ = ("any_drivers",
            "io_tam",
-           "tam_buffer",
+           "tam_surface",
            "tam_colors",
            "tam_drivers",
            "tam_identifier",

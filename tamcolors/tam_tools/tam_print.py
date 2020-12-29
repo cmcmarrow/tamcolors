@@ -2,14 +2,14 @@
 from . import tam_str
 
 """
-tam_print will draw string on a tam_buffer
+tam_print will draw string on a tam_surface
 """
 
 
-def tam_print(tam_buffer, x, y, text, foreground_color, background_color, error_bad_char=False, bad_char=""):
+def tam_print(tam_surface, x, y, text, foreground_color, background_color, error_bad_char=False, bad_char=""):
     """
-    info: tam_print will draw string on a tam_buffer
-    :param tam_buffer: TAMBuffer
+    info: tam_print will draw string on a tam_surface
+    :param tam_surface: TAMSurface
     :param x: int
     :param y: int
     :param text: object with __str__
@@ -30,5 +30,5 @@ def tam_print(tam_buffer, x, y, text, foreground_color, background_color, error_
             at_x = x
             y += 1
         else:
-            tam_buffer.set_spot(at_x, y, char, foreground_color, background_color)
+            tam_surface.set_spot(at_x, y, char, foreground_color, background_color)
             at_x += 1

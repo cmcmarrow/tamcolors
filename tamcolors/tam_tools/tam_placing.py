@@ -37,18 +37,18 @@ def _get_dimensions(func):
     :return: function
     """
     @wraps(func)
-    def _get_dimensions_wrapper(x, y, width=None, height=None, buffer=None):
+    def _get_dimensions_wrapper(x, y, width=None, height=None, tam_surface=None):
         """
         info: will put dimensions as width, height
         :param x: int
         :param y: int
         :param width: int or None
         :param height: int or None
-        :param buffer: TAMBuffer
+        :param tam_surface: TAMSurface
         :return: x, y
         """
-        if isinstance(buffer, tam_io.tam_buffer.TAMBuffer):
-            width, height = buffer.get_dimensions()
+        if isinstance(tam_surface, tam_io.tam_surface.TAMSurface):
+            width, height = tam_surface.get_dimensions()
 
         return func(x, y, width, height)
 

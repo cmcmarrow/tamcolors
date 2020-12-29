@@ -106,50 +106,50 @@ class ColorDriver(TAMDriver, ABC):
         """
         super().set_mode(mode)
 
-    def draw(self, tam_buffer):
+    def draw(self, tam_surface):
         """
-        info: Will draw TAMBuffer to console
-        :param tam_buffer: TAMBuffer
+        info: Will draw TAMSurface to console
+        :param tam_surface: TAMSurface
         :return: None
         """
-        super().draw(tam_buffer)
+        super().draw(tam_surface)
 
-    def _draw_2(self, tam_buffer):
+    def _draw_2(self, tam_surface):
         """
-        info: Will draw TAMBuffer to console in mode 2
-        :param tam_buffer: TAMBuffer
-        :return: None
-        """
-        raise NotImplementedError()
-
-    def _draw_16_pal_256(self, tam_buffer):
-        """
-        info: Will draw TAMBuffer to console in mode 16_pal_256
-        :param tam_buffer: TAMBuffer
+        info: Will draw TAMSurface to console in mode 2
+        :param tam_surface: TAMSurface
         :return: None
         """
         raise NotImplementedError()
 
-    def _draw_16(self, tam_buffer):
+    def _draw_16_pal_256(self, tam_surface):
         """
-        info: Will draw TAMBuffer to console in mode 16
-        :param tam_buffer: TAMBuffer
+        info: Will draw TAMSurface to console in mode 16_pal_256
+        :param tam_surface: TAMSurface
         :return: None
         """
         raise NotImplementedError()
 
-    def _draw_256(self, tam_buffer):
+    def _draw_16(self, tam_surface):
         """
-        info: Will draw TAMBuffer to console in mode 256
-        :param tam_buffer: TAMBuffer
+        info: Will draw TAMSurface to console in mode 16
+        :param tam_surface: TAMSurface
         :return: None
         """
         raise NotImplementedError()
 
-    def _draw_rgb(self, tam_buffer):
+    def _draw_256(self, tam_surface):
         """
-        info: Will draw TAMBuffer to console in mode rgb
-        :param tam_buffer: TAMBuffer
+        info: Will draw TAMSurface to console in mode 256
+        :param tam_surface: TAMSurface
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def _draw_rgb(self, tam_surface):
+        """
+        info: Will draw TAMSurface to console in mode rgb
+        :param tam_surface: TAMSurface
         :return: None
         """
         raise NotImplementedError()

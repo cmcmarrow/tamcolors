@@ -1,4 +1,4 @@
-from . import tam_colors, tam_buffer
+from . import tam_colors, tam_surface
 from tamcolors.utils import tcp, object_packer
 
 
@@ -14,7 +14,7 @@ def get_tcp_io(receiver, wait=True):
         return tcp.TCPObjectConnector(connection,
                                       object_packer=object_packer.ObjectPackerJson((tam_colors.RGBA,
                                                                                     tam_colors.Color,
-                                                                                    tam_buffer.TAMBuffer)),
+                                                                                    tam_surface.TAMSurface)),
                                       no_return={"set_mode",
                                                  "draw",
                                                  "start",

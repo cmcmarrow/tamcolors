@@ -1,4 +1,7 @@
 from . import tam_loop
+from . import tam_loop_io_handler
+from . import tam_loop_receiver
+from . import tam_loop_tcp_receiver
 
 
 """
@@ -11,4 +14,6 @@ tam supports
 """
 
 __all__ = ("tam_loop",
-           )
+           "tam_loop_io_handler",
+           "tam_loop_receiver",
+           "tam_loop_tcp_receiver")

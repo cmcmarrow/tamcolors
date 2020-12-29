@@ -58,12 +58,12 @@ class TAMPrint(tam.tam_loop.TAMFrame):
         self._box_2.update()
         self._box_3.update()
 
-    def draw(self, tam_buffer, loop_data):
-        tam_buffer.clear()
+    def draw(self, tam_surface, loop_data):
+        tam_surface.clear()
 
-        self._box_1.draw(tam_buffer, 0, 0)
-        self._box_2.draw(tam_buffer, 5, 10)
-        self._box_3.draw(tam_buffer, 12, 30)
+        self._box_1.draw(tam_surface, 0, 0)
+        self._box_2.draw(tam_surface, 5, 10)
+        self._box_3.draw(tam_surface, 12, 30)
 
 
 def run():

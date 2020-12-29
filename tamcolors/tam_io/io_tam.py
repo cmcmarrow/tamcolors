@@ -51,10 +51,10 @@ class RawIO(ABC):
         """
         raise NotImplementedError()
 
-    def draw(self, tam_buffer):
+    def draw(self, tam_surface):
         """
-        info: Will draw TAMBuffer to console
-        :param tam_buffer: TAMBuffer
+        info: Will draw TAMSurface to console
+        :param tam_surface: TAMSurface
         :return: None
         """
         raise NotImplementedError()
@@ -408,51 +408,51 @@ class IO(RawIO, ABC):
         """
         return self._modes
 
-    def draw(self, tam_buffer):
+    def draw(self, tam_surface):
         """
-        info: Will draw TAMBuffer to console
-        :param tam_buffer: TAMBuffer
+        info: Will draw TAMSurface to console
+        :param tam_surface: TAMSurface
         :return: None
         """
-        tam_buffer.replace_alpha_chars()
-        self._get_mode_draw()(tam_buffer)
+        tam_surface.replace_alpha_chars()
+        self._get_mode_draw()(tam_surface)
 
-    def _draw_2(self, tam_buffer):
+    def _draw_2(self, tam_surface):
         """
-        info: Will draw TAMBuffer to console in mode 2
-        :param tam_buffer: TAMBuffer
-        :return: None
-        """
-        raise NotImplementedError()
-
-    def _draw_16_pal_256(self, tam_buffer):
-        """
-        info: Will draw TAMBuffer to console in mode 16_pal_256
-        :param tam_buffer: TAMBuffer
+        info: Will draw TAMSurface to console in mode 2
+        :param tam_surface: TAMSurface
         :return: None
         """
         raise NotImplementedError()
 
-    def _draw_16(self, tam_buffer):
+    def _draw_16_pal_256(self, tam_surface):
         """
-        info: Will draw TAMBuffer to console in mode 16
-        :param tam_buffer: TAMBuffer
+        info: Will draw TAMSurface to console in mode 16_pal_256
+        :param tam_surface: TAMSurface
         :return: None
         """
         raise NotImplementedError()
 
-    def _draw_256(self, tam_buffer):
+    def _draw_16(self, tam_surface):
         """
-        info: Will draw TAMBuffer to console in mode 256
-        :param tam_buffer: TAMBuffer
+        info: Will draw TAMSurface to console in mode 16
+        :param tam_surface: TAMSurface
         :return: None
         """
         raise NotImplementedError()
 
-    def _draw_rgb(self, tam_buffer):
+    def _draw_256(self, tam_surface):
         """
-        info: Will draw TAMBuffer to console in mode rgb
-        :param tam_buffer: TAMBuffer
+        info: Will draw TAMSurface to console in mode 256
+        :param tam_surface: TAMSurface
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def _draw_rgb(self, tam_surface):
+        """
+        info: Will draw TAMSurface to console in mode rgb
+        :param tam_surface: TAMSurface
         :return: None
         """
         raise NotImplementedError()
@@ -782,18 +782,18 @@ class IO(RawIO, ABC):
         return getattr(self, "_draw_{}".format(self._mode))
 
     @staticmethod
-    def _draw_onto(tam_buffer, tam_buffer2):
+    def _draw_onto(tam_surface, tam_surface2):
         """
-        info: will draw tam_buffer2 in the center of tam_buffer
-        :param tam_buffer: TAMBuffer
-        :param tam_buffer2: TAMBuffer
+        info: will draw tam_surface2 in the center of tam_surface
+        :param tam_surface: TAMSurface
+        :param tam_surface2: TAMSurface
         :return:
         """
-        buffer_size_x, buffer_size_y = tam_buffer.get_dimensions()
-        width, height = tam_buffer2.get_dimensions()
-        start_x = (buffer_size_x // 2) - (width // 2)
-        start_y = (buffer_size_y // 2) - (height // 2)
-        tam_buffer.draw_onto(tam_buffer2, max(start_x, 0), max(start_y, 0))
+        surface_size_x, surface_size_y = tam_surface.get_dimensions()
+        width, height = tam_surface2.get_dimensions()
+        start_x = (surface_size_x // 2) - (width // 2)
+        start_y = (surface_size_y // 2) - (height // 2)
+        tam_surface.draw_onto(tam_surface2, max(start_x, 0), max(start_y, 0))
 
     @staticmethod
     def _write_to_output_stream(output, flush, stderr):
