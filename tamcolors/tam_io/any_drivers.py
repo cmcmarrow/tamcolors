@@ -70,21 +70,21 @@ class ANYColorDriver(tam_drivers.ColorDriver, ABC):
         """
         return io_tam.MODE_2
 
-    def draw(self, tam_buffer):
+    def draw(self, tam_surface):
         """
-        info: Will draw TAMBuffer to console
-        :param tam_buffer: TAMBuffer
+        info: Will draw TAMSurface to console
+        :param tam_surface: TAMSurface
         :return: None
         """
-        super().draw(tam_buffer)
+        super().draw(tam_surface)
 
-    def _draw_2(self, tam_buffer):
+    def _draw_2(self, tam_surface):
         """
-        info: Will draw TAMBuffer to console in mode 2
-        :param tam_buffer: TAMBuffer
+        info: Will draw TAMSurface to console in mode 2
+        :param tam_surface: TAMSurface
         :return: None
         """
-        print(tam_buffer)
+        print(tam_surface)
 
 
 class ANYColorChangerDriver(tam_drivers.ColorChangerDriver, ABC):

@@ -13,10 +13,10 @@ class TAMLoopHelloWorld(tam.tam_loop.TAMFrame):
         if keys:
             tam_loop.done()
 
-    def draw(self, tam_buffer, loop_data):
-        tam_buffer.clear()
+    def draw(self, tam_surface, loop_data):
+        tam_surface.clear()
 
-        tam_tools.tam_print.tam_print(tam_buffer,
+        tam_tools.tam_print.tam_print(tam_surface,
                                       0,
                                       0,
                                       text="Hello World!",

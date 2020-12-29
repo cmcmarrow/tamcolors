@@ -58,25 +58,25 @@ class RGBCOLOR(tam.tam_loop.TAMFrame):
                 tam_loop.set_color_16(1, tam_io.tam_colors.RGBA(155, 155, 55))
                 tam_loop.set_color_256(1, tam_io.tam_colors.RGBA(155, 155, 55))
 
-    def draw(self, tam_buffer, loop_data):
-        tam_buffer.clear()
+    def draw(self, tam_surface, loop_data):
+        tam_surface.clear()
 
         for background_color in range(16):
             for foreground_color in range(16):
-                tam_buffer.set_spot(foreground_color,
-                                    background_color,
-                                    "@",
-                                    tam_io.tam_colors.COLORS[foreground_color],
-                                    tam_io.tam_colors.COLORS[background_color])
+                tam_surface.set_spot(foreground_color,
+                                     background_color,
+                                     "@",
+                                     tam_io.tam_colors.COLORS[foreground_color],
+                                     tam_io.tam_colors.COLORS[background_color])
 
-        tam_tools.tam_print.tam_print(tam_buffer,
+        tam_tools.tam_print.tam_print(tam_surface,
                                       0,
                                       20,
                                       text="Press backspace to quit.",
                                       foreground_color=tam_io.tam_colors.LIGHT_AQUA,
                                       background_color=tam_io.tam_colors.BLACK)
 
-        tam_tools.tam_print.tam_print(tam_buffer,
+        tam_tools.tam_print.tam_print(tam_surface,
                                       0,
                                       21,
                                       text="Press a or b to change colors",

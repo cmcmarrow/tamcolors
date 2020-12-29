@@ -1,4 +1,4 @@
-from . import tam_list_buffer
+from . import tam_list_surface
 from tamcolors.tam_io.tam_colors import *
 
 
@@ -41,4 +41,4 @@ def get_icon():
             foreground_row.append(char_to_color[item])
         icon_foreground.append(foreground_row)
 
-    return tam_list_buffer.tam_list_buffer(icon_chars, icon_foreground, BLACK)
+    return tam_list_surface.tam_list_surface(icon_chars, icon_foreground, BLACK)

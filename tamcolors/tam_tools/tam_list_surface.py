@@ -3,18 +3,18 @@ from tamcolors import tam_io
 
 
 """
-tam_list_buffer
-A way to make a list into a buffer
+tam_list_surface
+A way to make a list into a surface
 """
 
 
-def tam_list_buffer(chars, foreground_colors, background_colors):
+def tam_list_surface(chars, foreground_colors, background_colors):
     """
-    info: makes a list into a TAMBuffer
+    info: makes a list into a TAMSurface
     :param chars: list, tuple
-    :param foreground_colors: list, tuple, int
-    :param background_colors: list, tuple, int
-    :return: TAMBuffer
+    :param foreground_colors: list, tuple, Color
+    :param background_colors: list, tuple, Color
+    :return: TAMSurface
     """
     foreground_mode = not isinstance(foreground_colors, tam_io.tam_colors.Color)
     background_mode = not isinstance(background_colors, tam_io.tam_colors.Color)
@@ -38,26 +38,26 @@ def tam_list_buffer(chars, foreground_colors, background_colors):
         else:
             default_foreground = foreground_colors
 
-    # make buffer
+    # make surface
     try:
-        buffer = tam_io.tam_buffer.TAMBuffer(len(chars[0]),
-                                             len(chars),
-                                             default_char,
-                                             default_foreground,
-                                             default_background)
+        surface = tam_io.tam_surface.TAMSurface(len(chars[0]),
+                                               len(chars),
+                                               default_char,
+                                               default_foreground,
+                                               default_background)
     except IndexError:
-        buffer = tam_io.tam_buffer.TAMBuffer(0,
-                                             len(chars),
-                                             default_char,
-                                             default_foreground,
-                                             default_background)
+        surface = tam_io.tam_surface.TAMSurface(0,
+                                               len(chars),
+                                               default_char,
+                                               default_foreground,
+                                               default_background)
 
-    # if buffer is empty 0X? or ?X0
-    if not any(buffer.get_dimensions()):
-        return buffer
+    # if surface is empty 0X? or ?X0
+    if not any(surface.get_dimensions()):
+        return surface
 
-    for y in range(buffer.get_dimensions()[1]):
-        for x in range(buffer.get_dimensions()[0]):
+    for y in range(surface.get_dimensions()[1]):
+        for x in range(surface.get_dimensions()[0]):
             foreground = foreground_colors
             background = background_colors
 
@@ -67,6 +67,6 @@ def tam_list_buffer(chars, foreground_colors, background_colors):
             if background_mode:
                 background = background_colors[y][x]
 
-            buffer.set_spot(x, y, chars[y][x], foreground, background)
+            surface.set_spot(x, y, chars[y][x], foreground, background)
 
-    return buffer
+    return surface

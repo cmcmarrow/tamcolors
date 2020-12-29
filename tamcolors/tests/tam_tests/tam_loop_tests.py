@@ -52,7 +52,7 @@ class TAMLoopTests(unittest.TestCase):
             def update(self, tam_loop, keys, loop_data):
                 tam_loop.done()
 
-            def draw(self, tam_buffer, loop_data):
+            def draw(self, tam_surface, loop_data):
                 pass
 
         return Dummy()
@@ -100,10 +100,10 @@ class TAMLoopTests(unittest.TestCase):
             def update(self, tam_loop, keys, loop_data):
                 self._q = bool(len(keys))
 
-            def draw(self, tam_buffer, loop_data):
-                tam_buffer.clear()
+            def draw(self, tam_surface, loop_data):
+                tam_surface.clear()
                 if self._q:
-                    tam_buffer.set_spot(0, 0, "C", RED, GREEN)
+                    tam_surface.set_spot(0, 0, "C", RED, GREEN)
 
             def done(self, tam_loop, loop_data):
                 pass
@@ -113,13 +113,13 @@ class TAMLoopTests(unittest.TestCase):
             loop = tam.tam_loop.TAMLoop(frame, test_mode=True)
             self.assertIsNone(loop.step())
             loop()
-            self.assertIsInstance(loop.step(), tam_io.tam_buffer.TAMBuffer)
-            buffer = loop.step(("A", "NORMAL"))
-            self.assertIsInstance(buffer, tam_io.tam_buffer.TAMBuffer)
-            self.assertEqual(buffer.get_spot(0, 0), ("C", RED, GREEN))
-            buffer = loop.step()
-            self.assertIsInstance(buffer, tam_io.tam_buffer.TAMBuffer)
-            self.assertEqual(buffer.get_spot(0, 0), ("A", YELLOW, BLUE))
+            self.assertIsInstance(loop.step(), tam_io.tam_surface.TAMSurface)
+            surface = loop.step(("A", "NORMAL"))
+            self.assertIsInstance(surface, tam_io.tam_surface.TAMSurface)
+            self.assertEqual(surface.get_spot(0, 0), ("C", RED, GREEN))
+            surface = loop.step()
+            self.assertIsInstance(surface, tam_io.tam_surface.TAMSurface)
+            self.assertEqual(surface.get_spot(0, 0), ("A", YELLOW, BLUE))
             loop.done()
             done.assert_called_once()
             self.assertIsNone(loop.step())
@@ -161,23 +161,23 @@ class TAMFrameTests(unittest.TestCase):
         frame = self._get_dummy_frame(10, "C", PURPLE, GRAY, 15, 45, 47, 58)
         self.assertEqual(frame.get_height_min_and_max(), (47, 58))
 
-    def test_make_buffer_ready(self):
+    def test_make_surface_ready(self):
         frame = self._get_dummy_frame(10, "C", PURPLE, GRAY, 15, 45, 47, 58)
-        buffer = tam_io.tam_buffer.TAMBuffer(30, 32, "C", RED, GREEN)
-        frame.make_buffer_ready(buffer, 46, 59)
-        self.assertEqual(buffer.get_dimensions(), (45, 58))
+        surface = tam_io.tam_surface.TAMSurface(30, 32, "C", RED, GREEN)
+        frame.make_surface_ready(surface, 46, 59)
+        self.assertEqual(surface.get_dimensions(), (45, 58))
 
-    def test_make_buffer_ready_2(self):
+    def test_make_surface_ready_2(self):
         frame = self._get_dummy_frame(10, "C", PURPLE, GRAY, 15, 45, 47, 58)
-        buffer = tam_io.tam_buffer.TAMBuffer(30, 32, "C", RED, GREEN)
-        frame.make_buffer_ready(buffer, 1, 2)
-        self.assertEqual(buffer.get_dimensions(), (15, 47))
+        surface = tam_io.tam_surface.TAMSurface(30, 32, "C", RED, GREEN)
+        frame.make_surface_ready(surface, 1, 2)
+        self.assertEqual(surface.get_dimensions(), (15, 47))
 
-    def test_make_buffer_ready_3(self):
+    def test_make_surface_ready_3(self):
         frame = self._get_dummy_frame(10, "C", PURPLE, GRAY, 15, 45, 47, 58)
-        buffer = tam_io.tam_buffer.TAMBuffer(30, 32, "C", RED, GREEN)
-        frame.make_buffer_ready(buffer, 33, 48)
-        self.assertEqual(buffer.get_dimensions(), (33, 48))
+        surface = tam_io.tam_surface.TAMSurface(30, 32, "C", RED, GREEN)
+        frame.make_surface_ready(surface, 33, 48)
+        self.assertEqual(surface.get_dimensions(), (33, 48))
 
     def test_update(self):
         frame = self._get_dummy_frame(10, "C", PURPLE, GRAY, 15, 45, 47, 58)
@@ -188,10 +188,10 @@ class TAMFrameTests(unittest.TestCase):
 
     def test_draw(self):
         frame = self._get_dummy_frame(10, "C", PURPLE, GRAY, 15, 45, 47, 58)
-        buffer = tam_io.tam_buffer.TAMBuffer(30, 32, "C", RED, GREEN)
+        surface = tam_io.tam_surface.TAMSurface(30, 32, "C", RED, GREEN)
         with unittest.mock.patch.object(frame, "draw", return_value=None) as draw:
-            frame.draw(buffer, {})
-            draw.assert_called_once_with(buffer, {})
+            frame.draw(surface, {})
+            draw.assert_called_once_with(surface, {})
 
     def test__done(self):
         frame = self._get_dummy_frame(10, "C", PURPLE, GRAY, 15, 45, 47, 58)
@@ -217,7 +217,7 @@ class TAMFrameTests(unittest.TestCase):
             def update(self, tam_loop, keys, loop_data):
                 pass
 
-            def draw(self, tam_buffer, loop_data):
+            def draw(self, tam_surface, loop_data):
                 pass
 
         return Dummy()

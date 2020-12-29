@@ -123,10 +123,10 @@ class TAMMenuTests(unittest.TestCase):
         menu = tam_tools.tam_menu.TAMMenu(buttons, "a", goto_map)
         with unittest.mock.patch.object(tam_tools.tam_menu.TAMTextButton, "draw", return_value=None) as text_draw:
             with unittest.mock.patch.object(tam_tools.tam_menu.TAMTextBoxButton, "draw", return_value=None) as box_draw:
-                buffer = tam_io.tam_buffer.TAMBuffer(0, 0, " ", PURPLE, GREEN)
-                menu.draw(buffer)
+                surface = tam_io.tam_surface.TAMSurface(0, 0, " ", PURPLE, GREEN)
+                menu.draw(surface)
                 self.assertEqual(text_draw.call_count, 3)
-                box_draw.assert_called_once_with(buffer)
+                box_draw.assert_called_once_with(surface)
 
     def test_get_call_key(self):
         buttons = (tam_tools.tam_menu.TAMTextButton("Hello", 3, 4, AQUA, GREEN, lambda: None, PURPLE, GREEN),
@@ -361,40 +361,40 @@ class TAMTextButtonTests(unittest.TestCase):
     def test_draw(self):
         button = tam_tools.tam_menu.TAMTextButton("Hello", 0, 0, AQUA, GREEN, lambda: None, PURPLE, GREEN)
 
-        buffer = tam_io.tam_buffer.TAMBuffer(6, 6, " ", BLACK, BLACK)
+        surface = tam_io.tam_surface.TAMSurface(6, 6, " ", BLACK, BLACK)
 
-        button.draw(buffer)
+        button.draw(surface)
 
         for spot, char in enumerate("Hello"):
-            self.assertEqual(buffer.get_spot(spot, 0), (char, AQUA, GREEN))
+            self.assertEqual(surface.get_spot(spot, 0), (char, AQUA, GREEN))
 
     def test_draw_2(self):
         button = tam_tools.tam_menu.TAMTextButton("Hello\ncats", 0, 0, AQUA, GREEN, lambda: None, PURPLE, GREEN)
 
-        buffer = tam_io.tam_buffer.TAMBuffer(6, 6, " ", BLACK, BLACK)
+        surface = tam_io.tam_surface.TAMSurface(6, 6, " ", BLACK, BLACK)
 
-        button.draw(buffer)
+        button.draw(surface)
 
         for spot, char in enumerate("Hello"):
-            self.assertEqual(buffer.get_spot(spot, 0), (char, AQUA, GREEN))
+            self.assertEqual(surface.get_spot(spot, 0), (char, AQUA, GREEN))
 
         for spot, char in enumerate("cats"):
-            self.assertEqual(buffer.get_spot(spot, 1), (char, AQUA, GREEN))
+            self.assertEqual(surface.get_spot(spot, 1), (char, AQUA, GREEN))
 
     def test_on(self):
         button = tam_tools.tam_menu.TAMTextButton("Hello 123\ncats", 2, 0, AQUA, GREEN, lambda: None, PURPLE, GRAY)
 
-        buffer = tam_io.tam_buffer.TAMBuffer(15, 6, " ", BLACK, BLACK)
+        surface = tam_io.tam_surface.TAMSurface(15, 6, " ", BLACK, BLACK)
 
         button.off()
         button.on()
-        button.draw(buffer)
+        button.draw(surface)
 
         for spot, char in enumerate("* Hello 123"):
-            self.assertEqual(buffer.get_spot(spot, 0), (char, PURPLE, GRAY))
+            self.assertEqual(surface.get_spot(spot, 0), (char, PURPLE, GRAY))
 
         for spot, char in enumerate("cats"):
-            self.assertEqual(buffer.get_spot(spot + 2, 1), (char, PURPLE, GRAY))
+            self.assertEqual(surface.get_spot(spot + 2, 1), (char, PURPLE, GRAY))
 
     def test_on_2(self):
         button = tam_tools.tam_menu.TAMTextButton("Hello\ncats\nlol",
@@ -407,50 +407,50 @@ class TAMTextButtonTests(unittest.TestCase):
                                                   YELLOW,
                                                   on_chars="!@#$%^&*")
 
-        buffer = tam_io.tam_buffer.TAMBuffer(15, 6, " ", BLACK, BLACK)
+        surface = tam_io.tam_surface.TAMSurface(15, 6, " ", BLACK, BLACK)
 
         button.off()
         button.on()
-        button.draw(buffer)
+        button.draw(surface)
 
         for spot, char in enumerate("!@#$%^&*Hello"):
-            self.assertEqual(buffer.get_spot(spot, 0), (char, PURPLE, YELLOW))
+            self.assertEqual(surface.get_spot(spot, 0), (char, PURPLE, YELLOW))
 
         for spot, char in enumerate("cats"):
-            self.assertEqual(buffer.get_spot(spot + 8, 1), (char, PURPLE, YELLOW))
+            self.assertEqual(surface.get_spot(spot + 8, 1), (char, PURPLE, YELLOW))
 
         for spot, char in enumerate("lol"):
-            self.assertEqual(buffer.get_spot(spot + 8, 2), (char, PURPLE, YELLOW))
+            self.assertEqual(surface.get_spot(spot + 8, 2), (char, PURPLE, YELLOW))
 
     def test_off(self):
         button = tam_tools.tam_menu.TAMTextButton("Hello\ncats", 0, 0, AQUA, GREEN, lambda: None, PURPLE, GREEN)
 
-        buffer = tam_io.tam_buffer.TAMBuffer(6, 6, " ", BLACK, BLACK)
+        surface = tam_io.tam_surface.TAMSurface(6, 6, " ", BLACK, BLACK)
 
         button.on()
         button.off()
-        button.draw(buffer)
+        button.draw(surface)
 
         for spot, char in enumerate("Hello"):
-            self.assertEqual(buffer.get_spot(spot, 0), (char, AQUA, GREEN))
+            self.assertEqual(surface.get_spot(spot, 0), (char, AQUA, GREEN))
 
         for spot, char in enumerate("cats"):
-            self.assertEqual(buffer.get_spot(spot, 1), (char, AQUA, GREEN))
+            self.assertEqual(surface.get_spot(spot, 1), (char, AQUA, GREEN))
 
     def test_off_2(self):
         button = tam_tools.tam_menu.TAMTextButton("Hello 123\nc\tats", 3, 1, AQUA, GREEN, lambda: None, PURPLE, GREEN)
 
-        buffer = tam_io.tam_buffer.TAMBuffer(19, 19, " ", BLACK, BLACK)
+        surface = tam_io.tam_surface.TAMSurface(19, 19, " ", BLACK, BLACK)
 
         button.on()
         button.off()
-        button.draw(buffer)
+        button.draw(surface)
 
         for spot, char in enumerate("Hello 123"):
-            self.assertEqual(buffer.get_spot(spot + 3, 1), (char, AQUA, GREEN))
+            self.assertEqual(surface.get_spot(spot + 3, 1), (char, AQUA, GREEN))
 
         for spot, char in enumerate("c    ats"):
-            self.assertEqual(buffer.get_spot(spot + 3, 2), (char, AQUA, GREEN))
+            self.assertEqual(surface.get_spot(spot + 3, 2), (char, AQUA, GREEN))
 
     @staticmethod
     def test_run_action():
@@ -512,18 +512,18 @@ class TAMTextButtonTests(unittest.TestCase):
     def test_set_position(self):
         button = tam_tools.tam_menu.TAMTextButton("Hello 123\nc\tats", 3, 1, AQUA, RED, lambda: None, PURPLE, GREEN)
 
-        buffer = tam_io.tam_buffer.TAMBuffer(19, 19, " ", BLACK, BLACK)
+        surface = tam_io.tam_surface.TAMSurface(19, 19, " ", BLACK, BLACK)
 
         button.on()
         button.off()
         button.set_position(0, 0)
-        button.draw(buffer)
+        button.draw(surface)
 
         for spot, char in enumerate("Hello 123"):
-            self.assertEqual(buffer.get_spot(spot, 0), (char, AQUA, RED))
+            self.assertEqual(surface.get_spot(spot, 0), (char, AQUA, RED))
 
         for spot, char in enumerate("c    ats"):
-            self.assertEqual(buffer.get_spot(spot, 1), (char, AQUA, RED))
+            self.assertEqual(surface.get_spot(spot, 1), (char, AQUA, RED))
 
     def test_set_position_2(self):
         button = tam_tools.tam_menu.TAMTextButton("Hello\ncats\nlol",
@@ -536,21 +536,21 @@ class TAMTextButtonTests(unittest.TestCase):
                                                   YELLOW,
                                                   on_chars="!@#$%^&*")
 
-        buffer = tam_io.tam_buffer.TAMBuffer(15, 6, " ", BLACK, BLACK)
+        surface = tam_io.tam_surface.TAMSurface(15, 6, " ", BLACK, BLACK)
 
         button.off()
         button.on()
         button.set_position(9, 1)
-        button.draw(buffer)
+        button.draw(surface)
 
         for spot, char in enumerate("!@#$%^&*Hello"):
-            self.assertEqual(buffer.get_spot(spot + 1, 1), (char, PURPLE, YELLOW))
+            self.assertEqual(surface.get_spot(spot + 1, 1), (char, PURPLE, YELLOW))
 
         for spot, char in enumerate("cats"):
-            self.assertEqual(buffer.get_spot(spot + 9, 2), (char, PURPLE, YELLOW))
+            self.assertEqual(surface.get_spot(spot + 9, 2), (char, PURPLE, YELLOW))
 
         for spot, char in enumerate("lol"):
-            self.assertEqual(buffer.get_spot(spot + 9, 3), (char, PURPLE, YELLOW))
+            self.assertEqual(surface.get_spot(spot + 9, 3), (char, PURPLE, YELLOW))
 
 
 class TAMTextBoxButtonTests(unittest.TestCase):
@@ -620,13 +620,13 @@ class TAMTextBoxButtonTests(unittest.TestCase):
     def test_draw(self):
         button = tam_tools.tam_menu.TAMTextBoxButton("test", 0, 0, 10, 5, "#", AQUA, GREEN, lambda: None, PURPLE, GREEN)
 
-        buffer = tam_io.tam_buffer.TAMBuffer(12, 6, " ", BLACK, BLACK)
+        surface = tam_io.tam_surface.TAMSurface(12, 6, " ", BLACK, BLACK)
 
-        button.draw(buffer)
+        button.draw(surface)
 
-        self.assertEqual(buffer.get_spot(0, 0), ("#", AQUA, GREEN))
+        self.assertEqual(surface.get_spot(0, 0), ("#", AQUA, GREEN))
         for spot, char in enumerate("test"):
-            self.assertEqual(buffer.get_spot(spot + 2, 2), (char, AQUA, GREEN))
+            self.assertEqual(surface.get_spot(spot + 2, 2), (char, AQUA, GREEN))
 
     def test_draw_2(self):
         button = tam_tools.tam_menu.TAMTextBoxButton("test_2\ncats",
@@ -642,29 +642,29 @@ class TAMTextBoxButtonTests(unittest.TestCase):
                                                      YELLOW,
                                                      on_char="$")
 
-        buffer = tam_io.tam_buffer.TAMBuffer(12, 12, " ", BLACK, BLACK)
+        surface = tam_io.tam_surface.TAMSurface(12, 12, " ", BLACK, BLACK)
 
-        button.draw(buffer)
+        button.draw(surface)
 
-        self.assertEqual(buffer.get_spot(0, 0), (">", WHITE, YELLOW))
+        self.assertEqual(surface.get_spot(0, 0), (">", WHITE, YELLOW))
         for spot, char in enumerate("test_2"):
-            self.assertEqual(buffer.get_spot(spot + 2, 2), (char, WHITE, YELLOW))
+            self.assertEqual(surface.get_spot(spot + 2, 2), (char, WHITE, YELLOW))
 
         for spot, char in enumerate("cats"):
-            self.assertEqual(buffer.get_spot(spot + 2, 3), (char, WHITE, YELLOW))
+            self.assertEqual(surface.get_spot(spot + 2, 3), (char, WHITE, YELLOW))
 
     def test_on(self):
         button = tam_tools.tam_menu.TAMTextBoxButton("test", 0, 0, 10, 5, "#", AQUA, GREEN, lambda: None, PURPLE, RED)
 
-        buffer = tam_io.tam_buffer.TAMBuffer(12, 6, " ", BLACK, BLACK)
+        surface = tam_io.tam_surface.TAMSurface(12, 6, " ", BLACK, BLACK)
 
         button.off()
         button.on()
-        button.draw(buffer)
+        button.draw(surface)
 
-        self.assertEqual(buffer.get_spot(0, 0), ("/", PURPLE, RED))
+        self.assertEqual(surface.get_spot(0, 0), ("/", PURPLE, RED))
         for spot, char in enumerate("test"):
-            self.assertEqual(buffer.get_spot(spot + 2, 2), (char, PURPLE, RED))
+            self.assertEqual(surface.get_spot(spot + 2, 2), (char, PURPLE, RED))
 
     def test_on_2(self):
         button = tam_tools.tam_menu.TAMTextBoxButton("test_2\ncats",
@@ -680,31 +680,31 @@ class TAMTextBoxButtonTests(unittest.TestCase):
                                                      PURPLE,
                                                      on_char="$")
 
-        buffer = tam_io.tam_buffer.TAMBuffer(15, 15, " ", BLACK, BLACK)
+        surface = tam_io.tam_surface.TAMSurface(15, 15, " ", BLACK, BLACK)
 
         button.off()
         button.on()
-        button.draw(buffer)
+        button.draw(surface)
 
-        self.assertEqual(buffer.get_spot(0, 0), ("$", BLUE, PURPLE))
+        self.assertEqual(surface.get_spot(0, 0), ("$", BLUE, PURPLE))
         for spot, char in enumerate("test_2"):
-            self.assertEqual(buffer.get_spot(spot + 2, 2), (char, BLUE, PURPLE))
+            self.assertEqual(surface.get_spot(spot + 2, 2), (char, BLUE, PURPLE))
 
         for spot, char in enumerate("cats"):
-            self.assertEqual(buffer.get_spot(spot + 2, 3), (char, BLUE, PURPLE))
+            self.assertEqual(surface.get_spot(spot + 2, 3), (char, BLUE, PURPLE))
 
     def test_off(self):
         button = tam_tools.tam_menu.TAMTextBoxButton("test", 0, 0, 10, 5, "#", AQUA, GREEN, lambda: None, PURPLE, RED)
 
-        buffer = tam_io.tam_buffer.TAMBuffer(12, 6, " ", BLACK, BLACK)
+        surface = tam_io.tam_surface.TAMSurface(12, 6, " ", BLACK, BLACK)
 
         button.on()
         button.off()
-        button.draw(buffer)
+        button.draw(surface)
 
-        self.assertEqual(buffer.get_spot(0, 0), ("#", AQUA, GREEN))
+        self.assertEqual(surface.get_spot(0, 0), ("#", AQUA, GREEN))
         for spot, char in enumerate("test"):
-            self.assertEqual(buffer.get_spot(spot + 2, 2), (char, AQUA, GREEN))
+            self.assertEqual(surface.get_spot(spot + 2, 2), (char, AQUA, GREEN))
 
     def test_off_2(self):
         button = tam_tools.tam_menu.TAMTextBoxButton("test_2\ncats",
@@ -720,18 +720,18 @@ class TAMTextBoxButtonTests(unittest.TestCase):
                                                      PURPLE,
                                                      on_char="$")
 
-        buffer = tam_io.tam_buffer.TAMBuffer(15, 15, " ", BLACK, BLACK)
+        surface = tam_io.tam_surface.TAMSurface(15, 15, " ", BLACK, BLACK)
 
         button.on()
         button.off()
-        button.draw(buffer)
+        button.draw(surface)
 
-        self.assertEqual(buffer.get_spot(0, 0), (">", WHITE, YELLOW))
+        self.assertEqual(surface.get_spot(0, 0), (">", WHITE, YELLOW))
         for spot, char in enumerate("test_2"):
-            self.assertEqual(buffer.get_spot(spot + 2, 2), (char, WHITE, YELLOW))
+            self.assertEqual(surface.get_spot(spot + 2, 2), (char, WHITE, YELLOW))
 
         for spot, char in enumerate("cats"):
-            self.assertEqual(buffer.get_spot(spot + 2, 3), (char, WHITE, YELLOW))
+            self.assertEqual(surface.get_spot(spot + 2, 3), (char, WHITE, YELLOW))
 
     @staticmethod
     def test_run_action():
@@ -835,19 +835,19 @@ class TAMTextBoxButtonTests(unittest.TestCase):
                                                      PURPLE,
                                                      on_char="$")
 
-        buffer = tam_io.tam_buffer.TAMBuffer(15, 15, " ", BLACK, BLACK)
+        surface = tam_io.tam_surface.TAMSurface(15, 15, " ", BLACK, BLACK)
 
         button.on()
         button.off()
         button.set_position(2, 3)
-        button.draw(buffer)
+        button.draw(surface)
 
-        self.assertEqual(buffer.get_spot(2, 3), (">", WHITE, YELLOW))
+        self.assertEqual(surface.get_spot(2, 3), (">", WHITE, YELLOW))
         for spot, char in enumerate("test_2"):
-            self.assertEqual(buffer.get_spot(spot + 4, 5), (char, WHITE, YELLOW))
+            self.assertEqual(surface.get_spot(spot + 4, 5), (char, WHITE, YELLOW))
 
         for spot, char in enumerate("cats"):
-            self.assertEqual(buffer.get_spot(spot + 4, 6), (char, WHITE, YELLOW))
+            self.assertEqual(surface.get_spot(spot + 4, 6), (char, WHITE, YELLOW))
 
     def test_set_position_2(self):
         button = tam_tools.tam_menu.TAMTextBoxButton("test_2\ncats",
@@ -863,16 +863,16 @@ class TAMTextBoxButtonTests(unittest.TestCase):
                                                      PURPLE,
                                                      on_char="$")
 
-        buffer = tam_io.tam_buffer.TAMBuffer(15, 15, " ", BLACK, BLACK)
+        surface = tam_io.tam_surface.TAMSurface(15, 15, " ", BLACK, BLACK)
 
         button.off()
         button.on()
         button.set_position(4, 6)
-        button.draw(buffer)
+        button.draw(surface)
 
-        self.assertEqual(buffer.get_spot(4, 6), ("$", BLUE, PURPLE))
+        self.assertEqual(surface.get_spot(4, 6), ("$", BLUE, PURPLE))
         for spot, char in enumerate("test_2"):
-            self.assertEqual(buffer.get_spot(spot + 6, 8), (char, BLUE, PURPLE))
+            self.assertEqual(surface.get_spot(spot + 6, 8), (char, BLUE, PURPLE))
 
         for spot, char in enumerate("cats"):
-            self.assertEqual(buffer.get_spot(spot + 6, 9), (char, BLUE, PURPLE))
+            self.assertEqual(surface.get_spot(spot + 6, 9), (char, BLUE, PURPLE))

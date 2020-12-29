@@ -54,14 +54,14 @@ class TAMMenu:
         for key in self.__buttons:
             self.__buttons[key].update()
 
-    def draw(self, buffer):
+    def draw(self, tam_surface):
         """
         info: draw all the buttons of the menu
-        :param buffer: TAMBuffer
+        :param tam_surface: TAMSurface
         :return:
         """
         for key in self.__buttons:
-            self.__buttons[key].draw(buffer)
+            self.__buttons[key].draw(tam_surface)
 
     def get_call_key(self):
         """
@@ -137,7 +137,7 @@ class TAMButtonRule:
     def update(self):
         raise NotImplementedError()
 
-    def draw(self, buffer):
+    def draw(self, tam_surface):
         raise NotImplementedError()
 
     def on(self):
@@ -224,14 +224,14 @@ class TAMTextButton(TAMButtonRule):
         """
         pass
 
-    def draw(self, buffer):
+    def draw(self, tam_surface):
         """
-        info: draws button onto buffer
-        :param buffer:
+        info: draws button onto surface
+        :param tam_surface:
         :return:
         """
         for draw_args in self.__draw_args:
-            tam_tools.tam_print.tam_print(buffer, *draw_args)
+            tam_tools.tam_print.tam_print(tam_surface, *draw_args)
 
     def on(self):
         """
@@ -381,13 +381,13 @@ class TAMTextBoxButton(TAMButtonRule):
         """
         self.__text_box.update()
 
-    def draw(self, buffer):
+    def draw(self, tam_surface):
         """
-        info: draws button onto buffer
-        :param buffer:
+        info: draws button onto surface
+        :param tam_surface:
         :return:
         """
-        self.__text_box.draw(buffer, self.__x, self.__y)
+        self.__text_box.draw(tam_surface, self.__x, self.__y)
 
     def on(self):
         """

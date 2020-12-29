@@ -31,37 +31,37 @@ class TAMTextBox:
         :param width: int: 0 - inf
         :param height: int: 0 - inf
         :param char: str: len == 1
-        :param foreground_color: int: 0 - inf
-        :param background_color: int: 0 - inf
+        :param foreground_color: Color
+        :param background_color: Color
         :param clock: int: -1 or 1 - inf
         :param center_vertical: bool,
         :param center_horizontal: bool
-        :param vertical_space: 1 - inf
+        :param vertical_space: int: 1 - inf
         :param char_background: str: len == 1
         """
-        self.__text = tam_str.make_tam_str(text)
-        self.__width = width
-        self.__height = height
-        self.__char = char
-        self.__foreground_color = foreground_color
-        self.__background_color = background_color
-        self.__char_background = char_background
+        self._text = tam_str.make_tam_str(text)
+        self._width = width
+        self._height = height
+        self._char = char
+        self._foreground_color = foreground_color
+        self._background_color = background_color
+        self._char_background = char_background
 
-        self.__buffer = tam_io.tam_buffer.TAMBuffer(width, height, char_background, foreground_color, background_color)
+        self._surface = tam_io.tam_surface.TAMSurface(width, height, char_background, foreground_color, background_color)
 
-        self.__clock = clock
-        self.__clock_at = clock
-        self.__tick_count = 0
-        self.__done = False
+        self._clock = clock
+        self._clock_at = clock
+        self._tick_count = 0
+        self._done = False
 
-        self.__center_vertical = center_vertical
-        self.__vertical_space = vertical_space
-        self.__vertical_start = vertical_start
-        self.__center_horizontal = center_horizontal
+        self._center_vertical = center_vertical
+        self._vertical_space = vertical_space
+        self._vertical_start = vertical_start
+        self._center_horizontal = center_horizontal
 
-        self.__generator = self.__update_generator()
+        self._generator = self._update_generator()
 
-        if self.__clock == -1:
+        if self._clock == -1:
             self.update()
 
     def __str__(self):
@@ -69,91 +69,91 @@ class TAMTextBox:
         info: gets text
         :return: str
         """
-        return self.__text
+        return self._text
 
     def update(self):
         """
         info updates the text box
         :return:
         """
-        if self.__done:
+        if self._done:
             return None
-        elif self.__clock == -1:
-            while not self.__done:
+        elif self._clock == -1:
+            while not self._done:
                 try:
-                    next(self.__generator)
+                    next(self._generator)
                 except StopIteration:
-                    self.__done = True
+                    self._done = True
         else:
             try:
-                if self.__clock_at == self.__clock:
-                    next(self.__generator)
-                    self.__clock_at = 0
+                if self._clock_at == self._clock:
+                    next(self._generator)
+                    self._clock_at = 0
             except StopIteration:
-                self.__done = True
+                self._done = True
 
-        self.__clock_at += 1
-        self.__tick_count += 1
+        self._clock_at += 1
+        self._tick_count += 1
 
-    def __update_generator(self):
+    def _update_generator(self):
         """
         info: puts the next char onto the text box
         :return:
         """
-        if self.__width != 0 and self.__height != 0:
+        if self._width != 0 and self._height != 0:
             # draw the outline of the text box
-            for x in range(self.__width):
-                self.__buffer.set_spot(x, 0, self.__char, self.__foreground_color, self.__background_color)
-                self.__buffer.set_spot(x,
-                                       self.__height - 1,
-                                       self.__char,
-                                       self.__foreground_color,
-                                       self.__background_color)
+            for x in range(self._width):
+                self._surface.set_spot(x, 0, self._char, self._foreground_color, self._background_color)
+                self._surface.set_spot(x,
+                                       self._height - 1,
+                                       self._char,
+                                       self._foreground_color,
+                                       self._background_color)
 
-            for y in range(1, self.__height - 1):
-                self.__buffer.set_spot(0, y, self.__char, self.__foreground_color, self.__background_color)
-                self.__buffer.set_spot(self.__width - 1,
+            for y in range(1, self._height - 1):
+                self._surface.set_spot(0, y, self._char, self._foreground_color, self._background_color)
+                self._surface.set_spot(self._width - 1,
                                        y,
-                                       self.__char,
-                                       self.__foreground_color,
-                                       self.__background_color)
+                                       self._char,
+                                       self._foreground_color,
+                                       self._background_color)
             yield None
             # find the height
-            height = self.__vertical_start
-            if self.__center_vertical:
-                text_height = (len(self.__text.split("\n")) - 1) * self.__vertical_space + 1
-                height = (self.__height - text_height)//2
+            height = self._vertical_start
+            if self._center_vertical:
+                text_height = (len(self._text.split("\n")) - 1) * self._vertical_space + 1
+                height = (self._height - text_height) // 2
 
-            for line in self.__text.split("\n"):
+            for line in self._text.split("\n"):
                 # find the width
                 width = 2
-                if self.__center_horizontal:
-                    width = (self.__width - len(line))//2
+                if self._center_horizontal:
+                    width = (self._width - len(line)) // 2
                 for spot, char in enumerate(line):
-                    self.__buffer.set_spot(width + spot, height, char, self.__foreground_color, self.__background_color)
+                    self._surface.set_spot(width + spot, height, char, self._foreground_color, self._background_color)
                     yield None
-                height += self.__vertical_space
+                height += self._vertical_space
 
     def draw(self,
-             tam_buffer,
+             tam_surface,
              start_x=0,
              start_y=0):
 
         """
-        info: draws the text box on to another buffer
-        :param tam_buffer: TAMBuffer
+        info: draws the text box on to another surface
+        :param tam_surface: TAMSurface
         :param start_x: int
         :param start_y: int
         :return:
         """
-        tam_buffer.draw_onto(self.__buffer, start_x, start_y)
+        tam_surface.draw_onto(self._surface, start_x, start_y)
 
     def done(self):
         """
         info: True if text box has placed all chars onto to its self
         :return: bool
         """
-        return self.__done
+        return self._done
 
     def set_colors(self, foreground_color, background_color):
         """
@@ -162,70 +162,70 @@ class TAMTextBox:
         :param background_color: 0 - inf
         :return:
         """
-        self.__foreground_color = foreground_color
-        self.__background_color = background_color
+        self._foreground_color = foreground_color
+        self._background_color = background_color
 
-        self.__rebuild()
+        self._rebuild()
 
     def set_char(self, char):
         """
         info: sets char
         :return:
         """
-        self.__char = char
-        self.__rebuild()
+        self._char = char
+        self._rebuild()
 
     def get_char(self):
         """
         info: gets char
         :return: str
         """
-        return self.__char
+        return self._char
 
     def get_colors(self):
         """
         info: gets textbox color
         :return: (int, int)
         """
-        return self.__foreground_color, self.__background_color
+        return self._foreground_color, self._background_color
 
     def get_text(self):
         """
         info: gets text
         :return: str
         """
-        return self.__text
+        return self._text
 
     def get_dimensions(self):
         """
-        info: gets buffer dimensions
+        info: gets surface dimensions
         :return: (int, int)
         """
-        return self.__width, self.__height
+        return self._width, self._height
 
-    def __rebuild(self):
+    def _rebuild(self):
         """
         info: makes the text box again
         :return:
         """
 
-        self.__buffer = tam_io.tam_buffer.TAMBuffer(self.__width,
-                                                    self.__height,
-                                                    self.__char_background,
-                                                    self.__foreground_color,
-                                                    self.__background_color)
+        self._surface = tam_io.tam_surface.TAMSurface(self._width,
+                                                      self._height,
+                                                      self._char_background,
+                                                      self._foreground_color,
+                                                      self._background_color)
 
-        if self.__clock == -1:
-            self.__clock_at = self.__clock
-            self.__tick_count = 0
-            self.__done = False
-            self.__generator = self.__update_generator()
+        if self._clock == -1:
+            self._clock_at = self._clock
+            self._tick_count = 0
+            self._done = False
+            self._generator = self._update_generator()
             self.update()
         else:
-            tick_count = self.__tick_count
-            self.__clock_at = self.__clock
-            self.__tick_count = 0
-            self.__done = False
-            self.__generator = self.__update_generator()
+            tick_count = self._tick_count
+            self._clock_at = self._clock
+            self._tick_count = 0
+            self._done = False
+            self._generator = self._update_generator()
             for _ in range(tick_count):
                 self.update()
