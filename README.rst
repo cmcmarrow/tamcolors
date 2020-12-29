@@ -131,6 +131,12 @@ goals
 * support FreeBSD
 
 ***********
+2.0.0 goals
+***********
+* add .wav support
+* add .wav tests
+
+***********
 1.3.0 goals
 ***********
 * fix exit clear - Done
