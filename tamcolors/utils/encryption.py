@@ -23,7 +23,7 @@ Encryption
 Encrypts and decrypts bytes using RSA and AES.
 RSA Encrypted: [AES key][nonce][sandy check key]
 AES Encrypted" [random header][random bytes][data]
-SHA3512 makes the sandy check key
+SHA512 makes the sandy check key
 """
 
 MISSING_ENCRYPTION = "Missing Encryption Libraries!\nYou can fix this by running \"pip install tamcolors[encryption]\""
@@ -48,7 +48,7 @@ class Encryption:
         :param rsa_key_size: int: 4096 - inf
         :param aes_key_size: int: 128, 192 or 256
         :param nonce_key_size: int: 12 - inf: A key for AES encryption.
-        :param authenticator: bytes: Checks if
+        :param authenticator: authenticator key
         :param max_random: int: 2 - inf: Sets the max number of random bytes that get add it to encryption.
         """
 
