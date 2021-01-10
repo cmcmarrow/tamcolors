@@ -357,3 +357,23 @@ class TAMSurfaceTests(unittest.TestCase):
         surface.set_spot(0, 0, tam_io.tam_surface.ALPHA_CHAR, ALPHA, WHITE, True)
         surface.replace_alpha_chars(tam_io.tam_surface.ALPHA_CHAR)
         self.assertEqual(surface.get_spot(0, 0), (" ", ALPHA, WHITE))
+
+    def test_to_bytes_from_bytes(self):
+        surface = tam_io.tam_surface.TAMSurface(300, 6, tam_io.tam_surface.ALPHA_CHAR, RED, GREEN)
+
+        for color_code in COLOR_MAP:
+            surface.set_spot(color_code + 5, 0, "@", COLOR_MAP[color_code], COLOR_MAP[color_code])
+
+        surface.set_spot(4, 5, "*", Color(1, 1, RGBA(207, 201, 2)), Color(1, 1, RGBA(233, 255, 21)))
+        surface.set_spot(4, 7, tam_io.tam_surface.ALPHA_CHAR,
+                         Color(1, 2, RGBA(237, 200, 7)),
+                         Color(4, 13, RGBA(44, 44, 1)))
+
+        surface_bytes = surface.to_bytes()
+        self.assertIsInstance(surface_bytes, bytes)
+        surface_2 = tam_io.tam_surface.TAMSurface.from_bytes(bytearray(surface_bytes))
+        self.assertIsInstance(surface_2, tam_io.tam_surface.TAMSurface)
+        self.assertEqual(surface, surface_2)
+
+
+

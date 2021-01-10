@@ -22,7 +22,7 @@ class BootLogo(tam.tam_loop.TAMFrame):
         else:
             self.wait -= 1
 
-        if self.wait == 0:
+        if self.wait == 0 or len(keys):
             tam_loop.done()
 
     def draw(self, tam_surface, loop_data):

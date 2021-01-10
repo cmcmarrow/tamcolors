@@ -7,8 +7,7 @@ from tamcolors import tam_io
 
 def get_any_io():
     return tam_io.tam_identifier.TAMIdentifier("any_driver_tests",
-                                               tam_io.any_drivers.ANYColorDriver,
-                                               tam_io.any_drivers.ANYColorChangerDriver,
+                                               tam_io.any_drivers.ANYFullColorDriver,
                                                tam_io.any_drivers.ANYKeyDriver,
                                                tam_io.any_drivers.ANYUtilitiesDriver).get_io()
 

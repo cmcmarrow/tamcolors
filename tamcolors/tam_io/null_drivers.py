@@ -1,11 +1,11 @@
-# tamcolors libraries
+# built in library
 from abc import ABC
-from tamcolors.tam_io import tam_drivers
-from tamcolors.tam_io import io_tam
-from tamcolors.tam_io import tam_keys
+
+# tamcolors library
+from tamcolors.tam_io import tam_drivers, tam_keys, io_tam
 
 
-class ANYKeyDriver(tam_drivers.KeyDriver, ABC):
+class NULLKeyDriver(tam_drivers.KeyDriver, ABC):
     def __init__(self, *args, **kwargs):
         kwargs.setdefault("key_driver_operational", False)
         super().__init__(*args, **kwargs)
@@ -17,13 +17,21 @@ class ANYKeyDriver(tam_drivers.KeyDriver, ABC):
         """
         return False
 
+    def wait_key(self, rest_time=0.0001):
+        """
+        info: Get an input from the terminal
+        :param: rest_time: float: rest time from checking if a key is down
+        :return: tuple or false
+        """
+        return False
+
     @staticmethod
     def get_key_dict():
         """
         info: Gets a dict of all the keys
         :return: {str: (str, str), ...}
         """
-        raise {}
+        return {}
 
     def get_keyboard_name(self, default_to_us_english=True):
         """
@@ -31,38 +39,37 @@ class ANYKeyDriver(tam_drivers.KeyDriver, ABC):
         :param default_to_us_english: bool
         :return: str
         """
-        return tam_keys.US_ENGLISH
+        if default_to_us_english:
+            return tam_keys.US_ENGLISH
+        return tam_keys.UNKNOWN
 
 
-class ANYFullColorDriver(tam_drivers.FullColorDriver, ABC):
+class NULLFullColorDriver(tam_drivers.FullColorDriver, ABC):
     def __init__(self, *args, **kwargs):
         kwargs.setdefault("color_driver_operational", False)
         kwargs.setdefault("color_changer_driver_operational", False)
-        kwargs.setdefault("mode_16_pal_256", False)
-        kwargs.setdefault("mode_16", False)
-        kwargs.setdefault("mode_256", False)
         kwargs.setdefault("mode_rgb", False)
         super().__init__(*args, **kwargs)
 
     def printc(self, output, color, flush, stderr):
         """
-        info: will print out user output with color
+        info: Will print to the console in color
         :param output: str
-        :param color: tuple: (int, int)
-        :param flush: boolean
-        :param stderr: boolean
-        :return: None
+        :param color: COLOR
+        :param flush: bool
+        :param stderr: std
+        :return:
         """
-        self._write_to_output_stream(output, flush, stderr)
+        pass
 
-    def inputc(self, value, color):
+    def inputc(self, output, color):
         """
-        info: will get user input with color
-        :param value: str
-        :param color: tuple: (int, int)
+        info: Will get input from the console in color
+        :param output: str
+        :param color: COLOR
         :return: str
         """
-        return input(value)
+        pass
 
     def get_printc_mode(self):
         """
@@ -71,35 +78,42 @@ class ANYFullColorDriver(tam_drivers.FullColorDriver, ABC):
         """
         return io_tam.MODE_2
 
-    def draw(self, tam_surface):
-        """
-        info: Will draw TAMSurface to console
-        :param tam_surface: TAMSurface
-        :return: None
-        """
-        super().draw(tam_surface)
-
     def _draw_2(self, tam_surface):
         """
         info: Will draw TAMSurface to console in mode 2
         :param tam_surface: TAMSurface
         :return: None
         """
-        print(tam_surface)
+        pass
 
-    def _get_console_color(self, spot):
+    def _draw_16_pal_256(self, tam_surface):
         """
-        info: Will get a console color
-        :param spot: int
-        :return: RGBA
+        info: Will draw TAMSurface to console in mode 16_pal_256
+        :param tam_surface: TAMSurface
+        :return: None
         """
         pass
 
-    def _set_console_color(self, spot, color):
+    def _draw_16(self, tam_surface):
         """
-        info: Will set a console color
-        :param spot: int
-        :param color: RGBA
+        info: Will draw TAMSurface to console in mode 16
+        :param tam_surface: TAMSurface
+        :return: None
+        """
+        pass
+
+    def _draw_256(self, tam_surface):
+        """
+        info: Will draw TAMSurface to console in mode 256
+        :param tam_surface: TAMSurface
+        :return: None
+        """
+        pass
+
+    def _draw_rgb(self, tam_surface):
+        """
+        info: Will draw TAMSurface to console in mode rgb
+        :param tam_surface: TAMSurface
         :return: None
         """
         pass
@@ -112,7 +126,7 @@ class ANYFullColorDriver(tam_drivers.FullColorDriver, ABC):
         return 0
 
 
-class ANYUtilitiesDriver(tam_drivers.UtilitiesDriver, ABC):
+class NULLUtilitiesDriver(tam_drivers.UtilitiesDriver, ABC):
     def __init__(self, *args, **kwargs):
         kwargs.setdefault("utilities_driver_operational", False)
         super().__init__(*args, **kwargs)
@@ -122,19 +136,4 @@ class ANYUtilitiesDriver(tam_drivers.UtilitiesDriver, ABC):
         info: Gets the dimensions of console
         :return: (int, int): (row, column)
         """
-        return 85, 25
-
-    def clear(self):
-        """
-        info: Will clear the console
-        :return: None
-        """
-        super().clear()
-
-    def show_console_cursor(self, show):
-        """
-        info: Will show or hide console cursor
-        :param show: int
-        :return: None
-        """
-        super().show_console_cursor(show)
+        return 0, 0

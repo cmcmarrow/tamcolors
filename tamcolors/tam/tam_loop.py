@@ -1,17 +1,15 @@
 # built in libraries
 import traceback
-import threading
 import time
 import sys
-import itertools
-import cProfile
-import pstats
+
 
 # tamcolors libraries
-from tamcolors.tests import all_tests
 from tamcolors.tam_io.tam_surface import TAMSurface
-from tamcolors.tam_io.io_tam import MODE_2
+from tamcolors.tests import all_tests
 from tamcolors.tam_io import tam_identifier
+from tamcolors.tam.tam_loop_io_handler import TAMLoopIOHandler
+from tamcolors.utils.identifier import get_identifier_bytes
 from tamcolors.utils import timer
 
 
@@ -29,7 +27,7 @@ class TAMLoopError(Exception):
     pass
 
 
-class TAMLoop:
+class TAMLoop(TAMLoopIOHandler):
     def __init__(self,
                  tam_frame,
                  io=None,
@@ -40,7 +38,10 @@ class TAMLoop:
                  tam_color_defaults=True,
                  highest_mode_lock=False,
                  preferred_mode=None,
-                 test_mode=False):
+                 test_mode=False,
+                 name=None,
+                 identifier_id=None,
+                 start_data=None):
         """
         info: makes a TAMLoop object
         :param tam_frame: TAMFrame: first frame in tam loop
@@ -53,75 +54,64 @@ class TAMLoop:
         :param highest_mode_lock: bool: will disable change key and put IO in its highest color mode
         :param preferred_mode: tuple or None: will take the first mode that is supported. fallback is mode 2
         :param test_mode: bool: Will enable the method step and only any os
+        :param name: str or None
+        :param identifier_id: bytes or None
+        :param start_data: object
         """
 
-        if loop_data is None:
-            loop_data = {}
+        self._receiver_settings = {"color_change_key": color_change_key,
+                                   "loop_data": loop_data,
+                                   "stability_check": stability_check,
+                                   "tam_color_defaults": tam_color_defaults,
+                                   "highest_mode_lock": highest_mode_lock,
+                                   "preferred_mode": preferred_mode}
 
         if stability_check and not all_tests.stability_check():
             test_results = all_tests.stability_check(ret_bool=False)
             raise TAMLoopError("TAM is corrupted! {0} out of {1} tests passed".format(*test_results))
 
-        self.__running = None
-        self.__draw_loop_thread = None
-        self.__key_loop_thread = None
-        self.__error = None
-
         if only_any_os or test_mode:
-            self.__io = tam_identifier.ANY_IO
+            io = tam_identifier.ANY_IO
         else:
-            self.__io = io
             if io is None:
-                self.__io = tam_identifier.IO
+                io = tam_identifier.IO
 
-            if self.__io is None:
+            if io is None:
                 raise TAMLoopError("tam io is None")
 
-        self.__frame_stack = [tam_frame]
-        self.__loop_data = loop_data
-        self.__input_keys = []
+        self._frame_stack = [tam_frame]
+        self._test_mode = test_mode
 
-        self.__color_change_key = color_change_key
-        self.__color_modes = itertools.cycle(self.__io.get_modes())
-        if highest_mode_lock:
-            self.__color_modes = itertools.cycle(self.__io.get_modes()[0:1])
+        if name is None:
+            name = "MAIN"
 
-        if preferred_mode is not None:
-            preferred_mode = list(preferred_mode)
-            preferred_mode.append(MODE_2)
-            for mode in preferred_mode:
-                if mode in self.__io.get_modes():
-                    self.__color_modes = itertools.cycle((mode,))
-                    self.__io.set_mode(mode)
-                    break
+        if identifier_id is None:
+            identifier_id = get_identifier_bytes()
 
-        self.__test_mode = test_mode
+        super().__init__(io=io,
+                         name=name,
+                         identifier_id=identifier_id,
+                         color_change_key=color_change_key,
+                         start_data=start_data,
+                         loop_data=loop_data,
+                         tam_color_defaults=tam_color_defaults,
+                         highest_mode_lock=highest_mode_lock,
+                         preferred_mode=preferred_mode)
 
-        if tam_color_defaults and not self.__test_mode:
-            self.__io.set_tam_color_defaults()
+        self._draw_loop_thread = None
 
     def __call__(self):
         """
         info: will run tam loop
         :return: None
         """
-        if self.__running is not None:
-            return
-
-        self.__running = True
-        if not self.__test_mode:
-            self.__io.start()
-
-        self.__io.set_mode(next(self.__color_modes))
-
-        if not self.__test_mode:
-            self.__key_loop_thread = threading.Thread(target=self._key_loop, daemon=True)
-            self.__key_loop_thread.start()
-
+        super().__call__()
+        if not self._test_mode and self.is_running():
             self._update_loop()
-
-            if self.__error is not None:
-                raise self.__error
+            if self._error is not None:
+                raise self._error
+        elif self.is_running():
+            raise NotImplementedError("Test Mode not working!!!!!!")    # TODO
 
     def done(self, reset_colors_to_console_defaults=True):
         """
@@ -129,36 +119,20 @@ class TAMLoop:
         :param: reset_colors_to_console_defaults: bool
         :return: None
         """
-        if self.__running:
-            self.__running = False
-            for frame in self.__frame_stack[::-1]:
-                frame._done(self, self.__loop_data)
-            if not self.__test_mode:
-                if reset_colors_to_console_defaults:
-                    self.__io.reset_colors_to_console_defaults()
-                self.__io.done()
-                self.__key_loop_thread.join(timeout=5)
+        if self.is_running():
+            for frame in self._frame_stack[::-1]:   # TODO add exit method
+                frame._done(self, self._loop_data)
+        super().done(reset_colors_to_console_defaults=reset_colors_to_console_defaults)
 
-    def run(self):
+    def get_receiver_settings(self):
         """
-        info: will call tam loop
-        :return: None
+        info: gets the receiver settings
+        :return: dict
         """
-        self()
+        return self._receiver_settings
 
-    def run_with_profiler(self):
-        """
-        info: will run with a profiler and print out data when done
-        :return: None
-        """
-        profile = cProfile.Profile()
-        profile.runcall(self)
-        ps = pstats.Stats(profile)
-        ps.sort_stats(pstats.SortKey.TIME)
-        ps.print_stats()
-
-    @staticmethod
-    def run_application(*args, **kwargs):
+    @classmethod
+    def run_application(cls, *args, **kwargs):
         """
         info: will run tam loop as an application
         note:
@@ -171,7 +145,7 @@ class TAMLoop:
         :return:
         """
         try:
-            loop = TAMLoop(*args, **kwargs)
+            loop = cls(*args, **kwargs)
             loop()
         except KeyboardInterrupt:
             pass
@@ -185,14 +159,6 @@ class TAMLoop:
         finally:
             sys.exit()
 
-    def get_running(self):
-        """
-        info: None has not ran, True is running, False has ran
-        :return: bool or None
-        """
-
-        return self.__running
-
     def add_frame_stack(self, frame):
         """
         info: will add a TAMFrame to stack
@@ -200,7 +166,7 @@ class TAMLoop:
         :return:
         """
 
-        self.__frame_stack.append(frame)
+        self._frame_stack.append(frame)
 
     def pop_frame_stack(self):
         """
@@ -208,9 +174,9 @@ class TAMLoop:
         :return: TAMFrame or None
         """
 
-        if len(self.__frame_stack) != 0:
-            frame = self.__frame_stack.pop()
-            frame._done(self, self.__loop_data)
+        if len(self._frame_stack) != 0:
+            frame = self._frame_stack.pop()
+            frame._done(self, self._loop_data)
             return frame
 
     def _update_loop(self):
@@ -222,19 +188,19 @@ class TAMLoop:
         frame_skip = 0
         clock = timer.Timer()
         try:
-            while self.__running and self.__error is None and len(self.__frame_stack) != 0:
-                frame = self.__frame_stack[-1]
+            while self._running and self._error is None and len(self._frame_stack) != 0:
+                frame = self._frame_stack[-1]
                 frame_time = 1/frame.get_fps()
-                keys = self.__input_keys.copy()
-                self.__input_keys.clear()
+                keys = self._input_keys.copy()
+                self._input_keys.clear()
 
-                frame.update(self, keys, self.__loop_data)
+                frame.update(self, keys, self._loop_data)
 
-                if self.__running and self.__error is None:
+                if self._running and self._error is None:
                     if frame_skip == 0:
-                        frame.make_surface_ready(surface, *self.__io.get_dimensions())
-                        frame.draw(surface, self.__loop_data)
-                        self.__io.draw(surface)
+                        frame.make_surface_ready(surface, *self._io.get_dimensions())
+                        frame.draw(surface, self._loop_data)
+                        self._io.draw(surface)
 
                     _, run_time = clock.offset_sleep(max(frame_time - frame_skip, 0))
 
@@ -244,116 +210,9 @@ class TAMLoop:
                         frame_skip = 0
 
         except BaseException as error:
-            self.__error = error
+            self._error = error
         finally:
             self.done()
-
-    def _key_loop(self):
-        """
-        info: will get key input
-        :return:
-        """
-
-        try:
-            while self.__running:
-                key = self.__io.wait_key()
-                if key is not False:
-                    if key[0] == self.__color_change_key:
-                        self.__io.set_mode(next(self.__color_modes))
-                    else:
-                        self.__input_keys.append(key)
-        except BaseException as error:
-            self.__error = error
-
-    def get_keyboard_name(self, default_to_us_english=True):
-        """
-        info: Will get the keyboard language name
-        :param default_to_us_english: bool
-        :return: str
-        """
-        return self.__io.get_keyboard_name(default_to_us_english)
-
-    def get_color_2(self, spot):
-        """
-        info: Will get color from color palette 2
-        :param spot: int
-        :return: RGBA
-        """
-        return self.__io.get_color_2(spot)
-
-    def get_color_16_pal_256(self, spot):
-        """
-        info: Will get color from color palette 2
-        :param spot: int
-        :return: RGBA
-        """
-        raise self.__io.get_color_16_pal_256(spot)
-
-    def get_color_16(self, spot):
-        """
-        info: Will get color from color palette 16
-        :param spot: int
-        :return: RGBA
-        """
-        return self.__io.get_color_16(spot)
-
-    def get_color_256(self, spot):
-        """
-        info: Will get color from color palette 256
-        :param spot: int
-        :return: RGBA
-        """
-        return self.__io.get_color_256(spot)
-
-    def set_color_2(self, spot, color):
-        """
-        info: sets a color value
-        :param spot: int
-        :param color: RGBA
-        :return: None
-        """
-        self.__io.set_color_2(spot, color)
-
-    def set_color_16_pal_256(self, spot, color):
-        """
-        info: sets a color value
-        :param spot: int
-        :param color: int
-        :return: None
-        """
-        self.__io.set_color_16_pal_256(spot, color)
-
-    def set_color_16(self, spot, color):
-        """
-        info: sets a color value
-        :param spot: int
-        :param color: RGBA
-        :return: None
-        """
-        self.__io.set_color_16(spot, color)
-
-    def set_color_256(self, spot, color):
-        """
-        info: sets a color value
-        :param spot: int
-        :param color: RGBA
-        :return: None
-        """
-        self.__io.set_color_256(spot, color)
-
-    def reset_colors_to_console_defaults(self):
-        """
-        info: will reset colors to console defaults
-        :return: None
-        """
-        self.__io.reset_colors_to_console_defaults()
-
-    def set_tam_color_defaults(self):
-        """
-        info: will set console colors to tam defaults
-        :return: None
-        """
-        self.__io.set_tam_color_defaults()
 
     def step(self, keys=()):
         """
@@ -361,16 +220,16 @@ class TAMLoop:
         :param keys: tuple: ((str, str), ...)
         :return: TAMSurface or None
         """
-        if self.__test_mode and self.__running:
+        if self._test_mode and self._running:
             surface = TAMSurface(0, 0, " ", 0, 0)
-            frame = self.__frame_stack[-1]
+            frame = self._frame_stack[-1]
             try:
-                frame.update(self, keys, self.__loop_data)
-                frame.make_surface_ready(surface, *self.__io.get_dimensions())
-                frame.draw(surface, self.__loop_data)
+                frame.update(self, keys, self._loop_data)
+                frame.make_surface_ready(surface, *self._io.get_dimensions())
+                frame.draw(surface, self._loop_data)
                 return surface
             except BaseException:
-                frame._done(self, self.__loop_data)
+                frame._done(self, self._loop_data)
         return
 
 

@@ -29,8 +29,8 @@ class TAMSurface(object_packer.FastHandObjectPacker):
         :param width: int: 0 - inf
         :param height: int: 0 - inf
         :param char: str: len of 1
-        :param foreground_color: int: 0 - inf
-        :param background_color: int: 0 - inf
+        :param foreground_color: Color
+        :param background_color: Color
         """
 
         # save data

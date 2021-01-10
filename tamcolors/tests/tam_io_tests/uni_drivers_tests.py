@@ -10,8 +10,7 @@ from tamcolors import tam_io
 
 def get_uni_io():
     return tam_io.tam_identifier.TAMIdentifier("uni_driver_tests",
-                                               tam_io.any_drivers.ANYColorDriver,
-                                               tam_io.any_drivers.ANYColorChangerDriver,
+                                               tam_io.any_drivers.ANYFullColorDriver,
                                                tam_io.uni_drivers.UNIKeyDriver,
                                                tam_io.uni_drivers.UNIUtilitiesDriver).get_io()
 
