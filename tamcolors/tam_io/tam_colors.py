@@ -12,9 +12,15 @@ RGBA holds the values for mode rgb
 
 
 class Color(ImmutableCache, FastHandObjectPacker):
-    __slots__ = ("_mode_2", "_mode_16_pal_256", "_mode_16", "_mode_256", "_mode_rgb", "_has_alpha", "_byte_cache")
+    __slots__ = ("_mode_2",
+                 "_mode_16_pal_256",
+                 "_mode_16",
+                 "_mode_256",
+                 "_mode_rgb",
+                 "_has_alpha",
+                 "_byte_cache")
 
-    def __init__(self, mode_16, mode_256, mode_rgb, mode_16_pal_256=None, mode_2=None):
+    def __init__(self, mode_16, mode_256, mode_rgb, mode_16_pal_256=None, mode_2=None, _color_id=None):
         """
         info: Makes a Color object
         :param mode_16: int
@@ -22,6 +28,7 @@ class Color(ImmutableCache, FastHandObjectPacker):
         :param mode_rgb: RGBA
         :param mode_16_pal_256: int or None
         :param mode_2: int or None
+        :param _color_id: int: Used ONLY for the default COLORS
         """
         if mode_2 is None:
             mode_2 = mode_16
@@ -35,11 +42,19 @@ class Color(ImmutableCache, FastHandObjectPacker):
         self._mode_256 = mode_256
         self._mode_rgb = mode_rgb
         self._has_alpha = -2 in (mode_2, mode_16, mode_256) or (mode_rgb.a != 255 and not mode_rgb.is_default)
-        self._byte_cache = bytes((*self._int_mode_to_binary(self._mode_2),
-                                  *self._int_mode_to_binary(self._mode_16_pal_256),
-                                  *self._int_mode_to_binary(self._mode_16),
-                                  *self._int_mode_to_binary(self._mode_256),
-                                  *self.mode_rgb.to_bytes()))
+
+        if _color_id is None:
+            self._byte_cache = bytes((0,
+                                      *self._int_mode_to_binary(self._mode_2),
+                                      *self._int_mode_to_binary(self._mode_16_pal_256),
+                                      *self._int_mode_to_binary(self._mode_16),
+                                      *self._int_mode_to_binary(self._mode_256),
+                                      *self.mode_rgb.to_bytes()))
+        else:
+            if abs(_color_id) == _color_id:
+                self._byte_cache = bytes((1, _color_id))
+            else:
+                self._byte_cache = bytes((2, abs(_color_id)))
 
     def __str__(self):
         return "(2: {}, 16_pal_256: {}, 16: {}, 256: {}, rgb: {}, has_alpha: {})".format(self.mode_2,
@@ -182,18 +197,35 @@ class Color(ImmutableCache, FastHandObjectPacker):
     @classmethod
     @lru_cache(maxsize=5000)
     def _from(cls, other_modes, mode_rgb):
-        mode_2 = cls._int_mode_from_binary(other_modes[:2])
-        mode_16_pal_256 = cls._int_mode_from_binary(other_modes[2:4])
-        mode_16 = cls._int_mode_from_binary(other_modes[4:6])
-        mode_256 = cls._int_mode_from_binary(other_modes[6:8])
+        mode_2 = cls._int_mode_from_binary(other_modes[1:3])
+        mode_16_pal_256 = cls._int_mode_from_binary(other_modes[3:5])
+        mode_16 = cls._int_mode_from_binary(other_modes[5:7])
+        mode_256 = cls._int_mode_from_binary(other_modes[7:9])
         return cls(mode_16, mode_256, mode_rgb, mode_16_pal_256, mode_2)
 
     @classmethod
+    @lru_cache(maxsize=5000)
+    def _from_color_id(cls, color_code):
+        """
+        info: makes color from bytes
+        :param color_code: bytes: color id
+        :return: Color
+        """
+        if color_code[0] == 1:
+            return COLORS[color_code[1]]
+        return COLOR_MAP[color_code[1]*-1]
+
+    @classmethod
     def from_bytes(cls, object_byte_array):
-        other_modes = bytes(object_byte_array[:8])
-        del object_byte_array[:8]
-        mode_rgb = RGBA.from_bytes(object_byte_array)
-        return cls._from(other_modes, mode_rgb)
+        if object_byte_array[0] == 0:
+            other_modes = bytes(object_byte_array[:9])
+            del object_byte_array[:9]
+            mode_rgb = RGBA.from_bytes(object_byte_array)
+            return cls._from(other_modes, mode_rgb)
+        else:
+            color_code = bytes(object_byte_array[:2])
+            del object_byte_array[:2]
+            return cls._from_color_id(color_code)
 
 
 class RGBA(ImmutableCache, FastHandObjectPacker):
@@ -292,25 +324,25 @@ class RGBA(ImmutableCache, FastHandObjectPacker):
         return obj
 
 
-ALPHA = Color(-2, -2, RGBA(0, 0, 0, 0))
-DEFAULT = Color(-1, -1, RGBA(0, 0, 0, 255, True))
+ALPHA = Color(-2, -2, RGBA(0, 0, 0, 0), _color_id=-2)
+DEFAULT = Color(-1, -1, RGBA(0, 0, 0, 255, True), _color_id=-1)
 
-BLACK = Color(0, 0, RGBA(0, 0, 0))
-RED = Color(1, 1, RGBA(128, 0, 0))
-GREEN = Color(2, 2, RGBA(0, 128, 0))
-YELLOW = Color(3, 3, RGBA(128, 128, 0))
-BLUE = Color(4, 4, RGBA(0, 0, 128))
-PURPLE = Color(5, 5, RGBA(128, 0, 128))
-AQUA = Color(6, 6, RGBA(0, 128, 128))
-WHITE = Color(7, 7, RGBA(192, 192, 192))
-GRAY = Color(8, 8, RGBA(128, 128, 128))
-LIGHT_RED = Color(9, 9, RGBA(255, 0, 0))
-LIGHT_GREEN = Color(10, 10, RGBA(0, 255, 0))
-LIGHT_YELLOW = Color(11, 11, RGBA(255, 255, 0))
-LIGHT_BLUE = Color(12, 12, RGBA(0, 0, 255))
-LIGHT_PURPLE = Color(13, 13, RGBA(255, 0, 255))
-LIGHT_AQUA = Color(14, 14, RGBA(0, 255, 255))
-LIGHT_WHITE = Color(15, 15, RGBA(255, 255, 255))
+BLACK = Color(0, 0, RGBA(0, 0, 0), _color_id=0)
+RED = Color(1, 1, RGBA(128, 0, 0), _color_id=1)
+GREEN = Color(2, 2, RGBA(0, 128, 0), _color_id=2)
+YELLOW = Color(3, 3, RGBA(128, 128, 0), _color_id=3)
+BLUE = Color(4, 4, RGBA(0, 0, 128), _color_id=4)
+PURPLE = Color(5, 5, RGBA(128, 0, 128), _color_id=5)
+AQUA = Color(6, 6, RGBA(0, 128, 128), _color_id=6)
+WHITE = Color(7, 7, RGBA(192, 192, 192), _color_id=7)
+GRAY = Color(8, 8, RGBA(128, 128, 128), _color_id=8)
+LIGHT_RED = Color(9, 9, RGBA(255, 0, 0), _color_id=9)
+LIGHT_GREEN = Color(10, 10, RGBA(0, 255, 0), _color_id=10)
+LIGHT_YELLOW = Color(11, 11, RGBA(255, 255, 0), _color_id=11)
+LIGHT_BLUE = Color(12, 12, RGBA(0, 0, 255), _color_id=12)
+LIGHT_PURPLE = Color(13, 13, RGBA(255, 0, 255), _color_id=13)
+LIGHT_AQUA = Color(14, 14, RGBA(0, 255, 255), _color_id=14)
+LIGHT_WHITE = Color(15, 15, RGBA(255, 255, 255), _color_id=15)
 
 COLOR_0 = BLACK
 COLOR_1 = RED
@@ -569,7 +601,11 @@ COLOR_253 = Color(15, 253, RGBA(218, 218, 218))
 COLOR_254 = Color(15, 254, RGBA(228, 228, 228))
 COLOR_255 = Color(15, 255, RGBA(238, 238, 238))
 
+COLOR_MAP = {-2: ALPHA, -1: DEFAULT}
 COLORS = []
+
 for color_id in range(256):
     COLORS.append(vars()["COLOR_{}".format(color_id)])
+    COLOR_MAP[color_id] = COLORS[color_id]
+del color_id
 COLORS = tuple(COLORS)

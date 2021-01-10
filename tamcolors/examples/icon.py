@@ -7,7 +7,7 @@ class BootLogo(tam.tam_loop.TAMFrame):
                          char=" ",
                          foreground_color=tam_io.tam_colors.GREEN,
                          background_color=tam_io.tam_colors.BLACK,
-                         min_width=57, max_width=57, min_height=20, max_height=20)
+                         min_width=57, max_width=57, min_height=10, max_height=10)
 
         self.icon = tam_tools.tam_fade.tam_fade_in(surface=tam_tools.tam_icon.get_icon(),
                                                    char=" ",
@@ -22,7 +22,7 @@ class BootLogo(tam.tam_loop.TAMFrame):
         else:
             self.wait -= 1
 
-        if self.wait == 0:
+        if self.wait == 0 or len(keys):
             tam_loop.done()
 
     def draw(self, tam_surface, loop_data):

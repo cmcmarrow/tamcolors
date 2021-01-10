@@ -3,6 +3,7 @@ import platform
 
 # tamcolors libraries
 from tamcolors.tam_io import any_drivers
+from tamcolors.tam_io import null_drivers
 from tamcolors.tam_io import win_drivers
 from tamcolors.tam_io import uni_drivers
 from tamcolors.tam_io import ansi_true_color_drivers
@@ -134,10 +135,14 @@ class TAMIdentifier:
         return self._environment_io
 
 
+NULL_IO_IDENTIFIER = TAMIdentifier("NULL_DRIVERS",
+                                   null_drivers.NULLKeyDriver,
+                                   null_drivers.NULLFullColorDriver,
+                                   null_drivers.NULLUtilitiesDriver)
+
 ANY_IO_IDENTIFIER = TAMIdentifier("ANY_DRIVERS",
                                   any_drivers.ANYKeyDriver,
-                                  any_drivers.ANYColorDriver,
-                                  any_drivers.ANYColorChangerDriver,
+                                  any_drivers.ANYFullColorDriver,
                                   any_drivers.ANYUtilitiesDriver)
 
 ANY_IO = ANY_IO_IDENTIFIER.get_io()

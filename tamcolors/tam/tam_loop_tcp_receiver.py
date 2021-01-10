@@ -1,3 +1,4 @@
+from . import tam_loop_io_handler
 from . import tam_loop_receiver
 from tamcolors.utils import tcp
 from tamcolors.tam_io import tcp_io
@@ -33,7 +34,12 @@ class TAMLoopTCPReceiver(tam_loop_receiver.TAMLoopReceiver):
         info: Will get an io if available
         :return: TAMLoopIOHandler or None
         """
-        return tcp_io.get_tcp_io(self._receiver, False)    # TODO write
+        new_io = tcp_io.get_tcp_io(self._receiver, False)
+        if new_io is not None:
+            return tam_loop_io_handler.TAMLoopIOHandler(io=new_io,
+                                                        name="None",
+                                                        identifier_id=None,
+                                                        **self.get_receiver_settings())
 
     def done(self):
         """

@@ -1,8 +1,10 @@
 
+
 class TAMLoopReceiver:
     def __init__(self, name):
         self._name = name
         self._running = True
+        self._receiver_settings = None
 
     def get_name(self):
         """
@@ -31,3 +33,18 @@ class TAMLoopReceiver:
         :return: bool
         """
         return self._running
+
+    def set_receiver_settings(self, settings):
+        """
+        info: will set the receiver io settings
+        :param settings: dict
+        :return: None
+        """
+        self._receiver_settings = settings
+
+    def get_receiver_settings(self):
+        """
+        info: will get the receiver io settings
+        :return: dict or None
+        """
+        return self._receiver_settings
