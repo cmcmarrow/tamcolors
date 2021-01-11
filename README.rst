@@ -120,6 +120,7 @@ long term goals
 * build a community that builds fun terminal games
 * text editor
 * make and change fonts at run time
+* add normal keyboard mode
 * add .wav support
 * support GER_GERMAN, FRE_FRENCH, SPA_SPANISH, LAT_SPANISH, ...  Keyboards
 
