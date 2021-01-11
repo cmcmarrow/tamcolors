@@ -61,6 +61,24 @@ static PyObject* _get_key(PyObject *self, PyObject *args) {
 	return Py_BuildValue("i", get_key());
 }
 
+static PyObject* _get_key_state(PyObject* self, PyObject* args) {
+	/*
+	info: will check if applation has a vaild win console
+	retrun: bool
+	*/
+	int key;
+	if (!PyArg_ParseTuple(args, "i", &key)) {
+		return NULL;
+	}
+
+	if (get_key_state(key)) {
+		Py_INCREF(Py_True);
+		return Py_BuildValue("O", Py_True);
+	}
+	Py_INCREF(Py_False);
+	return Py_BuildValue("O", Py_False);
+}
+
 static PyMethodDef _uni_tam_methods[] = {
 	{
 		"_get_dimensions", _get_dimensions, METH_VARARGS,
@@ -77,6 +95,10 @@ static PyMethodDef _uni_tam_methods[] = {
 	{
 		"_get_key", _get_key, METH_VARARGS,
 		"_get_key"
+	},
+	{
+		"_get_key_state", _get_key_state, METH_VARARGS,
+		"_get_key_state"
 	},
 { NULL, NULL, 0, NULL }
 };

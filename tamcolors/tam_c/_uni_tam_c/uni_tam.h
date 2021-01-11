@@ -11,4 +11,5 @@ Dimensions get_dimensions();
 void enable_get_key();
 void disable_get_key();
 int get_key();
+bool get_key_state(int key);
 #endif

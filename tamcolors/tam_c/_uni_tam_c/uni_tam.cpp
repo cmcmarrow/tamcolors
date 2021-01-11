@@ -5,6 +5,10 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 
+#include <X11/Xlib.h>
+#include <X11/keysym.h>
+#include <stdbool.h>
+
 
 /*
 C++ API to linux console
@@ -90,4 +94,13 @@ int get_key() {
         return charter;
     }
     return -1;
+ }
+
+ bool get_key_state(int key){
+    char keys_return[32];
+    Display* display = XOpenDisplay(NULL);
+    XQueryKeymap(display, keys_return);
+    KeyCode key_code = XKeysymToKeycode(display, key);
+    XCloseDisplay(display);
+    return !!(keys_return[key_code>>3] & (1<<(key_code&7)));
  }
