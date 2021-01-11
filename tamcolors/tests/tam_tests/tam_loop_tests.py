@@ -91,39 +91,6 @@ class TAMLoopTests(unittest.TestCase):
             loop()
             self.assertEqual(io.get_mode(), io_tam.MODE_16)
 
-    def test_step(self):
-        class Dummy(tam.tam_loop.TAMFrame):
-            def __init__(self):
-                super().__init__(5, "A", YELLOW, BLUE, 25, 35, 26, 36)
-                self._q = False
-
-            def update(self, tam_loop, keys, loop_data):
-                self._q = bool(len(keys))
-
-            def draw(self, tam_surface, loop_data):
-                tam_surface.clear()
-                if self._q:
-                    tam_surface.set_spot(0, 0, "C", RED, GREEN)
-
-            def done(self, tam_loop, loop_data):
-                pass
-
-        frame = Dummy()
-        with unittest.mock.patch.object(frame, "done", return_value=None) as done:
-            loop = tam.tam_loop.TAMLoop(frame, test_mode=True)
-            self.assertIsNone(loop.step())
-            loop()
-            self.assertIsInstance(loop.step(), tam_io.tam_surface.TAMSurface)
-            surface = loop.step(("A", "NORMAL"))
-            self.assertIsInstance(surface, tam_io.tam_surface.TAMSurface)
-            self.assertEqual(surface.get_spot(0, 0), ("C", RED, GREEN))
-            surface = loop.step()
-            self.assertIsInstance(surface, tam_io.tam_surface.TAMSurface)
-            self.assertEqual(surface.get_spot(0, 0), ("A", YELLOW, BLUE))
-            loop.done()
-            done.assert_called_once()
-            self.assertIsNone(loop.step())
-
 
 class TAMFrameTests(unittest.TestCase):
     def test_frame_init(self):
