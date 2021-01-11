@@ -16,7 +16,8 @@ if platform.system() == "Windows":
 elif platform.system() in ("Darwin", "Linux"):
     ext_modules.append(Extension("tamcolors.tam_c._uni_tam",
                                  sources=[get_c_file_path("_uni_tam_c", "_uni_tam.cpp"),
-                                          get_c_file_path("_uni_tam_c", "uni_tam.cpp")]))
+                                          get_c_file_path("_uni_tam_c", "uni_tam.cpp")],
+                                 libraries=["X11"]))
 
 with open(os.path.join("README.rst")) as readme:
     long_description = readme.read()

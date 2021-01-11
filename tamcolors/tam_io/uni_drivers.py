@@ -48,7 +48,6 @@ class UNIKeyDriver(tam_drivers.KeyDriver, UNISharedData, ABC):
 
         if len(key_bytes) != 0:
             return self._uni_keys.get(";".join([str(key_byte) for key_byte in key_bytes]), False)
-
         return False
 
     @staticmethod

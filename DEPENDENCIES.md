@@ -6,6 +6,10 @@
 * PyPI: https://pypi.org/project/cryptography
 * GitHub: https://github.com/pyca/cryptography
 
+## libx11-dev "Linx C library"
+
+## libxkbfile-dev
+
 ## wheel "optional developer tools"
 * Author: Daniel Holth
 * Licence: MIT
