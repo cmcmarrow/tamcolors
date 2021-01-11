@@ -38,7 +38,6 @@ class TAMLoop(TAMLoopIOHandler):
                  tam_color_defaults=True,
                  highest_mode_lock=False,
                  preferred_mode=None,
-                 test_mode=False,
                  name=None,
                  identifier_id=None,
                  start_data=None):
@@ -53,7 +52,6 @@ class TAMLoop(TAMLoopIOHandler):
         :param tam_color_defaults: bool
         :param highest_mode_lock: bool: will disable change key and put IO in its highest color mode
         :param preferred_mode: tuple or None: will take the first mode that is supported. fallback is mode 2
-        :param test_mode: bool: Will enable the method step and only any os
         :param name: str or None
         :param identifier_id: bytes or None
         :param start_data: object
@@ -70,7 +68,7 @@ class TAMLoop(TAMLoopIOHandler):
             test_results = all_tests.stability_check(ret_bool=False)
             raise TAMLoopError("TAM is corrupted! {0} out of {1} tests passed".format(*test_results))
 
-        if only_any_os or test_mode:
+        if only_any_os:
             io = tam_identifier.ANY_IO
         else:
             if io is None:
@@ -80,7 +78,6 @@ class TAMLoop(TAMLoopIOHandler):
                 raise TAMLoopError("tam io is None")
 
         self._frame_stack = [tam_frame]
-        self._test_mode = test_mode
 
         if name is None:
             name = "MAIN"
@@ -106,12 +103,10 @@ class TAMLoop(TAMLoopIOHandler):
         :return: None
         """
         super().__call__()
-        if not self._test_mode and self.is_running():
+        if self.is_running():
             self._update_loop()
             if self._error is not None:
                 raise self._error
-        elif self.is_running():
-            raise NotImplementedError("Test Mode not working!!!!!!")    # TODO
 
     def done(self, reset_colors_to_console_defaults=True):
         """
@@ -213,24 +208,6 @@ class TAMLoop(TAMLoopIOHandler):
             self._error = error
         finally:
             self.done()
-
-    def step(self, keys=()):
-        """
-        info: only works in test mode but lets you update and draw in tests
-        :param keys: tuple: ((str, str), ...)
-        :return: TAMSurface or None
-        """
-        if self._test_mode and self._running:
-            surface = TAMSurface(0, 0, " ", 0, 0)
-            frame = self._frame_stack[-1]
-            try:
-                frame.update(self, keys, self._loop_data)
-                frame.make_surface_ready(surface, *self._io.get_dimensions())
-                frame.draw(surface, self._loop_data)
-                return surface
-            except BaseException:
-                frame._done(self, self._loop_data)
-        return
 
 
 class TAMFrame:
