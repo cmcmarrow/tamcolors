@@ -20,6 +20,7 @@ GER_GERMAN = "GER_GERMAN"
 
 FRE_FRENCH = "FRE_FRENCH"
 
+
 def _get_keys():
     """
     info: Gets a set of all support keys

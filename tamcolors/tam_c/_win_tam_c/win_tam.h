@@ -33,4 +33,5 @@ void set_rgb_color(int, COLORREF);
 COLORREF get_rgb_color(int);
 int get_key();
 char* get_keyboard_name();
+int get_key_state(int key_code);
 #endif
