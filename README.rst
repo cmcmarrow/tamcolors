@@ -122,7 +122,7 @@ long term goals
 * make and change fonts at run time
 * add .wav support
 * support GER_GERMAN, FRE_FRENCH, SPA_SPANISH, LAT_SPANISH, ...  Keyboards
-* add normal keyboard mode
+
 
 *****
 goals
@@ -146,6 +146,7 @@ goals
 * add support for FreeBSD
 * add multi console example
 * make tam_loop multi console friendly - In Progress
+* add normal keyboard mode - In Progress
 * rename items from buffer to surface - Done
 * update tamcolors icon - Done
 * support GER_GERMAN, FRE_FRENCH, SPA_SPANISH, LAT_SPANISH, ...  Keyboards - In Progress
