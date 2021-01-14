@@ -80,10 +80,11 @@ class RawIO(ABC):
         """
         raise NotImplementedError()
 
-    def wait_key(self, rest_time=0.0001):
+    def wait_key(self, rest_time=0.0001, attempts=300000):
         """
         info: Get an input from the terminal
         :param: rest_time: float: rest time from checking if a key is down
+        :param: attempts: int: number of attempts to get a key
         :return: tuple or false
         """
         raise NotImplementedError()
@@ -482,17 +483,27 @@ class IO(RawIO, ABC):
         """
         raise NotImplementedError()
 
-    def wait_key(self, rest_time=0.0001):
+    def wait_key(self, rest_time=0.0001, attempts=None):
         """
         info: Get an input from the terminal
         :param: rest_time: float: rest time from checking if a key is down
+        :param: attempts: int or None: number of attempts to get a key
         :return: tuple or false
         """
-        while self.is_console_keys_enabled():
-            key = self.get_key()
-            if key is not False:
-                return key
-            sleep(rest_time)
+        if attempts is None:
+            while self.is_console_keys_enabled():
+                key = self.get_key()
+                if key is not False:
+                    return key
+                sleep(rest_time)
+        else:
+            for _ in range(attempts):
+                if not self.is_console_keys_enabled():
+                    break
+                key = self.get_key()
+                if key is not False:
+                    return key
+                sleep(rest_time)
         return False
 
     def get_keyboard_name(self, default_to_us_english=True):

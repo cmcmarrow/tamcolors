@@ -1,5 +1,5 @@
-from . import tam_colors, tam_surface
-from tamcolors.utils import tcp, object_packer
+from . import tam_colors, tam_surface, tam_identifier
+from tamcolors.utils import tcp, object_packer, log
 
 
 def get_tcp_io(receiver, wait=True):
@@ -33,3 +33,22 @@ def get_tcp_io(receiver, wait=True):
                                                  "get_dimensions",
                                                  "get_key_dict",
                                                  "get_info_dict"})
+
+
+def run_tcp_connection(connection, io=None):
+    """
+    info: will run a tcp connection
+    :param connection: TCPConnection
+    :param io: IO or None: None will uses default IO
+    :return: None
+    """
+    if io is None:
+        io = tam_identifier.IO
+    try:
+        tcp.TCPObjectWrapper(connection, io, object_packer.ObjectPackerJson((tam_colors.RGBA,
+                                                                             tam_colors.Color,
+                                                                             tam_surface.TAMSurface)))()
+    except tcp.TCPError as error:
+        log.warning("run_tcp_connection error: {}".format(error))
+    finally:
+        io.done()

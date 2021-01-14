@@ -9,8 +9,10 @@ from tamcolors.tam_io.tam_surface import TAMSurface
 from tamcolors.tests import all_tests
 from tamcolors.tam_io import tam_identifier
 from tamcolors.tam.tam_loop_io_handler import TAMLoopIOHandler
-from tamcolors.utils.identifier import get_identifier_bytes
 from tamcolors.utils import timer
+from tamcolors.tam_io.tam_colors import BLACK
+from tamcolors.utils.identifier import get_identifier_bytes
+from tamcolors.utils import log
 
 
 """
@@ -40,7 +42,9 @@ class TAMLoop(TAMLoopIOHandler):
                  preferred_mode=None,
                  name=None,
                  identifier_id=None,
-                 start_data=None):
+                 start_data=None,
+                 receivers=None,
+                 other_handlers=None):
         """
         info: makes a TAMLoop object
         :param tam_frame: TAMFrame: first frame in tam loop
@@ -55,6 +59,8 @@ class TAMLoop(TAMLoopIOHandler):
         :param name: str or None
         :param identifier_id: bytes or None
         :param start_data: object
+        :param receivers: tuple or None
+        :param other_handlers: tuple or None
         """
 
         self._receiver_settings = {"color_change_key": color_change_key,
@@ -85,6 +91,14 @@ class TAMLoop(TAMLoopIOHandler):
         if identifier_id is None:
             identifier_id = get_identifier_bytes()
 
+        if receivers is None:
+            receivers = ()
+        self._receivers = {receiver.get_name(): receiver for receiver in receivers}
+
+        if other_handlers is None:
+            other_handlers = ()
+        self._other_handlers = {other_handler.get_full_name(): other_handler for other_handler in other_handlers}
+
         super().__init__(io=io,
                          name=name,
                          identifier_id=identifier_id,
@@ -95,8 +109,6 @@ class TAMLoop(TAMLoopIOHandler):
                          highest_mode_lock=highest_mode_lock,
                          preferred_mode=preferred_mode)
 
-        self._draw_loop_thread = None
-
     def __call__(self):
         """
         info: will run tam loop
@@ -104,9 +116,20 @@ class TAMLoop(TAMLoopIOHandler):
         """
         super().__call__()
         if self.is_running():
+            for other_handlers in self._other_handlers:
+                other_handlers()    # TODO start with thread
             self._update_loop()
             if self._error is not None:
                 raise self._error
+
+    def add_receiver(self, receiver):
+        self._receivers[receiver.get_name()] = receiver
+
+    def remove_receiver(self, receiver_name):
+        del self._receivers[receiver_name]
+
+    def get_all_receiver_names(self):
+        return tuple(self._receivers)
 
     def done(self, reset_colors_to_console_defaults=True):
         """
@@ -115,9 +138,17 @@ class TAMLoop(TAMLoopIOHandler):
         :return: None
         """
         if self.is_running():
-            for frame in self._frame_stack[::-1]:   # TODO add exit method
+            for frame in self._frame_stack[::-1]:
                 frame._done(self, self._loop_data)
-        super().done(reset_colors_to_console_defaults=reset_colors_to_console_defaults)
+
+            for other_handler in self._other_handlers:
+                log.debug("removed handler: {}".format(other_handler))
+                self._other_handlers[other_handler].done()
+
+            for receiver_name in self._receivers:
+                self._receivers[receiver_name].done()   # TODO done with thread
+
+            super().done(reset_colors_to_console_defaults=reset_colors_to_console_defaults)
 
     def get_receiver_settings(self):
         """
@@ -143,14 +174,15 @@ class TAMLoop(TAMLoopIOHandler):
             loop = cls(*args, **kwargs)
             loop()
         except KeyboardInterrupt:
-            pass
+            log.critical("Caught KeyboardInterrupt")
         except BaseException as error:
             try:
+                log.critical("TAMLoop Error: {}".format(error))
                 traceback.print_exception(error.__class__, error, sys.exc_info()[2])
                 time.sleep(1)
                 input("Press Enter To Continue . . .")
             except KeyboardInterrupt:
-                pass
+                log.critical("Caught KeyboardInterrupt")
         finally:
             sys.exit()
 
@@ -160,7 +192,7 @@ class TAMLoop(TAMLoopIOHandler):
         :param frame: TAMFrame
         :return:
         """
-
+        log.debug("add_frame_stack: added {}".format(frame.__class__.__name__))
         self._frame_stack.append(frame)
 
     def pop_frame_stack(self):
@@ -172,30 +204,71 @@ class TAMLoop(TAMLoopIOHandler):
         if len(self._frame_stack) != 0:
             frame = self._frame_stack.pop()
             frame._done(self, self._loop_data)
+            log.debug("pop_frame_stack: popped {}".format(frame.__class__.__name__))
             return frame
+        log.warning("pop_frame_stack: no frame to pop")
 
     def _update_loop(self):
         """
         info: will update frame and call draw
         :return:
         """
-        surface = TAMSurface(0, 0, " ", 0, 0)
+        surface = TAMSurface(0, 0, " ", BLACK, BLACK)
         frame_skip = 0
         clock = timer.Timer()
+
+        other_keys = {}
+        other_surfaces = {}
+        log.enable_logging()    # TODO Debug/REMOVE ME
         try:
-            while self._running and self._error is None and len(self._frame_stack) != 0:
+            while self.is_running() and self._error is None and len(self._frame_stack) != 0:
+                # check if new handlers have come
+                for receiver_name in self._receivers:
+                    new_handler = self._receivers[receiver_name].get_handler()
+                    if new_handler is not None:
+                        if new_handler.get_full_name() not in self._other_handlers:
+                            new_handler()   # TODO thread
+                            log.debug("new handler accepted: {}".format(new_handler.get_full_name()))
+                            self._other_handlers[new_handler.get_full_name()] = new_handler
+                            other_keys[new_handler.get_full_name()] = []
+                            other_surfaces[new_handler.get_full_name()] = TAMSurface(0, 0, " ", BLACK, BLACK)
+                        else:
+                            # new handler cant join it has the same name as another handler
+                            log.warning("new handler can't join: {}".format(new_handler.get_full_name()))
+                            new_handler.done() # TODO thread
+
+                # remove dead handlers
+                dead_handlers = []
+                for other_handler in self._other_handlers:
+                    if not self._other_handlers[other_handler].is_running():
+                        self._other_handlers[other_handler].done()  # TODO thread
+                        dead_handlers.append(other_handler)
+
+                for dead_handler in dead_handlers:
+                    log.debug("dead handler removed: {}".format(dead_handler))
+                    del self._other_handlers[dead_handler]
+                    del other_keys[dead_handler]
+                    del other_surfaces[dead_handler]
+
                 frame = self._frame_stack[-1]
-                frame_time = 1/frame.get_fps()
-                keys = self._input_keys.copy()
-                self._input_keys.clear()
+                frame_time = 1 / frame.get_fps()
+                keys = self.pump_keys()
+
+                for other_handler in self._other_handlers:
+                    other_keys[other_handler] = self._other_handlers[other_handler].pump_keys()
+                    other_surfaces[other_handler] = frame.make_surface_ready(other_surfaces[other_handler],
+                                                                             *self.get_io().get_dimensions())   # thread
 
                 frame.update(self, keys, self._loop_data)
 
-                if self._running and self._error is None:
+                if self.is_running() and self._error is None:
                     if frame_skip == 0:
                         frame.make_surface_ready(surface, *self._io.get_dimensions())
                         frame.draw(surface, self._loop_data)
                         self._io.draw(surface)
+
+                        for other_handler in self._other_handlers:  # TODO rewrite
+                            self._other_handlers[other_handler].get_io().draw(other_surfaces[other_handler])
 
                     _, run_time = clock.offset_sleep(max(frame_time - frame_skip, 0))
 

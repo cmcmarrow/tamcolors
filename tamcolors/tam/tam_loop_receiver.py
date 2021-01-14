@@ -1,10 +1,12 @@
+# built in library
+from abc import ABC
 
 
-class TAMLoopReceiver:
+class TAMLoopReceiver(ABC):
     def __init__(self, name):
         self._name = name
         self._running = True
-        self._receiver_settings = None
+        self._receiver_settings = {}
 
     def get_name(self):
         """

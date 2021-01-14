@@ -145,7 +145,7 @@ goals
 * add more io driver tests
 * add support for Solaris
 * add support for FreeBSD
-* add multi console example
+* add multi console example - Done
 * make tam_loop multi console friendly - In Progress
 * add normal keyboard mode - In Progress
 * rename items from buffer to surface - Done

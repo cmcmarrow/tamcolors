@@ -13,6 +13,8 @@ from . import clouds
 from . import sandy_check
 from . import host_loopback
 from . import connection_loopback
+from . import host_multi_player
+from . import connection_multi_player
 
 
 __all__ = ("alpha",
@@ -27,4 +29,6 @@ __all__ = ("alpha",
            "tam_key_manager",
            "colors",
            "clouds",
-           "sandy_check")
+           "sandy_check",
+           "host_multi_player",
+           "connection_multi_player")

@@ -8,9 +8,8 @@ from tamcolors.utils import log
 from tamcolors.utils import transport_optimizer
 from hashlib import sha512
 from time import sleep
+from tamcolors.utils import identifier
 
-
-TCP_TIMEOUT = 60
 
 
 class TCPError(Exception):
@@ -174,7 +173,6 @@ class TCPReceiver:
         :return: None
         """
         try:
-            connection.settimeout(TCP_TIMEOUT)
             new_connection = TCPHost(connection,
                                      address,
                                      port,
@@ -427,8 +425,10 @@ class TCPConnection(TCPBase):
             if ipv6:
                 af_mode = socket.AF_INET6
 
+            if user_id is None:
+                user_id = identifier.get_identifier_bytes()
+
             connection = socket.socket(af_mode, socket.SOCK_STREAM)
-            connection.settimeout(TCP_TIMEOUT)
             connection.connect((host, port))
 
             connection_password = sha512(bytes(connection_password, encoding="utf-8")).hexdigest()
@@ -631,6 +631,7 @@ class TCPObjectConnector:
                 self._tcp_connection.send_data(self._object_packer.dumps(compress_data))
 
             # if action has an id wait for return data
+            ret = {"return": None}
             if action_id is not None:
                 while self._open:
                     if action_id in self._return_data:
