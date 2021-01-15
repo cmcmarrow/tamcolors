@@ -2,6 +2,8 @@
 import traceback
 import time
 import sys
+from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import TimeoutError as ThreadPoolExecutorTimeoutError
 
 
 # tamcolors libraries
@@ -44,7 +46,8 @@ class TAMLoop(TAMLoopIOHandler):
                  identifier_id=None,
                  start_data=None,
                  receivers=None,
-                 other_handlers=None):
+                 other_handlers=None,
+                 thread_count=20):
         """
         info: makes a TAMLoop object
         :param tam_frame: TAMFrame: first frame in tam loop
@@ -61,6 +64,7 @@ class TAMLoop(TAMLoopIOHandler):
         :param start_data: object
         :param receivers: tuple or None
         :param other_handlers: tuple or None
+        :param thread_count: int: number of threads to handle other handlers, should have 2 per handler
         """
 
         self._receiver_settings = {"color_change_key": color_change_key,
@@ -98,6 +102,8 @@ class TAMLoop(TAMLoopIOHandler):
         if other_handlers is None:
             other_handlers = ()
         self._other_handlers = {other_handler.get_full_name(): other_handler for other_handler in other_handlers}
+
+        self._workers = ThreadPoolExecutor(max_workers=thread_count)
 
         super().__init__(io=io,
                          name=name,
@@ -143,12 +149,13 @@ class TAMLoop(TAMLoopIOHandler):
 
             for other_handler in self._other_handlers:
                 log.debug("removed handler: {}".format(other_handler))
-                self._other_handlers[other_handler].done()
+                self._workers.submit(self._thread_task, self._other_handlers[other_handler].done)
 
             for receiver_name in self._receivers:
-                self._receivers[receiver_name].done()   # TODO done with thread
+                self._workers.submit(self._thread_task, self._receivers[receiver_name].done)
 
             super().done(reset_colors_to_console_defaults=reset_colors_to_console_defaults)
+            self._workers.shutdown(wait=False)
 
     def get_receiver_settings(self):
         """
@@ -219,6 +226,8 @@ class TAMLoop(TAMLoopIOHandler):
 
         other_keys = {}
         other_surfaces = {}
+        other_dimensions = {}
+        log.enable_logging()
         try:
             while self.is_running() and self._error is None and len(self._frame_stack) != 0:
                 # check if new handlers have come
@@ -226,37 +235,30 @@ class TAMLoop(TAMLoopIOHandler):
                     new_handler = self._receivers[receiver_name].get_handler()
                     if new_handler is not None:
                         if new_handler.get_full_name() not in self._other_handlers:
-                            new_handler()   # TODO thread
+                            self._workers.submit(self._thread_task, new_handler.__call__)
                             log.debug("new handler accepted: {}".format(new_handler.get_full_name()))
                             self._other_handlers[new_handler.get_full_name()] = new_handler
                             other_keys[new_handler.get_full_name()] = []
                             other_surfaces[new_handler.get_full_name()] = TAMSurface(0, 0, " ", BLACK, BLACK)
+                            other_dimensions[new_handler.get_full_name()] = [85, 25]
                         else:
                             # new handler cant join it has the same name as another handler
                             log.warning("new handler can't join: {}".format(new_handler.get_full_name()))
-                            new_handler.done() # TODO thread
+                            self._workers.submit(self._thread_task, new_handler.done)
 
-                # remove dead handlers
-                dead_handlers = []
-                for other_handler in self._other_handlers:
-                    if not self._other_handlers[other_handler].is_running():
-                        self._other_handlers[other_handler].done()  # TODO thread
-                        dead_handlers.append(other_handler)
-
-                for dead_handler in dead_handlers:
-                    log.debug("dead handler removed: {}".format(dead_handler))
-                    del self._other_handlers[dead_handler]
-                    del other_keys[dead_handler]
-                    del other_surfaces[dead_handler]
-
-                frame = self._frame_stack[-1]
-                frame_time = 1 / frame.get_fps()
-                keys = self.pump_keys()
+                self._remove_dead_handlers(other_keys, other_surfaces, other_dimensions)
 
                 for other_handler in self._other_handlers:
                     other_keys[other_handler] = self._other_handlers[other_handler].pump_keys()
-                    other_surfaces[other_handler] = frame.make_surface_ready(other_surfaces[other_handler],
-                                                                             *self.get_io().get_dimensions())   # TODO thread
+                    self._workers.submit(self._thread_task,
+                                         self._update_handler_dimensions,
+                                         self._other_handlers[other_handler],
+                                         other_handler,
+                                         other_dimensions)
+                log.debug(other_dimensions)
+                frame = self._frame_stack[-1]
+                frame_time = 1 / frame.get_fps()
+                keys = self.pump_keys()
 
                 frame.update(self, keys,
                              self.get_loop_data(),
@@ -264,30 +266,20 @@ class TAMLoop(TAMLoopIOHandler):
                              other_keys,
                              {other_handler: self._other_handlers[other_handler].get_loop_data() for other_handler in self._other_handlers})
 
-                # remove dead handlers
-                dead_handlers = []
-                for other_handler in self._other_handlers:
-                    if not self._other_handlers[other_handler].is_running():
-                        self._other_handlers[other_handler].done()  # TODO thread
-                        dead_handlers.append(other_handler)
-
-                for dead_handler in dead_handlers:
-                    log.debug("dead handler removed: {}".format(dead_handler))
-                    del self._other_handlers[dead_handler]
-                    del other_keys[dead_handler]
-                    del other_surfaces[dead_handler]
-
                 if self.is_running() and self._error is None:
+                    self._remove_dead_handlers(other_keys, other_surfaces, other_dimensions)
                     if frame_skip == 0:
                         frame.make_surface_ready(surface, *self._io.get_dimensions())
+                        for other_handler in self._other_handlers:
+                            frame.make_surface_ready(other_surfaces[other_handler], *other_dimensions[other_handler])
                         frame.draw(surface,
                                    self.get_loop_data(),
                                    other_surfaces,
                                    {other_handler: self._other_handlers[other_handler].get_loop_data() for other_handler in self._other_handlers})
                         self._io.draw(surface)
 
-                        for other_handler in self._other_handlers:  # TODO rewrite
-                            self._other_handlers[other_handler].get_io().draw(other_surfaces[other_handler])
+                        for other_handler in self._other_handlers:
+                            self._workers.submit(self._thread_task, self._other_handlers[other_handler].get_io().draw, other_surfaces[other_handler])
 
                     _, run_time = clock.offset_sleep(max(frame_time - frame_skip, 0))
 
@@ -300,6 +292,42 @@ class TAMLoop(TAMLoopIOHandler):
             self._error = error
         finally:
             self.done()
+
+    @staticmethod
+    def _update_handler_dimensions(handler, handler_full_name, other_dimensions):
+        other_dimensions[handler_full_name] = handler.get_io().get_dimensions()
+
+    def _remove_dead_handlers(self, other_keys, other_surfaces, other_dimensions):
+        """
+        info: removes all dead handlers
+        :param other_keys: dict
+        :param other_surfaces: dict
+        :param other_dimensions: dict
+        :return: None
+        """
+        # remove dead handlers
+        dead_handlers = []
+        for other_handler in self._other_handlers:
+            if self._other_handlers[other_handler].is_running() is False:
+                self._workers.submit(self._thread_task, self._other_handlers[other_handler].done)
+                dead_handlers.append(other_handler)
+
+        for dead_handler in dead_handlers:
+            log.debug("dead handler removed: {}".format(dead_handler))
+            del self._other_handlers[dead_handler]
+            del other_keys[dead_handler]
+            del other_surfaces[dead_handler]
+            del other_dimensions[dead_handler]
+
+    @staticmethod
+    def _thread_task(func, *args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except Exception as error:
+            if hasattr(func, "__name__"):
+                log.warning("_thread_task {} error: {}".format(func.__name__, error))
+            else:
+                log.warning("_thread_task error: {}".format(error))
 
 
 class TAMFrame:
