@@ -145,5 +145,6 @@ ANY_IO_IDENTIFIER = TAMIdentifier("ANY_DRIVERS",
                                   any_drivers.ANYFullColorDriver,
                                   any_drivers.ANYUtilitiesDriver)
 
+NULL = NULL_IO_IDENTIFIER.get_io()
 ANY_IO = ANY_IO_IDENTIFIER.get_io()
 IO = TAMIdentifier.identify().get_io()

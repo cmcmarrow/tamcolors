@@ -34,11 +34,11 @@ class Clouds(tam.tam_loop.TAMFrame):
                         [20, 20],
                         [55, 33], [54, 33]]
 
-    def update(self, tam_loop, keys, loop_data):
+    def update(self, tam_loop, keys, loop_data, *args):
         if keys:
             tam_loop.done()
 
-    def draw(self, tam_surface, loop_data):
+    def draw(self, tam_surface, loop_data, *args):
         tam_surface.clear()
         tam_surface.draw_onto(self._ground)
 

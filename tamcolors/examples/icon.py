@@ -15,7 +15,7 @@ class BootLogo(tam.tam_loop.TAMFrame):
                                                    background_color=tam_io.tam_colors.BLACK)
         self.wait = 10
 
-    def update(self, tam_loop, keys, loop_data):
+    def update(self, tam_loop, keys, loop_data, *args):
 
         if not self.icon.done():
             self.icon.slide()
@@ -25,7 +25,7 @@ class BootLogo(tam.tam_loop.TAMFrame):
         if self.wait == 0 or len(keys):
             tam_loop.done()
 
-    def draw(self, tam_surface, loop_data):
+    def draw(self, tam_surface, loop_data, *args):
         tam_surface.clear()
 
         tam_surface.draw_onto(self.icon.peak(), 0, 0)

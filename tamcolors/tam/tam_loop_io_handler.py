@@ -124,10 +124,9 @@ class TAMLoopIOHandler:
         info: will run tam loop
         :return: None
         """
-        if self._running is not None:
+        if self.is_running() is not None:
             return
         self._running = True
-
         self._io.set_tam_color_defaults()
         self._io.start()
         self._io.set_mode(next(self._color_modes))
@@ -140,7 +139,7 @@ class TAMLoopIOHandler:
         :param: reset_colors_to_console_defaults: bool
         :return: None
         """
-        if self._running:
+        if self.is_running():
             self._running = False
             if reset_colors_to_console_defaults:
                 self._io.reset_colors_to_console_defaults()
@@ -180,7 +179,7 @@ class TAMLoopIOHandler:
         """
 
         try:
-            while self._running:
+            while self.is_running():
                 key = self._io.wait_key()
                 if key is not False:
                     if key[0] == self._color_change_key:
@@ -279,3 +278,19 @@ class TAMLoopIOHandler:
         :return: None
         """
         self._io.set_tam_color_defaults()
+
+    def pump_keys(self):
+        """
+        info: will get keys from the key queue
+        :return: list
+        """
+        keys = self._input_keys.copy()
+        self._input_keys.clear()
+        return keys
+
+    def get_io(self):
+        """
+        infl: will get the IO
+        :return: IO
+        """
+        return self._io

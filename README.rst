@@ -80,7 +80,7 @@ icon example
                                                        background_color=tam_io.tam_colors.BLACK)
             self.wait = 10
 
-        def update(self, tam_loop, keys, loop_data):
+        def update(self, tam_loop, keys, loop_data, *args):
 
             if not self.icon.done():
                 self.icon.slide()
@@ -90,7 +90,7 @@ icon example
             if self.wait == 0:
                 tam_loop.done()
 
-        def draw(self, tam_surface, loop_data):
+        def draw(self, tam_surface, loop_data, *args):
             tam_surface.clear()
 
             tam_surface.draw_onto(self.icon.peak(), 0, 0)
@@ -145,7 +145,7 @@ goals
 * add more io driver tests
 * add support for Solaris
 * add support for FreeBSD
-* add multi console example
+* add multi console example - Done
 * make tam_loop multi console friendly - In Progress
 * add normal keyboard mode - In Progress
 * rename items from buffer to surface - Done

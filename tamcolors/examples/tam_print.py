@@ -13,11 +13,11 @@ class TAMPrint(tam.tam_loop.TAMFrame):
                          background_color=tam_io.tam_colors.BLACK,
                          min_width=70, max_width=70, min_height=40, max_height=40)
 
-    def update(self, tam_loop, keys, loop_data):
+    def update(self, tam_loop, keys, loop_data, *args):
         if keys:
             tam_loop.done()
 
-    def draw(self, tam_surface, loop_data):
+    def draw(self, tam_surface, loop_data, *args):
         tam_surface.clear()
 
         tam_tools.tam_print.tam_print(tam_surface,
