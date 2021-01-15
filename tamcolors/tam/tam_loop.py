@@ -123,7 +123,7 @@ class TAMLoop(TAMLoopIOHandler):
         super().__call__()
         if self.is_running():
             for other_handlers in self._other_handlers:
-                other_handlers()    # TODO start with thread
+                self._workers.submit(self._thread_task, other_handlers.__call__)
             self._update_loop()
             if self._error is not None:
                 raise self._error
@@ -254,7 +254,7 @@ class TAMLoop(TAMLoopIOHandler):
                                          self._other_handlers[other_handler],
                                          other_handler,
                                          other_dimensions)
-                log.debug(other_dimensions)
+
                 frame = self._frame_stack[-1]
                 frame_time = 1 / frame.get_fps()
                 keys = self.pump_keys()
