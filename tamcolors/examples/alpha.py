@@ -20,13 +20,13 @@ class TAMAlpha(tam.tam_loop.TAMFrame):
                                                       center_vertical=True,
                                                       char_background=tam_io.tam_surface.ALPHA_CHAR)
 
-    def update(self, tam_loop, keys, loop_data):
+    def update(self, tam_loop, keys, loop_data, *args):
         if keys:
             tam_loop.done()
 
         self._box.update()
 
-    def draw(self, tam_surface, loop_data):
+    def draw(self, tam_surface, loop_data, *args):
         tam_surface.clear()
 
         tam_surface.draw_onto(self._red_surface, 0, 0)

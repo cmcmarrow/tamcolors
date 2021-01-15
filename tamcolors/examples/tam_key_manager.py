@@ -13,7 +13,7 @@ class TAMKeyManager(tam.tam_loop.TAMFrame):
         self._output = ""
         self._keyboard_name = ""
 
-    def update(self, tam_loop, keys, loop_data):
+    def update(self, tam_loop, keys, loop_data, *args):
         self._key_manager.update(keys)
 
         if len(self._output) >= 20:
@@ -33,7 +33,7 @@ class TAMKeyManager(tam.tam_loop.TAMFrame):
 
         self._keyboard_name = tam_loop.get_keyboard_name()
 
-    def draw(self, tam_surface, loop_data):
+    def draw(self, tam_surface, loop_data, *args):
         tam_surface.clear()
 
         tam_tools.tam_print.tam_print(tam_surface,

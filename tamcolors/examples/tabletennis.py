@@ -128,7 +128,7 @@ class TableTennis(tam.tam_loop.TAMFrame):
         self._racket_1 = Racket(2, self._ball, self._board)
         self._racket_2 = Racket(48, self._ball, self._board, True)
 
-    def update(self, tam_loop, keys, loop_data):
+    def update(self, tam_loop, keys, loop_data, *args):
         if self._ball.winner() is not None:
             self._score[int(self._ball.winner())] += 1
 
@@ -150,7 +150,7 @@ class TableTennis(tam.tam_loop.TAMFrame):
         self._racket_1.update(self._keys_manager)
         self._racket_2.update(self._keys_manager)
 
-    def draw(self, tam_surface, loop_data):
+    def draw(self, tam_surface, loop_data, *args):
         tam_surface.clear()
         tam_surface.draw_onto(self._box, 0, 2)
         tam_surface.draw_onto(self._board, 1, 3)

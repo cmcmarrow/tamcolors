@@ -49,10 +49,10 @@ class TAMLoopTests(unittest.TestCase):
             def __init__(self):
                 super().__init__(*args, **kwargs)
 
-            def update(self, tam_loop, keys, loop_data):
+            def update(self, tam_loop, keys, loop_data, *_):
                 tam_loop.done()
 
-            def draw(self, tam_surface, loop_data):
+            def draw(self, tam_surface, loop_data, *_):
                 pass
 
         return Dummy()

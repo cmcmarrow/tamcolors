@@ -219,7 +219,6 @@ class TAMLoop(TAMLoopIOHandler):
 
         other_keys = {}
         other_surfaces = {}
-        log.enable_logging()    # TODO Debug/REMOVE ME
         try:
             while self.is_running() and self._error is None and len(self._frame_stack) != 0:
                 # check if new handlers have come
@@ -257,14 +256,34 @@ class TAMLoop(TAMLoopIOHandler):
                 for other_handler in self._other_handlers:
                     other_keys[other_handler] = self._other_handlers[other_handler].pump_keys()
                     other_surfaces[other_handler] = frame.make_surface_ready(other_surfaces[other_handler],
-                                                                             *self.get_io().get_dimensions())   # thread
+                                                                             *self.get_io().get_dimensions())   # TODO thread
 
-                frame.update(self, keys, self._loop_data)
+                frame.update(self, keys,
+                             self.get_loop_data(),
+                             self._other_handlers,
+                             other_keys,
+                             {other_handler: self._other_handlers[other_handler].get_loop_data() for other_handler in self._other_handlers})
+
+                # remove dead handlers
+                dead_handlers = []
+                for other_handler in self._other_handlers:
+                    if not self._other_handlers[other_handler].is_running():
+                        self._other_handlers[other_handler].done()  # TODO thread
+                        dead_handlers.append(other_handler)
+
+                for dead_handler in dead_handlers:
+                    log.debug("dead handler removed: {}".format(dead_handler))
+                    del self._other_handlers[dead_handler]
+                    del other_keys[dead_handler]
+                    del other_surfaces[dead_handler]
 
                 if self.is_running() and self._error is None:
                     if frame_skip == 0:
                         frame.make_surface_ready(surface, *self._io.get_dimensions())
-                        frame.draw(surface, self._loop_data)
+                        frame.draw(surface,
+                                   self.get_loop_data(),
+                                   other_surfaces,
+                                   {other_handler: self._other_handlers[other_handler].get_loop_data() for other_handler in self._other_handlers})
                         self._io.draw(surface)
 
                         for other_handler in self._other_handlers:  # TODO rewrite
@@ -364,21 +383,26 @@ class TAMFrame:
 
         return tam_surface
 
-    def update(self, tam_loop, keys, loop_data):
+    def update(self, tam_loop, keys, loop_data, other_handlers, other_keys, other_data):
         """
         info: will update terminal
         :param tam_loop: TAMLoop
         :param keys: list, tuple
-        :param loop_data: dict
+        :param loop_data: objects
+        :param other_handlers: dict
+        :param other_keys: dict
+        :param other_data: dict
         :return:
         """
         raise NotImplementedError()
 
-    def draw(self, tam_surface, loop_data):
+    def draw(self, tam_surface, loop_data, other_surfaces, other_data):
         """
         info: will draw frame onto terminal
         :param tam_surface: TAMSurface
-        :param loop_data: dict
+        :param loop_data: object
+        :param other_surfaces: dict
+        :param other_data: dict
         :return:
         """
         raise NotImplementedError()
@@ -387,7 +411,7 @@ class TAMFrame:
         """
         info: will clean up the frame and can only be called once
         :param tam_loop: TAMLoop
-        :param loop_data: dict
+        :param loop_data: object
         :return:
         """
         if not self.__done_called:

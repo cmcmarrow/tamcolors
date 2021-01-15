@@ -32,11 +32,11 @@ class TAMListSurface(tam.tam_loop.TAMFrame):
                                                                     tam_io.tam_colors.WHITE,
                                                                     SURFACE_BACKGROUND)
 
-    def update(self, tam_loop, keys, loop_data):
+    def update(self, tam_loop, keys, loop_data, *args):
         if keys:
             tam_loop.done()
 
-    def draw(self, tam_surface, loop_data):
+    def draw(self, tam_surface, loop_data, *args):
         tam_surface.clear()
         tam_surface.draw_onto(self._surface, 5, 9)
 

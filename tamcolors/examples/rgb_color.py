@@ -31,7 +31,7 @@ class RGBCOLOR(tam.tam_loop.TAMFrame):
         self._timer = 0
         self._color = False
 
-    def update(self, tam_loop, keys, loop_data):
+    def update(self, tam_loop, keys, loop_data, *args):
         self._key_manager.update(keys)
 
         if self._key_manager.get_key_state("a"):
@@ -58,7 +58,7 @@ class RGBCOLOR(tam.tam_loop.TAMFrame):
                 tam_loop.set_color_16(1, tam_io.tam_colors.RGBA(155, 155, 55))
                 tam_loop.set_color_256(1, tam_io.tam_colors.RGBA(155, 155, 55))
 
-    def draw(self, tam_surface, loop_data):
+    def draw(self, tam_surface, loop_data, *args):
         tam_surface.clear()
 
         for background_color in range(16):

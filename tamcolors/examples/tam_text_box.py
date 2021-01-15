@@ -38,7 +38,7 @@ class TAMPrint(tam.tam_loop.TAMFrame):
                                                         center_vertical=True,
                                                         char_background="0")
 
-    def update(self, tam_loop, keys, loop_data):
+    def update(self, tam_loop, keys, loop_data, *args):
         if keys:
             tam_loop.done()
 
@@ -58,7 +58,7 @@ class TAMPrint(tam.tam_loop.TAMFrame):
         self._box_2.update()
         self._box_3.update()
 
-    def draw(self, tam_surface, loop_data):
+    def draw(self, tam_surface, loop_data, *args):
         tam_surface.clear()
 
         self._box_1.draw(tam_surface, 0, 0)
