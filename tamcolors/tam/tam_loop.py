@@ -227,7 +227,6 @@ class TAMLoop(TAMLoopIOHandler):
         other_keys = {}
         other_surfaces = {}
         other_dimensions = {}
-        log.enable_logging()
         try:
             while self.is_running() and self._error is None and len(self._frame_stack) != 0:
                 # check if new handlers have come
