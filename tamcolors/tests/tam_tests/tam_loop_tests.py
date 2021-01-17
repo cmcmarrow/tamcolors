@@ -22,26 +22,30 @@ class TAMLoopTests(unittest.TestCase):
         with unittest.mock.patch.object(threading.Thread, "start", return_value=None) as start:
             with unittest.mock.patch.object(threading.Thread, "join", return_value=None) as join:
                 with unittest.mock.patch.object(frame, "done", return_value=None) as done:
-                    loop.run()
+                    with unittest.mock.patch.object(frame, "frame_done", return_value=None) as frame_done:
+                        loop.run()
 
-                    self.assertEqual(start.call_count, 1)
-                    self.assertEqual(start.mock_calls[0], unittest.mock.call())
+                        self.assertEqual(start.call_count, 1)
+                        self.assertEqual(start.mock_calls[0], unittest.mock.call())
 
-                    self.assertEqual(join.call_count, 1)
-                    self.assertEqual(join.mock_calls[0], unittest.mock.call(timeout=5))
+                        self.assertEqual(join.call_count, 1)
+                        self.assertEqual(join.mock_calls[0], unittest.mock.call(timeout=5))
 
-                    done.assert_called_once_with(loop, {})
+                        done.assert_called_once_with(loop, {}, {}, {})
+                        self.assertEquals(frame_done.call_count, 0)
 
     def test_stack(self):
         frame = self._get_dummy_frame(5, "A", YELLOW, BLUE, 25, 35, 26, 36)
         loop = tam.tam_loop.TAMLoop(frame, only_any_os=True)
         frame2 = self._get_dummy_frame(5, "B", YELLOW, BLUE, 25, 35, 26, 36)
 
-        with unittest.mock.patch.object(frame2, "done", return_value=True) as done:
-            loop.add_frame_stack(frame2)
-            loop.pop_frame_stack()
+        with unittest.mock.patch.object(frame2, "frame_done", return_value=True) as frame_done:
+            with unittest.mock.patch.object(frame2, "done", return_value=True) as done:
+                loop.add_frame_stack(frame2)
+                loop.pop_frame_stack()
 
-            done.assert_called_once_with(loop, {})
+                frame_done.assert_called_once_with(loop, {}, {}, {})
+                self.assertEquals(done.call_count, 0)
 
     @staticmethod
     def _get_dummy_frame(*args, **kwargs):
@@ -164,16 +168,31 @@ class TAMFrameTests(unittest.TestCase):
         frame = self._get_dummy_frame(10, "C", PURPLE, GRAY, 15, 45, 47, 58)
         loop = tam.tam_loop.TAMLoop(frame, only_any_os=True)
         with unittest.mock.patch.object(frame, "done", return_value=None) as done:
-            frame._done(loop, {})
-            done.assert_called_once_with(loop, {})
+            frame._done(loop, {}, {}, {})
+            done.assert_called_once_with(loop, {}, {}, {})
 
     def test__done_2(self):
         frame = self._get_dummy_frame(10, "C", PURPLE, GRAY, 15, 45, 47, 58)
         loop = tam.tam_loop.TAMLoop(frame, only_any_os=True)
         with unittest.mock.patch.object(frame, "done", return_value=None) as done:
-            frame._done(loop, {})
-            frame._done(loop, {})
-            done.assert_called_once_with(loop, {})
+            frame._done(loop, {}, {}, {})
+            frame._done(loop, {}, {}, {})
+            done.assert_called_once_with(loop, {}, {}, {})
+
+    def test__frame_done(self):
+        frame = self._get_dummy_frame(10, "C", PURPLE, GRAY, 15, 45, 47, 58)
+        loop = tam.tam_loop.TAMLoop(frame, only_any_os=True)
+        with unittest.mock.patch.object(frame, "frame_done", return_value=None) as frame_done:
+            frame._frame_done(loop, {}, {}, {})
+            frame_done.assert_called_once_with(loop, {}, {}, {})
+
+    def test__frame_done_2(self):
+        frame = self._get_dummy_frame(10, "C", PURPLE, GRAY, 15, 45, 47, 58)
+        loop = tam.tam_loop.TAMLoop(frame, only_any_os=True)
+        with unittest.mock.patch.object(frame, "frame_done", return_value=None) as frame_done:
+            frame._frame_done(loop, {}, {}, {})
+            frame._frame_done(loop, {}, {}, {})
+            frame_done.assert_called_once_with(loop, {}, {}, {})
 
     @staticmethod
     def _get_dummy_frame(*args, **kwargs):
@@ -181,10 +200,10 @@ class TAMFrameTests(unittest.TestCase):
             def __init__(self):
                 super().__init__(*args, **kwargs)
 
-            def update(self, tam_loop, keys, loop_data):
+            def update(self, tam_loop, keys, loop_data, *_):
                 pass
 
-            def draw(self, tam_surface, loop_data):
+            def draw(self, tam_surface, loop_data, *_):
                 pass
 
         return Dummy()

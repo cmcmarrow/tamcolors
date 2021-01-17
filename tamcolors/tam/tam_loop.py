@@ -145,7 +145,10 @@ class TAMLoop(TAMLoopIOHandler):
         """
         if self.is_running():
             for frame in self._frame_stack[::-1]:
-                frame._done(self, self._loop_data)
+                frame._done(self,
+                            self._loop_data,
+                            self._other_handlers,
+                            {other_handler: self._other_handlers[other_handler].get_loop_data() for other_handler in self._other_handlers})
 
             for other_handler in self._other_handlers:
                 log.debug("removed handler: {}".format(other_handler))
@@ -210,7 +213,10 @@ class TAMLoop(TAMLoopIOHandler):
 
         if len(self._frame_stack) != 0:
             frame = self._frame_stack.pop()
-            frame._done(self, self._loop_data)
+            frame._frame_done(self,
+                              self._loop_data,
+                              self._other_handlers,
+                              {other_handler: self._other_handlers[other_handler].get_loop_data() for other_handler in self._other_handlers})
             log.debug("pop_frame_stack: popped {}".format(frame.__class__.__name__))
             return frame
         log.warning("pop_frame_stack: no frame to pop")
@@ -247,6 +253,7 @@ class TAMLoop(TAMLoopIOHandler):
 
                 self._remove_dead_handlers(other_keys, other_surfaces, other_dimensions)
 
+                # get other handler keys and update dimensions
                 for other_handler in self._other_handlers:
                     other_keys[other_handler] = self._other_handlers[other_handler].pump_keys()
                     self._workers.submit(self._thread_task,
@@ -255,16 +262,19 @@ class TAMLoop(TAMLoopIOHandler):
                                          other_handler,
                                          other_dimensions)
 
+                # get frame and fps and kys
                 frame = self._frame_stack[-1]
                 frame_time = 1 / frame.get_fps()
                 keys = self.pump_keys()
 
+                # update
                 frame.update(self, keys,
                              self.get_loop_data(),
                              self._other_handlers,
                              other_keys,
                              {other_handler: self._other_handlers[other_handler].get_loop_data() for other_handler in self._other_handlers})
 
+                # check if still running and for errors
                 if self.is_running() and self._error is None:
                     self._remove_dead_handlers(other_keys, other_surfaces, other_dimensions)
                     if frame_skip == 0:
@@ -363,6 +373,7 @@ class TAMFrame:
         self.__max_height = max_height
 
         self.__done_called = False
+        self.__frame_done_called = False
 
     def get_fps(self):
         """
@@ -434,22 +445,50 @@ class TAMFrame:
         """
         raise NotImplementedError()
 
-    def _done(self, tam_loop, loop_data):
+    def _frame_done(self, tam_loop, loop_data, other_handlers, other_data):
         """
-        info: will clean up the frame and can only be called once
+        info: called when clean up the frame and can only be called once
         :param tam_loop: TAMLoop
         :param loop_data: object
+        :param other_handlers: dict
+        :param other_data: dict
+        :return:
+        """
+        if not self.__frame_done_called:
+            self.__frame_done_called = True
+            self.frame_done(tam_loop, loop_data, other_handlers, other_data)
+
+    def frame_done(self, tam_loop, loop_data, other_handlers, other_data):
+        """
+        info: called when clean up the frame and can only be called once
+        :param tam_loop: TAMLoop
+        :param loop_data: dict
+        :param other_handlers: dict
+        :param other_data: dict
+        :return:
+        """
+        pass
+
+    def _done(self, tam_loop, loop_data, other_handlers, other_data):
+        """
+        info: called when TAMLoop is terminating and can only be called once
+        :param tam_loop: TAMLoop
+        :param loop_data: object
+        :param other_handlers: dict
+        :param other_data: dict
         :return:
         """
         if not self.__done_called:
             self.__done_called = True
-            self.done(tam_loop, loop_data)
+            self.done(tam_loop, loop_data, other_handlers, other_data)
 
-    def done(self, tam_loop, loop_data):
+    def done(self, tam_loop, loop_data, other_handlers, other_data):
         """
-        info: will clean up the frame and can only be called once
+        info: called when TAMLoop is terminating and can only be called once
         :param tam_loop: TAMLoop
         :param loop_data: dict
+        :param other_handlers: dict
+        :param other_data: dict
         :return:
         """
         pass

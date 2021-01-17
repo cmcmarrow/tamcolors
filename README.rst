@@ -114,6 +114,13 @@ platforms tested on
 * Ubuntu 20.04
 * macOS 10.15.5
 
+*****
+goals
+*****
+* support Solaris
+* support FreeBSD
+* IO event bus
+
 ***************
 long term goals
 ***************
@@ -123,13 +130,6 @@ long term goals
 * add normal keyboard mode
 * add .wav support
 * support GER_GERMAN, FRE_FRENCH, SPA_SPANISH, LAT_SPANISH, ...  Keyboards
-
-
-*****
-goals
-*****
-* support Solaris
-* support FreeBSD
 
 ***********
 2.0.0 goals
@@ -142,12 +142,12 @@ goals
 ***********
 * fix exit clear - Done
 * add wait_key - Done
-* add more io driver tests
 * add support for Solaris
 * add support for FreeBSD
+* add frame_done - Done
 * add multi console example - Done
-* make tam_loop multi console friendly - In Progress
-* add normal keyboard mode - In Progress
+* add normal keyboard mode - In Progress "MAC needs help"
+* make tam_loop multi console friendly - Done
 * rename items from buffer to surface - Done
 * update tamcolors icon - Done
 * support GER_GERMAN, FRE_FRENCH, SPA_SPANISH, LAT_SPANISH, ...  Keyboards - In Progress
