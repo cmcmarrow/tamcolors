@@ -127,7 +127,7 @@ long term goals
 * build a community that builds fun terminal games
 * text editor
 * make and change fonts at run time
-* add normal keyboard mode
+* add key state mode
 * add .wav support
 * support GER_GERMAN, FRE_FRENCH, SPA_SPANISH, LAT_SPANISH, ...  Keyboards
 
@@ -146,7 +146,7 @@ long term goals
 * add support for FreeBSD
 * add frame_done - Done
 * add multi console example - Done
-* add normal keyboard mode - In Progress "MAC needs help"
+* add key state keyboard mode - In Progress "MAC needs help"
 * make tam_loop multi console friendly - Done
 * rename items from buffer to surface - Done
 * update tamcolors icon - Done

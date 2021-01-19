@@ -15,6 +15,7 @@ from . import host_loopback
 from . import connection_loopback
 from . import host_multi_player
 from . import connection_multi_player
+from . import tam_keys
 
 
 __all__ = ("alpha",
@@ -31,4 +32,5 @@ __all__ = ("alpha",
            "clouds",
            "sandy_check",
            "host_multi_player",
-           "connection_multi_player")
+           "connection_multi_player",
+           "tam_keys")

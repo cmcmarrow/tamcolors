@@ -165,20 +165,20 @@ class WinDriversTests(unittest.TestCase):
     def test_get_keyboard_name_2(self):
         io = get_win_io()
         with unittest.mock.patch.object(tam_io.win_drivers.io, "_get_keyboard_name",
-                                        return_value=tam_io.tam_keys.UK_ENGLISH) as _get_keyboard_name:
-            self.assertEqual(io.get_keyboard_name(), tam_io.tam_keys.UK_ENGLISH)
+                                        return_value=tam_io.tam_keys.LANGUAGE_UK_ENGLISH) as _get_keyboard_name:
+            self.assertEqual(io.get_keyboard_name(), tam_io.tam_keys.LANGUAGE_UK_ENGLISH)
 
     def test_get_keyboard_name_3(self):
         io = get_win_io()
         with unittest.mock.patch.object(tam_io.win_drivers.io, "_get_keyboard_name",
-                                        return_value=tam_io.tam_keys.UNKNOWN) as _get_keyboard_name:
-            self.assertEqual(io.get_keyboard_name(), tam_io.tam_keys.US_ENGLISH)
+                                        return_value=tam_io.tam_keys.LANGUAGE_UNKNOWN) as _get_keyboard_name:
+            self.assertEqual(io.get_keyboard_name(True), tam_io.tam_keys.LANGUAGE_US_ENGLISH)
             
     def test_get_keyboard_name_4(self):
         io = get_win_io()
         with unittest.mock.patch.object(tam_io.win_drivers.io, "_get_keyboard_name",
-                                        return_value=tam_io.tam_keys.UNKNOWN) as _get_keyboard_name:
-            self.assertEqual(io.get_keyboard_name(False), tam_io.tam_keys.UNKNOWN)
+                                        return_value=tam_io.tam_keys.LANGUAGE_UNKNOWN) as _get_keyboard_name:
+            self.assertEqual(io.get_keyboard_name(False), tam_io.tam_keys.LANGUAGE_UNKNOWN)
 
     def test_get_dimensions(self):
         io = get_win_io()

@@ -50,11 +50,11 @@ class UNIKeyDriver(tam_drivers.KeyDriver, UNISharedData, ABC):
             return self._uni_keys.get(";".join([str(key_byte) for key_byte in key_bytes]), False)
         return False
 
-    @staticmethod
-    def get_key_dict():
+    def get_key_dict(self, language=None):
         """
         info: Gets a dict of all the keys
-        :return: {str: (str, str), ...}
+        :param language: str or None
+        :return: dict
         """
         normal_key = string.digits + string.ascii_letters + "`-=[]\\;',./~!@#$%^&*()_+{}|:\"<>?"
         linux_keys = {str(ord(key)): (key, "NORMAL") for key in normal_key}
@@ -103,7 +103,7 @@ class UNIKeyDriver(tam_drivers.KeyDriver, UNISharedData, ABC):
         :param default_to_us_english: bool
         :return: str
         """
-        name = tam_keys.UNKNOWN
+        name = tam_keys.LANGUAGE_UNKNOWN
         try:
             process = subprocess.Popen(["setxkbmap", "-query"],
                                        stdout=subprocess.PIPE,
@@ -113,26 +113,26 @@ class UNIKeyDriver(tam_drivers.KeyDriver, UNISharedData, ABC):
             raw_name = raw_out.split("layout:", 1)[1].split("\n")[0].lstrip(" ").split(",")[0].lower()
 
             if raw_name == "us":
-                name = tam_keys.US_ENGLISH
+                name = tam_keys.LANGUAGE_US_ENGLISH
             elif raw_name == "ca":
-                name = tam_keys.CAN_ENGLISH
+                name = tam_keys.LANGUAGE_CAN_ENGLISH
             elif raw_name == "au":
-                name = tam_keys.AUS_ENGLISH
+                name = tam_keys.LANGUAGE_AUS_ENGLISH
             elif raw_name == "gb":
-                name = tam_keys.UK_ENGLISH
+                name = tam_keys.LANGUAGE_UK_ENGLISH
             elif raw_name == "de":
-                name = tam_keys.GER_GERMAN
+                name = tam_keys.LANGUAGE_GER_GERMAN
             elif raw_name == "fr":
-                name = tam_keys.FRE_FRENCH
+                name = tam_keys.LANGUAGE_FRE_FRENCH
             elif raw_name == "es":
-                name = tam_keys.SPA_SPANISH
+                name = tam_keys.LANGUAGE_SPA_SPANISH
             elif raw_name == "latam":
-                name = tam_keys.LAT_SPANISH
+                name = tam_keys.LANGUAGE_LAT_SPANISH
         except Exception as e:
             log.error("Failed to get unix keyboard name ERROR: %s", e)
 
-        if default_to_us_english and name == tam_keys.UNKNOWN:
-            return tam_keys.US_ENGLISH
+        if default_to_us_english and name == tam_keys.LANGUAGE_UNKNOWN:
+            return tam_keys.LANGUAGE_US_ENGLISH
         return name
 
     def enable_console_keys(self, enable):

@@ -42,19 +42,20 @@ class KeyDriver(TAMDriver, ABC):
         """
         raise NotImplementedError()
 
-    def wait_key(self, rest_time=0.0001):
+    def wait_key(self, rest_time=0.0001, attempts=300000):
         """
         info: Get an input from the terminal
         :param: rest_time: float: rest time from checking if a key is down
+        :param: attempts: int: number of attempts to get a key
         :return: tuple or false
         """
         return super().wait_key(rest_time)
 
-    @staticmethod
-    def get_key_dict():
+    def get_key_dict(self, language=None):
         """
         info: Gets a dict of all the keys
-        :return: {str: (str, str), ...}
+        :param language: str or None
+        :return: dict
         """
         raise NotImplementedError()
 

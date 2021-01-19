@@ -167,11 +167,11 @@ class RawIO(ABC):
         """
         raise NotImplementedError()
 
-    @staticmethod
-    def get_key_dict():
+    def get_key_dict(self, language=None):
         """
         info: Gets a dict of all the keys
-        :return: {str: (str, str), ...}
+        :param language: str or None
+        :return: dict
         """
         raise NotImplementedError()
 
@@ -208,6 +208,21 @@ class RawIO(ABC):
         info: will enable console keys
         :param enable: boool
         :return: None
+        """
+        raise NotImplementedError()
+
+    def set_key_state_mode(self, enable=True):
+        """
+        info: Will enable or disable key state mode
+        :param enable: bool
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def is_key_state_mode_enabled(self):
+        """
+        info: Will get the status of key_state
+        :return: bool
         """
         raise NotImplementedError()
 
@@ -355,6 +370,8 @@ class IO(RawIO, ABC):
 
         self._default_console_colors = []
         self._set_defaults()
+
+        self._key_state_mode = False
 
         self._mode = None
         self.set_mode(self._modes[-1])
@@ -506,6 +523,21 @@ class IO(RawIO, ABC):
                 sleep(rest_time)
         return False
 
+    def set_key_state_mode(self, enable=True):
+        """
+        info: Will enable or disable key state mode
+        :param enable: bool
+        :return: None
+        """
+        self._key_state_mode = enable
+
+    def is_key_state_mode_enabled(self):
+        """
+        info: Will get the status of key_state
+        :return: bool
+        """
+        return self._key_state_mode
+
     def get_keyboard_name(self, default_to_us_english=True):
         """
         info: Will get the keyboard language name
@@ -649,11 +681,11 @@ class IO(RawIO, ABC):
         """
         raise NotImplementedError()
 
-    @staticmethod
-    def get_key_dict():
+    def get_key_dict(self, language=None):
         """
         info: Gets a dict of all the keys
-        :return: {str: (str, str), ...}
+        :param language: str or None
+        :return: dict
         """
         raise NotImplementedError()
 

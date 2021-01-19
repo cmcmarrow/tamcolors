@@ -1,4 +1,4 @@
-from tamcolors import tam, tam_tools, tam_io
+from tamcolors import tam, tam_tools, tam_io, utils
 from random import randint
 
 
@@ -96,9 +96,9 @@ class Racket:
             self._y = max(self._y - 1, 0)
             self._y = min(self._y + 1, self._tam_surface.get_dimensions()[1] - 2)
         else:
-            if key_manager.get_key_state("q"):
+            if key_manager.get_key_state("q") or key_manager.get_key_state("Q"):
                 self._y = max(self._y - 1, 0)
-            if key_manager.get_key_state("a"):
+            if key_manager.get_key_state("a") or key_manager.get_key_state("A"):
                 self._y = min(self._y + 1, self._tam_surface.get_dimensions()[1] - 2)
         self._tam_surface.set_spot(self._x, self._y, "#", tam_io.tam_colors.LIGHT_AQUA, tam_io.tam_colors.LIGHT_AQUA)
         self._tam_surface.set_spot(self._x, self._y + 1, "#", tam_io.tam_colors.LIGHT_AQUA, tam_io.tam_colors.LIGHT_AQUA)
@@ -127,8 +127,14 @@ class TableTennis(tam.tam_loop.TAMFrame):
         self._ball = Ball(self._board)
         self._racket_1 = Racket(2, self._ball, self._board)
         self._racket_2 = Racket(48, self._ball, self._board, True)
+        self._start = True
+        utils.log.enable_logging()
 
     def update(self, tam_loop, keys, loop_data, *args):
+        if self._start is True:
+            self._start = False
+            tam_loop.set_key_state_mode()
+        utils.log.debug(keys)
         if self._ball.winner() is not None:
             self._score[int(self._ball.winner())] += 1
 

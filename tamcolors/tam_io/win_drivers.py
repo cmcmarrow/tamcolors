@@ -2,6 +2,7 @@
 import string
 from abc import ABC
 from threading import Lock
+from itertools import cycle
 
 
 # tamcolors libraries
@@ -11,47 +12,6 @@ from tamcolors.tam_io import tam_drivers
 from tamcolors.tam_io import tam_colors
 from tamcolors.tam_io import io_tam, tam_keys
 
-_VK_LEFT = 0x25
-_KV_UP = 0x26
-_KV_RIGHT = 0x27
-_KV_DOWN = 0x28
-
-_KV_1 = 0x30
-_KV_2 = 0x31
-_KV_3 = 0x32
-_KV_4 = 0x33
-_KV_5 = 0x34
-_KV_6 = 0x35
-_KV_7 = 0x36
-_KV_8 = 0x37
-_KV_9 = 0x38
-
-_KV_A = 0x41
-_KV_B = 0x42
-_KV_C = 0x43
-_KV_D = 0x44
-_KV_E = 0x45
-_KV_F = 0x46
-_KV_G = 0x47
-_KV_H = 0x48
-_KV_I = 0x49
-_KV_J = 0x4A
-_KV_K = 0x4B
-_KV_L = 0x4C
-_KV_M = 0x4D
-_KV_N = 0x4E
-_KV_O = 0x4F
-_KV_P = 0x50
-_KV_Q = 0x51
-_KV_R = 0x52
-_KV_S = 0x53
-_KV_T = 0x54
-_KV_U = 0x55
-_KV_V = 0x56
-_KV_W = 0x57
-_KV_X = 0x58
-_KV_Y = 0x59
-_KV_Z = 0x5A
 
 WIN_STABLE = False
 if io is not None:
@@ -72,7 +32,10 @@ class WinSharedData(tam_drivers.TAMDriver, ABC):
 
 class WINKeyDriver(tam_drivers.KeyDriver, WinSharedData, ABC):
     def __init__(self, *args, **kwargs):
-        self._windows_keys = self.get_key_dict()
+        self._windows_keyboard = tam_keys.KEYBOARD_US_ENGLISH(*tam_keys.Keyboard.split_code_dict(self.get_key_dict()))
+        self._keys = cycle(self._windows_keyboard.get_key_list())
+        self._key_count = len(self._windows_keyboard.get_key_list())
+
         super().__init__(*args, **kwargs)
 
     def get_key(self):
@@ -82,44 +45,160 @@ class WINKeyDriver(tam_drivers.KeyDriver, WinSharedData, ABC):
         """
         if not self.is_console_keys_enabled():
             return False
-
-        key_bytes = []
-        key_byte = io._get_key()
-        while key_byte != -1:
-            key_bytes.append(key_byte)
+        elif self.is_key_state_mode_enabled():
+            for _ in range(self._key_count):
+                key = next(self._keys)
+                key_code = key[2]
+                if key_code is not None:
+                    if io._get_key_state(key_code):
+                        return key[0]
+        else:
+            key_bytes = []
             key_byte = io._get_key()
+            while key_byte != -1:
+                key_bytes.append(key_byte)
+                key_byte = io._get_key()
 
-        if len(key_bytes) != 0:
-            return self._windows_keys.get(";".join([str(key_byte) for key_byte in key_bytes]), False)
+            if len(key_bytes) != 0:
+                return self._windows_keyboard.code_to_key(tuple(key_bytes))
         return False
 
-    @staticmethod
-    def get_key_dict():
+    def get_key_dict(self, language=None):
         """
-        info: makes a dict mapping key codes to key
+        info: Gets a dict of all the keys
+        :param language: str or None
         :return: dict
         """
-        normal_key = string.digits + string.ascii_letters + "`-=[]\\;',./~!@#$%^&*()_+{}|:\"<>?"
-        windows_keys = {str(ord(key)): (key, "NORMAL") for key in normal_key}
 
-        for f_key in range(1, 10):
-            windows_keys["0;{0}".format(58 + f_key)] = ("F{0}".format(f_key), "SPECIAL")
-            windows_keys["0;{0}".format(83 + f_key)] = ("F{0}_SHIFT".format(f_key), "SPECIAL")
+        if language is None:
+            language = self.get_keyboard_name()
 
-        code_224 = [[72, "UP"], [80, "DOWN"], [75, "LEFT"], [77, "RIGHT"], [83, "DELETE"],
-                    [134, "F12"], [136, "F12_SHIFT"]]
-
-        for code, key in code_224:
-            windows_keys["224;{0}".format(code)] = (key, "SPECIAL")
-
-        windows_keys["9"] = ("\t", "WHITESPACE")
-        windows_keys["13"] = ("\n", "WHITESPACE")
-        windows_keys["32"] = (" ", "WHITESPACE")
-
-        windows_keys["8"] = ("BACKSPACE", "SPECIAL")
-        windows_keys["27"] = ("ESCAPE", "SPECIAL")
-
-        return windows_keys
+        if language == tam_keys.LANGUAGE_US_ENGLISH:
+            return {tam_keys.KEY_ESCAPE: ((27,), 0),
+                    tam_keys.KEY_F1: ((0, 59), 0),
+                    tam_keys.KEY_F1_SHIFT: ((0, 84), 0),
+                    tam_keys.KEY_F2: ((0, 60), 0),
+                    tam_keys.KEY_F2_SHIFT: ((0, 85), 0),
+                    tam_keys.KEY_F3: ((0, 61), 0),
+                    tam_keys.KEY_F3_SHIFT: ((0, 86), 0),
+                    tam_keys.KEY_F4: ((0, 62), 0),
+                    tam_keys.KEY_F4_SHIFT: ((0, 87), 0),
+                    tam_keys.KEY_F5: ((0, 63), 0),
+                    tam_keys.KEY_F5_SHIFT: ((0, 88), 0),
+                    tam_keys.KEY_F6: ((0, 64), 0),
+                    tam_keys.KEY_F6_SHIFT: ((0, 89), 0),
+                    tam_keys.KEY_F7: ((0, 65), 0),
+                    tam_keys.KEY_F7_SHIFT: ((0, 90), 0),
+                    tam_keys.KEY_F8: ((0, 66), 0),
+                    tam_keys.KEY_F8_SHIFT: ((0, 91), 0),
+                    tam_keys.KEY_F9: ((0, 67), 0),
+                    tam_keys.KEY_F9_SHIFT: ((0, 92), 0),
+                    tam_keys.KEY_F12: ((224, 134), 0),
+                    tam_keys.KEY_F12_SHIFT: ((224, 136), 0),
+                    tam_keys.KEY_BACKTICK: ((97,), 0),
+                    tam_keys.KEY_TILDE: ((126,), 0),
+                    tam_keys.KEY_1: ((49,), 0),
+                    tam_keys.KEY_EXCLAMATION_MART: ((33,), 0),
+                    tam_keys.KEY_2: ((50,), 0),
+                    tam_keys.KEY_AT_SIGN: ((64,), 0),
+                    tam_keys.KEY_3: ((51,), 0),
+                    tam_keys.KEY_POUND_SIGN: ((35,), 0),
+                    tam_keys.KEY_4: ((52,), 0),
+                    tam_keys.KEY_DOLLAR_SYMBOL: ((36,), 0),
+                    tam_keys.KEY_5: ((53,), 0),
+                    tam_keys.KEY_PERCENT_SIGN: ((37,), 0),
+                    tam_keys.KEY_6: ((54,), 0),
+                    tam_keys.KEY_CARET: ((94,), 0),
+                    tam_keys.KEY_7: ((55,), 0),
+                    tam_keys.KEY_AMPERSAND: ((38,), 0),
+                    tam_keys.KEY_8: ((56,), 0),
+                    tam_keys.KEY_ASTERISK: ((42,), 0),
+                    tam_keys.KEY_9: ((57,), 0),
+                    tam_keys.KEY_LEFT_PARENTHESIS: ((40,), 0),
+                    tam_keys.KEY_0: ((48,), 0),
+                    tam_keys.KEY_RIGHT_PARENTHESIS: ((41,), 0),
+                    tam_keys.KEY_HYPHEN: ((45,), 0),
+                    tam_keys.KEY_UNDERSCORE: ((95,), 0),
+                    tam_keys.KEY_EQUAL_SIGN: ((61,), 0),
+                    tam_keys.KEY_PLUS_SIGN: ((43,), 0),
+                    tam_keys.KEY_BACKSPACE: ((8,), 8),
+                    tam_keys.KEY_TAB: ((9,), 0),
+                    tam_keys.KEY_q: ((113,), None),
+                    tam_keys.KEY_Q: ((81,), 81),
+                    tam_keys.KEY_w: ((119,), None),
+                    tam_keys.KEY_W: ((87,), 87),
+                    tam_keys.KEY_e: ((101,), None),
+                    tam_keys.KEY_E: ((69,), 69),
+                    tam_keys.KEY_r: ((114,), None),
+                    tam_keys.KEY_R: ((82,), 82),
+                    tam_keys.KEY_t: ((116,), None),
+                    tam_keys.KEY_T: ((84,), 84),
+                    tam_keys.KEY_y: ((121,), None),
+                    tam_keys.KEY_Y: ((89,), 89),
+                    tam_keys.KEY_u: ((117,), None),
+                    tam_keys.KEY_U: ((85,), 85),
+                    tam_keys.KEY_i: ((105,), None),
+                    tam_keys.KEY_I: ((73,), 73),
+                    tam_keys.KEY_o: ((111,), None),
+                    tam_keys.KEY_O: ((73,), 73),
+                    tam_keys.KEY_p: ((112,), None),
+                    tam_keys.KEY_P: ((80,), 80),
+                    tam_keys.KEY_LEFT_SQUARE_BRACKET: ((91,), 0),
+                    tam_keys.KEY_LEFT_CURLY_BRACKET: ((123,), 0),
+                    tam_keys.KEY_RIGHT_SQUARE_BRACKET: ((93,), 0),
+                    tam_keys.KEY_RIGHT_CURLY_BRACKET: ((125,), 0),
+                    tam_keys.KEY_BACKSLASH: ((92,), 0),
+                    tam_keys.KEY_VERTICAL_BAR: ((124,), 0),
+                    tam_keys.KEY_DELETE: ((224, 83), 0),
+                    tam_keys.KEY_a: ((97,), None),
+                    tam_keys.KEY_A: ((65,), 65),
+                    tam_keys.KEY_s: ((115,), None),
+                    tam_keys.KEY_S: ((83,), 83),
+                    tam_keys.KEY_d: ((100,), None),
+                    tam_keys.KEY_D: ((68,), 68),
+                    tam_keys.KEY_f: ((102,), None),
+                    tam_keys.KEY_F: ((70,), 70),
+                    tam_keys.KEY_g: ((103,), None),
+                    tam_keys.KEY_G: ((71,), 71),
+                    tam_keys.KEY_h: ((104,), None),
+                    tam_keys.KEY_H: ((72,), 72),
+                    tam_keys.KEY_j: ((106,), None),
+                    tam_keys.KEY_J: ((74,), 74),
+                    tam_keys.KEY_k: ((107,), None),
+                    tam_keys.KEY_K: ((75,), 75),
+                    tam_keys.KEY_l: ((108,), None),
+                    tam_keys.KEY_L: ((76,), 76),
+                    tam_keys.KEY_SEMICOLON: ((59,), 0),
+                    tam_keys.KEY_COLON: ((58,), 0),
+                    tam_keys.KEY_APOSTROPHE: ((39,), 0),
+                    tam_keys.KEY_QUOTATION_MARK: ((34,), 0),
+                    tam_keys.KEY_ENTER: ((13,), 13),
+                    tam_keys.KEY_z: ((122,), 0),
+                    tam_keys.KEY_Z: ((90,), 0),
+                    tam_keys.KEY_x: ((120,), 0),
+                    tam_keys.KEY_X: ((88,), 0),
+                    tam_keys.KEY_c: ((99,), 0),
+                    tam_keys.KEY_C: ((67,), 0),
+                    tam_keys.KEY_v: ((118,), 0),
+                    tam_keys.KEY_V: ((86,), 0),
+                    tam_keys.KEY_b: ((98,), 0),
+                    tam_keys.KEY_B: ((66,), 0),
+                    tam_keys.KEY_n: ((110,), 0),
+                    tam_keys.KEY_N: ((78,), 0),
+                    tam_keys.KEY_m: ((109,), 0),
+                    tam_keys.KEY_M: ((77,), 0),
+                    tam_keys.KEY_COMMA: ((44,), 0),
+                    tam_keys.KEY_LEFT_ANGLE_BRACKET: ((60,), 0),
+                    tam_keys.KEY_PERIOD: ((46,), 0),
+                    tam_keys.KEY_RIGHT_ANGLE_BRACKET: ((62,), 0),
+                    tam_keys.KEY_SLASH: ((47,), 0),
+                    tam_keys.KEY_QUESTION_MARK: ((63,), 0),
+                    tam_keys.KEY_UP: ((224, 72), 0),
+                    tam_keys.KEY_SPACE: ((32,), 0),
+                    tam_keys.KEY_LEFT: ((224, 75), 0),
+                    tam_keys.KEY_DOWN: ((224, 80), 0),
+                    tam_keys.KEY_RIGHT: ((224, 77), 0)}
+        return {}
 
     def get_keyboard_name(self, default_to_us_english=True):
         """
@@ -128,8 +207,8 @@ class WINKeyDriver(tam_drivers.KeyDriver, WinSharedData, ABC):
         :return: str
         """
         name = io._get_keyboard_name()
-        if default_to_us_english and name == tam_keys.UNKNOWN:
-            return tam_keys.US_ENGLISH
+        if default_to_us_english and name == tam_keys.LANGUAGE_UNKNOWN:
+            return tam_keys.LANGUAGE_US_ENGLISH
         return name
 
 
