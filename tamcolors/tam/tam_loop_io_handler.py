@@ -294,3 +294,18 @@ class TAMLoopIOHandler:
         :return: IO
         """
         return self._io
+
+    def set_key_state_mode(self, enable=True):
+        """
+        info: Will enable or disable key state mode
+        :param enable: bool
+        :return: None
+        """
+        self._io.set_key_state_mode(enable)
+
+    def is_key_state_mode_enabled(self):
+        """
+        info: Will get the status of key_state
+        :return: bool
+        """
+        return self._io.is_key_state_mode_enabled()

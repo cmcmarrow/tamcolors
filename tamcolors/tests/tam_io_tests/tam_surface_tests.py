@@ -374,6 +374,3 @@ class TAMSurfaceTests(unittest.TestCase):
         surface_2 = tam_io.tam_surface.TAMSurface.from_bytes(bytearray(surface_bytes))
         self.assertIsInstance(surface_2, tam_io.tam_surface.TAMSurface)
         self.assertEqual(surface, surface_2)
-
-
-

@@ -32,7 +32,7 @@ class AnyIOTests(unittest.TestCase):
 
     def test_get_keyboard_name(self):
         io = get_any_io()
-        self.assertEqual(io.get_keyboard_name(), tam_io.tam_keys.US_ENGLISH)
+        self.assertEqual(io.get_keyboard_name(), tam_io.tam_keys.LANGUAGE_US_ENGLISH)
 
     def test_get_dimensions(self):
         io = get_any_io()

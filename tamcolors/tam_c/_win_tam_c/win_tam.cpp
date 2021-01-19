@@ -307,5 +307,5 @@ int get_key_state(int key_code) {
 	parameter: int: key_code
 	return: int
 	*/
-	return GetAsyncKeyState(key_code);
+	return GetAsyncKeyState(key_code) & (1 << ((sizeof(short) * 8) - 1));
 }
