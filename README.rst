@@ -117,9 +117,10 @@ platforms tested on
 *****
 goals
 *****
-* support Solaris
-* support FreeBSD
 * IO event bus
+* support "get_keyboard_name" on macOS - Objective-C -> C++ -> Python
+* support "key state mode" on macOS - Objective-C -> C++ -> Python
+* add SHIFT KEY and other keys
 
 ***************
 long term goals
@@ -127,9 +128,7 @@ long term goals
 * build a community that builds fun terminal games
 * text editor
 * make and change fonts at run time
-* add key state mode
 * add .wav support
-* support GER_GERMAN, FRE_FRENCH, SPA_SPANISH, LAT_SPANISH, ...  Keyboards
 
 ***********
 2.0.0 goals
@@ -142,15 +141,13 @@ long term goals
 ***********
 * fix exit clear - Done
 * add wait_key - Done
-* add support for Solaris
-* add support for FreeBSD
 * add frame_done - Done
 * add multi console example - Done
-* add key state keyboard mode - In Progress "MAC needs help"
+* add key state keyboard mode - In Progress
 * make tam_loop multi console friendly - Done
 * rename items from buffer to surface - Done
 * update tamcolors icon - Done
-* support GER_GERMAN, FRE_FRENCH, SPA_SPANISH, LAT_SPANISH, ...  Keyboards - In Progress
+* support GER_GERMAN, FRE_FRENCH, SPA_SPANISH, LAT_SPANISH, ...  Keyboards - Done
 * supports Python 3.9
 * supports Python 3.8
 * supports Python 3.7

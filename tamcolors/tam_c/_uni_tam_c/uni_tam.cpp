@@ -65,7 +65,7 @@ void disable_get_key(){
     tcsetattr(0, TCSANOW, &term);
 }
 
- bool kbhit(){
+bool kbhit(){
     /*
 	return: bool
 	false: no charter in buffer
@@ -108,10 +108,10 @@ bool get_key_state(int key){
     XCloseDisplay(display);
     return !!(keys_return[key_code>>3] & (1<<(key_code&7)));
  }
- #endif
+#endif
 
- #ifdef __APPLE__
- bool get_key_state(int key){
-    return true;
- }
- #endif
+#ifdef __APPLE__
+bool get_key_state(int key){
+    return false;
+}
+#endif
