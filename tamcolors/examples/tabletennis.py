@@ -83,6 +83,8 @@ class Racket:
         self._ball = ball
         self._tam_surface = tam_surface
         self._ai = ai
+        self._q_key_skip = False
+        self._a_key_skip = False
 
     def update(self, key_manager):
         self._tam_surface.set_spot(self._x, self._y, " ", tam_io.tam_colors.WHITE, tam_io.tam_colors.BLACK)
@@ -96,10 +98,16 @@ class Racket:
             self._y = max(self._y - 1, 0)
             self._y = min(self._y + 1, self._tam_surface.get_dimensions()[1] - 2)
         else:
-            if key_manager.get_key_state("q") or key_manager.get_key_state("Q"):
+            if (key_manager.get_key_state("q") or key_manager.get_key_state("Q")) and not self._q_key_skip:
                 self._y = max(self._y - 1, 0)
-            if key_manager.get_key_state("a") or key_manager.get_key_state("A"):
+                self._q_key_skip = True
+            else:
+                self._q_key_skip = False
+            if (key_manager.get_key_state("a") or key_manager.get_key_state("A")) and not self._a_key_skip:
                 self._y = min(self._y + 1, self._tam_surface.get_dimensions()[1] - 2)
+                self._a_key_skip = True
+            else:
+                self._a_key_skip = False
         self._tam_surface.set_spot(self._x, self._y, "#", tam_io.tam_colors.LIGHT_AQUA, tam_io.tam_colors.LIGHT_AQUA)
         self._tam_surface.set_spot(self._x, self._y + 1, "#", tam_io.tam_colors.LIGHT_AQUA, tam_io.tam_colors.LIGHT_AQUA)
 
