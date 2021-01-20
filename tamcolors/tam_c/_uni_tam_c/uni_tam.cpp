@@ -4,10 +4,13 @@
 #include <stdio.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
+#include <stdbool.h>
 
+// non apple libraries
+#ifdef __unix__
 #include <X11/Xlib.h>
 #include <X11/keysym.h>
-#include <stdbool.h>
+#endif
 
 
 /*
@@ -96,7 +99,8 @@ int get_key() {
     return -1;
  }
 
- bool get_key_state(int key){
+#ifdef __unix__
+bool get_key_state(int key){
     char keys_return[32];
     Display* display = XOpenDisplay(NULL);
     XQueryKeymap(display, keys_return);
@@ -104,3 +108,10 @@ int get_key() {
     XCloseDisplay(display);
     return !!(keys_return[key_code>>3] & (1<<(key_code&7)));
  }
+ #endif
+
+ #ifdef __APPLE__
+ bool get_key_state(int key){
+    return true;
+ }
+ #endif
