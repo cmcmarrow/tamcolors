@@ -23,6 +23,8 @@ links
 * `pypi`_
 * `read the docs`_
 * `youtube`_
+* `patreon`_
+* `facebook`_
 
 ********************
 table tennis example
@@ -287,4 +289,5 @@ versions
 .. _pypi: https://pypi.org/project/tamcolors
 .. _read the docs: https://tamcolors.readthedocs.io/en/latest/
 .. _youtube: https://www.youtube.com/channel/UCgPjVibjJHFHuTZ0_xeq_HQ
-.. _paypal: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=DUKDNFSAWDKFE&source=url
+.. _patreon: https://www.patreon.com/tamcolors
+.. _facebook: https://www.facebook.com/C4tamcolors
