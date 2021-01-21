@@ -260,16 +260,16 @@ char* get_keyboard_name() {
 	HKL key_board_layout = GetKeyboardLayout(GetCurrentThreadId());
 
 	// ENGLISH
-	if (PRIMARYLANGID(key_board_layout) == SUBLANG_ENGLISH_US) {
+	if (SUBLANGID(key_board_layout) == SUBLANG_ENGLISH_US) {
 		return "US_ENGLISH";
 	}
-	else if (PRIMARYLANGID(key_board_layout) == SUBLANG_ENGLISH_UK) {
+	else if (SUBLANGID(key_board_layout) == SUBLANG_ENGLISH_UK) {
 		return "UK_ENGLISH";
 	}
-	else if (PRIMARYLANGID(key_board_layout) == SUBLANG_ENGLISH_AUS) {
+	else if (SUBLANGID(key_board_layout) == SUBLANG_ENGLISH_AUS) {
 		return "AUS_ENGLISH";
 	}
-	else if (PRIMARYLANGID(key_board_layout) == SUBLANG_ENGLISH_CAN) {
+	else if (SUBLANGID(key_board_layout) == SUBLANG_ENGLISH_CAN) {
 		return "CAN_ENGLISH";
 	}
 	else if (PRIMARYLANGID(key_board_layout) == LANG_ENGLISH) {
