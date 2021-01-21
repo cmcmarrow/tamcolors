@@ -73,7 +73,7 @@ class WINKeyDriver(tam_drivers.KeyDriver, WinSharedData, ABC):
         if language is None:
             language = self.get_keyboard_name()
 
-        if language == tam_keys.LANGUAGE_US_ENGLISH or True:
+        if language == tam_keys.LANGUAGE_US_ENGLISH:
             return {tam_keys.KEY_ESCAPE: ((27,), 27),
                     tam_keys.KEY_F1: ((0, 59), 112),
                     tam_keys.KEY_F1_SHIFT: ((0, 84), None),
