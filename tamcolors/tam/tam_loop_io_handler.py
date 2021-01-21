@@ -143,6 +143,7 @@ class TAMLoopIOHandler:
             self._running = False
             if reset_colors_to_console_defaults:
                 self._io.reset_colors_to_console_defaults()
+            self._io.set_key_state_mode(False)
             self._io.done()
             self._key_loop_thread.join(timeout=5)
 
