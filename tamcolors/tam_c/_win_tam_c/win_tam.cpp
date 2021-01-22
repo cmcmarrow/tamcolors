@@ -277,10 +277,10 @@ char* get_keyboard_name() {
 	}
 	
 	// SPANISH
-	if (PRIMARYLANGID(key_board_layout) == SUBLANG_SPANISH) {
+	if (SUBLANGID(key_board_layout) == SUBLANG_SPANISH) {
 		return "SPA_SPANISH";
 	}
-	else if (PRIMARYLANGID(key_board_layout) == SUBLANG_SPANISH_MEXICAN) {
+	else if (SUBLANGID(key_board_layout) == SUBLANG_SPANISH_MEXICAN) {
 		return "LAT_SPANISH";
 	}
 	else if (PRIMARYLANGID(key_board_layout) == LANG_SPANISH) {

@@ -1,7 +1,3 @@
-# built in library
-import string
-
-
 """
 terminal keys supported on all platforms
 """
@@ -210,7 +206,7 @@ KEY_SLASH = ("/", KEY_TYPE_NORMAL)
 KEY_TILDE = ("~", KEY_TYPE_NORMAL)
 KEY_EXCLAMATION_MART = ("!", KEY_TYPE_NORMAL)
 KEY_AT_SIGN = ("@", KEY_TYPE_NORMAL)
-KEY_POUND_SIGN = ("#", KEY_TYPE_NORMAL)
+KEY_NUMBER_SIGN = ("#", KEY_TYPE_NORMAL)
 KEY_DOLLAR_SYMBOL = ("$", KEY_TYPE_NORMAL)
 KEY_PERCENT_SIGN = ("%", KEY_TYPE_NORMAL)
 KEY_CARET = ("^", KEY_TYPE_NORMAL)
@@ -228,6 +224,10 @@ KEY_QUOTATION_MARK = ("\"", KEY_TYPE_NORMAL)
 KEY_LEFT_ANGLE_BRACKET = ("<", KEY_TYPE_NORMAL)
 KEY_RIGHT_ANGLE_BRACKET = (">", KEY_TYPE_NORMAL)
 KEY_QUESTION_MARK = ("?", KEY_TYPE_NORMAL)
+
+KEY_POUND_SIGN = ("£", KEY_TYPE_NORMAL)
+KEY_NOT_SIGN = ("¬", KEY_TYPE_NORMAL)
+
 KEY_TAB = ("\t", KEY_TYPE_WHITE_SPACE)
 KEY_ENTER = ("\n", KEY_TYPE_WHITE_SPACE)
 KEY_SPACE = (" ", KEY_TYPE_WHITE_SPACE)
@@ -288,7 +288,7 @@ KEYBOARD_US_ENGLISH = Keyboard(LANGUAGE_US_ENGLISH, {KEY_ESCAPE: 0,
                                                      KEY_2: 36,
                                                      KEY_AT_SIGN: 37,
                                                      KEY_3: 38,
-                                                     KEY_POUND_SIGN: 39,
+                                                     KEY_NUMBER_SIGN: 39,
                                                      KEY_4: 40,
                                                      KEY_DOLLAR_SYMBOL: 41,
                                                      KEY_5: 42,
@@ -384,6 +384,134 @@ KEYBOARD_US_ENGLISH = Keyboard(LANGUAGE_US_ENGLISH, {KEY_ESCAPE: 0,
                                                      KEY_LEFT: 196,
                                                      KEY_DOWN: 198,
                                                      KEY_RIGHT: 200})
+KEYBOARD_UK_ENGLISH = Keyboard(LANGUAGE_UK_ENGLISH, {KEY_ESCAPE: 0,
+                                                     KEY_F1: 2,
+                                                     KEY_F1_SHIFT: 3,
+                                                     KEY_F2: 4,
+                                                     KEY_F2_SHIFT: 5,
+                                                     KEY_F3: 6,
+                                                     KEY_F3_SHIFT: 7,
+                                                     KEY_F4: 8,
+                                                     KEY_F4_SHIFT: 9,
+                                                     KEY_F5: 10,
+                                                     KEY_F5_SHIFT: 11,
+                                                     KEY_F6: 12,
+                                                     KEY_F6_SHIFT: 13,
+                                                     KEY_F7: 14,
+                                                     KEY_F7_SHIFT: 15,
+                                                     KEY_F8: 16,
+                                                     KEY_F8_SHIFT: 17,
+                                                     KEY_F9: 18,
+                                                     KEY_F9_SHIFT: 19,
+                                                     KEY_F12: 24,
+                                                     KEY_F12_SHIFT: 25,
+                                                     KEY_BACKTICK: 32,
+                                                     KEY_NOT_SIGN: 33,
+                                                     KEY_1: 34,
+                                                     KEY_EXCLAMATION_MART: 35,
+                                                     KEY_2: 36,
+                                                     KEY_QUOTATION_MARK: 37,
+                                                     KEY_3: 38,
+                                                     KEY_POUND_SIGN: 39,
+                                                     KEY_4: 40,
+                                                     KEY_DOLLAR_SYMBOL: 41,
+                                                     KEY_5: 42,
+                                                     KEY_PERCENT_SIGN: 43,
+                                                     KEY_6: 44,
+                                                     KEY_CARET: 45,
+                                                     KEY_7: 46,
+                                                     KEY_AMPERSAND: 47,
+                                                     KEY_8: 48,
+                                                     KEY_ASTERISK: 49,
+                                                     KEY_9: 50,
+                                                     KEY_LEFT_PARENTHESIS: 51,
+                                                     KEY_0: 52,
+                                                     KEY_RIGHT_PARENTHESIS: 53,
+                                                     KEY_HYPHEN: 54,
+                                                     KEY_UNDERSCORE: 55,
+                                                     KEY_EQUAL_SIGN: 56,
+                                                     KEY_PLUS_SIGN: 57,
+                                                     KEY_BACKSPACE: 58,
+                                                     KEY_TAB: 74,
+                                                     KEY_q: 76,
+                                                     KEY_Q: 77,
+                                                     KEY_w: 78,
+                                                     KEY_W: 79,
+                                                     KEY_e: 80,
+                                                     KEY_E: 81,
+                                                     KEY_r: 82,
+                                                     KEY_R: 83,
+                                                     KEY_t: 84,
+                                                     KEY_T: 85,
+                                                     KEY_y: 86,
+                                                     KEY_Y: 87,
+                                                     KEY_u: 88,
+                                                     KEY_U: 89,
+                                                     KEY_i: 90,
+                                                     KEY_I: 91,
+                                                     KEY_o: 92,
+                                                     KEY_O: 93,
+                                                     KEY_p: 94,
+                                                     KEY_P: 95,
+                                                     KEY_LEFT_SQUARE_BRACKET: 96,
+                                                     KEY_LEFT_CURLY_BRACKET: 97,
+                                                     KEY_RIGHT_SQUARE_BRACKET: 98,
+                                                     KEY_RIGHT_CURLY_BRACKET: 99,
+                                                     KEY_BACKSLASH: 100,
+                                                     KEY_VERTICAL_BAR: 101,
+                                                     KEY_DELETE: 102,
+                                                     KEY_a: 116,
+                                                     KEY_A: 117,
+                                                     KEY_s: 118,
+                                                     KEY_S: 119,
+                                                     KEY_d: 120,
+                                                     KEY_D: 121,
+                                                     KEY_f: 122,
+                                                     KEY_F: 123,
+                                                     KEY_g: 124,
+                                                     KEY_G: 125,
+                                                     KEY_h: 126,
+                                                     KEY_H: 127,
+                                                     KEY_j: 128,
+                                                     KEY_J: 129,
+                                                     KEY_k: 130,
+                                                     KEY_K: 131,
+                                                     KEY_l: 132,
+                                                     KEY_L: 133,
+                                                     KEY_SEMICOLON: 134,
+                                                     KEY_COLON: 135,
+                                                     KEY_APOSTROPHE: 136,
+                                                     KEY_AT_SIGN: 137,
+                                                     KEY_NUMBER_SIGN: 300,
+                                                     KEY_TILDE: 301,
+                                                     KEY_ENTER: 138,
+                                                     KEY_z: 148,
+                                                     KEY_Z: 149,
+                                                     KEY_x: 150,
+                                                     KEY_X: 151,
+                                                     KEY_c: 152,
+                                                     KEY_C: 153,
+                                                     KEY_v: 154,
+                                                     KEY_V: 155,
+                                                     KEY_b: 156,
+                                                     KEY_B: 157,
+                                                     KEY_n: 158,
+                                                     KEY_N: 159,
+                                                     KEY_m: 160,
+                                                     KEY_M: 161,
+                                                     KEY_COMMA: 162,
+                                                     KEY_LEFT_ANGLE_BRACKET: 163,
+                                                     KEY_PERIOD: 164,
+                                                     KEY_RIGHT_ANGLE_BRACKET: 165,
+                                                     KEY_SLASH: 166,
+                                                     KEY_QUESTION_MARK: 167,
+                                                     KEY_UP: 170,
+                                                     KEY_SPACE: 186,
+                                                     KEY_LEFT: 196,
+                                                     KEY_DOWN: 198,
+                                                     KEY_RIGHT: 200})
+KEYBOARD_CAN_ENGLISH = Keyboard(LANGUAGE_CAN_ENGLISH, KEYBOARD_US_ENGLISH.get_key_spot_dict().copy())
+KEYBOARD_AUS_ENGLISH = Keyboard(LANGUAGE_AUS_ENGLISH, KEYBOARD_US_ENGLISH.get_key_spot_dict().copy())
 
 LANGUAGES = set()
 KEY_TYPES = set()
