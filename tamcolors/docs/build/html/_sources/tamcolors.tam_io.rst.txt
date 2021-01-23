@@ -36,10 +36,10 @@ tamcolors.tam\_io.io\_tam module
    :undoc-members:
    :show-inheritance:
 
-tamcolors.tam\_io.tam\_buffer module
-------------------------------------
+tamcolors.tam\_io.null\_drivers module
+--------------------------------------
 
-.. automodule:: tamcolors.tam_io.tam_buffer
+.. automodule:: tamcolors.tam_io.null_drivers
    :members:
    :undoc-members:
    :show-inheritance:
@@ -72,6 +72,14 @@ tamcolors.tam\_io.tam\_keys module
 ----------------------------------
 
 .. automodule:: tamcolors.tam_io.tam_keys
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+tamcolors.tam\_io.tam\_surface module
+-------------------------------------
+
+.. automodule:: tamcolors.tam_io.tam_surface
    :members:
    :undoc-members:
    :show-inheritance:

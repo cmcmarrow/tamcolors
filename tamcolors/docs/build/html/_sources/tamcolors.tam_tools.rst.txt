@@ -44,10 +44,10 @@ tamcolors.tam\_tools.tam\_key\_manager module
    :undoc-members:
    :show-inheritance:
 
-tamcolors.tam\_tools.tam\_list\_buffer module
----------------------------------------------
+tamcolors.tam\_tools.tam\_list\_surface module
+----------------------------------------------
 
-.. automodule:: tamcolors.tam_tools.tam_list_buffer
+.. automodule:: tamcolors.tam_tools.tam_list_surface
    :members:
    :undoc-members:
    :show-inheritance:

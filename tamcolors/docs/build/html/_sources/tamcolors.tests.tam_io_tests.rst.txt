@@ -20,14 +20,6 @@ tamcolors.tests.tam\_io\_tests.io\_tam\_tests module
    :undoc-members:
    :show-inheritance:
 
-tamcolors.tests.tam\_io\_tests.tam\_buffer\_tests module
---------------------------------------------------------
-
-.. automodule:: tamcolors.tests.tam_io_tests.tam_buffer_tests
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 tamcolors.tests.tam\_io\_tests.tam\_colors\_tests module
 --------------------------------------------------------
 
@@ -44,10 +36,10 @@ tamcolors.tests.tam\_io\_tests.tam\_keys\_tests module
    :undoc-members:
    :show-inheritance:
 
-tamcolors.tests.tam\_io\_tests.tam\_standard\_tests module
-----------------------------------------------------------
+tamcolors.tests.tam\_io\_tests.tam\_surface\_tests module
+---------------------------------------------------------
 
-.. automodule:: tamcolors.tests.tam_io_tests.tam_standard_tests
+.. automodule:: tamcolors.tests.tam_io_tests.tam_surface_tests
    :members:
    :undoc-members:
    :show-inheritance:

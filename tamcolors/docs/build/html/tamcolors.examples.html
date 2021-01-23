@@ -310,11 +310,57 @@
 <dd></dd></dl>
 
 </div>
+<div class="section" id="module-tamcolors.examples.connection_multi_player">
+<span id="tamcolors-examples-connection-multi-player-module"></span><h2>tamcolors.examples.connection_multi_player module<a class="headerlink" href="#module-tamcolors.examples.connection_multi_player" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="tamcolors.examples.connection_multi_player.run">
+<code class="sig-prename descclassname">tamcolors.examples.connection_multi_player.</code><code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.connection_multi_player.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
 <div class="section" id="module-tamcolors.examples.host_loopback">
 <span id="tamcolors-examples-host-loopback-module"></span><h2>tamcolors.examples.host_loopback module<a class="headerlink" href="#module-tamcolors.examples.host_loopback" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt id="tamcolors.examples.host_loopback.run">
 <code class="sig-prename descclassname">tamcolors.examples.host_loopback.</code><code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.host_loopback.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.examples.host_multi_player">
+<span id="tamcolors-examples-host-multi-player-module"></span><h2>tamcolors.examples.host_multi_player module<a class="headerlink" href="#module-tamcolors.examples.host_multi_player" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tamcolors.examples.host_multi_player.HostMultiPlayer">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.examples.host_multi_player.</code><code class="sig-name descname">HostMultiPlayer</code><a class="headerlink" href="#tamcolors.examples.host_multi_player.HostMultiPlayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="tamcolors.tam.html#tamcolors.tam.tam_loop.TAMFrame" title="tamcolors.tam.tam_loop.TAMFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam.tam_loop.TAMFrame</span></code></a></p>
+<dl class="py method">
+<dt id="tamcolors.examples.host_multi_player.HostMultiPlayer.draw">
+<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_surface</span></em>, <em class="sig-param"><span class="n">loop_data</span></em>, <em class="sig-param"><span class="n">other_surfaces</span></em>, <em class="sig-param"><span class="n">other_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.host_multi_player.HostMultiPlayer.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will draw frame onto terminal
+:param tam_surface: TAMSurface
+:param loop_data: object
+:param other_surfaces: dict
+:param other_data: dict
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.examples.host_multi_player.HostMultiPlayer.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_loop</span></em>, <em class="sig-param"><span class="n">keys</span></em>, <em class="sig-param"><span class="n">loop_data</span></em>, <em class="sig-param"><span class="n">other_handlers</span></em>, <em class="sig-param"><span class="n">other_keys</span></em>, <em class="sig-param"><span class="n">other_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.host_multi_player.HostMultiPlayer.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will update terminal
+:param tam_loop: TAMLoop
+:param keys: list, tuple
+:param loop_data: objects
+:param other_handlers: dict
+:param other_keys: dict
+:param other_data: dict
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="tamcolors.examples.host_multi_player.run">
+<code class="sig-prename descclassname">tamcolors.examples.host_multi_player.</code><code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.host_multi_player.run" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -510,8 +556,81 @@
 <dd></dd></dl>
 
 </div>
-<div class="section" id="tamcolors-examples-tam-list-buffer-module">
-<h2>tamcolors.examples.tam_list_buffer module<a class="headerlink" href="#tamcolors-examples-tam-list-buffer-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-tamcolors.examples.tam_keys">
+<span id="tamcolors-examples-tam-keys-module"></span><h2>tamcolors.examples.tam_keys module<a class="headerlink" href="#module-tamcolors.examples.tam_keys" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tamcolors.examples.tam_keys.TAMKeys">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.examples.tam_keys.</code><code class="sig-name descname">TAMKeys</code><a class="headerlink" href="#tamcolors.examples.tam_keys.TAMKeys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="tamcolors.tam.html#tamcolors.tam.tam_loop.TAMFrame" title="tamcolors.tam.tam_loop.TAMFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam.tam_loop.TAMFrame</span></code></a></p>
+<dl class="py method">
+<dt id="tamcolors.examples.tam_keys.TAMKeys.draw">
+<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_surface</span></em>, <em class="sig-param"><span class="n">loop_data</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tam_keys.TAMKeys.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will draw frame onto terminal
+:param tam_surface: TAMSurface
+:param loop_data: object
+:param other_surfaces: dict
+:param other_data: dict
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.examples.tam_keys.TAMKeys.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_loop</span></em>, <em class="sig-param"><span class="n">keys</span></em>, <em class="sig-param"><span class="n">loop_data</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tam_keys.TAMKeys.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will update terminal
+:param tam_loop: TAMLoop
+:param keys: list, tuple
+:param loop_data: objects
+:param other_handlers: dict
+:param other_keys: dict
+:param other_data: dict
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="tamcolors.examples.tam_keys.run">
+<code class="sig-prename descclassname">tamcolors.examples.tam_keys.</code><code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tam_keys.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-tamcolors.examples.tam_list_surface">
+<span id="tamcolors-examples-tam-list-surface-module"></span><h2>tamcolors.examples.tam_list_surface module<a class="headerlink" href="#module-tamcolors.examples.tam_list_surface" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="tamcolors.examples.tam_list_surface.TAMListSurface">
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.examples.tam_list_surface.</code><code class="sig-name descname">TAMListSurface</code><a class="headerlink" href="#tamcolors.examples.tam_list_surface.TAMListSurface" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="tamcolors.tam.html#tamcolors.tam.tam_loop.TAMFrame" title="tamcolors.tam.tam_loop.TAMFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam.tam_loop.TAMFrame</span></code></a></p>
+<dl class="py method">
+<dt id="tamcolors.examples.tam_list_surface.TAMListSurface.draw">
+<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_surface</span></em>, <em class="sig-param"><span class="n">loop_data</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tam_list_surface.TAMListSurface.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will draw frame onto terminal
+:param tam_surface: TAMSurface
+:param loop_data: object
+:param other_surfaces: dict
+:param other_data: dict
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="tamcolors.examples.tam_list_surface.TAMListSurface.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_loop</span></em>, <em class="sig-param"><span class="n">keys</span></em>, <em class="sig-param"><span class="n">loop_data</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tam_list_surface.TAMListSurface.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>info: will update terminal
+:param tam_loop: TAMLoop
+:param keys: list, tuple
+:param loop_data: objects
+:param other_handlers: dict
+:param other_keys: dict
+:param other_data: dict
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="tamcolors.examples.tam_list_surface.run">
+<code class="sig-prename descclassname">tamcolors.examples.tam_list_surface.</code><code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tam_list_surface.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 <div class="section" id="module-tamcolors.examples.tam_loop">
 <span id="tamcolors-examples-tam-loop-module"></span><h2>tamcolors.examples.tam_loop module<a class="headerlink" href="#module-tamcolors.examples.tam_loop" title="Permalink to this headline">¶</a></h2>

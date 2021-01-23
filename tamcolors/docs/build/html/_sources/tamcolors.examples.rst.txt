@@ -44,10 +44,26 @@ tamcolors.examples.connection\_loopback module
    :undoc-members:
    :show-inheritance:
 
+tamcolors.examples.connection\_multi\_player module
+---------------------------------------------------
+
+.. automodule:: tamcolors.examples.connection_multi_player
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 tamcolors.examples.host\_loopback module
 ----------------------------------------
 
 .. automodule:: tamcolors.examples.host_loopback
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+tamcolors.examples.host\_multi\_player module
+---------------------------------------------
+
+.. automodule:: tamcolors.examples.host_multi_player
    :members:
    :undoc-members:
    :show-inheritance:
@@ -92,10 +108,18 @@ tamcolors.examples.tam\_key\_manager module
    :undoc-members:
    :show-inheritance:
 
-tamcolors.examples.tam\_list\_buffer module
--------------------------------------------
+tamcolors.examples.tam\_keys module
+-----------------------------------
 
-.. automodule:: tamcolors.examples.tam_list_buffer
+.. automodule:: tamcolors.examples.tam_keys
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+tamcolors.examples.tam\_list\_surface module
+--------------------------------------------
+
+.. automodule:: tamcolors.examples.tam_list_surface
    :members:
    :undoc-members:
    :show-inheritance:
