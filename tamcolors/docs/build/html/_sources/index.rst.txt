@@ -7,6 +7,7 @@ Welcome to tamcolors's documentation!
 =====================================
 
 |Icon|
+
 |TotalDownloads| |WeekDownloads| |Python3| |License| |Docs| |Tests|
 
 *****
@@ -26,6 +27,8 @@ links
 * `pypi`_
 * `read the docs`_
 * `youtube`_
+* `patreon`_
+* `facebook`_
 
 ********************
 table tennis example
@@ -93,3 +96,5 @@ Indices and tables
 .. _pypi: https://pypi.org/project/tamcolors
 .. _read the docs: https://tamcolors.readthedocs.io/en/latest/
 .. _youtube: https://www.youtube.com/channel/UCgPjVibjJHFHuTZ0_xeq_HQ
+.. _patreon: https://www.patreon.com/tamcolors
+.. _facebook: https://www.facebook.com/C4tamcolors
