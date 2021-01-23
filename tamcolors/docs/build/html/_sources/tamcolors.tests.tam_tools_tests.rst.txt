@@ -36,10 +36,10 @@ tamcolors.tests.tam\_tools\_tests.tam\_key\_manager\_tests module
    :undoc-members:
    :show-inheritance:
 
-tamcolors.tests.tam\_tools\_tests.tam\_list\_buffer\_tests module
------------------------------------------------------------------
+tamcolors.tests.tam\_tools\_tests.tam\_list\_surface\_tests module
+------------------------------------------------------------------
 
-.. automodule:: tamcolors.tests.tam_tools_tests.tam_list_buffer_tests
+.. automodule:: tamcolors.tests.tam_tools_tests.tam_list_surface_tests
    :members:
    :undoc-members:
    :show-inheritance:
