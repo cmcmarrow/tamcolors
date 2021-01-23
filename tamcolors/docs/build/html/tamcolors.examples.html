@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>tamcolors.examples package &mdash; tamcolors 1.2.0 documentation</title>
+  <title>tamcolors.examples package &mdash; tamcolors 1.3.0 documentation</title>
   
 
   
@@ -16,7 +16,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -29,7 +32,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -51,7 +53,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> tamcolors
+            <a href="index.html" class="icon icon-home"> tamcolors
           
 
           
@@ -142,6 +144,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -157,7 +161,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/tamcolors.examples.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -184,20 +188,25 @@
 <dd><p>Bases: <a class="reference internal" href="tamcolors.tam.html#tamcolors.tam.tam_loop.TAMFrame" title="tamcolors.tam.tam_loop.TAMFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam.tam_loop.TAMFrame</span></code></a></p>
 <dl class="py method">
 <dt id="tamcolors.examples.alpha.TAMAlpha.draw">
-<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_buffer</span></em>, <em class="sig-param"><span class="n">loop_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.alpha.TAMAlpha.draw" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_surface</span></em>, <em class="sig-param"><span class="n">loop_data</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.alpha.TAMAlpha.draw" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: will draw frame onto terminal
-:param tam_buffer: TAMBuffer
-:param loop_data: dict
+:param tam_surface: TAMSurface
+:param loop_data: object
+:param other_surfaces: dict
+:param other_data: dict
 :return:</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="tamcolors.examples.alpha.TAMAlpha.update">
-<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_loop</span></em>, <em class="sig-param"><span class="n">keys</span></em>, <em class="sig-param"><span class="n">loop_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.alpha.TAMAlpha.update" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_loop</span></em>, <em class="sig-param"><span class="n">keys</span></em>, <em class="sig-param"><span class="n">loop_data</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.alpha.TAMAlpha.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: will update terminal
 :param tam_loop: TAMLoop
 :param keys: list, tuple
-:param loop_data: dict
+:param loop_data: objects
+:param other_handlers: dict
+:param other_keys: dict
+:param other_data: dict
 :return:</p>
 </dd></dl>
 
@@ -225,20 +234,25 @@
 <dd><p>Bases: <a class="reference internal" href="tamcolors.tam.html#tamcolors.tam.tam_loop.TAMFrame" title="tamcolors.tam.tam_loop.TAMFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam.tam_loop.TAMFrame</span></code></a></p>
 <dl class="py method">
 <dt id="tamcolors.examples.clouds.Clouds.draw">
-<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_buffer</span></em>, <em class="sig-param"><span class="n">loop_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.clouds.Clouds.draw" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_surface</span></em>, <em class="sig-param"><span class="n">loop_data</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.clouds.Clouds.draw" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: will draw frame onto terminal
-:param tam_buffer: TAMBuffer
-:param loop_data: dict
+:param tam_surface: TAMSurface
+:param loop_data: object
+:param other_surfaces: dict
+:param other_data: dict
 :return:</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="tamcolors.examples.clouds.Clouds.update">
-<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_loop</span></em>, <em class="sig-param"><span class="n">keys</span></em>, <em class="sig-param"><span class="n">loop_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.clouds.Clouds.update" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_loop</span></em>, <em class="sig-param"><span class="n">keys</span></em>, <em class="sig-param"><span class="n">loop_data</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.clouds.Clouds.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: will update terminal
 :param tam_loop: TAMLoop
 :param keys: list, tuple
-:param loop_data: dict
+:param loop_data: objects
+:param other_handlers: dict
+:param other_keys: dict
+:param other_data: dict
 :return:</p>
 </dd></dl>
 
@@ -258,20 +272,25 @@
 <dd><p>Bases: <a class="reference internal" href="tamcolors.tam.html#tamcolors.tam.tam_loop.TAMFrame" title="tamcolors.tam.tam_loop.TAMFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam.tam_loop.TAMFrame</span></code></a></p>
 <dl class="py method">
 <dt id="tamcolors.examples.colors.TAMCOLORS.draw">
-<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_buffer</span></em>, <em class="sig-param"><span class="n">loop_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.colors.TAMCOLORS.draw" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_surface</span></em>, <em class="sig-param"><span class="n">loop_data</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.colors.TAMCOLORS.draw" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: will draw frame onto terminal
-:param tam_buffer: TAMBuffer
-:param loop_data: dict
+:param tam_surface: TAMSurface
+:param loop_data: object
+:param other_surfaces: dict
+:param other_data: dict
 :return:</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="tamcolors.examples.colors.TAMCOLORS.update">
-<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_loop</span></em>, <em class="sig-param"><span class="n">keys</span></em>, <em class="sig-param"><span class="n">loop_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.colors.TAMCOLORS.update" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_loop</span></em>, <em class="sig-param"><span class="n">keys</span></em>, <em class="sig-param"><span class="n">loop_data</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.colors.TAMCOLORS.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: will update terminal
 :param tam_loop: TAMLoop
 :param keys: list, tuple
-:param loop_data: dict
+:param loop_data: objects
+:param other_handlers: dict
+:param other_keys: dict
+:param other_data: dict
 :return:</p>
 </dd></dl>
 
@@ -307,20 +326,25 @@
 <dd><p>Bases: <a class="reference internal" href="tamcolors.tam.html#tamcolors.tam.tam_loop.TAMFrame" title="tamcolors.tam.tam_loop.TAMFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam.tam_loop.TAMFrame</span></code></a></p>
 <dl class="py method">
 <dt id="tamcolors.examples.icon.BootLogo.draw">
-<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_buffer</span></em>, <em class="sig-param"><span class="n">loop_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.icon.BootLogo.draw" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_surface</span></em>, <em class="sig-param"><span class="n">loop_data</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.icon.BootLogo.draw" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: will draw frame onto terminal
-:param tam_buffer: TAMBuffer
-:param loop_data: dict
+:param tam_surface: TAMSurface
+:param loop_data: object
+:param other_surfaces: dict
+:param other_data: dict
 :return:</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="tamcolors.examples.icon.BootLogo.update">
-<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_loop</span></em>, <em class="sig-param"><span class="n">keys</span></em>, <em class="sig-param"><span class="n">loop_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.icon.BootLogo.update" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_loop</span></em>, <em class="sig-param"><span class="n">keys</span></em>, <em class="sig-param"><span class="n">loop_data</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.icon.BootLogo.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: will update terminal
 :param tam_loop: TAMLoop
 :param keys: list, tuple
-:param loop_data: dict
+:param loop_data: objects
+:param other_handlers: dict
+:param other_keys: dict
+:param other_data: dict
 :return:</p>
 </dd></dl>
 
@@ -340,20 +364,25 @@
 <dd><p>Bases: <a class="reference internal" href="tamcolors.tam.html#tamcolors.tam.tam_loop.TAMFrame" title="tamcolors.tam.tam_loop.TAMFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam.tam_loop.TAMFrame</span></code></a></p>
 <dl class="py method">
 <dt id="tamcolors.examples.rgb_color.RGBCOLOR.draw">
-<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_buffer</span></em>, <em class="sig-param"><span class="n">loop_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.rgb_color.RGBCOLOR.draw" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_surface</span></em>, <em class="sig-param"><span class="n">loop_data</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.rgb_color.RGBCOLOR.draw" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: will draw frame onto terminal
-:param tam_buffer: TAMBuffer
-:param loop_data: dict
+:param tam_surface: TAMSurface
+:param loop_data: object
+:param other_surfaces: dict
+:param other_data: dict
 :return:</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="tamcolors.examples.rgb_color.RGBCOLOR.update">
-<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_loop</span></em>, <em class="sig-param"><span class="n">keys</span></em>, <em class="sig-param"><span class="n">loop_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.rgb_color.RGBCOLOR.update" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_loop</span></em>, <em class="sig-param"><span class="n">keys</span></em>, <em class="sig-param"><span class="n">loop_data</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.rgb_color.RGBCOLOR.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: will update terminal
 :param tam_loop: TAMLoop
 :param keys: list, tuple
-:param loop_data: dict
+:param loop_data: objects
+:param other_handlers: dict
+:param other_keys: dict
+:param other_data: dict
 :return:</p>
 </dd></dl>
 
@@ -377,7 +406,7 @@
 <span id="tamcolors-examples-tabletennis-module"></span><h2>tamcolors.examples.tabletennis module<a class="headerlink" href="#module-tamcolors.examples.tabletennis" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="tamcolors.examples.tabletennis.Ball">
-<em class="property">class </em><code class="sig-prename descclassname">tamcolors.examples.tabletennis.</code><code class="sig-name descname">Ball</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_buffer</span></em>, <em class="sig-param"><span class="n">way</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tabletennis.Ball" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.examples.tabletennis.</code><code class="sig-name descname">Ball</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_surface</span></em>, <em class="sig-param"><span class="n">way</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tabletennis.Ball" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt id="tamcolors.examples.tabletennis.Ball.get_y">
@@ -398,7 +427,7 @@
 
 <dl class="py class">
 <dt id="tamcolors.examples.tabletennis.Racket">
-<em class="property">class </em><code class="sig-prename descclassname">tamcolors.examples.tabletennis.</code><code class="sig-name descname">Racket</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">ball</span></em>, <em class="sig-param"><span class="n">tam_buffer</span></em>, <em class="sig-param"><span class="n">ai</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tabletennis.Racket" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">tamcolors.examples.tabletennis.</code><code class="sig-name descname">Racket</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">ball</span></em>, <em class="sig-param"><span class="n">tam_surface</span></em>, <em class="sig-param"><span class="n">ai</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tabletennis.Racket" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
 <dt id="tamcolors.examples.tabletennis.Racket.update">
@@ -413,20 +442,25 @@
 <dd><p>Bases: <a class="reference internal" href="tamcolors.tam.html#tamcolors.tam.tam_loop.TAMFrame" title="tamcolors.tam.tam_loop.TAMFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam.tam_loop.TAMFrame</span></code></a></p>
 <dl class="py method">
 <dt id="tamcolors.examples.tabletennis.TableTennis.draw">
-<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_buffer</span></em>, <em class="sig-param"><span class="n">loop_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tabletennis.TableTennis.draw" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_surface</span></em>, <em class="sig-param"><span class="n">loop_data</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tabletennis.TableTennis.draw" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: will draw frame onto terminal
-:param tam_buffer: TAMBuffer
-:param loop_data: dict
+:param tam_surface: TAMSurface
+:param loop_data: object
+:param other_surfaces: dict
+:param other_data: dict
 :return:</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="tamcolors.examples.tabletennis.TableTennis.update">
-<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_loop</span></em>, <em class="sig-param"><span class="n">keys</span></em>, <em class="sig-param"><span class="n">loop_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tabletennis.TableTennis.update" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_loop</span></em>, <em class="sig-param"><span class="n">keys</span></em>, <em class="sig-param"><span class="n">loop_data</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tabletennis.TableTennis.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: will update terminal
 :param tam_loop: TAMLoop
 :param keys: list, tuple
-:param loop_data: dict
+:param loop_data: objects
+:param other_handlers: dict
+:param other_keys: dict
+:param other_data: dict
 :return:</p>
 </dd></dl>
 
@@ -446,20 +480,25 @@
 <dd><p>Bases: <a class="reference internal" href="tamcolors.tam.html#tamcolors.tam.tam_loop.TAMFrame" title="tamcolors.tam.tam_loop.TAMFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam.tam_loop.TAMFrame</span></code></a></p>
 <dl class="py method">
 <dt id="tamcolors.examples.tam_key_manager.TAMKeyManager.draw">
-<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_buffer</span></em>, <em class="sig-param"><span class="n">loop_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tam_key_manager.TAMKeyManager.draw" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_surface</span></em>, <em class="sig-param"><span class="n">loop_data</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tam_key_manager.TAMKeyManager.draw" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: will draw frame onto terminal
-:param tam_buffer: TAMBuffer
-:param loop_data: dict
+:param tam_surface: TAMSurface
+:param loop_data: object
+:param other_surfaces: dict
+:param other_data: dict
 :return:</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="tamcolors.examples.tam_key_manager.TAMKeyManager.update">
-<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_loop</span></em>, <em class="sig-param"><span class="n">keys</span></em>, <em class="sig-param"><span class="n">loop_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tam_key_manager.TAMKeyManager.update" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_loop</span></em>, <em class="sig-param"><span class="n">keys</span></em>, <em class="sig-param"><span class="n">loop_data</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tam_key_manager.TAMKeyManager.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: will update terminal
 :param tam_loop: TAMLoop
 :param keys: list, tuple
-:param loop_data: dict
+:param loop_data: objects
+:param other_handlers: dict
+:param other_keys: dict
+:param other_data: dict
 :return:</p>
 </dd></dl>
 
@@ -471,38 +510,8 @@
 <dd></dd></dl>
 
 </div>
-<div class="section" id="module-tamcolors.examples.tam_list_buffer">
-<span id="tamcolors-examples-tam-list-buffer-module"></span><h2>tamcolors.examples.tam_list_buffer module<a class="headerlink" href="#module-tamcolors.examples.tam_list_buffer" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt id="tamcolors.examples.tam_list_buffer.TAMListBuffer">
-<em class="property">class </em><code class="sig-prename descclassname">tamcolors.examples.tam_list_buffer.</code><code class="sig-name descname">TAMListBuffer</code><a class="headerlink" href="#tamcolors.examples.tam_list_buffer.TAMListBuffer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="tamcolors.tam.html#tamcolors.tam.tam_loop.TAMFrame" title="tamcolors.tam.tam_loop.TAMFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam.tam_loop.TAMFrame</span></code></a></p>
-<dl class="py method">
-<dt id="tamcolors.examples.tam_list_buffer.TAMListBuffer.draw">
-<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_buffer</span></em>, <em class="sig-param"><span class="n">loop_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tam_list_buffer.TAMListBuffer.draw" title="Permalink to this definition">¶</a></dt>
-<dd><p>info: will draw frame onto terminal
-:param tam_buffer: TAMBuffer
-:param loop_data: dict
-:return:</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="tamcolors.examples.tam_list_buffer.TAMListBuffer.update">
-<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_loop</span></em>, <em class="sig-param"><span class="n">keys</span></em>, <em class="sig-param"><span class="n">loop_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tam_list_buffer.TAMListBuffer.update" title="Permalink to this definition">¶</a></dt>
-<dd><p>info: will update terminal
-:param tam_loop: TAMLoop
-:param keys: list, tuple
-:param loop_data: dict
-:return:</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt id="tamcolors.examples.tam_list_buffer.run">
-<code class="sig-prename descclassname">tamcolors.examples.tam_list_buffer.</code><code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tam_list_buffer.run" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<div class="section" id="tamcolors-examples-tam-list-buffer-module">
+<h2>tamcolors.examples.tam_list_buffer module<a class="headerlink" href="#tamcolors-examples-tam-list-buffer-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-tamcolors.examples.tam_loop">
 <span id="tamcolors-examples-tam-loop-module"></span><h2>tamcolors.examples.tam_loop module<a class="headerlink" href="#module-tamcolors.examples.tam_loop" title="Permalink to this headline">¶</a></h2>
@@ -512,20 +521,25 @@
 <dd><p>Bases: <a class="reference internal" href="tamcolors.tam.html#tamcolors.tam.tam_loop.TAMFrame" title="tamcolors.tam.tam_loop.TAMFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam.tam_loop.TAMFrame</span></code></a></p>
 <dl class="py method">
 <dt id="tamcolors.examples.tam_loop.TAMLoopHelloWorld.draw">
-<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_buffer</span></em>, <em class="sig-param"><span class="n">loop_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tam_loop.TAMLoopHelloWorld.draw" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_surface</span></em>, <em class="sig-param"><span class="n">loop_data</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tam_loop.TAMLoopHelloWorld.draw" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: will draw frame onto terminal
-:param tam_buffer: TAMBuffer
-:param loop_data: dict
+:param tam_surface: TAMSurface
+:param loop_data: object
+:param other_surfaces: dict
+:param other_data: dict
 :return:</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="tamcolors.examples.tam_loop.TAMLoopHelloWorld.update">
-<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_loop</span></em>, <em class="sig-param"><span class="n">keys</span></em>, <em class="sig-param"><span class="n">loop_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tam_loop.TAMLoopHelloWorld.update" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_loop</span></em>, <em class="sig-param"><span class="n">keys</span></em>, <em class="sig-param"><span class="n">loop_data</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tam_loop.TAMLoopHelloWorld.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: will update terminal
 :param tam_loop: TAMLoop
 :param keys: list, tuple
-:param loop_data: dict
+:param loop_data: objects
+:param other_handlers: dict
+:param other_keys: dict
+:param other_data: dict
 :return:</p>
 </dd></dl>
 
@@ -545,20 +559,25 @@
 <dd><p>Bases: <a class="reference internal" href="tamcolors.tam.html#tamcolors.tam.tam_loop.TAMFrame" title="tamcolors.tam.tam_loop.TAMFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam.tam_loop.TAMFrame</span></code></a></p>
 <dl class="py method">
 <dt id="tamcolors.examples.tam_print.TAMPrint.draw">
-<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_buffer</span></em>, <em class="sig-param"><span class="n">loop_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tam_print.TAMPrint.draw" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_surface</span></em>, <em class="sig-param"><span class="n">loop_data</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tam_print.TAMPrint.draw" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: will draw frame onto terminal
-:param tam_buffer: TAMBuffer
-:param loop_data: dict
+:param tam_surface: TAMSurface
+:param loop_data: object
+:param other_surfaces: dict
+:param other_data: dict
 :return:</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="tamcolors.examples.tam_print.TAMPrint.update">
-<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_loop</span></em>, <em class="sig-param"><span class="n">keys</span></em>, <em class="sig-param"><span class="n">loop_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tam_print.TAMPrint.update" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_loop</span></em>, <em class="sig-param"><span class="n">keys</span></em>, <em class="sig-param"><span class="n">loop_data</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tam_print.TAMPrint.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: will update terminal
 :param tam_loop: TAMLoop
 :param keys: list, tuple
-:param loop_data: dict
+:param loop_data: objects
+:param other_handlers: dict
+:param other_keys: dict
+:param other_data: dict
 :return:</p>
 </dd></dl>
 
@@ -578,20 +597,25 @@
 <dd><p>Bases: <a class="reference internal" href="tamcolors.tam.html#tamcolors.tam.tam_loop.TAMFrame" title="tamcolors.tam.tam_loop.TAMFrame"><code class="xref py py-class docutils literal notranslate"><span class="pre">tamcolors.tam.tam_loop.TAMFrame</span></code></a></p>
 <dl class="py method">
 <dt id="tamcolors.examples.tam_text_box.TAMPrint.draw">
-<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_buffer</span></em>, <em class="sig-param"><span class="n">loop_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tam_text_box.TAMPrint.draw" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_surface</span></em>, <em class="sig-param"><span class="n">loop_data</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tam_text_box.TAMPrint.draw" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: will draw frame onto terminal
-:param tam_buffer: TAMBuffer
-:param loop_data: dict
+:param tam_surface: TAMSurface
+:param loop_data: object
+:param other_surfaces: dict
+:param other_data: dict
 :return:</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="tamcolors.examples.tam_text_box.TAMPrint.update">
-<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_loop</span></em>, <em class="sig-param"><span class="n">keys</span></em>, <em class="sig-param"><span class="n">loop_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tam_text_box.TAMPrint.update" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tam_loop</span></em>, <em class="sig-param"><span class="n">keys</span></em>, <em class="sig-param"><span class="n">loop_data</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tamcolors.examples.tam_text_box.TAMPrint.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>info: will update terminal
 :param tam_loop: TAMLoop
 :param keys: list, tuple
-:param loop_data: dict
+:param loop_data: objects
+:param other_handlers: dict
+:param other_keys: dict
+:param other_data: dict
 :return:</p>
 </dd></dl>
 
@@ -613,37 +637,29 @@
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="tamcolors.tam.html" class="btn btn-neutral float-right" title="tamcolors.tam package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="tamcolors.html" class="btn btn-neutral float-left" title="tamcolors package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="tamcolors.tam.html" class="btn btn-neutral float-right" title="tamcolors.tam package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="tamcolors.html" class="btn btn-neutral float-left" title="tamcolors package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2020, Charles McMarrow
+        &#169; Copyright 2020, Charles McMarrow.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
