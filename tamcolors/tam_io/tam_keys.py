@@ -384,6 +384,7 @@ KEYBOARD_US_ENGLISH = Keyboard(LANGUAGE_US_ENGLISH, {KEY_ESCAPE: 0,
                                                      KEY_LEFT: 196,
                                                      KEY_DOWN: 198,
                                                      KEY_RIGHT: 200})
+
 KEYBOARD_UK_ENGLISH = Keyboard(LANGUAGE_UK_ENGLISH, {KEY_ESCAPE: 0,
                                                      KEY_F1: 2,
                                                      KEY_F1_SHIFT: 3,
@@ -510,8 +511,19 @@ KEYBOARD_UK_ENGLISH = Keyboard(LANGUAGE_UK_ENGLISH, {KEY_ESCAPE: 0,
                                                      KEY_LEFT: 196,
                                                      KEY_DOWN: 198,
                                                      KEY_RIGHT: 200})
+
 KEYBOARD_CAN_ENGLISH = Keyboard(LANGUAGE_CAN_ENGLISH, KEYBOARD_US_ENGLISH.get_key_spot_dict().copy())
+
 KEYBOARD_AUS_ENGLISH = Keyboard(LANGUAGE_AUS_ENGLISH, KEYBOARD_US_ENGLISH.get_key_spot_dict().copy())
+
+KEYBOARD_SPA_SPANISH = Keyboard(LANGUAGE_SPA_SPANISH, {})   # TODO
+
+KEYBOARD_LAT_SPANISH = Keyboard(LANGUAGE_LAT_SPANISH, {})
+
+KEYBOARD_GER_GERMAN = Keyboard(LANGUAGE_GER_GERMAN, {})
+
+KEYBOARD_FRE_FRENCH = Keyboard(LANGUAGE_FRE_FRENCH, {})
+
 
 LANGUAGES = set()
 KEY_TYPES = set()

@@ -3,15 +3,21 @@ import os
 import unittest
 import unittest.mock
 import sys
+import platform
 
 # tamcolors libraries
 from tamcolors import tam_io
 
 
 def get_uni_io():
+    if platform.system().lower() == "darwin":
+        return tam_io.tam_identifier.TAMIdentifier("uni_driver_tests",
+                                                   tam_io.any_drivers.ANYFullColorDriver,
+                                                   tam_io.mac_drivers.MACKeyDriver,
+                                                   tam_io.uni_drivers.UNIUtilitiesDriver).get_io()
     return tam_io.tam_identifier.TAMIdentifier("uni_driver_tests",
                                                tam_io.any_drivers.ANYFullColorDriver,
-                                               tam_io.uni_drivers.UNIKeyDriver,
+                                               tam_io.lin_drivers.LINKeyDriver,
                                                tam_io.uni_drivers.UNIUtilitiesDriver).get_io()
 
 
