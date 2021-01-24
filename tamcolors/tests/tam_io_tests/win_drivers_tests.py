@@ -191,7 +191,7 @@ class WinDriversTests(unittest.TestCase):
         io = get_win_io()
         keys = io.get_key_dict()
         for key in keys:
-            self.assertIsInstance(key, str)
+            self.assertIsInstance(key, tuple)
             self.assertIsInstance(keys.get(key), tuple)
 
     @staticmethod
