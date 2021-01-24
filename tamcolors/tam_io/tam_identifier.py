@@ -6,6 +6,8 @@ from tamcolors.tam_io import any_drivers
 from tamcolors.tam_io import null_drivers
 from tamcolors.tam_io import win_drivers
 from tamcolors.tam_io import uni_drivers
+from tamcolors.tam_io import lin_drivers
+from tamcolors.tam_io import mac_drivers
 from tamcolors.tam_io import ansi_true_color_drivers
 from tamcolors.tam_io import ansi_256_drivers
 
@@ -100,7 +102,7 @@ class TAMIdentifier:
 
         if platform.system().lower() == "linux":
             io_identifier = cls("UNI_TRUE_COLOR_DRIVERS",
-                                uni_drivers.UNIKeyDriver,
+                                lin_drivers.LINKeyDriver,
                                 uni_drivers.UNIUtilitiesDriver,
                                 ansi_true_color_drivers.ANSITrueFullColorDriver)
             if io_identifier.stable():
@@ -108,7 +110,7 @@ class TAMIdentifier:
 
         if platform.system().lower() == "darwin":
             io_identifier = cls("UNI_256_DRIVERS",
-                                uni_drivers.UNIKeyDriver,
+                                mac_drivers.MACKeyDriver,
                                 uni_drivers.UNIUtilitiesDriver,
                                 ansi_256_drivers.ANSI256ColorDriver,
                                 ansi_256_drivers.ANSI256ChangerDriver)

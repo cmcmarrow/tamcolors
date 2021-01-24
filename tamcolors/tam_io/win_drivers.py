@@ -32,7 +32,7 @@ class WinSharedData(tam_drivers.TAMDriver, ABC):
 
 class WINKeyDriver(tam_drivers.KeyDriver, WinSharedData, ABC):
     def __init__(self, *args, **kwargs):
-        self._windows_keyboard = tam_keys.KEYBOARD_US_ENGLISH(*tam_keys.Keyboard.split_code_dict(self.get_key_dict()))
+        self._windows_keyboard = tam_keys.KEYBOARDS[self.get_keyboard_name()](*tam_keys.Keyboard.split_code_dict(self.get_key_dict()))
         self._keys = cycle(self._windows_keyboard.get_key_list())
         self._key_count = len(self._windows_keyboard.get_key_list())
 
