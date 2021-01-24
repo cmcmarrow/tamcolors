@@ -135,7 +135,7 @@ class UniIOTests(unittest.TestCase):
     def test_get_key_dict(self):
         keys = get_uni_io().get_key_dict()
         for key in keys:
-            self.assertIsInstance(key, str)
+            self.assertIsInstance(key, tuple)
             self.assertIsInstance(keys.get(key), tuple)
 
     @staticmethod

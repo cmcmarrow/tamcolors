@@ -179,7 +179,7 @@ class LINKeyDriver(tam_drivers.KeyDriver, uni_drivers.UNISharedData, ABC):
                     tam_keys.KEY_DOWN: ((27, 91, 66), None),
                     tam_keys.KEY_RIGHT: ((27, 91, 67), None)}
         elif language == tam_keys.LANGUAGE_UK_ENGLISH:
-            pass
+            return {}
         return {}
 
     def get_keyboard_name(self, default_to_us_english=True):
