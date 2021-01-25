@@ -119,7 +119,7 @@ platforms tested on
 *****
 goals
 *****
-* IO event bus
+* add IO event bus
 * support "get_keyboard_name" on macOS - Objective-C -> C++ -> Python
 * support "key state mode" on macOS - Objective-C -> C++ -> Python
 * add SHIFT KEY and other keys
@@ -128,15 +128,52 @@ goals
 long term goals
 ***************
 * build a community that builds fun terminal games
-* text editor
 * make and change fonts at run time
 * add .wav support
+
+***********
+3.0.2 goals
+***********
+* clean up code
+* add more tests
+* add wiki
+
+***********
+3.0.1 goals
+***********
+* make and change fonts at run time
+* add SHIFT KEY and other keys
+
+***********
+3.0.0 goals
+***********
+* update tamtools
+* add SPA, LAT, GER and FRE keyboard maps
+* supports Python 3.9
+* supports Python 3.8
+* supports Python 3.7
+* supports Python 3.6
+
+***********
+2.1.0 goals
+***********
+* update tamloop
+* update tamframe
+* add IO event bus
+* supports Python 3.9
+* supports Python 3.8
+* supports Python 3.7
+* supports Python 3.6
 
 ***********
 2.0.0 goals
 ***********
 * add .wav support
 * add .wav tests
+* supports Python 3.9
+* supports Python 3.8
+* supports Python 3.7
+* supports Python 3.6
 
 ***********
 1.3.0 goals
