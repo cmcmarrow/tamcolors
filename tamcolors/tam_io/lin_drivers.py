@@ -53,7 +53,7 @@ class LINKeyDriver(tam_drivers.KeyDriver, uni_drivers.UNISharedData, ABC):
             language = self.get_keyboard_name()
 
         if language in (tam_keys.LANGUAGE_US_ENGLISH, tam_keys.LANGUAGE_CAN_ENGLISH, tam_keys.LANGUAGE_AUS_ENGLISH):
-            return {tam_keys.KEY_ESCAPE: ((27,), None),
+            return {tam_keys.KEY_ESCAPE: ((27,), 27),
                     tam_keys.KEY_F1: ((27, 79, 80), None),
                     tam_keys.KEY_F1_SHIFT: ((27, 91, 49, 59, 50, 80), None),
                     tam_keys.KEY_F2: ((27, 79, 81), None),
@@ -100,7 +100,7 @@ class LINKeyDriver(tam_drivers.KeyDriver, uni_drivers.UNISharedData, ABC):
                     tam_keys.KEY_UNDERSCORE: ((95,), None),
                     tam_keys.KEY_EQUAL_SIGN: ((61,), None),
                     tam_keys.KEY_PLUS_SIGN: ((43,), None),
-                    tam_keys.KEY_BACKSPACE: ((127,), None),
+                    tam_keys.KEY_BACKSPACE: ((127,), 36),
                     tam_keys.KEY_TAB: ((9,), 9),
                     tam_keys.KEY_q: ((113,), 81),
                     tam_keys.KEY_Q: ((81,), None),
