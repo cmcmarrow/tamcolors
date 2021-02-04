@@ -119,7 +119,7 @@ platforms tested on
 *****
 goals
 *****
-* IO event bus
+* add IO event bus
 * support "get_keyboard_name" on macOS - Objective-C -> C++ -> Python
 * support "key state mode" on macOS - Objective-C -> C++ -> Python
 * add SHIFT KEY and other keys
@@ -128,32 +128,53 @@ goals
 long term goals
 ***************
 * build a community that builds fun terminal games
-* text editor
 * make and change fonts at run time
 * add .wav support
+
+***********
+3.0.2 goals
+***********
+* clean up code
+* add more tests
+* add wiki
+
+***********
+3.0.1 goals
+***********
+* make and change fonts at run time
+* add SHIFT KEY and other keys
+
+***********
+3.0.0 goals
+***********
+* update tamtools
+* add SPA, LAT, GER and FRE keyboard maps
+* supports Python 3.9
+* supports Python 3.8
+* supports Python 3.7
+* supports Python 3.6
+
+***********
+2.1.0 goals
+***********
+* update tamloop
+* update tamframe
+* add IO event bus
+* supports Python 3.9
+* supports Python 3.8
+* supports Python 3.7
+* supports Python 3.6
 
 ***********
 2.0.0 goals
 ***********
 * add .wav support
 * add .wav tests
-
-***********
-1.3.0 goals
-***********
-* fix exit clear - Done
-* add wait_key - Done
-* add frame_done - Done
-* add multi console example - Done
-* add key state keyboard mode - In Progress
-* make tam_loop multi console friendly - Done
-* rename items from buffer to surface - Done
-* update tamcolors icon - Done
-* support GER_GERMAN, FRE_FRENCH, SPA_SPANISH, LAT_SPANISH, ...  Keyboards - Done
 * supports Python 3.9
 * supports Python 3.8
 * supports Python 3.7
 * supports Python 3.6
+
 
 ***********************
 what defines a release?
@@ -166,6 +187,24 @@ what defines a release?
 ********
 versions
 ********
+
+*****
+1.3.0
+*****
+* 2/4/2021
+* fixed exit clear
+* added wait_key
+* added frame_done
+* added multi console example
+* added key state keyboard mode Only for Windows
+* made tam_loop multi console friendly
+* renamed items from buffer to surface
+* updated tamcolors icon
+* supports GER_GERMAN, FRE_FRENCH, SPA_SPANISH, LAT_SPANISH, ...  Keyboards - Only for Windows and Linux
+* supports Python 3.9
+* supports Python 3.8
+* supports Python 3.7
+* supports Python 3.6
 
 *****
 1.2.0
