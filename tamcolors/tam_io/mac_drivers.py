@@ -6,7 +6,6 @@ from abc import ABC
 # tamcolors libraries
 from tamcolors.tam_c import _uni_tam as io
 from tamcolors.tam_io import tam_drivers, tam_keys, uni_drivers
-from tamcolors.utils import log
 
 
 class MACKeyDriver(tam_drivers.KeyDriver, uni_drivers.UNISharedData, ABC):
