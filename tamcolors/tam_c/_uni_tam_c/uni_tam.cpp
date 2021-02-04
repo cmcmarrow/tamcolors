@@ -103,6 +103,9 @@ int get_key() {
 bool get_key_state(int key){
     char keys_return[32];
     Display* display = XOpenDisplay(NULL);
+    if (display == NULL){
+        return false;
+    }
     XQueryKeymap(display, keys_return);
     KeyCode key_code = XKeysymToKeycode(display, key);
     XCloseDisplay(display);
