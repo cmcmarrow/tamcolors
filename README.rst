@@ -175,22 +175,6 @@ long term goals
 * supports Python 3.7
 * supports Python 3.6
 
-***********
-1.3.0 goals
-***********
-* fix exit clear - Done
-* add wait_key - Done
-* add frame_done - Done
-* add multi console example - Done
-* add key state keyboard mode - In Progress
-* make tam_loop multi console friendly - Done
-* rename items from buffer to surface - Done
-* update tamcolors icon - Done
-* support GER_GERMAN, FRE_FRENCH, SPA_SPANISH, LAT_SPANISH, ...  Keyboards - Done
-* supports Python 3.9
-* supports Python 3.8
-* supports Python 3.7
-* supports Python 3.6
 
 ***********************
 what defines a release?
@@ -203,6 +187,24 @@ what defines a release?
 ********
 versions
 ********
+
+*****
+1.3.0
+*****
+* 2/4/2021
+* fixed exit clear
+* added wait_key
+* added frame_done
+* added multi console example
+* added key state keyboard mode Only for Windows
+* made tam_loop multi console friendly
+* renamed items from buffer to surface
+* updated tamcolors icon
+* supports GER_GERMAN, FRE_FRENCH, SPA_SPANISH, LAT_SPANISH, ...  Keyboards - Only for Windows and Linux
+* supports Python 3.9
+* supports Python 3.8
+* supports Python 3.7
+* supports Python 3.6
 
 *****
 1.2.0
