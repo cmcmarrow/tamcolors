@@ -100,7 +100,7 @@ class LINKeyDriver(tam_drivers.KeyDriver, uni_drivers.UNISharedData, ABC):
                     tam_keys.KEY_UNDERSCORE: ((95,), None),
                     tam_keys.KEY_EQUAL_SIGN: ((61,), None),
                     tam_keys.KEY_PLUS_SIGN: ((43,), None),
-                    tam_keys.KEY_BACKSPACE: ((127,), 36),
+                    tam_keys.KEY_BACKSPACE: ((127,), None),
                     tam_keys.KEY_TAB: ((9,), 9),
                     tam_keys.KEY_q: ((113,), 81),
                     tam_keys.KEY_Q: ((81,), None),
