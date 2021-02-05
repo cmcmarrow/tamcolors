@@ -137,14 +137,13 @@ class TableTennis(tam.tam_loop.TAMFrame):
         self._racket_1 = Racket(2, self._ball, self._board)
         self._racket_2 = Racket(48, self._ball, self._board, True)
         self._start = True
-        utils.log.enable_logging()
 
     def update(self, tam_loop, keys, loop_data, *args):
         if self._start is True:
             self._start = False
             if platform.system() == "Windows":
                 tam_loop.set_key_state_mode()
-        utils.log.debug(keys)
+
         if self._ball.winner() is not None:
             self._score[int(self._ball.winner())] += 1
 
