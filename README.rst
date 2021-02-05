@@ -191,7 +191,7 @@ versions
 *****
 1.3.0
 *****
-* 2/4/2021
+* 2/5/2021
 * fixed exit clear
 * added wait_key
 * added frame_done
