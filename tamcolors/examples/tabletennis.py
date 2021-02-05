@@ -1,5 +1,6 @@
 from tamcolors import tam, tam_tools, tam_io, utils
 from random import randint
+import platform
 
 
 class Ball:
@@ -141,7 +142,8 @@ class TableTennis(tam.tam_loop.TAMFrame):
     def update(self, tam_loop, keys, loop_data, *args):
         if self._start is True:
             self._start = False
-            tam_loop.set_key_state_mode()
+            if platform.system() == "Windows":
+                tam_loop.set_key_state_mode()
         utils.log.debug(keys)
         if self._ball.winner() is not None:
             self._score[int(self._ball.winner())] += 1
