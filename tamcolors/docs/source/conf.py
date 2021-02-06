@@ -22,7 +22,7 @@ copyright = "2020, Charles McMarrow"
 author = "Charles McMarrow"
 
 # The full version, including alpha/beta/rc tags
-release = "1.3.0"
+release = "2.0.0"
 master_doc = "index"
 
 # -- General configuration ---------------------------------------------------
