@@ -315,6 +315,21 @@ class RawIO(ABC):
         """
         raise NotImplementedError()
 
+    def get_snapshot(self):
+        """
+        info: get snapshot of IO
+        :return: dict
+        """
+        raise NotImplementedError()
+
+    def apply_snapshot(self, snapshot):
+        """
+        info: apply snapshot state to IO
+        :param snapshot: dict
+        :return: None
+        """
+        raise NotImplementedError()
+
 
 class IO(RawIO, ABC):
     def __init__(self,
@@ -748,7 +763,7 @@ class IO(RawIO, ABC):
                 self.set_color_256(spot, color)
             self._set_console_color(spot, color)
 
-        # reset reset of the colors
+        # reset of the colors
         for spot in range(self._console_color_count(), 256):
             if spot < 16:
                 self.set_color_2(spot, tam_colors.COLORS[spot].mode_rgb)
@@ -816,6 +831,57 @@ class IO(RawIO, ABC):
         :return: bool
         """
         return self._is_console_keys_enabled
+
+    def get_snapshot(self):
+        """
+        info: get snapshot of IO
+        :return: dict
+        """
+        mode_2 = [self.get_color_2(color) for color in range(2)]
+        mode_16_pal_256 = [self.get_color_16_pal_256(color) for color in range(16)]
+        mode_16 = [self.get_color_16(color) for color in range(16)]
+        mode_256 = [self.get_color_256(color) for color in range(256)]
+
+        snapshot = {"console_cursor": self.is_console_cursor_enabled(),
+                    "console_keys": self.is_console_keys_enabled(),
+                    "key_state_mode": self.is_key_state_mode_enabled(),
+                    "mode_2": mode_2,
+                    "mode_16_pal_256": mode_16_pal_256,
+                    "mode_16": mode_16,
+                    "mode_256": mode_256}
+
+        return snapshot
+
+    def apply_snapshot(self, snapshot):
+        """
+        info: apply snapshot state to IO
+        :param snapshot: dict
+        :return: None
+        """
+        if "console_cursor" in snapshot:
+            self.show_console_cursor(snapshot["console_cursor"])
+
+        if "console_keys" in snapshot:
+            self.enable_console_keys(snapshot["console_keys"])
+
+        if "key_state_mode" in snapshot:
+            self.set_key_state_mode(snapshot["key_state_mode"])
+
+        if "mode_2" in snapshot:
+            for spot, color in enumerate(snapshot["mode_2"]):
+                self.set_color_2(spot, color)
+
+        if "mode_16_pal_256" in snapshot:
+            for spot, color in enumerate(snapshot["mode_16_pal_256"]):
+                self.set_color_16_pal_256(spot, color)
+
+        if "mode_16" in snapshot:
+            for spot, color in enumerate(snapshot["mode_16"]):
+                self.set_color_16(spot, color)
+
+        if "mode_256" in snapshot:
+            for spot, color in enumerate(snapshot["mode_256"]):
+                self.set_color_256(spot, color)
 
     def _get_mode_draw(self):
         """

@@ -18,7 +18,8 @@ class TAMLoopIOHandler:
                  loop_data=None,
                  tam_color_defaults=True,
                  highest_mode_lock=False,
-                 preferred_mode=None):
+                 preferred_mode=None,
+                 reset_io=True):
         """
         info: Makes a TAMLoopIOHandler Object
         :param io: IO
@@ -30,6 +31,7 @@ class TAMLoopIOHandler:
         :param tam_color_defaults: bool
         :param highest_mode_lock: bool: will disable change key and put IO in its highest color mode
         :param preferred_mode: tuple or None: will take the first mode that is supported. fallback is mode 2
+        :param reset_io: bool: will rest io to the state it was when done
         """
 
         if start_data is None:
@@ -59,6 +61,7 @@ class TAMLoopIOHandler:
         self._tam_color_defaults = tam_color_defaults
         self._highest_mode_lock = highest_mode_lock
         self._preferred_mode = preferred_mode
+        self._reset_io = reset_io
 
         self._running = None
         self._key_loop_thread = None
@@ -67,6 +70,8 @@ class TAMLoopIOHandler:
         self._input_keys = []
 
         self._full_name = (self._name, self._identifier_id)
+
+        self._snapshot = None
 
     def get_name(self):
         """
@@ -126,25 +131,27 @@ class TAMLoopIOHandler:
         """
         if self.is_running() is not None:
             return
+        self._snapshot = self._io.get_snapshot()
         self._running = True
-        self._io.set_tam_color_defaults()
+        if self._tam_color_defaults:
+            self._io.set_tam_color_defaults()
         self._io.start()
         self._io.set_mode(next(self._color_modes))
         self._key_loop_thread = threading.Thread(target=self._key_loop, daemon=True)
         self._key_loop_thread.start()
 
-    def done(self, reset_colors_to_console_defaults=True):
+    def done(self):
         """
         info: will stop tam loop
-        :param: reset_colors_to_console_defaults: bool
         :return: None
         """
         if self.is_running():
             self._running = False
-            if reset_colors_to_console_defaults:
-                self._io.reset_colors_to_console_defaults()
-            self._io.set_key_state_mode(False)
             self._io.done()
+
+            if self._reset_io and self._snapshot:
+                self._io.apply_snapshot(self._snapshot)
+
             self._key_loop_thread.join(timeout=5)
 
     def run(self):
