@@ -137,10 +137,9 @@ class TAMLoop(TAMLoopIOHandler):
     def get_all_receiver_names(self):
         return tuple(self._receivers)
 
-    def done(self, reset_colors_to_console_defaults=True):
+    def done(self):
         """
         info: will stop tam loop
-        :param: reset_colors_to_console_defaults: bool
         :return: None
         """
         if self.is_running():
@@ -157,7 +156,7 @@ class TAMLoop(TAMLoopIOHandler):
             for receiver_name in self._receivers:
                 self._workers.submit(self._thread_task, self._receivers[receiver_name].done)
 
-            super().done(reset_colors_to_console_defaults=reset_colors_to_console_defaults)
+            super().done()
             self._workers.shutdown(wait=False)
 
     def get_receiver_settings(self):

@@ -39,6 +39,11 @@ class AnyIOTests(unittest.TestCase):
         self.assertEqual(io.get_dimensions(), (85, 25))
 
     @staticmethod
+    def test_snapshot():
+        io = get_any_io()
+        io.apply_snapshot(io.get_snapshot())
+
+    @staticmethod
     def test_reset_colors_to_console_defaults():
         io = get_any_io()
         io.reset_colors_to_console_defaults()
