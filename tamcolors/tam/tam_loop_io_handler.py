@@ -303,13 +303,13 @@ class TAMLoopIOHandler:
         """
         return self._io
 
-    def set_key_state_mode(self, enable=True):
+    def enable_key_state_mode(self, enable=True):
         """
         info: Will enable or disable key state mode
         :param enable: bool
         :return: None
         """
-        self._io.set_key_state_mode(enable)
+        self._io.enable_key_state_mode(enable)
 
     def is_key_state_mode_enabled(self):
         """

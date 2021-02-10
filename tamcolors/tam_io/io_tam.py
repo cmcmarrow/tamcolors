@@ -2,6 +2,9 @@ from abc import ABC
 import sys
 from tamcolors.tam_io import tam_colors
 from time import sleep
+import queue
+
+from tamcolors.utils import log
 
 
 """
@@ -15,6 +18,17 @@ MODE_16_PAL_256 = "16_pal_256"
 MODE_16 = "16"
 MODE_256 = "256"
 MODE_RGB = "rgb"
+
+
+EVENT_START = 0
+EVENT_DONE = 1
+EVENT_DIMENSIONS = 2
+EVENT_KEY_STATE_MODE = 3
+EVENT_SET_MODE_2_COLOR = 4
+EVENT_SET_MODE_16_PAL_256_COLOR = 5
+EVENT_SET_MODE_16_COLOR = 6
+EVENT_SET_MODE_256_COLOR = 7
+EVENT_KEY = 8
 
 
 class RawIO(ABC):
@@ -211,7 +225,7 @@ class RawIO(ABC):
         """
         raise NotImplementedError()
 
-    def set_key_state_mode(self, enable=True):
+    def enable_key_state_mode(self, enable=True):
         """
         info: Will enable or disable key state mode
         :param enable: bool
@@ -330,6 +344,35 @@ class RawIO(ABC):
         """
         raise NotImplementedError()
 
+    def prime_event_bus(self):
+        """
+        info: will repeat the last event for every type other than keys
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def enable_event_bus(self, bus=True):
+        """
+        info: will enable the event bus
+        :param bus: bool
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def is_event_bus_enabled(self):
+        """
+        info: will check if event bus is enabled
+        :return: bool
+        """
+        raise NotImplementedError()
+
+    def get_event(self):
+        """
+        info: will get event
+        :yield: tuple
+        """
+        raise NotImplementedError()
+
 
 class IO(RawIO, ABC):
     def __init__(self,
@@ -389,6 +432,12 @@ class IO(RawIO, ABC):
         self._key_state_mode = False
 
         self._mode = None
+
+        self._event_bus = False
+        self._event_queue = queue.Queue(1000)
+
+        self._last_draw_dimensions = None
+
         self.set_mode(self._modes[-1])
 
     def __new__(cls, *args, **kwargs):
@@ -447,6 +496,10 @@ class IO(RawIO, ABC):
         :param tam_surface: TAMSurface
         :return: None
         """
+        if self._last_draw_dimensions != self.get_dimensions():
+            self._last_draw_dimensions = self.get_dimensions()
+            self._fire_dimensions_event()
+
         tam_surface.replace_alpha_chars()
         self._get_mode_draw()(tam_surface)
 
@@ -495,6 +548,7 @@ class IO(RawIO, ABC):
         info: operations for IO to start
         :return: None
         """
+        self._fire_start_event()
         self.clear()
         self.show_console_cursor(False)
         self.enable_console_keys(True)
@@ -504,6 +558,7 @@ class IO(RawIO, ABC):
         info: operations for IO to stop
         :return: None
         """
+        self._fire_done_event()
         self.clear()
         self.show_console_cursor(True)
         self.enable_console_keys(False)
@@ -538,13 +593,14 @@ class IO(RawIO, ABC):
                 sleep(rest_time)
         return False
 
-    def set_key_state_mode(self, enable=True):
+    def enable_key_state_mode(self, enable=True):
         """
         info: Will enable or disable key state mode
         :param enable: bool
         :return: None
         """
         self._key_state_mode = enable
+        self._fire_key_state_mode_event()
 
     def is_key_state_mode_enabled(self):
         """
@@ -714,6 +770,7 @@ class IO(RawIO, ABC):
         if self._console_color_count() > spot and self.get_mode() == MODE_2:
             self._set_console_color(spot, color)
         self._color_palette_2[spot] = color
+        self._fire_color_set_event(EVENT_SET_MODE_2_COLOR, spot, self.get_color_2(spot))
 
     def set_color_16_pal_256(self, spot, color):
         """
@@ -725,6 +782,7 @@ class IO(RawIO, ABC):
         if self._console_color_count() > spot and self.get_mode() == MODE_16_PAL_256:
             self._set_console_color(spot, tam_colors.COLORS[color].mode_rgb)
         self._color_palette_16_pal_256[spot] = color
+        self._fire_color_set_event(EVENT_SET_MODE_16_PAL_256_COLOR, spot, self.get_color_16_pal_256(spot))
 
     def set_color_16(self, spot, color):
         """
@@ -736,6 +794,7 @@ class IO(RawIO, ABC):
         if self._console_color_count() > spot and self.get_mode() == MODE_16:
             self._set_console_color(spot, color)
         self._color_palette_16[spot] = color
+        self._fire_color_set_event(EVENT_SET_MODE_16_COLOR, spot, self.get_color_16(spot))
 
     def set_color_256(self, spot, color):
         """
@@ -747,6 +806,7 @@ class IO(RawIO, ABC):
         if self._console_color_count() > spot and self.get_mode() == MODE_256:
             self._set_console_color(spot, color)
         self._color_palette_256[spot] = color
+        self._fire_color_set_event(EVENT_SET_MODE_256_COLOR, spot, self.get_color_256(spot))
 
     def reset_colors_to_console_defaults(self):
         """
@@ -865,7 +925,7 @@ class IO(RawIO, ABC):
             self.enable_console_keys(snapshot["console_keys"])
 
         if "key_state_mode" in snapshot:
-            self.set_key_state_mode(snapshot["key_state_mode"])
+            self.enable_key_state_mode(snapshot["key_state_mode"])
 
         if "mode_2" in snapshot:
             for spot, color in enumerate(snapshot["mode_2"]):
@@ -919,3 +979,65 @@ class IO(RawIO, ABC):
 
         if flush:
             file.flush()
+
+    def prime_event_bus(self):
+        """
+        info: will repeat the last event for every type other than keys
+        :return: None
+        """
+        if self.is_event_bus_enabled():
+            self._fire_dimensions_event()
+
+    def enable_event_bus(self, bus=True):
+        """
+        info: will enable the event bus
+        :param bus: bool
+        :return: None
+        """
+        self._event_bus = bus
+
+    def is_event_bus_enabled(self):
+        """
+        info: will check if event bus is enabled
+        :return: bool
+        """
+        return self._event_bus
+
+    def get_event(self):
+        """
+        info: will get event
+        :yield: tuple
+        """
+        while True:
+            if self.is_event_bus_enabled():
+                try:
+                    yield self._event_queue.get_nowait()
+                except queue.Empty:
+                    key = self.get_key()
+                    if key is not False:
+                        yield EVENT_KEY, key
+                    else:
+                        yield None
+            else:
+                yield None
+
+    def _fire_event(self, event_type, data=None):
+        try:
+            self._event_queue.put_nowait((event_type, data))
+        except queue.Full:
+            log.warning("Lost Event : ({}, {})".format(event_type, data))
+
+    def _fire_start_event(self):
+        self._fire_event(EVENT_START)
+
+    def _fire_done_event(self):
+        self._fire_event(EVENT_DONE)
+
+    def _fire_dimensions_event(self):
+        self._fire_event(EVENT_DIMENSIONS, self.get_dimensions())
+
+    def _fire_color_set_event(self, mode, spot, color):
+        self._fire_event(mode, (spot, color))
+
+    def _fire_key_state_mode_event(self):
+        self._fire_event(EVENT_KEY_STATE_MODE, self.is_key_state_mode_enabled())

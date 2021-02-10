@@ -18,7 +18,7 @@ class TAMKeys(tam.tam_loop.TAMFrame):
             self._keyboard_name = tam_loop.get_keyboard_name(False)
         if tam_io.tam_keys.KEY_ENTER in keys and self._key_mode_cool_down == 0:
             self._key_state_mode = not tam_loop.is_key_state_mode_enabled()
-            tam_loop.set_key_state_mode(self._key_state_mode)
+            tam_loop.enable_key_state_mode(self._key_state_mode)
             self._key_mode_cool_down = 5
         elif self._key_mode_cool_down != 0:
             self._key_mode_cool_down -= 1
