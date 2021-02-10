@@ -53,8 +53,7 @@ class AnyIOTests(unittest.TestCase):
         self.assertFalse(io.is_event_bus_enabled())
 
         io.prime_event_bus()
-        for _ in range(100):
-            self.assertIsNone(next(events))
+        self.assertRaises(StopIteration, next, events)
 
     @staticmethod
     def test_snapshot():

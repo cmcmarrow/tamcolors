@@ -1008,18 +1008,15 @@ class IO(RawIO, ABC):
         info: will get event
         :yield: tuple
         """
-        while True:
-            if self.is_event_bus_enabled():
-                try:
-                    yield self._event_queue.get_nowait()
-                except queue.Empty:
-                    key = self.get_key()
-                    if key is not False:
-                        yield EVENT_KEY, key
-                    else:
-                        yield None
-            else:
-                yield None
+        while self.is_event_bus_enabled():
+            try:
+                yield self._event_queue.get_nowait()
+            except queue.Empty:
+                key = self.get_key()
+                if key is not False:
+                    yield EVENT_KEY, key
+                else:
+                    yield None
 
     def _fire_event(self, event_type, data=None):
         try:
