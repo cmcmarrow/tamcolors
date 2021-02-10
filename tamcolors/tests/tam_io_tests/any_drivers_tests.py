@@ -38,6 +38,24 @@ class AnyIOTests(unittest.TestCase):
         io = get_any_io()
         self.assertEqual(io.get_dimensions(), (85, 25))
 
+    def test_events(self):
+        io = get_any_io()
+        io.enable_event_bus()
+        self.assertTrue(io.is_event_bus_enabled())
+        io.prime_event_bus()
+        events = io.get_event()
+
+        self.assertIsInstance(next(events), tuple)
+        while isinstance(next(events), tuple):
+            pass
+
+        io.enable_event_bus(False)
+        self.assertFalse(io.is_event_bus_enabled())
+
+        io.prime_event_bus()
+        for _ in range(100):
+            self.assertIsNone(next(events))
+
     @staticmethod
     def test_snapshot():
         io = get_any_io()

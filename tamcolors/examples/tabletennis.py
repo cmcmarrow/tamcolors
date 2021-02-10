@@ -142,7 +142,7 @@ class TableTennis(tam.tam_loop.TAMFrame):
         if self._start is True:
             self._start = False
             if platform.system() == "Windows":
-                tam_loop.set_key_state_mode()
+                tam_loop.enable_key_state_mode()
 
         if self._ball.winner() is not None:
             self._score[int(self._ball.winner())] += 1

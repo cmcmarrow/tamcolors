@@ -28,7 +28,8 @@ def get_tcp_io(receiver, wait=True):
                                                  "set_color_256",
                                                  "reset_colors_to_console_defaults",
                                                  "set_tam_color_defaults",
-                                                 "enable_console_keys"},
+                                                 "enable_console_keys",
+                                                 "apply_snapshot"},
                                       optimizer={"draw",
                                                  "get_dimensions",
                                                  "get_key_dict",
@@ -44,6 +45,7 @@ def run_tcp_connection(connection, io=None):
     """
     if io is None:
         io = tam_identifier.IO
+    snapshot = io.get_snapshot()
     try:
         tcp.TCPObjectWrapper(connection, io, object_packer.ObjectPackerJson((tam_colors.RGBA,
                                                                              tam_colors.Color,
@@ -51,4 +53,5 @@ def run_tcp_connection(connection, io=None):
     except tcp.TCPError as error:
         log.warning("run_tcp_connection error: {}".format(error))
     finally:
-        io.done()
+        io.apply_snapshot(snapshot)
+        io.clear()
