@@ -1,7 +1,20 @@
 # tamcolors developers guide
 
-## install tamcolors
-* install tamcolors: "pip install -e .[dev]" note you will need a compiler on your machine
+## Note
+This is a guild for people who want to help develop tamcolros.
+If you just want to use tamcolors please just "pip install tamcolors"
+
+## install tamcolors Windows
+* Have Visual Studio Installed with C/C++ tools
+* Then run "./build_scripts/build_win_env.bat
+
+## install tamcolors Linux
+* Have a C/C++ compiler on your machine
+* Then run "./build_scripts/build_linux_env.bat
+
+## install tamcolors Mac
+* Have a C/C++ compiler on your machine VIA XCODE
+* Then run "./build_scripts/build_mac_env.bat
 
 ## run tests 
 * run tests: "./run_tests.py"
