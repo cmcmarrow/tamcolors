@@ -277,7 +277,7 @@ class TAMLoop(TAMLoopIOHandler):
                 if self.is_running() and self._error is None:
                     self._remove_dead_handlers(other_keys, other_surfaces, other_dimensions)
                     if frame_skip == 0:
-                        frame.make_surface_ready(surface, *self._io.get_dimensions())
+                        frame.make_surface_ready(surface, *self.get_dimensions())
                         for other_handler in self._other_handlers:
                             frame.make_surface_ready(other_surfaces[other_handler], *other_dimensions[other_handler])
                         frame.draw(surface,
@@ -303,7 +303,7 @@ class TAMLoop(TAMLoopIOHandler):
 
     @staticmethod
     def _update_handler_dimensions(handler, handler_full_name, other_dimensions):
-        other_dimensions[handler_full_name] = handler.get_io().get_dimensions()
+        other_dimensions[handler_full_name] = handler.get_dimensions()
 
     def _remove_dead_handlers(self, other_keys, other_surfaces, other_dimensions):
         """

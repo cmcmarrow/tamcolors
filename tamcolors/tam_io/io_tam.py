@@ -987,6 +987,19 @@ class IO(RawIO, ABC):
         """
         if self.is_event_bus_enabled():
             self._fire_dimensions_event()
+            self._fire_key_state_mode_event()
+
+            for spot in range(16):
+                self._fire_color_set_event(EVENT_SET_MODE_2_COLOR, spot, self.get_color_2(spot))
+
+            for spot in range(16):
+                self._fire_color_set_event(EVENT_SET_MODE_16_PAL_256_COLOR, spot, self.get_color_16_pal_256(spot))
+
+            for spot in range(16):
+                self._fire_color_set_event(EVENT_SET_MODE_16_COLOR, spot, self.get_color_16(spot))
+
+            for spot in range(256):
+                self._fire_color_set_event(EVENT_SET_MODE_256_COLOR, spot, self.get_color_256(spot))
 
     def enable_event_bus(self, bus=True):
         """
