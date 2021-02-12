@@ -2,7 +2,6 @@ from abc import ABC
 import sys
 from tamcolors.tam_io import tam_colors
 from time import sleep
-import queue
 
 from tamcolors.utils import log
 
@@ -435,7 +434,7 @@ class IO(RawIO, ABC):
         self._mode = None
 
         self._event_bus = False
-        self._event_queue = queue.Queue(1000)
+        self._event_queue = []
 
         self._last_draw_dimensions = None
 
@@ -1011,17 +1010,13 @@ class IO(RawIO, ABC):
         info: will get event
         :yield: tuple
         """
+        check_key = False
         while self.is_event_bus_enabled():
-            try:
-                if not self._event_queue.empty():
-                    yield self._event_queue.get_nowait()
-                else:
-                    key = self.get_key()
-                    if key is not False:
-                        yield EVENT_KEY, key
-                    else:
-                        yield None
-            except queue.Empty:
+            if self._event_queue and not check_key:
+                check_key = True
+                yield self._event_queue.pop(0)
+            else:
+                check_key = False
                 key = self.get_key()
                 if key is not False:
                     yield EVENT_KEY, key
@@ -1029,9 +1024,9 @@ class IO(RawIO, ABC):
                     yield None
 
     def _fire_event(self, event_type, data=None):
-        try:
-            self._event_queue.put_nowait((event_type, data))
-        except queue.Full:
+        if len(self._event_queue) <= 1000:
+            self._event_queue.append((event_type, data))
+        else:
             log.warning("Lost Event : ({}, {})".format(event_type, data))
 
     def _fire_start_event(self):

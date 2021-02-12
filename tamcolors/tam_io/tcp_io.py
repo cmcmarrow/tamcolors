@@ -52,6 +52,9 @@ def run_tcp_connection(connection, io=None):
                                                                              tam_surface.TAMSurface)))()
     except tcp.TCPError as error:
         log.warning("run_tcp_connection error: {}".format(error))
+    except KeyboardInterrupt:
+        log.critical("Caught KeyboardInterrupt")
     finally:
+        io.done()
         io.apply_snapshot(snapshot)
         io.clear()

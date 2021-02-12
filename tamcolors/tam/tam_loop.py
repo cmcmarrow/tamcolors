@@ -231,7 +231,6 @@ class TAMLoop(TAMLoopIOHandler):
 
         other_keys = {}
         other_surfaces = {}
-        other_dimensions = {}
         try:
             while self.is_running() and self._error is None and len(self._frame_stack) != 0:
                 # check if new handlers have come
@@ -244,22 +243,16 @@ class TAMLoop(TAMLoopIOHandler):
                             self._other_handlers[new_handler.get_full_name()] = new_handler
                             other_keys[new_handler.get_full_name()] = []
                             other_surfaces[new_handler.get_full_name()] = TAMSurface(0, 0, " ", BLACK, BLACK)
-                            other_dimensions[new_handler.get_full_name()] = [85, 25]
                         else:
                             # new handler cant join it has the same name as another handler
                             log.warning("new handler can't join: {}".format(new_handler.get_full_name()))
                             self._workers.submit(self._thread_task, new_handler.done)
 
-                self._remove_dead_handlers(other_keys, other_surfaces, other_dimensions)
+                self._remove_dead_handlers(other_keys, other_surfaces)
 
                 # get other handler keys and update dimensions
                 for other_handler in self._other_handlers:
                     other_keys[other_handler] = self._other_handlers[other_handler].pump_keys()
-                    self._workers.submit(self._thread_task,
-                                         self._update_handler_dimensions,
-                                         self._other_handlers[other_handler],
-                                         other_handler,
-                                         other_dimensions)
 
                 # get frame and fps and kys
                 frame = self._frame_stack[-1]
@@ -275,11 +268,11 @@ class TAMLoop(TAMLoopIOHandler):
 
                 # check if still running and for errors
                 if self.is_running() and self._error is None:
-                    self._remove_dead_handlers(other_keys, other_surfaces, other_dimensions)
+                    self._remove_dead_handlers(other_keys, other_surfaces)
                     if frame_skip == 0:
                         frame.make_surface_ready(surface, *self.get_dimensions())
                         for other_handler in self._other_handlers:
-                            frame.make_surface_ready(other_surfaces[other_handler], *other_dimensions[other_handler])
+                            frame.make_surface_ready(other_surfaces[other_handler], *self._other_handlers[other_handler].get_dimensions())
                         frame.draw(surface,
                                    self.get_loop_data(),
                                    other_surfaces,
@@ -301,16 +294,11 @@ class TAMLoop(TAMLoopIOHandler):
         finally:
             self.done()
 
-    @staticmethod
-    def _update_handler_dimensions(handler, handler_full_name, other_dimensions):
-        other_dimensions[handler_full_name] = handler.get_dimensions()
-
-    def _remove_dead_handlers(self, other_keys, other_surfaces, other_dimensions):
+    def _remove_dead_handlers(self, other_keys, other_surfaces):
         """
         info: removes all dead handlers
         :param other_keys: dict
         :param other_surfaces: dict
-        :param other_dimensions: dict
         :return: None
         """
         # remove dead handlers
@@ -325,7 +313,6 @@ class TAMLoop(TAMLoopIOHandler):
             del self._other_handlers[dead_handler]
             del other_keys[dead_handler]
             del other_surfaces[dead_handler]
-            del other_dimensions[dead_handler]
 
     @staticmethod
     def _thread_task(func, *args, **kwargs):
@@ -347,7 +334,9 @@ class TAMFrame:
                  min_width=0,
                  max_width=1000,
                  min_height=0,
-                 max_height=1000):
+                 max_height=1000,
+                 key_state_mode=False,
+                 colors=None):
         """
         info: makes a TAMFrame object
         :param fps: int or float: 0.0 - inf
@@ -358,6 +347,8 @@ class TAMFrame:
         :param max_width: int: min_width - inf
         :param min_height: int: 0 - inf
         :param max_height: int: min_height - inf
+        :param key_state_mode: bool: will put loop in key state mode
+        :param colors: None or list: [(mode, spot, color), ...]: will set colors for frame
         """
         self.__fps = fps
 
@@ -370,6 +361,11 @@ class TAMFrame:
 
         self.__min_height = min_height
         self.__max_height = max_height
+
+        self.__key_state_mode = key_state_mode
+        if colors is None:
+            colors = []
+        self.__colors = colors
 
         self.__done_called = False
         self.__frame_done_called = False
