@@ -8,6 +8,7 @@
 #include <winuser.h>
 
 #pragma comment (lib, "User32.lib")
+#pragma comment (lib, "winmm.lib")
 
 /*
 C++ API to windows console
@@ -251,7 +252,7 @@ int get_key() {
 	return -1;
 }
 
-char* get_keyboard_name() {
+const char* get_keyboard_name() {
 	/*
 	info: will get a support keyboard name
 	will return UNKNOWN if keyboard is not supported
@@ -308,4 +309,8 @@ int get_key_state(int key_code) {
 	return: int
 	*/
 	return GetAsyncKeyState(key_code) & (1 << ((sizeof(short) * 8) - 1));
+}
+
+void sound_tool(wchar_t* command){
+    mciSendStringW((LPCWSTR)command, NULL, NULL, NULL);
 }

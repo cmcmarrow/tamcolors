@@ -341,6 +341,17 @@ static PyObject* _get_key_state(PyObject* self, PyObject* args) {
 	}
 }
 
+static PyObject* _sound_tool(PyObject* self, PyObject* args) {
+	PyObject *py_command;
+	if (!PyArg_ParseTuple(args, "O", &py_command)) {
+		return NULL;
+	}
+	wchar_t* command = PyUnicode_AsWideCharString(py_command, NULL);
+	sound_tool(command);
+	PyMem_Free((void*)command);
+	Py_RETURN_NONE;
+}
+
 static PyMethodDef _win_tam_methods[] = {
 	{
 		"_has_vaild_win_console", _has_vaild_win_console, METH_VARARGS,
@@ -401,6 +412,10 @@ static PyMethodDef _win_tam_methods[] = {
 	{
 		"_get_key_state", _get_key_state, METH_VARARGS,
 		"_get_key_state"
+	},
+	{
+		"_sound_tool", _sound_tool, METH_VARARGS,
+		"_sound_tool"
 	},
 { NULL, NULL, 0, NULL }
 };
