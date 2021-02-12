@@ -55,6 +55,6 @@ def run_tcp_connection(connection, io=None):
     except KeyboardInterrupt:
         log.critical("Caught KeyboardInterrupt")
     finally:
-        io.done()
+        io.done()   # TODO make it so done does not need to be called
         io.apply_snapshot(snapshot)
         io.clear()
