@@ -29,11 +29,11 @@ def get_tcp_io(receiver, wait=True):
                                                  "reset_colors_to_console_defaults",
                                                  "set_tam_color_defaults",
                                                  "enable_console_keys",
-                                                 "apply_snapshot"},
-                                      optimizer={"draw",
-                                                 "get_dimensions",
-                                                 "get_key_dict",
-                                                 "get_info_dict"})
+                                                 "apply_snapshot",
+                                                 "enable_event_bus",
+                                                 "prime_event_bus"},
+                                      optimizer={"draw"},
+                                      none_generator={"get_event"})
 
 
 def run_tcp_connection(connection, io=None):

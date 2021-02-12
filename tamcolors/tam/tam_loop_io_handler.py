@@ -3,9 +3,10 @@ import threading
 import itertools
 import cProfile
 import pstats
+from time import sleep
 
 # tamcolors libraries
-from tamcolors.tam_io.io_tam import MODE_2
+from tamcolors.tam_io import io_tam, tam_colors
 
 
 class TAMLoopIOHandler:
@@ -33,7 +34,6 @@ class TAMLoopIOHandler:
         :param preferred_mode: tuple or None: will take the first mode that is supported. fallback is mode 2
         :param reset_io: bool: will rest io to the state it was when done
         """
-
         if start_data is None:
             start_data = {}
 
@@ -46,7 +46,7 @@ class TAMLoopIOHandler:
 
         if preferred_mode is not None:
             preferred_mode = list(preferred_mode)
-            preferred_mode.append(MODE_2)
+            preferred_mode.append(io_tam.MODE_2)
             for mode in preferred_mode:
                 if mode in io.get_modes():
                     self._color_modes = itertools.cycle((mode,))
@@ -72,6 +72,13 @@ class TAMLoopIOHandler:
         self._full_name = (self._name, self._identifier_id)
 
         self._snapshot = None
+
+        self._io_state = {io_tam.EVENT_DIMENSIONS: (85, 25),
+                          io_tam.EVENT_KEY_STATE_MODE: False,
+                          io_tam.EVENT_SET_MODE_2_COLOR: [tam_colors.COLORS[spot].mode_rgb for spot in range(16)],
+                          io_tam.EVENT_SET_MODE_16_PAL_256_COLOR: [spot for spot in range(16)],
+                          io_tam.EVENT_SET_MODE_16_COLOR: [tam_colors.COLORS[spot].mode_rgb for spot in range(16)],
+                          io_tam.EVENT_SET_MODE_256_COLOR: [tam_colors.COLORS[spot].mode_rgb for spot in range(256)]}
 
     def get_name(self):
         """
@@ -136,8 +143,10 @@ class TAMLoopIOHandler:
         if self._tam_color_defaults:
             self._io.set_tam_color_defaults()
         self._io.start()
+        self._io.enable_event_bus()
+        self._io.prime_event_bus()
         self._io.set_mode(next(self._color_modes))
-        self._key_loop_thread = threading.Thread(target=self._key_loop, daemon=True)
+        self._key_loop_thread = threading.Thread(target=self._event_loop, daemon=True)
         self._key_loop_thread.start()
 
     def done(self):
@@ -148,6 +157,7 @@ class TAMLoopIOHandler:
         if self.is_running():
             self._running = False
             self._io.done()
+            self._io.enable_event_bus(False)
 
             if self._reset_io and self._snapshot:
                 self._io.apply_snapshot(self._snapshot)
@@ -180,20 +190,34 @@ class TAMLoopIOHandler:
 
         return self._running
 
-    def _key_loop(self):
+    def _event_loop(self):
         """
-        info: will get key input
+        info: will get io events
         :return:
         """
 
         try:
             while self.is_running():
-                key = self._io.wait_key()
-                if key is not False:
-                    if key[0] == self._color_change_key:
-                        self._io.set_mode(next(self._color_modes))
-                    else:
-                        self._input_keys.append(key)
+                for event in self._io.get_event():
+                    if event is None:
+                        sleep(0.0001)
+                    elif event[0] == io_tam.EVENT_KEY:
+                        key = event[1]
+                        if key is not False:
+                            if key[0] == self._color_change_key:
+                                self._io.set_mode(next(self._color_modes))
+                            else:
+                                self._input_keys.append(key)
+                    elif event[0] in {io_tam.EVENT_DIMENSIONS, io_tam.EVENT_KEY_STATE_MODE}:
+                        self._io_state[event[0]] = event[1]
+                    elif event[0] in {io_tam.EVENT_SET_MODE_2_COLOR,
+                                      io_tam.EVENT_SET_MODE_16_PAL_256_COLOR,
+                                      io_tam.EVENT_SET_MODE_16_COLOR,
+                                      io_tam.EVENT_SET_MODE_256_COLOR}:
+                        self._io_state[event[0]][event[1][0]] = event[1][1]
+                    elif event[0] == io_tam.EVENT_SET_ALL_COLORS:
+                        self._io_state.update(event[1])
+
         except BaseException as error:
             self._error = error
 
@@ -211,7 +235,7 @@ class TAMLoopIOHandler:
         :param spot: int
         :return: RGBA
         """
-        return self._io.get_color_2(spot)
+        return self._io_state[io_tam.EVENT_SET_MODE_2_COLOR][spot]
 
     def get_color_16_pal_256(self, spot):
         """
@@ -219,7 +243,7 @@ class TAMLoopIOHandler:
         :param spot: int
         :return: RGBA
         """
-        raise self._io.get_color_16_pal_256(spot)
+        raise self._io_state[io_tam.EVENT_SET_MODE_16_PAL_256_COLOR][spot]
 
     def get_color_16(self, spot):
         """
@@ -227,7 +251,7 @@ class TAMLoopIOHandler:
         :param spot: int
         :return: RGBA
         """
-        return self._io.get_color_16(spot)
+        return self._io_state[io_tam.EVENT_SET_MODE_16_COLOR][spot]
 
     def get_color_256(self, spot):
         """
@@ -235,7 +259,7 @@ class TAMLoopIOHandler:
         :param spot: int
         :return: RGBA
         """
-        return self._io.get_color_256(spot)
+        return self._io_state[io_tam.EVENT_SET_MODE_256_COLOR][spot]
 
     def set_color_2(self, spot, color):
         """
@@ -316,4 +340,11 @@ class TAMLoopIOHandler:
         info: Will get the status of key_state
         :return: bool
         """
-        return self._io.is_key_state_mode_enabled()
+        return self._io_state[io_tam.EVENT_KEY_STATE_MODE]
+
+    def get_dimensions(self):
+        """
+        info: Will get the dimensions of the terminal
+        :return: tuple
+        """
+        return self._io_state[io_tam.EVENT_DIMENSIONS]

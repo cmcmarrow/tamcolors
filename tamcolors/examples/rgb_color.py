@@ -30,6 +30,7 @@ class RGBCOLOR(tam.tam_loop.TAMFrame):
 
         self._timer = 0
         self._color = False
+        self._rgb_v = None
 
     def update(self, tam_loop, keys, loop_data, *args):
         self._key_manager.update(keys)
@@ -57,6 +58,7 @@ class RGBCOLOR(tam.tam_loop.TAMFrame):
                 tam_loop.set_color_16_pal_256(1, 255)
                 tam_loop.set_color_16(1, tam_io.tam_colors.RGBA(155, 155, 55))
                 tam_loop.set_color_256(1, tam_io.tam_colors.RGBA(155, 155, 55))
+            self._rgb_v = tam_loop.get_color_16(1)
 
     def draw(self, tam_surface, loop_data, *args):
         tam_surface.clear()
@@ -82,6 +84,13 @@ class RGBCOLOR(tam.tam_loop.TAMFrame):
                                       text="Press a or b to change colors",
                                       foreground_color=tam_io.tam_colors.LIGHT_AQUA,
                                       background_color=tam_io.tam_colors.BLACK)
+
+        tam_tools.tam_print.tam_print(tam_surface,
+                                      0,
+                                      22,
+                                      str(self._rgb_v),
+                                      tam_io.tam_colors.RED,
+                                      tam_io.tam_colors.BLACK)
 
 
 def run():
