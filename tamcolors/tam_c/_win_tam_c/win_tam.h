@@ -32,6 +32,7 @@ void set_console_color(int);
 void set_rgb_color(int, COLORREF);
 COLORREF get_rgb_color(int);
 int get_key();
-char* get_keyboard_name();
+const char* get_keyboard_name();
 int get_key_state(int key_code);
+void sound_tool(wchar_t* command);
 #endif
