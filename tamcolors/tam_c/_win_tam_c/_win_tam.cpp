@@ -343,10 +343,13 @@ static PyObject* _get_key_state(PyObject* self, PyObject* args) {
 
 static PyObject* _sound_tool(PyObject* self, PyObject* args) {
 	PyObject *py_command;
-	if (!PyArg_ParseTuple(args, "O", &py_command)) {
+	if (!PyArg_ParseTuple(args, "U", &py_command)) {
 		return NULL;
 	}
 	wchar_t* command = PyUnicode_AsWideCharString(py_command, NULL);
+	if (command == NULL){
+	    Py_RETURN_NONE;
+	}
 	sound_tool(command);
 	PyMem_Free((void*)command);
 	Py_RETURN_NONE;
