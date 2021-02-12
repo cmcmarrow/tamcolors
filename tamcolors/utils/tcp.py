@@ -552,30 +552,52 @@ class TCPObjectWrapper:
 
             # get action id
             action_id = action_dict.get("id")
-            try:
-                func = getattr(self._obj, action_dict["target"])
-                # call func
-                ret = func(*action_dict.get("args", ()), **action_dict.get("kwargs", {}))
-                # return data
-                if action_id is not None:
-                    self._tcp_connection.send_data(self._object_packer.dumps({"id": action_id, "return": ret}))
-            except Exception as e:
-                # return error
-                if action_id is not None:
-                    self._tcp_connection.send_data(self._object_packer.dumps({"id": action_id, "error": str(e)}))
-                raise e
+            if "none_generator" in action_dict:
+                try:
+                    func = getattr(self._obj, action_dict["target"])
+                    # call func
+                    for ret in func(*action_dict.get("args", ()), **action_dict.get("kwargs", {})):
+                        if ret is not None:
+                            self._tcp_connection.send_data(self._object_packer.dumps({"id": action_id, "return": ret}))
+                        else:
+                            sleep(0.00001)
+                    self._tcp_connection.send_data(self._object_packer.dumps({"id": action_id, "error": "StopIteration"}))
+                except Exception as e:
+                    # return error
+                    if action_id is not None:
+                        self._tcp_connection.send_data(self._object_packer.dumps({"id": action_id, "error": str(e)}))
+                    raise e
+            else:
+                try:
+                    func = getattr(self._obj, action_dict["target"])
+                    # call func
+                    ret = func(*action_dict.get("args", ()), **action_dict.get("kwargs", {}))
+                    # return data
+                    if action_id is not None:
+                        self._tcp_connection.send_data(self._object_packer.dumps({"id": action_id, "return": ret}))
+                except Exception as e:
+                    # return error
+                    if action_id is not None:
+                        self._tcp_connection.send_data(self._object_packer.dumps({"id": action_id, "error": str(e)}))
+                    raise e
         except Exception as e:
             log.critical("_action_thread error: %s data: %s", e, action)
 
 
 class TCPObjectConnector:
-    def __init__(self, tcp_connection, object_packer=None, no_return=None, optimizer=None):
+    def __init__(self,
+                 tcp_connection,
+                 object_packer=None,
+                 no_return=None,
+                 optimizer=None,
+                 none_generator=None):
         """
         info: Makes a TCPObjectConnector
         :param tcp_connection: TCPBase
         :param object_packer: ObjectPacker or None
         :param no_return: set or None: {func: str, ...}
         :param optimizer: set or None: {func: str, ...}
+        :param none_generator: set or None: {func: str, ...}
         """
         self._tcp_connection = tcp_connection
 
@@ -591,6 +613,12 @@ class TCPObjectConnector:
         if optimizer is None:
             optimizer = set()
         self._transport_optimizers = {func: transport_optimizer.LastSentCache() for func in optimizer}
+
+        if none_generator is None:
+            none_generator = set()
+
+        self._none_generator = none_generator
+        self._generator_ids = set()
 
         self._id_lock = Lock()
         self._allocated_ids = set()
@@ -610,29 +638,14 @@ class TCPObjectConnector:
         :return: object
         """
         if self.is_open():
-            action_id = None
-            # don't give action an id if func is in no return
-            # this is so __call__ does not wait for a return
-            if func not in self._no_return:
-                action_id = self._get_id()
+            if func in self._none_generator:
+                return self._none_generator_func(func, args, kwargs)
 
-            # make action dict
-            action = {"id": action_id,
-                      "target": func,
-                      "args": args,
-                      "kwargs": kwargs}
-
-            # call object method
-            if func not in self._transport_optimizers:
-                self._tcp_connection.send_data(self._object_packer.dumps(action))
-            else:   # compress data being sent with transport optimizers
-                compress_data = {"optimizer": self._transport_optimizers[func](self._object_packer.dumps(action)),
-                                 "target": func}
-                self._tcp_connection.send_data(self._object_packer.dumps(compress_data))
+            action_id = self._call_func(func, args, kwargs)
 
             # if action has an id wait for return data
-            ret = {"return": None}
             if action_id is not None:
+                ret = {"return": None}
                 while self._open:
                     if action_id in self._return_data:
                         ret = self._return_data[action_id]
@@ -640,12 +653,36 @@ class TCPObjectConnector:
                     elif "error" in self._return_data:
                         raise self._return_data["error"]
                     sleep(0.0001)
-                del self._return_data[action_id]
                 self._free_id(action_id)
                 # check for error
                 if "error" in ret:
                     raise TCPError(ret["error"])
                 return ret["return"]
+
+    def _call_func(self, func, args, kwargs, none_generator=False):
+        action_id = None
+        # don't give action an id if func is in no return
+        # this is so __call__ does not wait for a return
+        if func not in self._no_return:
+            action_id = self._get_id(none_generator)
+
+        # make action dict
+        action = {"id": action_id,
+                  "target": func,
+                  "args": args,
+                  "kwargs": kwargs}
+
+        if none_generator is True:
+            action["none_generator"] = True
+
+        # call object method
+        if func not in self._transport_optimizers:
+            self._tcp_connection.send_data(self._object_packer.dumps(action))
+        else:  # compress data being sent with transport optimizers
+            compress_data = {"optimizer": self._transport_optimizers[func](self._object_packer.dumps(action)),
+                             "target": func}
+            self._tcp_connection.send_data(self._object_packer.dumps(compress_data))
+        return action_id
 
     def __del__(self):
         """
@@ -691,7 +728,10 @@ class TCPObjectConnector:
             while self.is_open():
                 try:
                     ret = self._object_packer.loads(self._tcp_connection.get_data())
-                    self._return_data[ret["id"]] = ret
+                    if ret["id"] in self._generator_ids:
+                        self._return_data[ret["id"]].append(ret)
+                    else:
+                        self._return_data[ret["id"]] = ret
                 except Exception as e:
                     self._return_data["error"] = e
         except Exception as e:
@@ -704,7 +744,23 @@ class TCPObjectConnector:
         """
         return self._tcp_connection
 
-    def _get_id(self):
+    def _none_generator_func(self, func, args, kwargs):
+        action_id = self._call_func(func, args, kwargs, True)
+        while self.is_open():
+            if self._return_data[action_id]:
+                ret = self._return_data[action_id][0]
+                del self._return_data[action_id][0]
+                if "error" in ret:
+                    if ret["error"] == "StopIteration":
+                        raise StopIteration()
+                    raise TCPError(ret["error"])
+                yield ret["return"]
+            elif "error" in self._return_data:
+                raise self._return_data["error"]
+            else:
+                yield None
+
+    def _get_id(self, generator_id=False):
         """
         info: will get a free id
         :return: int
@@ -715,6 +771,9 @@ class TCPObjectConnector:
             if self._free_ids:
                 action_id = self._free_ids.pop()
             self._allocated_ids.add(action_id)
+            if generator_id:
+                self._generator_ids.add(action_id)
+                self._return_data[action_id] = []
             return action_id
         finally:
             self._id_lock.release()
@@ -729,6 +788,10 @@ class TCPObjectConnector:
             self._id_lock.acquire()
             self._allocated_ids.remove(action_id)
             self._free_ids.append(action_id)
+            if action_id in self._return_data:
+                del self._return_data[action_id]
+            if action_id in self._generator_ids:
+                self._generator_ids.remove(action_id)
             # no ids are being used
             # it is safe to remove all free ids
             if not len(self._allocated_ids):

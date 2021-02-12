@@ -28,7 +28,8 @@ EVENT_SET_MODE_2_COLOR = 4
 EVENT_SET_MODE_16_PAL_256_COLOR = 5
 EVENT_SET_MODE_16_COLOR = 6
 EVENT_SET_MODE_256_COLOR = 7
-EVENT_KEY = 8
+EVENT_SET_ALL_COLORS = 8
+EVENT_KEY = 9
 
 
 class RawIO(ABC):
@@ -988,18 +989,7 @@ class IO(RawIO, ABC):
         if self.is_event_bus_enabled():
             self._fire_dimensions_event()
             self._fire_key_state_mode_event()
-
-            for spot in range(16):
-                self._fire_color_set_event(EVENT_SET_MODE_2_COLOR, spot, self.get_color_2(spot))
-
-            for spot in range(16):
-                self._fire_color_set_event(EVENT_SET_MODE_16_PAL_256_COLOR, spot, self.get_color_16_pal_256(spot))
-
-            for spot in range(16):
-                self._fire_color_set_event(EVENT_SET_MODE_16_COLOR, spot, self.get_color_16(spot))
-
-            for spot in range(256):
-                self._fire_color_set_event(EVENT_SET_MODE_256_COLOR, spot, self.get_color_256(spot))
+            self._fire_set_all_color_event()
 
     def enable_event_bus(self, bus=True):
         """
@@ -1023,7 +1013,14 @@ class IO(RawIO, ABC):
         """
         while self.is_event_bus_enabled():
             try:
-                yield self._event_queue.get_nowait()
+                if not self._event_queue.empty():
+                    yield self._event_queue.get_nowait()
+                else:
+                    key = self.get_key()
+                    if key is not False:
+                        yield EVENT_KEY, key
+                    else:
+                        yield None
             except queue.Empty:
                 key = self.get_key()
                 if key is not False:
@@ -1051,3 +1048,9 @@ class IO(RawIO, ABC):
 
     def _fire_key_state_mode_event(self):
         self._fire_event(EVENT_KEY_STATE_MODE, self.is_key_state_mode_enabled())
+
+    def _fire_set_all_color_event(self):
+        self._fire_event(EVENT_SET_ALL_COLORS, {EVENT_SET_MODE_2_COLOR: self._color_palette_2,
+                                                EVENT_SET_MODE_16_PAL_256_COLOR: self._color_palette_16_pal_256,
+                                                EVENT_SET_MODE_16_COLOR: self._color_palette_16,
+                                                EVENT_SET_MODE_256_COLOR: self._color_palette_256})

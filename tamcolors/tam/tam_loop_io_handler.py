@@ -34,7 +34,6 @@ class TAMLoopIOHandler:
         :param preferred_mode: tuple or None: will take the first mode that is supported. fallback is mode 2
         :param reset_io: bool: will rest io to the state it was when done
         """
-
         if start_data is None:
             start_data = {}
 
@@ -76,10 +75,10 @@ class TAMLoopIOHandler:
 
         self._io_state = {io_tam.EVENT_DIMENSIONS: (85, 25),
                           io_tam.EVENT_KEY_STATE_MODE: False,
-                          io_tam.EVENT_SET_MODE_2_COLOR: {},
-                          io_tam.EVENT_SET_MODE_16_PAL_256_COLOR: {},
-                          io_tam.EVENT_SET_MODE_16_COLOR: {},
-                          io_tam.EVENT_SET_MODE_256_COLOR: {}}
+                          io_tam.EVENT_SET_MODE_2_COLOR: [tam_colors.COLORS[spot].mode_rgb for spot in range(16)],
+                          io_tam.EVENT_SET_MODE_16_PAL_256_COLOR: [spot for spot in range(16)],
+                          io_tam.EVENT_SET_MODE_16_COLOR: [tam_colors.COLORS[spot].mode_rgb for spot in range(16)],
+                          io_tam.EVENT_SET_MODE_256_COLOR: [tam_colors.COLORS[spot].mode_rgb for spot in range(256)]}
 
     def get_name(self):
         """
@@ -216,6 +215,8 @@ class TAMLoopIOHandler:
                                       io_tam.EVENT_SET_MODE_16_COLOR,
                                       io_tam.EVENT_SET_MODE_256_COLOR}:
                         self._io_state[event[0]][event[1][0]] = event[1][1]
+                    elif event[0] == io_tam.EVENT_SET_ALL_COLORS:
+                        self._io_state.update(event[1])
 
         except BaseException as error:
             self._error = error
