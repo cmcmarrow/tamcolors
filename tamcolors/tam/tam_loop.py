@@ -123,7 +123,7 @@ class TAMLoop(TAMLoopIOHandler):
         super().__call__()
         if self.is_running():
             for other_handlers in self._other_handlers:
-                self._workers.submit(self._thread_task, other_handlers.__call__)
+                self.thread_task(other_handlers.__call__)
             self._update_loop()
             if self._error is not None:
                 raise self._error
@@ -151,10 +151,10 @@ class TAMLoop(TAMLoopIOHandler):
 
             for other_handler in self._other_handlers:
                 log.debug("removed handler: {}".format(other_handler))
-                self._workers.submit(self._thread_task, self._other_handlers[other_handler].done)
+                self.thread_task(self._other_handlers[other_handler].done)
 
             for receiver_name in self._receivers:
-                self._workers.submit(self._thread_task, self._receivers[receiver_name].done)
+                self.thread_task(self._receivers[receiver_name].done)
 
             super().done()
             self._workers.shutdown(wait=False)
@@ -233,12 +233,16 @@ class TAMLoop(TAMLoopIOHandler):
         other_surfaces = {}
         try:
             while self.is_running() and self._error is None and len(self._frame_stack) != 0:
+                # get frame and fps
+                frame = self._frame_stack[-1]
+                frame_time = 1 / frame.get_fps()
+
                 # check if new handlers have come
                 for receiver_name in self._receivers:
                     new_handler = self._receivers[receiver_name].get_handler()
                     if new_handler is not None:
                         if new_handler.get_full_name() not in self._other_handlers:
-                            self._workers.submit(self._thread_task, new_handler.__call__)
+                            self.thread_task(new_handler.__call__)
                             log.debug("new handler accepted: {}".format(new_handler.get_full_name()))
                             self._other_handlers[new_handler.get_full_name()] = new_handler
                             other_keys[new_handler.get_full_name()] = []
@@ -246,7 +250,7 @@ class TAMLoop(TAMLoopIOHandler):
                         else:
                             # new handler cant join it has the same name as another handler
                             log.warning("new handler can't join: {}".format(new_handler.get_full_name()))
-                            self._workers.submit(self._thread_task, new_handler.done)
+                            self.thread_task(new_handler.done)
 
                 self._remove_dead_handlers(other_keys, other_surfaces)
 
@@ -254,9 +258,6 @@ class TAMLoop(TAMLoopIOHandler):
                 for other_handler in self._other_handlers:
                     other_keys[other_handler] = self._other_handlers[other_handler].pump_keys()
 
-                # get frame and fps and kys
-                frame = self._frame_stack[-1]
-                frame_time = 1 / frame.get_fps()
                 keys = self.pump_keys()
 
                 # update
@@ -280,7 +281,7 @@ class TAMLoop(TAMLoopIOHandler):
                         self._io.draw(surface)
 
                         for other_handler in self._other_handlers:
-                            self._workers.submit(self._thread_task, self._other_handlers[other_handler].get_io().draw, other_surfaces[other_handler])
+                            self.thread_task(self._other_handlers[other_handler].get_io().draw, other_surfaces[other_handler])
 
                     _, run_time = clock.offset_sleep(max(frame_time - frame_skip, 0))
 
@@ -305,7 +306,7 @@ class TAMLoop(TAMLoopIOHandler):
         dead_handlers = []
         for other_handler in self._other_handlers:
             if self._other_handlers[other_handler].is_running() is False:
-                self._workers.submit(self._thread_task, self._other_handlers[other_handler].done)
+                self.thread_task(self._other_handlers[other_handler].done)
                 dead_handlers.append(other_handler)
 
         for dead_handler in dead_handlers:
@@ -313,6 +314,9 @@ class TAMLoop(TAMLoopIOHandler):
             del self._other_handlers[dead_handler]
             del other_keys[dead_handler]
             del other_surfaces[dead_handler]
+
+    def thread_task(self, func, *args, **kwargs):
+        self._workers.submit(self._thread_task, func, *args, **kwargs)
 
     @staticmethod
     def _thread_task(func, *args, **kwargs):
@@ -334,9 +338,7 @@ class TAMFrame:
                  min_width=0,
                  max_width=1000,
                  min_height=0,
-                 max_height=1000,
-                 key_state_mode=False,
-                 colors=None):
+                 max_height=1000):
         """
         info: makes a TAMFrame object
         :param fps: int or float: 0.0 - inf
@@ -347,8 +349,6 @@ class TAMFrame:
         :param max_width: int: min_width - inf
         :param min_height: int: 0 - inf
         :param max_height: int: min_height - inf
-        :param key_state_mode: bool: will put loop in key state mode
-        :param colors: None or list: [(mode, spot, color), ...]: will set colors for frame
         """
         self.__fps = fps
 
@@ -361,11 +361,6 @@ class TAMFrame:
 
         self.__min_height = min_height
         self.__max_height = max_height
-
-        self.__key_state_mode = key_state_mode
-        if colors is None:
-            colors = []
-        self.__colors = colors
 
         self.__done_called = False
         self.__frame_done_called = False
