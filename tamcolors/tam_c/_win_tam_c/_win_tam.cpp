@@ -348,7 +348,7 @@ static PyObject* _sound_tool(PyObject* self, PyObject* args) {
 	}
 	wchar_t* command = PyUnicode_AsWideCharString(py_command, NULL);
 	if (command == NULL){
-	    Py_RETURN_NONE;
+	    return NULL;
 	}
 	sound_tool(command);
 	PyMem_Free((void*)command);
