@@ -34,5 +34,5 @@ COLORREF get_rgb_color(int);
 int get_key();
 const char* get_keyboard_name();
 int get_key_state(int key_code);
-void sound_tool(wchar_t* command);
+wchar_t* sound_tool(wchar_t* command, bool& error);
 #endif
