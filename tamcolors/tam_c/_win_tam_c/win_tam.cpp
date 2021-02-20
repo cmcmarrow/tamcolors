@@ -7,8 +7,10 @@
 #include <wingdi.h>
 #include <winuser.h>
 
+
 #pragma comment (lib, "User32.lib")
 #pragma comment (lib, "winmm.lib")
+
 
 /*
 C++ API to windows console
@@ -311,6 +313,14 @@ int get_key_state(int key_code) {
 	return GetAsyncKeyState(key_code) & (1 << ((sizeof(short) * 8) - 1));
 }
 
-void sound_tool(wchar_t* command){
-    mciSendStringW((LPCWSTR)command, NULL, NULL, NULL);
+wchar_t* sound_tool(wchar_t* command, bool& error_flag){
+    LPWSTR return_string = new wchar_t[250];
+	DWORD error = mciSendStringW((LPCWSTR)command, return_string, 250, NULL);
+    if (error){
+        error_flag = true;
+        mciGetErrorStringW(error, return_string, 250);
+    } else {
+        error_flag = false;
+    }
+    return return_string;
 }
