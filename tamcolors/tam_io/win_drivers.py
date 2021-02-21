@@ -764,3 +764,123 @@ class WINUtilitiesDriver(tam_drivers.UtilitiesDriver, WinSharedData, ABC):
         """
         io._show_console_cursor(show)
         super().show_console_cursor(show)
+
+
+class WINSoundDriver(tam_drivers.SoundDriver, WinSharedData, ABC):
+    def open_sound(self, file, sound_id):
+        """
+        info: will open .wav sound
+        :param file: str
+        :param sound_id: int
+        :return: None
+        """
+        try:
+            self._sound_lock()
+            io._sound_tool("open \"{0}\" alias {1}".format(file, sound_id))
+            super(WINSoundDriver, self).open_sound(file, sound_id)
+        except io._WinTamError as error:
+            raise io_tam.TAMSoundError(str(error))
+        finally:
+            self._sound_lock_release()
+
+    def play_sound(self, sound_id, reset_sound=True):
+        """
+        info: will play sound
+        :param sound_id: int
+        :param reset_sound: bool
+        :return: None
+        """
+        super(WINSoundDriver, self).play_sound(sound_id, reset_sound)
+        try:
+            self._sound_lock()
+            io._sound_tool("play {0}".format(sound_id))
+        except io._WinTamError as error:
+            raise io_tam.TAMSoundError(str(error))
+        finally:
+            self._sound_lock_release()
+
+    def pause_sound(self, sound_id):
+        """
+        info: will pause sound
+        :param sound_id: int
+        :return: None
+        """
+        try:
+            self._sound_lock()
+            io._sound_tool("pause {0}".format(sound_id))
+        except io._WinTamError as error:
+            raise io_tam.TAMSoundError(str(error))
+        finally:
+            self._sound_lock_release()
+
+    def close_sound(self, sound_id):
+        """
+        info: will close sound
+        :param sound_id: int
+        :return: None
+        """
+        try:
+            self._sound_lock()
+            super(WINSoundDriver, self).close_sound(sound_id)
+            io._sound_tool("close {0}".format(sound_id))
+        except io._WinTamError as error:
+            raise io_tam.TAMSoundError(str(error))
+        finally:
+            self._sound_lock_release()
+
+    def get_sound_length(self, sound_id):
+        """
+        info: will get sound lenght
+        :param sound_id: int
+        :return: int
+        """
+        try:
+            self._sound_lock()
+            return int(io._sound_tool("status {0} length".format(sound_id)))
+        except io._WinTamError as error:
+            raise io_tam.TAMSoundError(str(error))
+        finally:
+            self._sound_lock_release()
+
+    def is_sound_playing(self, sound_id):
+        """
+        info: will check if sound is playing
+        :param sound_id: int
+        :return: bool
+        """
+        try:
+            self._sound_lock()
+            return io._sound_tool("status {0} mode".format(sound_id)) == "playing"
+        except io._WinTamError as error:
+            raise io_tam.TAMSoundError(str(error))
+        finally:
+            self._sound_lock_release()
+
+    def get_sound_position(self, sound_id):
+        """
+        info: will get the time spot of the song
+        :param sound_id: int
+        :return: int
+        """
+        try:
+            self._sound_lock()
+            return int(io._sound_tool("status {0} position".format(sound_id)))
+        except io._WinTamError as error:
+            raise io_tam.TAMSoundError(str(error))
+        finally:
+            self._sound_lock_release()
+
+    def set_sound_position(self, sound_id, spot):
+        """
+        info: will set the spot of the sound
+        :param sound_id: int
+        :param spot: int
+        :return: None
+        """
+        try:
+            self._sound_lock()
+            io._sound_tool("seek {0} to {1}".format(sound_id, spot))
+        except io._WinTamError as error:
+            raise io_tam.TAMSoundError(str(error))
+        finally:
+            self._sound_lock_release()

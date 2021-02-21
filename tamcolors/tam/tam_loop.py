@@ -3,7 +3,6 @@ import traceback
 import time
 import sys
 from concurrent.futures import ThreadPoolExecutor
-from concurrent.futures import TimeoutError as ThreadPoolExecutorTimeoutError
 
 
 # tamcolors libraries

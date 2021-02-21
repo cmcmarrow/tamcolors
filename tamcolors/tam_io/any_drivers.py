@@ -147,3 +147,76 @@ class ANYUtilitiesDriver(tam_drivers.UtilitiesDriver, ABC):
         :return: None
         """
         super().show_console_cursor(show)
+
+
+class ANYSoundDriver(tam_drivers.SoundDriver, ABC):
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault("sound_driver_operational", False)
+        super().__init__(*args, **kwargs)
+
+    def open_sound(self, file, sound_id):
+        """
+        info: will open .wav sound
+        :param file: str
+        :param sound_id: int
+        :return: None
+        """
+        super(ANYSoundDriver, self).open_sound(file, sound_id)
+
+    def play_sound(self, sound_id, reset_sound=True):
+        """
+        info: will play sound
+        :param sound_id: int
+        :param reset_sound: bool
+        :return: None
+        """
+        super(ANYSoundDriver, self).play_sound(sound_id, reset_sound)
+
+    def pause_sound(self, sound_id):
+        """
+        info: will pause sound
+        :param sound_id: int
+        :return: None
+        """
+        pass
+
+    def close_sound(self, sound_id):
+        """
+        info: will close sound
+        :param sound_id: int
+        :return: None
+        """
+        super(ANYSoundDriver, self).close_sound(sound_id)
+
+    def get_sound_length(self, sound_id):
+        """
+        info: will get sound lenght
+        :param sound_id: int
+        :return: int
+        """
+        return 0
+
+    def is_sound_playing(self, sound_id):
+        """
+        info: will check if sound is playing
+        :param sound_id: int
+        :return: bool
+        """
+        return False
+
+    def get_sound_position(self, sound_id):
+        """
+        info: will get the time spot of the song
+        :param sound_id: int
+        :return: int
+        """
+        return 0
+
+    def set_sound_position(self, sound_id, spot):
+        """
+        info: will set the spot of the sound
+        :param sound_id: int
+        :param spot: int
+        :return: None
+        """
+        pass
