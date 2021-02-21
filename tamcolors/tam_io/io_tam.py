@@ -1,5 +1,6 @@
 from abc import ABC
 import sys
+from threading import Lock
 from tamcolors.tam_io import tam_colors
 from time import sleep
 
@@ -29,6 +30,10 @@ EVENT_SET_MODE_16_COLOR = 6
 EVENT_SET_MODE_256_COLOR = 7
 EVENT_SET_ALL_COLORS = 8
 EVENT_KEY = 9
+
+
+class TAMSoundError(Exception):
+    pass
 
 
 class RawIO(ABC):
@@ -177,6 +182,13 @@ class RawIO(ABC):
     def key_driver_operational(self):
         """
         info: checks if the key driver is operational
+        :return: bool
+        """
+        raise NotImplementedError()
+
+    def sound_driver_operational(self):
+        """
+        info: checks if the sound driver is operational
         :return: bool
         """
         raise NotImplementedError()
@@ -373,6 +385,81 @@ class RawIO(ABC):
         """
         raise NotImplementedError()
 
+    def open_sound(self, file, sound_id):
+        """
+        info: will open .wav sound
+        :param file: str
+        :param sound_id: int
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def play_sound(self, sound_id, reset_sound=True):
+        """
+        info: will play sound
+        :param sound_id: int
+        :param reset_sound: bool
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def pause_sound(self, sound_id):
+        """
+        info: will pause sound
+        :param sound_id: int
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def close_sound(self, sound_id):
+        """
+        info: will close sound
+        :param sound_id: int
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def get_sound_length(self, sound_id):
+        """
+        info: will get sound lenght
+        :param sound_id: int
+        :return: int
+        """
+        raise NotImplementedError()
+
+    def is_sound_playing(self, sound_id):
+        """
+        info: will check if sound is playing
+        :param sound_id: int
+        :return: bool
+        """
+        raise NotImplementedError()
+
+    def rest_sound(self, sound_id):
+        """
+        info: will reset sound
+        :param sound_id: int
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def get_sound_position(self, sound_id):
+        """
+        info: will get the time spot of the song
+        :param sound_id: int
+        :return: int
+        """
+        raise NotImplementedError()
+
+    def set_sound_position(self, sound_id, spot):
+        """
+        info: will set the spot of the sound
+        :param sound_id: int
+        :param spot: int
+        :return: None
+        """
+        raise NotImplementedError()
+
 
 class IO(RawIO, ABC):
     def __init__(self,
@@ -385,7 +472,8 @@ class IO(RawIO, ABC):
                  key_driver_operational=True,
                  color_driver_operational=True,
                  color_changer_driver_operational=True,
-                 utilities_driver_operational=True):
+                 utilities_driver_operational=True,
+                 sound_driver_operational=True):
         """
         Makes a IO object
         :param identifier: TAMIdentifier
@@ -396,6 +484,7 @@ class IO(RawIO, ABC):
         :param mode_rgb: bool
         :param color_changer_driver_operational: bool
         :param utilities_driver_operational: bool
+        :param sound_driver_operational: bool
         """
 
         self._modes = []
@@ -414,6 +503,7 @@ class IO(RawIO, ABC):
         self._color_driver_operational = color_driver_operational
         self._color_changer_driver_operational = color_changer_driver_operational
         self._utilities_driver_operational = utilities_driver_operational
+        self._sound_driver_operational = sound_driver_operational
 
         self._is_console_cursor_enabled = True
         self._is_console_keys_enabled = False
@@ -439,6 +529,9 @@ class IO(RawIO, ABC):
         self._last_draw_dimensions = None
 
         self.set_mode(self._modes[-1])
+
+        self._sound_lock_handler = Lock()
+        self._active_sound_ids = set()
 
     def __new__(cls, *args, **kwargs):
         if cls.able_to_execute():
@@ -713,6 +806,13 @@ class IO(RawIO, ABC):
         :return: bool
         """
         return self._color_changer_driver_operational
+
+    def sound_driver_operational(self):
+        """
+        info: checks if the sound driver is operational
+        :return: bool
+        """
+        return self._sound_driver_operational
 
     def color_driver_operational(self):
         """
@@ -1049,3 +1149,101 @@ class IO(RawIO, ABC):
                                                 EVENT_SET_MODE_16_PAL_256_COLOR: self._color_palette_16_pal_256,
                                                 EVENT_SET_MODE_16_COLOR: self._color_palette_16,
                                                 EVENT_SET_MODE_256_COLOR: self._color_palette_256})
+
+    def open_sound(self, file, sound_id):
+        """
+        info: will open .wav sound
+        :param file: str
+        :param sound_id: int
+        :return: None
+        """
+        if sound_id in self._active_sound_ids:
+            log.critical("Sound ID \"{}\" all ready in use!".format(sound_id))
+            raise TAMSoundError("Sound ID \"{}\" all ready in use!".format(sound_id))
+        self._active_sound_ids.add(sound_id)
+
+    def play_sound(self, sound_id, reset_sound=True):
+        """
+        info: will play sound
+        :param sound_id: int
+        :param reset_sound: bool
+        :return: None
+        """
+        if reset_sound:
+            self.rest_sound(sound_id)
+
+    def pause_sound(self, sound_id):
+        """
+        info: will pause sound
+        :param sound_id: int
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def close_sound(self, sound_id):
+        """
+        info: will close sound
+        :param sound_id: int
+        :return: None
+        """
+        if sound_id in self._active_sound_ids:
+            self._active_sound_ids.remove(sound_id)
+        else:
+            log.warning("Sound ID \"{}\" all ready closed".format(sound_id))
+
+    def get_sound_length(self, sound_id):
+        """
+        info: will get sound lenght
+        :param sound_id: int
+        :return: int
+        """
+        raise NotImplementedError()
+
+    def is_sound_playing(self, sound_id):
+        """
+        info: will check if sound is playing
+        :param sound_id: int
+        :return: bool
+        """
+        raise NotImplementedError()
+
+    def rest_sound(self, sound_id):
+        """
+        info: will reset sound
+        :param sound_id: int
+        :return: None
+        """
+        if self.is_sound_playing(sound_id):
+            self.pause_sound(sound_id)
+        self.set_sound_position(sound_id, 0)
+
+    def get_sound_position(self, sound_id):
+        """
+        info: will get the time spot of the song
+        :param sound_id: int
+        :return: int
+        """
+        raise NotImplementedError()
+
+    def set_sound_position(self, sound_id, spot):
+        """
+        info: will set the spot of the sound
+        :param sound_id: int
+        :param spot: int
+        :return: None
+        """
+        raise NotImplementedError()
+
+    def _sound_lock(self):
+        """
+        info: will lock sound thread lock
+        :return: None
+        """
+        self._sound_lock_handler.acquire()
+
+    def _sound_lock_release(self):
+        """
+        info: will release the sound thread lock
+        :return: None
+        """
+        self._sound_lock_handler.release()

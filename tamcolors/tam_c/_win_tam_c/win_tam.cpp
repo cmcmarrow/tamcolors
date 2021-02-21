@@ -322,5 +322,5 @@ wchar_t* sound_tool(wchar_t* command, bool& error_flag){
     } else {
         error_flag = false;
     }
-    return return_string;
+    return (wchar_t*)return_string;
 }

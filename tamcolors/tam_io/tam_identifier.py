@@ -96,7 +96,8 @@ class TAMIdentifier:
             io_identifier = cls("WIN_DRIVERS",
                                 win_drivers.WINFullColorDriver,
                                 win_drivers.WINKeyDriver,
-                                win_drivers.WINUtilitiesDriver)
+                                win_drivers.WINUtilitiesDriver,
+                                win_drivers.WINSoundDriver)
             if io_identifier.stable():
                 return io_identifier
 
@@ -104,7 +105,8 @@ class TAMIdentifier:
             io_identifier = cls("UNI_TRUE_COLOR_DRIVERS",
                                 lin_drivers.LINKeyDriver,
                                 uni_drivers.UNIUtilitiesDriver,
-                                ansi_true_color_drivers.ANSITrueFullColorDriver)
+                                ansi_true_color_drivers.ANSITrueFullColorDriver,
+                                any_drivers.ANYSoundDriver)     # TODO write UNI sound driver
             if io_identifier.stable():
                 return io_identifier
 
@@ -113,7 +115,8 @@ class TAMIdentifier:
                                 mac_drivers.MACKeyDriver,
                                 uni_drivers.UNIUtilitiesDriver,
                                 ansi_256_drivers.ANSI256ColorDriver,
-                                ansi_256_drivers.ANSI256ChangerDriver)
+                                ansi_256_drivers.ANSI256ChangerDriver,
+                                any_drivers.ANYSoundDriver)     # TODO write UNI sound driver
             if io_identifier.stable():
                 return io_identifier
 
@@ -140,12 +143,15 @@ class TAMIdentifier:
 NULL_IO_IDENTIFIER = TAMIdentifier("NULL_DRIVERS",
                                    null_drivers.NULLKeyDriver,
                                    null_drivers.NULLFullColorDriver,
-                                   null_drivers.NULLUtilitiesDriver)
+                                   null_drivers.NULLUtilitiesDriver,
+                                   null_drivers.NULLSoundDriver)
 
 ANY_IO_IDENTIFIER = TAMIdentifier("ANY_DRIVERS",
                                   any_drivers.ANYKeyDriver,
                                   any_drivers.ANYFullColorDriver,
-                                  any_drivers.ANYUtilitiesDriver)
+                                  any_drivers.ANYUtilitiesDriver,
+                                  any_drivers.ANYSoundDriver)
+
 
 NULL = NULL_IO_IDENTIFIER.get_io()
 ANY_IO = ANY_IO_IDENTIFIER.get_io()
