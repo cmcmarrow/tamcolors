@@ -1,3 +1,5 @@
-from . import basic
+from . import console
+from . import sound
 
-__all__ = ("basic",)
+__all__ = ("console",
+           "sound")

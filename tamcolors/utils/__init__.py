@@ -7,6 +7,8 @@ from . import encryption
 from . import tcp
 from . import identifier
 from . import log
+from . import id_manager
+from . import path
 
 
 __all__ = ("timer",
@@ -17,4 +19,6 @@ __all__ = ("timer",
            "encryption",
            "tcp",
            "identifier",
-           "log")
+           "log",
+           "id_manager",
+           "path")

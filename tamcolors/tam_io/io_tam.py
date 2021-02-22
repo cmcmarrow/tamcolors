@@ -421,7 +421,7 @@ class RawIO(ABC):
 
     def get_sound_length(self, sound_id):
         """
-        info: will get sound lenght
+        info: will get sound length
         :param sound_id: int
         :return: int
         """
@@ -1160,6 +1160,9 @@ class IO(RawIO, ABC):
         if sound_id in self._active_sound_ids:
             log.critical("Sound ID \"{}\" all ready in use!".format(sound_id))
             raise TAMSoundError("Sound ID \"{}\" all ready in use!".format(sound_id))
+
+        if not file.lower().endswith(".wav"):
+            raise TAMSoundError("File \"{0}\" must end with \".wav\"".format(file))
         self._active_sound_ids.add(sound_id)
 
     def play_sound(self, sound_id, reset_sound=True):
@@ -1193,7 +1196,7 @@ class IO(RawIO, ABC):
 
     def get_sound_length(self, sound_id):
         """
-        info: will get sound lenght
+        info: will get sound length
         :param sound_id: int
         :return: int
         """

@@ -1,5 +1,4 @@
 # built in libraries
-import string
 from abc import ABC
 from threading import Lock
 from itertools import cycle
@@ -830,7 +829,7 @@ class WINSoundDriver(tam_drivers.SoundDriver, WinSharedData, ABC):
 
     def get_sound_length(self, sound_id):
         """
-        info: will get sound lenght
+        info: will get sound length
         :param sound_id: int
         :return: int
         """

@@ -32,7 +32,7 @@ setup(
     author_email="Charles.M.McMarrow@gmail.com",
     url="https://github.com/cmcmarrow/tamcolors",
     license="Apache Software License 2.0",
-    description="tamcolors standardizes console color output across multiple platforms",
+    description="tamcolors is a terminal game library which supports multiplayer and audio.",
     description_content_type="text/plain",
     long_description=long_description,
     long_description_content_type="text/x-rst",

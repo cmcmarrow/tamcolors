@@ -1,7 +1,8 @@
 from . import alpha
 from . import icon
 from . import rgb_color
-from . import basic
+from . import basic_console
+from . import basic_sound
 from . import tabletennis
 from . import tam_loop
 from . import tam_print
@@ -21,7 +22,8 @@ from . import tam_keys
 __all__ = ("alpha",
            "icon",
            "rgb_color",
-           "basic",
+           "basic_console",
+           "basic_sound",
            "tabletennis",
            "tam_loop",
            "tam_print",
