@@ -13,8 +13,8 @@ Welcome to tamcolors's documentation!
 *****
 about
 *****
-This library standardizes console color output across multiple platforms.
-It also can get keyboard inputs without interrupting the console output and can run a console application at ~25 FPS.
+tamcolors is a terminal game library which supports multiplayer and audio.
+tamcolors gives a buffer which lets the user set the character, foreground color and background color which can draw at a stable FPS of 25 on all supported console.
 
 *********************
 pip install tamcolors
