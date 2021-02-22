@@ -48,16 +48,16 @@ basic example
 .. code-block:: python
 
    import tamcolors
-   tamcolors.examples.basic.run()
+   tamcolors.examples.basic_console.run()
 
 .. code-block:: python
 
-   import tamcolors
+   from tamcolors.tam_basic import console
    from tamcolors.tam_io.tam_colors import *
-   tamcolors.printc("Hello", "World!", ("light blue", "white"), same_color=True)
-   name = tamcolors.inputc("Whats Your Name? >>> ", ("light aqua", "gray"))
-   tamcolors.clear()
-   tamcolors.printc("Hello, ", ("default", "default"), name, (GREEN, WHITE), "!", ("gray", "light aqua"), sep="")
+   console.printc("Hello", "World!", ("light blue", "white"), same_color=True)
+   name = console.inputc("Whats Your Name? >>> ", ("light aqua", "gray"))
+   console.clear()
+   console.printc("Hello, ", ("default", "default"), name, (GREEN, WHITE), "!", ("gray", "light aqua"), sep="")
 
 ************
 icon example

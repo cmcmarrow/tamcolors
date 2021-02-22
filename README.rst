@@ -9,8 +9,8 @@ tamcolors
 *****
 about
 *****
-This library standardizes console color output across multiple platforms.
-It also can get keyboard inputs without interrupting the console output and can run a console application at ~25 FPS.
+tamcolors is a terminal game library which supports multiplayer and audio.
+tamcolors gives a buffer which lets the user set the character, foreground color and background color which can draw at a stable FPS of 25 on all supported console.
 
 *********************
 pip install tamcolors
@@ -44,16 +44,16 @@ basic example
 .. code-block:: python
 
    import tamcolors
-   tamcolors.examples.basic.run()
+   tamcolors.examples.basic_console.run()
 
 .. code-block:: python
 
-   import tamcolors
+   from tamcolors.tam_basic import console
    from tamcolors.tam_io.tam_colors import *
-   tamcolors.printc("Hello", "World!", ("light blue", "white"), same_color=True)
-   name = tamcolors.inputc("Whats Your Name? >>> ", ("light aqua", "gray"))
-   tamcolors.clear()
-   tamcolors.printc("Hello, ", ("default", "default"), name, (GREEN, WHITE), "!", ("gray", "light aqua"), sep="")
+   console.printc("Hello", "World!", ("light blue", "white"), same_color=True)
+   name = console.inputc("Whats Your Name? >>> ", ("light aqua", "gray"))
+   console.clear()
+   console.printc("Hello, ", ("default", "default"), name, (GREEN, WHITE), "!", ("gray", "light aqua"), sep="")
 
 ************
 icon example
