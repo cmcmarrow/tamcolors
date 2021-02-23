@@ -460,6 +460,13 @@ class RawIO(ABC):
         """
         raise NotImplementedError()
 
+    def is_running(self):
+        """
+        info: checks if IO has been started
+        :return: bool
+        """
+        raise NotImplementedError()
+
 
 class IO(RawIO, ABC):
     def __init__(self,
@@ -532,6 +539,8 @@ class IO(RawIO, ABC):
 
         self._sound_lock_handler = Lock()
         self._active_sound_ids = set()
+
+        self._running = False
 
     def __new__(cls, *args, **kwargs):
         if cls.able_to_execute():
@@ -641,6 +650,7 @@ class IO(RawIO, ABC):
         info: operations for IO to start
         :return: None
         """
+        self._running = True
         self._fire_start_event()
         self.clear()
         self.show_console_cursor(False)
@@ -651,6 +661,7 @@ class IO(RawIO, ABC):
         info: operations for IO to stop
         :return: None
         """
+        self._running = False
         self._fire_done_event()
         self.clear()
         self.show_console_cursor(True)
@@ -1008,7 +1019,8 @@ class IO(RawIO, ABC):
                     "mode_2": mode_2,
                     "mode_16_pal_256": mode_16_pal_256,
                     "mode_16": mode_16,
-                    "mode_256": mode_256}
+                    "mode_256": mode_256,
+                    "running": self.is_running()}
 
         return snapshot
 
@@ -1018,6 +1030,13 @@ class IO(RawIO, ABC):
         :param snapshot: dict
         :return: None
         """
+        if "running" in snapshot:
+            if snapshot["running"] != self.is_running():
+                if snapshot["running"]:
+                    self.start()
+                else:
+                    self.done()
+
         if "console_cursor" in snapshot:
             self.show_console_cursor(snapshot["console_cursor"])
 
@@ -1250,3 +1269,10 @@ class IO(RawIO, ABC):
         :return: None
         """
         self._sound_lock_handler.release()
+
+    def is_running(self):
+        """
+        info: checks if IO has been started
+        :return: bool
+        """
+        return self._running
