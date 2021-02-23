@@ -87,4 +87,4 @@ class Sound:
         info: will reset sound
         :return: None
         """
-        IO.reset_sound(self._id)
+        IO.rest_sound(self._id)

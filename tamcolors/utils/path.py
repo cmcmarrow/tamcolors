@@ -2,7 +2,7 @@ from os import path
 from inspect import stack
 
 
-def abspath(file):
+def abspath(*file):
     """
     info: gets the abspath for the file in the same directory from the call
     :param file: str
@@ -10,4 +10,4 @@ def abspath(file):
     """
     file_path = path.dirname(stack()[1].filename)
 
-    return path.join(file_path, file)
+    return path.join(file_path, *file)
