@@ -116,39 +116,16 @@ platforms tested on
 * Ubuntu 20.04
 * macOS 10.15.5
 
-*****
-goals
-*****
-* add IO event bus
-* support "get_keyboard_name" on macOS - Objective-C -> C++ -> Python
-* support "key state mode" on macOS - Objective-C -> C++ -> Python
-* add SHIFT KEY and other keys
-
-***************
-long term goals
-***************
-* build a community that builds fun terminal games
-* make and change fonts at run time
-* add .wav support
-
 ***********
-3.0.2 goals
+2.0.0 goals
 ***********
-* clean up code
-* add more tests
-* add wiki
-
-***********
-3.0.1 goals
-***********
-* make and change fonts at run time
-* add SHIFT KEY and other keys
-
-***********
-3.0.0 goals
-***********
-* update tamtools
-* add SPA, LAT, GER and FRE keyboard maps
+* add .wav support - Working on Windows!
+* add .wav tests - In Progress
+* add basic sound - Done
+* add basic sound tests - Done
+* update tamloop - In Progress
+* update tamframe - In Progress
+* add IO event bus - In Progress
 * supports Python 3.9
 * supports Python 3.8
 * supports Python 3.7
@@ -157,162 +134,35 @@ long term goals
 ***********
 2.1.0 goals
 ***********
-* update tamloop
-* update tamframe
-* add IO event bus
+* add full keys state support for linux and MacOS
+* add SPA, LAT, GER and FRE keyboard maps
+* make and change fonts at run time
+* add SHIFT KEY and other keys
 * supports Python 3.9
 * supports Python 3.8
 * supports Python 3.7
 * supports Python 3.6
 
 ***********
-2.0.0 goals
+2.2.2 goals
 ***********
-* add .wav support
-* add .wav tests
+* update tamtools
 * supports Python 3.9
 * supports Python 3.8
 * supports Python 3.7
 * supports Python 3.6
 
 
-***********************
-what defines a release?
-***********************
-* x.?.? - tamcolors has matured to a new level of capability.
-* ?.x.? - Backwards compatibility was broken for most programs.
-* ?.?.x - Most programs should still run in this release.
-* All releases can have new features, bug fixes, depreciation and new tests.
-
-********
-versions
-********
-
-*****
-1.3.0
-*****
-* 2/5/2021
-* fixed exit clear
-* added wait_key
-* added frame_done
-* added multi console example
-* added key state keyboard mode Only for Windows
-* made tam_loop multi console friendly
-* renamed items from buffer to surface
-* updated tamcolors icon
-* supports GER_GERMAN, FRE_FRENCH, SPA_SPANISH, LAT_SPANISH, ...  Keyboards - Only for Windows and Linux
-* supports Python 3.9
-* supports Python 3.8
-* supports Python 3.7
-* supports Python 3.6
-
-*****
-1.2.0
-*****
-* 11/3/2020
-* added tam_loop profiler
-* added TCP IO (dummy console)
-* save/rest Windows buffer size on exit
-* cleaned up c/c++
-* added sandy check examples
-* added new color mode "MODE_16_PAL_256"
-* added "preferred_mode"argument to TAMLoop
-* cleaned up win dll selection process
-* added .ci testing
-* supports Python 3.9
-* supports Python 3.8
-* supports Python 3.7
-* supports Python 3.6
-
-*****
-1.1.1
-*****
-* 10/10/2020
-* added tam utils
-* added compress utils module
-* added encryption utils module
-* added identifier utils module
-* added log utils module
-* added transport optimizer utils module
-* added immutable cache utils module
-* added slow tests
-* added tcp utils module
-* fixed macOS terminal cursor
-* fixed windows missing dll
-* added dependencies licences
-* supports Python 3.9
-* supports Python 3.8
-* supports Python 3.7
-* supports Python 3.6
-
-*****
-1.1.0
-*****
-* 9/7/2020
-* fixed macOS!
-* broke up IO into drivers
-* added terminal identifier
-* added 256 color mode
-* added rgb color mode
-* added RGBA
-* added Color
-* supports Python 3.8
-* supports Python 3.7
-* supports Python 3.6
-
-*****
-1.0.4
-*****
-* 8/13/2020
-* added more examples
-* bdist_wheel for Linux
-* cleaned up win_tam, uni_tam and any_tam
-* added alpha color for TAMBuffer
-* set and get rgb value of color (fixed PowerShell colors)
-* supports Python 3.8
-* supports Python 3.7
-* supports Python 3.6
-* dropped support for Python 3.5
-
-*****
-1.0.3
-*****
-* 7/29/2020
-* tamcolors
-* bdist_wheel for macOS
-* added more examples
-* added documentation
-* added tests for tam_basic
-* added default console colors
-* supports Python 3.8
-* supports Python 3.7
-* supports Python 3.6
-* supports Python 3.5
-
-*****
-1.0.2
-*****
-* 7/22/2020
-* tamcolors is now very usable
-* bdist_wheel for Windows
-* added non interrupting keyboard input
-* added TAMLoop
-* added tam_tools
-* added tests
-* supports Python 3.8
-* supports Python 3.7
-* supports Python 3.6
-* supports Python 3.5
-
-*****
-0.2.0
-*****
-* 2/1/2018
-* tamcolors proof of concept
-* added printc
-* added inputc
-* added textBuffer
-* supports Python 3.6
+***********
+3.0.0 goals
+***********
+* clean up code
+* add more tests
+* make docs user friendly
+* add docs to wiki
+* drop read the docs
+* find new CI
+* drop travis CI
 
 .. |Icon| image:: https://raw.githubusercontent.com/cmcmarrow/tamcolors/master/photos/small_icon.png
 .. |TableTennis| image:: https://raw.githubusercontent.com/cmcmarrow/tamcolors/master/photos/table_tennis.png
