@@ -1,3 +1,5 @@
-from . import basic_tests
+from . import console_tests
+from . import sound_tests
 
-__all__ = ("basic_tests",)
+__all__ = ("console_tests",
+           "sound_tests")

@@ -3,17 +3,26 @@ import platform
 import sys
 import unittest
 import unittest.mock
+from os.path import dirname, join
+from time import sleep
 
 # tamcolors libraries
+import tamcolors
 from tamcolors import tam_io
 from tamcolors.tam_io.tam_colors import *
+from tamcolors.tests.test_utils import slow_test
+
+
+def _get_audio_file():
+    return join(dirname(tamcolors.examples.basic_sound.__file__), "silence.wav")
 
 
 def get_win_io():
     return tam_io.tam_identifier.TAMIdentifier("win_driver_tests",
                                                tam_io.win_drivers.WINFullColorDriver,
                                                tam_io.win_drivers.WINKeyDriver,
-                                               tam_io.win_drivers.WINUtilitiesDriver).get_io()
+                                               tam_io.win_drivers.WINUtilitiesDriver,
+                                               tam_io.win_drivers.WINSoundDriver).get_io()
 
 
 class WinGlobalsTests(unittest.TestCase):
@@ -296,3 +305,62 @@ class WinDriversTests(unittest.TestCase):
         for item in ret:
             self.assertIsInstance(item, int)
             self.assertEqual(item, abs(item))
+
+    @staticmethod
+    def test_close():
+        io = get_win_io()
+        try:
+            io.open_sound(_get_audio_file(), 0)
+        finally:
+            io.close_sound(0)
+
+    @staticmethod
+    def test_play():
+        io = get_win_io()
+        try:
+            io.open_sound(_get_audio_file(), 0)
+            io.play_sound(0)
+        finally:
+            io.close_sound(0)
+
+    @slow_test
+    def test_position(self):
+        io = get_win_io()
+        try:
+            io.open_sound(_get_audio_file(), 0)
+            self.assertEqual(io.get_sound_position(0), 0)
+            io.play_sound(0)
+            sleep(2)
+            self.assertNotEquals(io.get_sound_position(0), 0)
+            io.pause_sound(0)
+            io.set_sound_position(0, 2)
+            self.assertEqual(io.get_sound_position(0), 2)
+            self.assertEqual(io.get_sound_length(0), 31168)
+        finally:
+            io.close_sound(0)
+
+    def test_rest(self):
+        io = get_win_io()
+        try:
+            io.open_sound(_get_audio_file(), 0)
+            io.rest_sound(0)
+            io.set_sound_position(0, 2)
+            io.play_sound(0, False)
+            self.assertTrue(io.is_sound_playing(0))
+            io.rest_sound(0)
+            self.assertFalse(io.is_sound_playing(0))
+            self.assertEqual(io.get_sound_position(0), 0)
+        finally:
+            io.close_sound(0)
+
+    @slow_test
+    def test_full_play(self):
+        io = get_win_io()
+        try:
+            io.open_sound(_get_audio_file(), 0)
+            io.play_sound(0)
+            self.assertTrue(io.is_sound_playing(0))
+            sleep(35)
+            self.assertFalse(io.is_sound_playing(0))
+        finally:
+            io.close_sound(0)

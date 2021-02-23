@@ -1,6 +1,5 @@
 # built in libraries
 import unittest
-from os.path import join
 
 # tamcolors libraries
 from tamcolors.utils import path
@@ -11,4 +10,4 @@ class PathTests(unittest.TestCase):
         self.assertIn("cats", path.abspath("cats"))
 
     def test_abspath2(self):
-        self.assertIn("cats", path.abspath("cats"))
+        self.assertIn("cats", path.abspath("tamcolors", "d", "cats"))
