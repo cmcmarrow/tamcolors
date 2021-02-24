@@ -1129,13 +1129,10 @@ class IO(RawIO, ABC):
         info: will get event
         :yield: tuple
         """
-        check_key = False
         while self.is_event_bus_enabled():
-            if self._event_queue and not check_key:
-                check_key = True
+            if self._event_queue:
                 yield self._event_queue.pop(0)
             else:
-                check_key = False
                 key = self.get_key()
                 if key is not False:
                     yield EVENT_KEY, key

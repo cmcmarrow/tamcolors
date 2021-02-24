@@ -6,7 +6,7 @@ import pstats
 from time import sleep
 
 # tamcolors libraries
-from tamcolors.tam_io import io_tam, tam_colors
+from tamcolors.tam_io import io_tam, tam_colors,tam_keys
 
 
 class TAMLoopIOHandler:
@@ -14,7 +14,7 @@ class TAMLoopIOHandler:
                  io,
                  name=None,
                  identifier_id=None,
-                 color_change_key="ESCAPE",
+                 color_change_key=tam_keys.KEY_ESCAPE,
                  start_data=None,
                  loop_data=None,
                  tam_color_defaults=True,
@@ -26,7 +26,7 @@ class TAMLoopIOHandler:
         :param io: IO
         :param name: str or None
         :param identifier_id: bytes or None
-        :param color_change_key: char: key that will change color mode
+        :param color_change_key: tuple: key that will change color mode
         :param start_data: object
         :param loop_data: object
         :param tam_color_defaults: bool
@@ -204,7 +204,7 @@ class TAMLoopIOHandler:
                     elif event[0] == io_tam.EVENT_KEY:
                         key = event[1]
                         if key is not False:
-                            if key[0] == self._color_change_key:
+                            if key == self._color_change_key:
                                 self._io.set_mode(next(self._color_modes))
                             else:
                                 self._input_keys.append(key)

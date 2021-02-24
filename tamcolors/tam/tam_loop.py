@@ -11,7 +11,8 @@ from tamcolors.tests import all_tests
 from tamcolors.tam_io import tam_identifier
 from tamcolors.tam.tam_loop_io_handler import TAMLoopIOHandler
 from tamcolors.utils import timer
-from tamcolors.tam_io.tam_colors import BLACK
+from tamcolors.tam_io.tam_colors import BLACK, GREEN
+from tamcolors.tam_io import tam_keys
 from tamcolors.utils.identifier import get_identifier_bytes
 from tamcolors.utils import log
 
@@ -35,7 +36,7 @@ class TAMLoop(TAMLoopIOHandler):
                  tam_frame,
                  io=None,
                  only_any_os=False,
-                 color_change_key="ESCAPE",
+                 color_change_key=tam_keys.KEY_ESCAPE,
                  loop_data=None,
                  stability_check=False,
                  tam_color_defaults=True,
@@ -46,13 +47,16 @@ class TAMLoop(TAMLoopIOHandler):
                  start_data=None,
                  receivers=None,
                  other_handlers=None,
-                 thread_count=20):
+                 thread_count=20,
+                 enable_loop_log=True,
+                 loop_log_key=tam_keys.KEY_F1,
+                 loop_log_level=log.DEBUG):
         """
         info: makes a TAMLoop object
         :param tam_frame: TAMFrame: first frame in tam loop
         :param io: IO
         :param only_any_os: bool: will only use Any Drivers if True
-        :param color_change_key: char: key that will change color mode
+        :param color_change_key: tuple: key that will change color mode
         :param loop_data: dict: will hold context so all TAMFrames can see
         :param stability_check: bool: raises and error if a test did not pass
         :param tam_color_defaults: bool
@@ -64,6 +68,9 @@ class TAMLoop(TAMLoopIOHandler):
         :param receivers: tuple or None
         :param other_handlers: tuple or None
         :param thread_count: int: number of threads to handle other handlers, should have 2 per handler
+        :param enable_loop_log: bool: will enable tam loop log
+        :param loop_log_key: tuple: key that will switch to log
+        :param loop_log_level: int
         """
 
         self._receiver_settings = {"color_change_key": color_change_key,
@@ -104,6 +111,16 @@ class TAMLoop(TAMLoopIOHandler):
 
         self._workers = ThreadPoolExecutor(max_workers=thread_count)
 
+        self._enable_loop_log = enable_loop_log
+        self._loop_log_key = loop_log_key
+
+        if self._enable_loop_log:
+            log.enable_logging(loop_log_level)
+
+        self._log = None
+        self._log_at = 0
+        self._on_log = False
+
         super().__init__(io=io,
                          name=name,
                          identifier_id=identifier_id,
@@ -142,21 +159,22 @@ class TAMLoop(TAMLoopIOHandler):
         :return: None
         """
         if self.is_running():
-            for frame in self._frame_stack[::-1]:
-                frame._done(self,
-                            self._loop_data,
-                            self._other_handlers,
-                            {other_handler: self._other_handlers[other_handler].get_loop_data() for other_handler in self._other_handlers})
+            try:
+                for frame in self._frame_stack[::-1]:
+                    frame._done(self,
+                                self._loop_data,
+                                self._other_handlers,
+                                {other_handler: self._other_handlers[other_handler].get_loop_data() for other_handler in self._other_handlers})
 
-            for other_handler in self._other_handlers:
-                log.debug("removed handler: {}".format(other_handler))
-                self.thread_task(self._other_handlers[other_handler].done)
+                for other_handler in self._other_handlers:
+                    log.debug("removed handler: {}".format(other_handler))
+                    self.thread_task(self._other_handlers[other_handler].done)
 
-            for receiver_name in self._receivers:
-                self.thread_task(self._receivers[receiver_name].done)
-
-            super().done()
-            self._workers.shutdown(wait=False)
+                for receiver_name in self._receivers:
+                    self.thread_task(self._receivers[receiver_name].done)
+            finally:
+                super().done()
+                self._workers.shutdown(wait=False)
 
     def get_receiver_settings(self):
         """
@@ -259,6 +277,14 @@ class TAMLoop(TAMLoopIOHandler):
 
                 keys = self.pump_keys()
 
+                # update log
+                if self._enable_loop_log and self._loop_log_key in keys:
+                    self._on_log = not self._on_log
+                    keys = list(keys)
+                    while self._loop_log_key in keys:
+                        keys.remove(self._loop_log_key)
+                    keys = tuple(keys)
+
                 # update
                 frame.update(self, keys,
                              self.get_loop_data(),
@@ -277,7 +303,11 @@ class TAMLoop(TAMLoopIOHandler):
                                    self.get_loop_data(),
                                    other_surfaces,
                                    {other_handler: self._other_handlers[other_handler].get_loop_data() for other_handler in self._other_handlers})
-                        self._io.draw(surface)
+
+                        if self._on_log:
+                            self._io.draw(self._update_log(keys))
+                        else:
+                            self._io.draw(surface)
 
                         for other_handler in self._other_handlers:
                             self.thread_task(self._other_handlers[other_handler].get_io().draw, other_surfaces[other_handler])
@@ -326,6 +356,45 @@ class TAMLoop(TAMLoopIOHandler):
                 log.warning("_thread_task {} error: {}".format(func.__name__, error))
             else:
                 log.warning("_thread_task error: {}".format(error))
+
+    def _update_log(self, keys):
+        """
+        info: will update the log and draw the log
+        :param keys: tuple
+        :return: TAMSurface
+        """
+        def gen_log():
+            try:
+                with open(log.LOG_FILE_NAME) as log_file:
+                    self._log = log_file.readlines()
+                    log_file.close()
+            except FileNotFoundError:
+                self._log = ["Log File Not Found!"]
+
+        surface = TAMSurface(0, 0, " ", GREEN, BLACK)
+        surface.set_dimensions_and_clear(*self.get_dimensions())
+
+        if self._log is None:
+            gen_log()
+
+        for key in keys:
+            if key in (tam_keys.KEY_r, tam_keys.KEY_R):
+                gen_log()
+            elif key == tam_keys.KEY_UP and self._log_at - 1 != -1:
+                self._log_at -= 1
+            elif key == tam_keys.KEY_DOWN and self._log_at + 1 != len(self._log):
+                self._log_at += 1
+
+        if len(self._log) <= self._log_at:
+            self._log_at = max(0, len(self._log) - 1)
+
+        from tamcolors.tam_tools import tam_print
+        for y_spot, line in enumerate(self._log[self._log_at:surface.get_dimensions()[1] - 2]):
+            tam_print.tam_print(surface, 0, y_spot, line, GREEN, BLACK)
+
+        tam_print.tam_print(surface, 0, surface.get_dimensions()[1] - 1, "R: Refresh", GREEN, BLACK)
+
+        return surface
 
 
 class TAMFrame:
