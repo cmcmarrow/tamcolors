@@ -352,6 +352,7 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
                                 11: 14,
                                 12: 9,
                                 14: 11}
+        self._last_frame_size = (0, 0)
 
         kwargs.setdefault("mode_256", False)
         kwargs.setdefault("mode_rgb", False)
@@ -427,6 +428,11 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
         """
         if self._surface.get_dimensions() != io._get_dimensions():
             self.clear()
+            self._surface.set_dimensions_and_clear(*io._get_dimensions())
+            self._last_frame = None
+            self._last_frame_size = tam_surface.get_dimensions()
+        elif tam_surface.get_dimensions() != self._last_frame_size:
+            self._last_frame_size = tam_surface.get_dimensions()
             self._surface.set_dimensions_and_clear(*io._get_dimensions())
             self._last_frame = None
 
