@@ -343,6 +343,7 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
     def __init__(self, *args, **kwargs):
         self._surface = TAMSurface(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
         self._last_frame = TAMSurface(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
+        self._last_frame_size = (0, 0)
         self._last_frame_lock = Lock()
         self._spot_swap_dict = {1: 4,
                                 3: 6,
@@ -425,10 +426,15 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
         :param tam_surface: TAMSurface
         :return:
         """
-        if self._surface.get_dimensions() != io._get_dimensions():
+        if self._surface.get_dimensions() != io._get_dimensions() or\
+                tam_surface.get_dimensions()[0] < self._last_frame_size[0] or\
+                tam_surface.get_dimensions()[1] < self._last_frame_size[1]:
             self.clear()
             self._surface.set_dimensions_and_clear(*io._get_dimensions())
             self._last_frame = None
+            self._last_frame_size = tam_surface.get_dimensions()
+        elif tam_surface.get_dimensions() != self._last_frame_size:
+            self._last_frame_size = tam_surface.get_dimensions()
 
         super().draw(tam_surface)
 

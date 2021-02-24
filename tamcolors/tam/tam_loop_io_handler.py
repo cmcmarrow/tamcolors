@@ -80,6 +80,8 @@ class TAMLoopIOHandler:
                           io_tam.EVENT_SET_MODE_16_COLOR: [tam_colors.COLORS[spot].mode_rgb for spot in range(16)],
                           io_tam.EVENT_SET_MODE_256_COLOR: [tam_colors.COLORS[spot].mode_rgb for spot in range(256)]}
 
+        self._frozen = False
+
     def get_name(self):
         """
         info: get name
@@ -198,6 +200,9 @@ class TAMLoopIOHandler:
 
         try:
             while self.is_running():
+                if self._frozen:
+                    sleep(0.0001)
+                    continue
                 for event in self._io.get_event():
                     if event is None:
                         sleep(0.0001)
@@ -220,6 +225,20 @@ class TAMLoopIOHandler:
 
         except BaseException as error:
             self._error = error
+
+    def freeze_handler(self):
+        """
+        info: will freeze event loop
+        :return:
+        """
+        self._frozen = True
+
+    def unfreeze_handler(self):
+        """
+        info: will unfreeze event loop
+        :return:
+        """
+        self._frozen = False
 
     def get_keyboard_name(self, default_to_us_english=True):
         """

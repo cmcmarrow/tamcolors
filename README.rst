@@ -157,6 +157,7 @@ platforms tested on
 3.0.0 goals
 ***********
 * clean up code
+* mass changing of function names
 * add more tests
 * make docs user friendly
 * add docs to wiki
