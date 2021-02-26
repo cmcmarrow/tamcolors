@@ -1,6 +1,8 @@
 from os import getcwd
 from os.path import join
 import logging
+from logging import handlers
+from io import StringIO
 
 
 """
@@ -18,6 +20,10 @@ CRITICAL = logging.CRITICAL
 
 LOG_ENABLED = False
 
+LOG_FILE = None
+LOG_STREAM = None
+LOGGER = logging.getLogger('tamcolors')
+
 
 def enable_logging(level=DEBUG):
     """
@@ -25,14 +31,15 @@ def enable_logging(level=DEBUG):
     :param level: log level
     :return:
     """
-    global LOG_ENABLED
+    global LOG_ENABLED, LOG_FILE, LOG_STREAM
     if LOG_ENABLED:
         disable_logging()
     LOG_ENABLED = True
-    logging.basicConfig(filename=LOG_FILE_NAME,
-                        filemode="w",
-                        format="[%(asctime)s][%(process)d %(processName)s][%(thread)d %(threadName)s][%(levelname)s] %(message)s")
-    logging.getLogger().setLevel(level)
+    logging.Formatter("[%(asctime)s][%(process)d %(processName)s][%(thread)d %(threadName)s][%(levelname)s] %(message)s")
+    LOG_FILE = handlers.RotatingFileHandler(LOG_FILE_NAME, mode="w", maxBytes=5000000, encoding="utf-8")
+    LOG_STREAM = logging.StreamHandler(StringIO())
+    LOGGER.addHandler(LOG_FILE)
+    LOGGER.setLevel(level)
 
 
 def disable_logging():
@@ -42,7 +49,9 @@ def disable_logging():
     """
     global LOG_ENABLED
     if LOG_ENABLED:
-        logging.shutdown()
+        LOGGER.removeHandler(LOG_FILE)
+        LOGGER.removeHandler(LOG_STREAM)
+        LOG_FILE.close()
         LOG_ENABLED = False
 
 
@@ -54,7 +63,7 @@ def debug(*args, **kwargs):
     :return:
     """
     if LOG_ENABLED:
-        logging.debug(*args, **kwargs)
+        LOGGER.debug(*args, **kwargs)
 
 
 def info(*args, **kwargs):
@@ -65,7 +74,7 @@ def info(*args, **kwargs):
     :return:
     """
     if LOG_ENABLED:
-        logging.info(*args, **kwargs)
+        LOGGER.info(*args, **kwargs)
 
 
 def warning(*args, **kwargs):
@@ -76,7 +85,7 @@ def warning(*args, **kwargs):
     :return:
     """
     if LOG_ENABLED:
-        logging.warning(*args, **kwargs)
+        LOGGER.warning(*args, **kwargs)
 
 
 def error(*args, **kwargs):
@@ -87,7 +96,7 @@ def error(*args, **kwargs):
     :return:
     """
     if LOG_ENABLED:
-        logging.error(*args, **kwargs)
+        LOGGER.error(*args, **kwargs)
 
 
 def critical(*args, **kwargs):
@@ -98,4 +107,4 @@ def critical(*args, **kwargs):
     :return:
     """
     if LOG_ENABLED:
-        logging.critical(*args, **kwargs)
+        LOGGER.critical(*args, **kwargs)
