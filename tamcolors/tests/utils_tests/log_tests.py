@@ -29,6 +29,9 @@ class LogTests(unittest.TestCase):
                 self.assertIn("test", output)
                 self.assertIn("dogs", output)
                 self.assertIn("colors", output)
+            self.assertIn("test", log.LOG.read(0))
+            self.assertIn("dogs", log.LOG.read(1))
+            self.assertIn("colors", log.LOG.read(2))
         finally:
             log.disable_logging()
             remove(log.LOG_FILE_NAME)
@@ -45,6 +48,25 @@ class LogTests(unittest.TestCase):
                 self.assertNotIn("test2", output)
                 self.assertNotIn("cats2", output)
                 self.assertIn("colors2", output)
+        finally:
+            log.disable_logging()
+            remove(log.LOG_FILE_NAME)
+
+    def test_log_stream(self):
+        try:
+            log.enable_logging(log.DEBUG)
+            for i in range(10000):
+                log.debug(i)
+
+            for i in range(1000):
+                self.assertEqual(log.LOG.read(i), "")
+
+            self.assertEqual(log.LOG.read(log.LOG.last_msg_id() - 1), "")
+            self.assertEqual(log.LOG.read(log.LOG.first_msg_id() + 1), "")
+
+            for i in range(log.LOG.last_msg_id(), log.LOG.first_msg_id()):
+                self.assertIn(str(i), log.LOG.read(i))
+
         finally:
             log.disable_logging()
             remove(log.LOG_FILE_NAME)

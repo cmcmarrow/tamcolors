@@ -11,7 +11,7 @@ from tamcolors.tests import all_tests
 from tamcolors.tam_io import tam_identifier
 from tamcolors.tam.tam_loop_io_handler import TAMLoopIOHandler
 from tamcolors.utils import timer
-from tamcolors.tam_io.tam_colors import BLACK, GREEN
+from tamcolors.tam_io.tam_colors import GREEN, BLACK
 from tamcolors.tam_io import tam_keys
 from tamcolors.utils.identifier import get_identifier_bytes
 from tamcolors.utils import log
@@ -117,9 +117,9 @@ class TAMLoop(TAMLoopIOHandler):
         if self._enable_loop_log:
             log.enable_logging(loop_log_level)
 
-        self._log = None
+        self._log_on = False
         self._log_at = 0
-        self._on_log = False
+        self._log_bottom = True
 
         super().__init__(io=io,
                          name=name,
@@ -248,6 +248,7 @@ class TAMLoop(TAMLoopIOHandler):
 
         other_keys = {}
         other_surfaces = {}
+        log_keys = []
         try:
             while self.is_running() and self._error is None and len(self._frame_stack) != 0:
                 # get frame and fps
@@ -278,12 +279,17 @@ class TAMLoop(TAMLoopIOHandler):
                 keys = self.pump_keys()
 
                 # update log
-                if self._enable_loop_log and self._loop_log_key in keys:
-                    self._on_log = not self._on_log
-                    keys = list(keys)
-                    while self._loop_log_key in keys:
-                        keys.remove(self._loop_log_key)
-                    keys = tuple(keys)
+                if self._enable_loop_log:
+                    if self._loop_log_key in keys:
+                        self._log_on = not self._log_on
+
+                    if self._log_on:
+                        keys = list(keys)
+                        while self._loop_log_key in keys:
+                            keys.remove(self._loop_log_key)
+                        keys = tuple(keys)
+                        log_keys = keys
+                        keys = []
 
                 # update
                 frame.update(self, keys,
@@ -304,9 +310,11 @@ class TAMLoop(TAMLoopIOHandler):
                                    other_surfaces,
                                    {other_handler: self._other_handlers[other_handler].get_loop_data() for other_handler in self._other_handlers})
 
-                        if self._on_log:
-                            self._io.draw(self._update_log(keys))
+                        if self._log_on:
+                            # draw log to screen
+                            self._io.draw(self._update_log(log_keys))
                         else:
+                            # draw to scree
                             self._io.draw(surface)
 
                         for other_handler in self._other_handlers:
@@ -363,36 +371,38 @@ class TAMLoop(TAMLoopIOHandler):
         :param keys: tuple
         :return: TAMSurface
         """
-        def gen_log():
-            try:
-                with open(log.LOG_FILE_NAME) as log_file:
-                    self._log = log_file.readlines()
-                    log_file.close()
-            except FileNotFoundError:
-                self._log = ["Log File Not Found!"]
+        width, height = self.get_dimensions()
+        surface = TAMSurface(width, height, " ", GREEN, BLACK)
+        log.debug(self._log_at)
+        if log.LOG.last_msg_id() > self._log_at:
+            self._log_at = log.LOG.last_msg_id()
 
-        surface = TAMSurface(0, 0, " ", GREEN, BLACK)
-        surface.set_dimensions_and_clear(*self.get_dimensions())
-
-        if self._log is None:
-            gen_log()
+        if self._log_bottom:
+            self._log_at = log.LOG.first_msg_id()
 
         for key in keys:
-            if key in (tam_keys.KEY_r, tam_keys.KEY_R):
-                gen_log()
-            elif key == tam_keys.KEY_UP and self._log_at - 1 != -1:
-                self._log_at -= 1
-            elif key == tam_keys.KEY_DOWN and self._log_at + 1 != len(self._log):
+            if key == tam_keys.KEY_UP:
+                self._log_at += -1
+                self._log_bottom = False
+            elif key == tam_keys.KEY_DOWN:
                 self._log_at += 1
+            elif key == tam_keys.KEY_LEFT:
+                self._log_at = log.LOG.last_msg_id()
+                self._log_bottom = False
+            elif key == tam_keys.KEY_RIGHT:
+                self._log_at = log.LOG.first_msg_id()
+                self._log_bottom = True
 
-        if len(self._log) <= self._log_at:
-            self._log_at = max(0, len(self._log) - 1)
+        if log.LOG.last_msg_id() > self._log_at:
+            self._log_at = log.LOG.last_msg_id()
 
-        from tamcolors.tam_tools import tam_print
-        for y_spot, line in enumerate(self._log[self._log_at:surface.get_dimensions()[1] - 2]):
-            tam_print.tam_print(surface, 0, y_spot, line, GREEN, BLACK)
+        if log.LOG.first_msg_id() < self._log_at:
+            self._log_at = log.LOG.first_msg_id()
 
-        tam_print.tam_print(surface, 0, surface.get_dimensions()[1] - 1, "R: Refresh", GREEN, BLACK)
+        self._log_bottom = log.LOG.first_msg_id() == self._log_at
+        import tamcolors
+        for spot, line in enumerate(range(self._log_at, self._log_at + height)):
+            tamcolors.tam_tools.tam_print.tam_print(surface, 0, spot, log.LOG.read(line), GREEN, BLACK)
 
         return surface
 
