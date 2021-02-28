@@ -48,7 +48,7 @@ class TAMLoop(TAMLoopIOHandler):
                  receivers=None,
                  other_handlers=None,
                  thread_count=20,
-                 enable_loop_log=True,
+                 enable_loop_log=False,
                  loop_log_key=tam_keys.KEY_F1,
                  loop_log_level=log.DEBUG):
         """
@@ -373,7 +373,7 @@ class TAMLoop(TAMLoopIOHandler):
         """
         width, height = self.get_dimensions()
         surface = TAMSurface(width, height, " ", GREEN, BLACK)
-        log.debug(self._log_at)
+        
         if log.LOG.last_msg_id() > self._log_at:
             self._log_at = log.LOG.last_msg_id()
 
@@ -400,9 +400,15 @@ class TAMLoop(TAMLoopIOHandler):
             self._log_at = log.LOG.first_msg_id()
 
         self._log_bottom = log.LOG.first_msg_id() == self._log_at
-        import tamcolors
-        for spot, line in enumerate(range(self._log_at, self._log_at + height)):
-            tamcolors.tam_tools.tam_print.tam_print(surface, 0, spot, log.LOG.read(line), GREEN, BLACK)
+        for spot, line_number in enumerate(range(self._log_at, self._log_at + height)):
+            line = log.LOG.read(line_number)
+            at_x = 0
+            for c in line:
+                if c == "\t":
+                    at_x += 4
+                elif c != "\n":
+                    surface.set_spot(at_x, spot, c, GREEN, BLACK)
+                    at_x += 1
 
         return surface
 
