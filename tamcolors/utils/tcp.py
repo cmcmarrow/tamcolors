@@ -114,7 +114,7 @@ class TCPReceiver:
             try:
                 self._socket.shutdown(0)
             except OSError as e:
-                log.warning("tcp shutdown error: %s", str(e))
+                log.warning("tcp shutdown error: {}".format(e))
             self._socket.close()
 
     def get_host_connection(self, wait=True):
@@ -159,10 +159,10 @@ class TCPReceiver:
                 # hand new connection over to new connection handler
                 Thread(target=self._new_connection_handler, args=(connection, address, port), daemon=True).start()
             except Exception as error:
-                log.warning("_connection_finder error %s %s: %s",
+                log.warning("_connection_finder error {} {}: {}".format(
                             self._host,
                             self._port,
-                            error)
+                            error))
 
     def _new_connection_handler(self, connection, address, port):
         """
@@ -188,10 +188,10 @@ class TCPReceiver:
             finally:
                 self._lock.release()
         except Exception as error:
-            log.warning("_new_connection_handler error %s %s: %s",
+            log.warning("_new_connection_handler error {} {}: {}".format(
                         self._host,
                         self._port,
-                        error)
+                        error))
 
 
 class TCPBase:
@@ -262,7 +262,7 @@ class TCPBase:
             try:
                 self._connection.shutdown(0)
             except OSError as e:
-                log.warning("tcp shutdown error: %s", str(e))
+                log.warning("tcp shutdown error: {}".format(e))
             self._connection.close()
 
     def get_data(self):
@@ -581,7 +581,7 @@ class TCPObjectWrapper:
                         self._tcp_connection.send_data(self._object_packer.dumps({"id": action_id, "error": str(e)}))
                     raise e
         except Exception as e:
-            log.critical("_action_thread error: %s data: %s", e, action)
+            log.critical("_action_thread error: {} data: {}".format(e, action))
 
 
 class TCPObjectConnector:
@@ -735,7 +735,7 @@ class TCPObjectConnector:
                 except Exception as e:
                     self._return_data["error"] = e
         except Exception as e:
-            log.critical("_return_collector error: %s", str(e))
+            log.critical("_return_collector error: {}".format(e))
 
     def get_connection(self):
         """
