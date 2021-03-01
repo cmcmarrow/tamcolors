@@ -163,7 +163,6 @@ class TAMLoopIOHandler:
 
             if self._reset_io and self._snapshot:
                 self._io.apply_snapshot(self._snapshot)
-            self._io.clear()
 
             self._key_loop_thread.join(timeout=5)
 
