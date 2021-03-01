@@ -324,3 +324,30 @@ wchar_t* sound_tool(wchar_t* command, bool& error_flag){
     }
     return (wchar_t*)return_string;
 }
+
+bool enable_ansi() {
+    HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+    DWORD dword = 0;
+    if (!GetConsoleMode(handle, &dword)) {
+        return false;
+    }
+
+    dword |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+    if (!SetConsoleMode(handle, dword))
+    {
+        return false;
+    }
+    return true;
+}
+
+void set_mode(int dword){
+    HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleMode(handle, dword);
+}
+
+int get_mode(){
+    HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+    DWORD dword = 0;
+    GetConsoleMode(handle, &dword);
+    return dword;
+}

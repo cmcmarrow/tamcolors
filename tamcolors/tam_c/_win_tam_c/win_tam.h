@@ -35,4 +35,7 @@ int get_key();
 const char* get_keyboard_name();
 int get_key_state(int key_code);
 wchar_t* sound_tool(wchar_t* command, bool& error);
+bool enable_ansi();
+void set_mode(int dword);
+int get_mode();
 #endif
