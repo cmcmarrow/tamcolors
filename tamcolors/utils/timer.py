@@ -36,3 +36,30 @@ class Timer:
         total_time = time.perf_counter() - self._lap
         self.lap()
         return ran_time, total_time
+
+
+class TickRateTracker:
+    def __init__(self, frame=1):
+        """
+        Makes a TickRateTracker Object
+        :param frame: int
+        """
+        self._frame = frame
+        self._ticks = []
+
+    def tick(self):
+        """
+        info: will add a tick
+        :return:
+        """
+        tick = time.perf_counter()
+        self._ticks.append(tick)
+        while tick - self._ticks[0] > self._frame:
+            self._ticks.pop(0)
+
+    def tick_rate(self):
+        """
+        info: will get tick rate
+        :return: int
+        """
+        return len(self._ticks)

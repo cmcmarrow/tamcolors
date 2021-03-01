@@ -50,7 +50,9 @@ class TAMLoop(TAMLoopIOHandler):
                  thread_count=20,
                  enable_loop_log=False,
                  loop_log_key=tam_keys.KEY_F1,
-                 loop_log_level=log.DEBUG):
+                 loop_log_level=log.DEBUG,
+                 enable_loop_fps=True,
+                 loop_fps_key=tam_keys.KEY_F2):
         """
         info: makes a TAMLoop object
         :param tam_frame: TAMFrame: first frame in tam loop
@@ -71,6 +73,8 @@ class TAMLoop(TAMLoopIOHandler):
         :param enable_loop_log: bool: will enable tam loop log
         :param loop_log_key: tuple: key that will switch to log
         :param loop_log_level: int
+        :param enable_loop_fps: bool
+        :param loop_fps_key: tuple
         """
 
         self._receiver_settings = {"color_change_key": color_change_key,
@@ -120,6 +124,12 @@ class TAMLoop(TAMLoopIOHandler):
         self._log_on = False
         self._log_at = 0
         self._log_bottom = True
+
+        self._enable_loop_fps = enable_loop_fps
+        self._fps_on = False
+        self._fps_ticker = timer.TickRateTracker()
+        self._ups_ticker = timer.TickRateTracker()
+        self._fps_key = loop_fps_key
 
         super().__init__(io=io,
                          name=name,
@@ -249,8 +259,11 @@ class TAMLoop(TAMLoopIOHandler):
         other_keys = {}
         other_surfaces = {}
         log_keys = []
+
         try:
             while self.is_running() and self._error is None and len(self._frame_stack) != 0:
+                if self._fps_on:
+                    self._ups_ticker.tick()
                 # get frame and fps
                 frame = self._frame_stack[-1]
                 frame_time = 1 / frame.get_fps()
@@ -291,6 +304,12 @@ class TAMLoop(TAMLoopIOHandler):
                         log_keys = keys
                         keys = []
 
+                # update fps
+                if self._enable_loop_fps and self._fps_key in keys:
+                    self._fps_on = not self._fps_on
+                    while self._fps_key in keys:
+                        keys.remove(self._fps_key)
+
                 # update
                 frame.update(self, keys,
                              self.get_loop_data(),
@@ -309,7 +328,9 @@ class TAMLoop(TAMLoopIOHandler):
                                    self.get_loop_data(),
                                    other_surfaces,
                                    {other_handler: self._other_handlers[other_handler].get_loop_data() for other_handler in self._other_handlers})
-
+                        if self._fps_on:
+                            self._fps_ticker.tick()
+                            self._draw_fps(surface)
                         if self._log_on:
                             # draw log to screen
                             self._io.draw(self._update_log(log_keys))
@@ -373,7 +394,7 @@ class TAMLoop(TAMLoopIOHandler):
         """
         width, height = self.get_dimensions()
         surface = TAMSurface(width, height, " ", GREEN, BLACK)
-        
+
         if log.LOG.last_msg_id() > self._log_at:
             self._log_at = log.LOG.last_msg_id()
 
@@ -410,6 +431,17 @@ class TAMLoop(TAMLoopIOHandler):
                     surface.set_spot(at_x, spot, c, GREEN, BLACK)
                     at_x += 1
 
+        return surface
+
+    def _draw_fps(self, surface):
+        """
+        info: will draw fps and ups on to the top left
+        :param surface: TAMSurface
+        :return: surface
+        """
+        fps_str = "F:{}, U:{}".format(self._fps_ticker.tick_rate(), self._ups_ticker.tick_rate())
+        for spot, c in enumerate(fps_str):
+            surface.set_spot(spot, 0, c, GREEN, BLACK)
         return surface
 
 
