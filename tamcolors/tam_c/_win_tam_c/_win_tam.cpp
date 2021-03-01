@@ -368,6 +368,57 @@ static PyObject* _sound_tool(PyObject* self, PyObject* args) {
 	return py_command_ret;
 }
 
+
+static PyObject* _enable_ansi(PyObject* self, PyObject* args) {
+	if (!PyArg_ParseTuple(args, "")) {
+		return NULL;
+	}
+	try {
+		if (enable_ansi()) {
+			Py_INCREF(Py_True);
+			return Py_BuildValue("O", Py_True);
+		}
+		else {
+			Py_INCREF(Py_False);
+			return Py_BuildValue("O", Py_False);
+		}
+	}
+	catch (std::exception& e) {
+		PyErr_SetString(_WinTamError, e.what());
+		return NULL;
+	}
+}
+
+static PyObject* _set_mode(PyObject* self, PyObject* args) {
+    int mode;
+	if (!PyArg_ParseTuple(args, "i", &mode)) {
+		return NULL;
+	}
+	try {
+		set_mode(mode);
+		Py_RETURN_NONE;
+	}
+	catch (std::exception& e) {
+		PyErr_SetString(_WinTamError, e.what());
+		return NULL;
+	}
+}
+
+
+static PyObject* _get_mode(PyObject* self, PyObject* args) {
+	if (!PyArg_ParseTuple(args, "")) {
+		return NULL;
+	}
+	try {
+		return Py_BuildValue("i", get_mode());
+	}
+	catch (std::exception& e) {
+		PyErr_SetString(_WinTamError, e.what());
+		return NULL;
+	}
+}
+
+
 static PyMethodDef _win_tam_methods[] = {
 	{
 		"_has_vaild_win_console", _has_vaild_win_console, METH_VARARGS,
@@ -432,6 +483,18 @@ static PyMethodDef _win_tam_methods[] = {
 	{
 		"_sound_tool", _sound_tool, METH_VARARGS,
 		"_sound_tool"
+	},
+	{
+		"_enable_ansi", _enable_ansi, METH_VARARGS,
+		"_enable_ansi"
+	},
+	{
+		"_set_mode", _set_mode, METH_VARARGS,
+		"_set_mode"
+	},
+	{
+		"_get_mode", _get_mode, METH_VARARGS,
+		"_get_mode"
 	},
 { NULL, NULL, 0, NULL }
 };

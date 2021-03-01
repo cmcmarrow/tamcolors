@@ -2,6 +2,7 @@
 from abc import ABC
 from threading import Lock
 from itertools import cycle
+import sys
 
 
 # tamcolors libraries
@@ -342,7 +343,6 @@ class WINKeyDriver(tam_drivers.KeyDriver, WinSharedData, ABC):
 class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
     def __init__(self, *args, **kwargs):
         self._surface = TAMSurface(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
-        self._last_frame = TAMSurface(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
         self._last_frame_lock = Lock()
         self._spot_swap_dict = {1: 4,
                                 3: 6,
@@ -352,12 +352,55 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
                                 11: 14,
                                 12: 9,
                                 14: 11}
-        self._last_frame_size = (0, 0)
+        self._foreground = {0: "30",
+                            1: "31",
+                            2: "32",
+                            3: "33",
+                            4: "34",
+                            5: "35",
+                            6: "36",
+                            7: "37",
+                            8: "38",
+                            9: "90",
+                            10: "91",
+                            11: "92",
+                            12: "93",
+                            13: "94",
+                            14: "95",
+                            15: "96",
+                            16: "97"}
 
+        self._background = {0: "40",
+                            1: "41",
+                            2: "42",
+                            3: "43",
+                            4: "44",
+                            5: "45",
+                            6: "46",
+                            7: "47",
+                            8: "48",
+                            9: "100",
+                            10: "101",
+                            11: "102",
+                            12: "103",
+                            13: "104",
+                            14: "105",
+                            15: "106",
+                            16: "107"}
+        self._cmd_mode = None
         kwargs.setdefault("mode_256", False)
         kwargs.setdefault("mode_rgb", False)
 
         super().__init__(*args, **kwargs)
+
+    def start(self):
+        """
+        info: operations for IO to start
+        :return: None
+        """
+        self._cmd_mode = io._get_mode()
+        io._enable_ansi()
+        super().start()
 
     def done(self):
         """
@@ -367,6 +410,7 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
         self._surface = TAMSurface(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
         self._last_frame = TAMSurface(0, 0, " ", tam_colors.BLACK, tam_colors.BLACK)
         io._set_cursor_info(0, 0, io._get_default_color())
+        io._set_mode(self._cmd_mode)
         super().done()
 
     def printc(self, output, color, flush, stderr):
@@ -429,223 +473,121 @@ class WINFullColorDriver(tam_drivers.FullColorDriver, WinSharedData, ABC):
         if self._surface.get_dimensions() != io._get_dimensions():
             self.clear()
             self._surface.set_dimensions_and_clear(*io._get_dimensions())
-            self._last_frame = None
-            self._last_frame_size = tam_surface.get_dimensions()
-        elif tam_surface.get_dimensions() != self._last_frame_size:
-            self._last_frame_size = tam_surface.get_dimensions()
-            self._surface.set_dimensions_and_clear(*io._get_dimensions())
-            self._last_frame = None
 
         super().draw(tam_surface)
 
     def _draw_2(self, tam_surface):
         """
-        info: will draw tam surface to terminal in mode 2
+        info: Will draw TAMSurface to console in mode 2
         :param tam_surface: TAMSurface
-        :return:
+        :return: None
         """
-        foreground, background = tam_surface.get_defaults()[1:]
-        foreground, background = foreground.mode_2, background.mode_2
-
         # checks if surface needs to be updated
         if " " != self._surface.get_defaults()[0] or self._surface.get_defaults()[1:] != tam_surface.get_defaults()[1:]:
             # surface defaults changed
             self._surface.set_defaults_and_clear(" ", *tam_surface.get_defaults()[1:])
 
-        # draw onto WinIO surface
+        # draw onto LinIO surface
         self._draw_onto(self._surface, tam_surface)
 
-        # draw WinIO surface to terminal
-        self._print(0, 0, "".join(self._surface.get_raw_surface()[0]),
-                    *self._processes_special_color(foreground, background))
+        color = self._surface.get_defaults()[1:]
+        foreground = self._process_color(color[0].mode_2)
+        background = self._process_color(color[1].mode_2, False)
+        output = "".join(self._surface.get_raw_surface()[0])
+        io._set_cursor_info(0, 0, 0)
+        sys.stdout.write("\u001b[{0};{1}m{2}\u001b[0".format(foreground, background, output))
+        sys.stdout.flush()
 
     def _draw_16_pal_256(self, tam_surface):
         """
-        info: will draw tam surface to terminal in mode 16_pal_256
+        info: Will draw TAMSurface to console in mode 16_pal_256
         :param tam_surface: TAMSurface
-        :return:
+        :return: None
         """
         # checks if surface needs to be updated
-        if "." != self._surface.get_defaults()[0] or\
-                self._surface.get_defaults()[2].mode_16_pal_256 != tam_surface.get_defaults()[2].mode_16_pal_256:
+        if " " != self._surface.get_defaults()[0] or self._surface.get_defaults()[1:] != tam_surface.get_defaults()[1:]:
             # surface defaults changed
-            background = tam_surface.get_defaults()[2]
-            self._surface.set_defaults_and_clear(".", background, background)
-            self._last_frame = None
+            self._surface.set_defaults_and_clear(" ", *tam_surface.get_defaults()[1:])
 
-        # draw onto WinIO surface
+        # draw onto LinIO surface
         self._draw_onto(self._surface, tam_surface)
 
-        """
-        A block is a string or spots that 
-        all share the same colors
-        """
-        try:
-            self._last_frame_lock.acquire()
+        io._set_cursor_info(0, 0, 0)
 
-            start = None
-            width = self._surface.get_dimensions()[0]
-            length = 0
-            this_foreground, this_background = None, None
-            char_buffer, foreground_buffer, background_buffer = self._surface.get_raw_surface()
-            for spot, char, foreground, background in zip(range(len(self._surface)),
-                                                          char_buffer,
-                                                          foreground_buffer,
-                                                          background_buffer):
-                foreground, background = self._processes_special_color(foreground.mode_16_pal_256, background.mode_16_pal_256)
-                # no block has benn made
-                if start is None:
-                    # last frame surface is not None
-                    if self._last_frame is not None:
-                        # spot has not change
-                        last_char, last_foreground, last_background = self._last_frame.get_from_raw_spot(spot)
-                        last_foreground, last_background = self._processes_special_color(last_foreground.mode_16_pal_256,
-                                                                                         last_background.mode_16_pal_256)
-                        if (char, foreground, background) == (last_char, last_foreground, last_background):
-                            continue
-                    # make block
-                    start = spot
-                    this_foreground, this_background = foreground, background
-                    length = 1
-                # spot has same colors as block
-                elif (this_foreground == foreground or " " == char) and this_background == background:
-                    # add to block
-                    length += 1
-                # spot does not have same colors as block
-                else:
-                    # draw block to terminal
-                    self._print(start % width,
-                                start // width,
-                                "".join(char_buffer[start:start + length]),
-                                this_foreground, this_background)
-                    # start new block
-                    this_foreground, this_background = foreground, background
-                    start = spot
-                    length = 1
-                    # last frame surface is not None
-                    if self._last_frame is not None:
-                        # spot has not change
-                        last_char, last_foreground, last_background = self._last_frame.get_from_raw_spot(spot)
-                        last_foreground, last_background = self._processes_special_color(last_foreground.mode_16_pal_256,
-                                                                                         last_background.mode_16_pal_256)
-                        if (char, foreground, background) == (last_char, last_foreground, last_background):
-                            # remove new block
-                            start = None
-                            length = 0
-
-            if start is not None:
-                # draw last block
-                self._print(start % width, start // width, "".join(char_buffer[start:start + length]),
-                            this_foreground, this_background)
-
-            # update last frame
-            if self._last_frame is None:
-                # last frame is not made
-                self._last_frame = self._surface.copy()
+        # make output string
+        output = []
+        foreground, background = None, None
+        char_surface, foreground_surface, background_surface = self._surface.get_raw_surface()
+        for spot in range(len(char_surface)):
+            if foreground is None:
+                foreground = self._process_color(foreground_surface[spot].mode_16)
+                background = self._process_color(background_surface[spot].mode_16, False)
+                output.append("\u001b[{0};{1}m".format(foreground, background))
+                output.append(char_surface[spot])
+            elif foreground == foreground_surface[spot] and background == background_surface[spot]:
+                output.append(char_surface[spot])
             else:
-                # draw tam_surface onto last frame
-                self._draw_onto(self._last_frame, tam_surface)
-            # set color back to default
-            background = tam_surface.get_defaults()[2]
-            _, background = self._processes_special_color(background.mode_16_pal_256,
-                                                          background.mode_16_pal_256)
-            self._print(0, 0, "", background, background)
-        finally:
-            self._last_frame_lock.release()
+                foreground = self._process_color(foreground_surface[spot].mode_16)
+                background = self._process_color(background_surface[spot].mode_16, False)
+                output.append("\u001b[{0};{1}m".format(foreground, background))
+                output.append(char_surface[spot])
+
+        sys.stdout.write("".join(output) + "\u001b[0")
+        sys.stdout.flush()
 
     def _draw_16(self, tam_surface):
         """
-        info: will draw tam surface to terminal in mode 16
+        info: Will draw TAMSurface to console in mode 16
         :param tam_surface: TAMSurface
-        :return:
+        :return: None
         """
         # checks if surface needs to be updated
-        if "." != self._surface.get_defaults()[0] or self._surface.get_defaults()[2].mode_16 != tam_surface.get_defaults()[2].mode_16:
+        if " " != self._surface.get_defaults()[0] or self._surface.get_defaults()[1:] != tam_surface.get_defaults()[1:]:
             # surface defaults changed
-            background = tam_surface.get_defaults()[2]
-            self._surface.set_defaults_and_clear(".", background, background)
-            self._last_frame = None
+            self._surface.set_defaults_and_clear(" ", *tam_surface.get_defaults()[1:])
 
-        # draw onto WinIO surface
+        # draw onto LinIO surface
         self._draw_onto(self._surface, tam_surface)
 
-        """
-        A block is a string or spots that 
-        all share the same colors
-        """
-        try:
-            self._last_frame_lock.acquire()
+        io._set_cursor_info(0, 0, 0)
 
-            start = None
-            width = self._surface.get_dimensions()[0]
-            length = 0
-            this_foreground, this_background = None, None
-            char_buffer, foreground_buffer, background_buffer = self._surface.get_raw_surface()
-            for spot, char, foreground, background in zip(range(len(self._surface)),
-                                                          char_buffer,
-                                                          foreground_buffer,
-                                                          background_buffer):
-                foreground, background = self._processes_special_color(foreground.mode_16, background.mode_16)
-                # no block has benn made
-                if start is None:
-                    # last frame surface is not None
-                    if self._last_frame is not None:
-                        # spot has not change
-                        last_char, last_foreground, last_background = self._last_frame.get_from_raw_spot(spot)
-                        last_foreground, last_background = self._processes_special_color(last_foreground.mode_16,
-                                                                                         last_background.mode_16)
-                        if (char, foreground, background) == (last_char, last_foreground, last_background):
-                            continue
-                    # make block
-                    start = spot
-                    this_foreground, this_background = foreground, background
-                    length = 1
-                # spot has same colors as block
-                elif (this_foreground == foreground or " " == char) and this_background == background:
-                    # add to block
-                    length += 1
-                # spot does not have same colors as block
-                else:
-                    # draw block to terminal
-                    self._print(start % width,
-                                start // width,
-                                "".join(char_buffer[start:start + length]),
-                                this_foreground, this_background)
-                    # start new block
-                    this_foreground, this_background = foreground, background
-                    start = spot
-                    length = 1
-                    # last frame surface is not None
-                    if self._last_frame is not None:
-                        # spot has not change
-                        last_char, last_foreground, last_background = self._last_frame.get_from_raw_spot(spot)
-                        last_foreground, last_background = self._processes_special_color(last_foreground.mode_16,
-                                                                                         last_background.mode_16)
-                        if (char, foreground, background) == (last_char, last_foreground, last_background):
-                            # remove new block
-                            start = None
-                            length = 0
-
-            if start is not None:
-                # draw last block
-                self._print(start % width, start // width, "".join(char_buffer[start:start + length]),
-                            this_foreground, this_background)
-
-            # update last frame
-            if self._last_frame is None:
-                # last frame is not made
-                self._last_frame = self._surface.copy()
+        # make output string
+        output = []
+        foreground, background = None, None
+        char_surface, foreground_surface, background_surface = self._surface.get_raw_surface()
+        for spot in range(len(char_surface)):
+            if foreground is None:
+                foreground = self._process_color(foreground_surface[spot].mode_16)
+                background = self._process_color(background_surface[spot].mode_16, False)
+                output.append("\u001b[{0};{1}m".format(foreground, background))
+                output.append(char_surface[spot])
+            elif foreground == foreground_surface[spot] and background == background_surface[spot]:
+                output.append(char_surface[spot])
             else:
-                # draw tam_surface onto last frame
-                self._draw_onto(self._last_frame, tam_surface)
+                foreground = self._process_color(foreground_surface[spot].mode_16)
+                background = self._process_color(background_surface[spot].mode_16, False)
+                output.append("\u001b[{0};{1}m".format(foreground, background))
+                output.append(char_surface[spot])
 
-            # set color back to default
-            background = tam_surface.get_defaults()[2]
-            _, background = self._processes_special_color(background.mode_16,
-                                                          background.mode_16)
-            self._print(0, 0, "", background, background)
-        finally:
-            self._last_frame_lock.release()
+        sys.stdout.write("".join(output) + "\u001b[0")
+        sys.stdout.flush()
+
+    def _process_color(self, color, foreground=True):
+        """
+        info process color to ansi
+        :param color: int
+        :param foreground: bool
+        :return: str
+        """
+        if color not in (-2, -1):
+            if foreground:
+                return self._foreground[self._spot_swap_dict.get(color, color)]
+            else:
+                return self._background[self._spot_swap_dict.get(color, color)]
+        elif foreground:
+            return "39"
+        else:
+            return "49"
 
     def _print(self, x, y, output, foreground_color, background_color):
         """
