@@ -115,7 +115,7 @@ class Racket:
 
 class TableTennis(tam.tam_loop.TAMFrame):
     def __init__(self):
-        super().__init__(fps=24,
+        super().__init__(fps=18,
                          char=" ",
                          foreground_color=tam_io.tam_colors.WHITE,
                          background_color=tam_io.tam_colors.BLACK,
